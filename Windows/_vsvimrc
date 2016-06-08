@@ -1,0 +1,218 @@
+scriptencoding utf-8
+let homedir="C:\\Users\\TiminsKy"
+let $home = "C:\\Users\\Timinsky"
+
+" Startup
+let s:running_windows = has("win16") || has ("win32") || has ("win64")
+let s:colorful_term = (&term =~ "xterm") || (&term =~ "screen")
+
+" Basics
+nmap , <leader>
+set nocompatible
+set background=dark
+set fenc=utf-8
+set cpoptions=aABceFsmq
+ "             |||||||||
+ "             ||||||||+-- When joining lines, leave the cursor between joined lines
+ "             |||||||+-- When a new match is created (showmatch) pause for .5
+ "             ||||||+-- Set buffer options when entering the buffer
+ "             |||||+-- :write command updates current file name automatically add <CR> to the last line when using :@r
+ "             |||+-- Searching continues at the end of the match at the cursor position
+ "             ||+-- A backslash has no special meaning in mappings
+ "             |+-- :write updates alternative file name
+ "             +-- :read updates alternative file name
+syntax on
+set history=9999
+set timeoutlen=500
+set formatoptions+=n
+set formatlistpat=^\\s*\\(\\d\\\|[-*]\\)\\+[\\]:.)}\\t\ ]\\s*
+set viminfo+=!
+set nomore
+set ttyfast
+set ttyscroll=5
+set number
+set norelativenumber
+map <F3> ggVGg?
+map <C-C> <Esc>
+
+set noerrorbells
+set novisualbell
+set t_vb=
+
+set t_ut=
+
+filetype plugin indent on
+set backspace=indent,eol,start
+runtime! ftdetect*.vim
+set backup
+"set backupdir=$home/_backup
+"set directory=$home/_backup
+set undofile
+
+if s:running_windows
+	set backupdir=$home\\_backup
+	set undodir=$home\\_undo
+	set directory=$home\\_temp
+endif
+set noswapfile
+
+set fileformats=dos
+set wildmenu
+set wildignore=*.pdf,*.pyo,*.pyc,*.zip,*.so,*.swp,*.dll,*.o,*.DS_Store,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png,*.a " ignore these
+ if s:running_windows
+     set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*,*\\bin\\*,*\\pkg\\*
+ else
+     set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/bin/*,*/pkg/*
+ endif
+ set wildmode=list:longest " turn on wild mode huge list
+ set viewoptions=folds,options,cursor,unix,slash " Windows/Linux compatibility
+" set nojoinspaces " Prevents inserting two spaces after punctuation on a join (J)
+ set splitbelow " new splits are down
+ set splitright " new vsplits are to the right
+ set switchbuf=useopen " jump to first open window with buffer
+
+ set sidescroll=5 " If you hit edge, jump 5
+ set scrolljump=5 " If you hit bottom or top, jump 5
+ set laststatus=2
+ set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
+ "              | | | | |  |   |      |  |     |    |
+ "              | | | | |  |   |      |  |     |    +-- current column
+ "              | | | | |  |   |      |  |     +-- current line
+ "              | | | | |  |   |      |  +-- current % into file
+ "              | | | | |  |   |      +-- current syntax in square brackets
+ "              | | | | |  |   +-- current fileformat
+ "              | | | | |  |
+ "              | | | | |  +-- number of lines
+ "              | | | | +-- preview flag in square brackets
+ "              | | | +-- help flag in square brackets
+ "              | | +-- readonly flag in square brackets
+ "              | +-- rodified flag in square brackets
+ "              +-- full path to file in the buffer
+
+" Text Formatting/Layout
+" set completeopt=menuone " don't use a pop up menu for completions
+set diffopt=filler,iwhite " filler and whitespace
+set expandtab " no real tabs please!
+set formatoptions=rq " Automatically insert comment leader on return, and let gq format comments
+set ignorecase " case insensitive by default
+set infercase " case inferred by default
+set smartcase " if there are caps, go case-sensitive
+set nowrap " do not wrap line
+set textwidth=0 " No autowrapping
+set shiftround " when at 3 spaces, and I hit > ... go to 4, not 5
+set shiftwidth=3 " auto-indent amount when using cindent, >>, << and stuff like that
+set softtabstop=3 " when hitting tab or backspace, how many spaces should a tab be (see expandtab)
+set tabstop=3 " real tabs should be 8, and they will show with set list on
+set cinkeys-=0#
+set indentkeys-=0#
+set hlsearch
+nmap <silent> <leader>h nohl
+set incsearch
+set ai
+set cindent
+autocmd BufNewFile,BufRead *.txt set nocindent
+ 
+" Folding
+set foldenable " Turn on folding
+set foldmethod=indent " Fold on the marker
+"set foldmarker={,} " use simple markers
+set foldlevel=100 " Don't autofold anything (but I can still fold manually)
+set foldnestmax=100 " I only like to fold outer functions
+set foldopen=block,hor,mark,percent,quickfix,tag " what movements open folds
+nnoremap <space> za
+
+ 
+set undolevels=1000 " persistent undo
+set undoreload=10000 " to undo forced reload with :e! 
+
+if has("gui_running")
+     " Basics
+     "set guifont=Consolas:h9:cANSI " My favorite font
+     colorscheme fu
+     set guioptions+=ceb
+     "               |||
+     "               ||+-- use horizontal scroll bar
+     "               |+-- use simple dialogs rather than pop-ups
+     "               +-- use GUI tabs, not console style tabs
+     set mousehide " hide the mouse cursor when typing
+     nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
+     nnoremap <C-F2> :if &go=~#'T'<Bar>set go-=T<Bar>else<Bar>set go+=T<Bar>endif<CR>
+     nnoremap <C-F3> :if &go=~#'r'<Bar>set go-=r<Bar>else<Bar>set go+=r<Bar>endif<CR>
+else
+	colorscheme elflord
+endif
+
+if has("autocmd")
+   filetype plugin indent on
+
+   augroup vimrcEx
+      au!
+      autocmd FileType text setlocal textwidth=130
+      autocmd BufReadPost *
+               \ if line("'\"") >= 1 && line("'\"") <= line("$") |
+               \  exe "normal! g`\"" |
+               \ endif
+   augroup END
+else
+   set autoindent
+endif
+
+if !exists(":DiffOrig")
+   command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+            \ | wincmd p | diffthis
+endif
+
+if has('langmap') && exists('+langnoremap')
+   set langnoremap
+endif
+
+:let g:ps1_nofold_blocks = 1
+
+set shell=powershell
+set shellcmdflag=-command
+
+nmap <silent> <leader>x gg=G
+vmap <silent> <leader>x gg=G
+
+noremap  <buffer> <silent> k gk
+noremap  <buffer> <silent> j gj
+"noremap  <buffer> <silent> 0 g0
+"noremap  <buffer> <silent> $ g$
+
+"""""""""""""
+"  Colemak  "  
+"""""""""""""
+noremap! e f
+noremap! r p
+noremap! t g
+noremap! y j
+noremap! u l
+noremap! i u
+noremap! o y
+noremap! p ;
+noremap! s r
+noremap! d s
+noremap! f t
+noremap! g d
+noremap! j n
+noremap! k e
+noremap! l i
+noremap! ; o
+noremap! n k
+noremap! E F
+noremap! R P
+noremap! T G
+noremap! Y J
+noremap! U L
+noremap! I U
+noremap! O Y
+noremap! P :
+noremap! S R
+noremap! D S
+noremap! F T
+noremap! G D
+noremap! J N
+noremap! K E
+noremap! L I
+noremap! : O
+noremap! N K
