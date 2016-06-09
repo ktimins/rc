@@ -2,11 +2,9 @@
 #InstallKeybdHook
 #NoEnv 
 SendMode Input 
-SetTitleMatchMode 3  
+SetTitleMatchMode 2
 
-SetDefaultMouseSpeed, 0
-
-Suspend
+//Suspend
 //Pause,,1
 
 +Pause::
@@ -22,13 +20,13 @@ Return
 //      Set Variables       //
 //////////////////////////////
 
-pok3r:=false
+pok3r := 0
 >#,::
 >!,::
    pok3r:=not pok3r
 Return
 
-colemak:=true
+colemak := true
 >#/::
 >!/::
    colemak:=not colemak
@@ -40,8 +38,8 @@ RAlt & Scrolllock::
 Return
 
 !+w::
-   WinGetClass, Title, A
-   MsgBox, The active window is "%Title%"
+   WinGetTitle, Title, A
+   MsgBox, The active window Title is "%Title%"
 Return
 
 IncrementValue = 5
@@ -59,10 +57,16 @@ MouseDelay = 0
 #If
 
 //////////////////////////////
+//         Defaults         //
+//////////////////////////////
+
+// Win
+
+//////////////////////////////
 //        Capslock          //
 //////////////////////////////
 
-#If (not pok3r and not WinActive("ahk_Class Vim"))
+#If (not pok3r)
 
    Capslock::
       SendInput {Blind}{Backspace DownTemp}
@@ -74,7 +78,7 @@ MouseDelay = 0
 //         Pok3r            //
 //////////////////////////////
 
-#if (pok3r and not colemak and not WinActive("ahk_Class Vim"))
+#if (pok3r and not colemak and not WinActive("Title HwndWrapper") and not WinActive("ahk_Class Vim"))
    #Persistent
    SetCapsLockState, AlwaysOff
    
@@ -162,7 +166,7 @@ MouseDelay = 0
 
 #If
 
-#If (pok3r and not WinActive("ahk_Class Vim"))
+#If (pok3r and not WinActive("Title HwndWrapper") and not WinActive("ahk_Class Vim"))
 
    // CapsLock behavior
    >!Capslock:
@@ -175,7 +179,7 @@ MouseDelay = 0
 #If
 
 
-#If (pok3r and colemak and not WinActive("ahk_Class Vim"))
+#If (pok3r and colemak and not WinActive("Title HwndWrapper") and not WinActive("ahk_Class Vim"))
    #Persistent
    SetCapsLockState, AlwaysOff
    
@@ -244,13 +248,11 @@ MouseDelay = 0
    
    // TKL Keys
    Capslock & o::SendInput {Del Down}
-   Capslock & o up::SendInput {Del Up}
-   
+   Capslock & o up::SendInput {Del Up} 
    Capslock & '::SendInput {Ins Down}
    Capslock & ' up::SendInput {Ins Up}
    
-   Capslock & ;::SendInput {PrintScreen}
-   Capslock & ]::SendInput {Pause}
+   Capslock & ;::SendInput {PrintScreen} Capslock & ]::SendInput {Pause}
    
 
    // Random
@@ -267,9 +269,10 @@ MouseDelay = 0
 //         Colemak          //
 //////////////////////////////
 
+// Standard keys
+#If (colemak and not pok3r and not WinActive("ahk_exe devenv.exe") and not WinActive("ahk_Class Vim"))
 
-#If (colemak and not pok3r and not WinActive("ahk_Class Vim"))
-
+   // Normal
    e::SendInput {Blind}{f Down}{f Up}
    r::SendInput {Blind}{p Down}{p Up}
    t::SendInput {Blind}{g Down}{g Up}
@@ -288,6 +291,7 @@ MouseDelay = 0
    ;::SendInput {Blind}{o Down}{o Up}
    n::SendInput {Blind}{k Down}{k Up}
 
+   // Shift
    +e::SendInput {Blind}{F Down}{F Up}
    +r::SendInput {Blind}{P Down}{P Up}
    +t::SendInput {Blind}{G Down}{G Up}
@@ -305,5 +309,178 @@ MouseDelay = 0
    +l::SendInput {Blind}{I Down}{I Up}
    +;::SendInput {Blind}{O Down}{O Up}
    +n::SendInput {Blind}{K Down}{K Up}
+   +3::SendInput {Blind}{# Down}{# Up}
+
+   // Shift + Alt
+   +!e::SendInput {Blind}{Shift Down}{Alt Down}{f Down}{f Up}{Alt Up}{Shift Up}
+   +!r::SendInput {Blind}{Shift Down}{Alt Down}{p Down}{p Up}{Alt Up}{Shift Up}
+   +!t::SendInput {Blind}{Shift Down}{Alt Down}{g Down}{g Up}{Alt Up}{Shift Up}
+   +!y::SendInput {Blind}{Shift Down}{Alt Down}{j Down}{j Up}{Alt Up}{Shift Up}
+   +!u::SendInput {Blind}{Shift Down}{Alt Down}{l Down}{l Up}{Alt Up}{Shift Up}
+   +!i::SendInput {Blind}{Shift Down}{Alt Down}{u Down}{u Up}{Alt Up}{Shift Up}
+   +!o::SendInput {Blind}{Shift Down}{Alt Down}{y Down}{y Up}{Alt Up}{Shift Up}
+   +!p::SendInput {Blind}{Shift Down}{Alt Down}{; Down}{; Up}{Alt Up}{Shift Up}
+   +!s::SendInput {Blind}{Shift Down}{Alt Down}{r Down}{r Up}{Alt Up}{Shift Up}
+   +!d::SendInput {Blind}{Shift Down}{Alt Down}{s Down}{s Up}{Alt Up}{Shift Up}
+   +!f::SendInput {Blind}{Shift Down}{Alt Down}{t Down}{t Up}{Alt Up}{Shift Up}
+   +!g::SendInput {Blind}{Shift Down}{Alt Down}{d Down}{d Up}{Alt Up}{Shift Up}
+   +!j::SendInput {Blind}{Shift Down}{Alt Down}{n Down}{n Up}{Alt Up}{Shift Up}
+   +!k::SendInput {Blind}{Shift Down}{Alt Down}{e Down}{e Up}{Alt Up}{Shift Up}
+   +!l::SendInput {Blind}{Shift Down}{Alt Down}{i Down}{i Up}{Alt Up}{Shift Up}
+   +!;::SendInput {Blind}{Shift Down}{Alt Down}{o Down}{o Up}{Alt Up}{Shift Up}
+   +!n::SendInput {Blind}{Shift Down}{Alt Down}{k Down}{k Up}{Alt Up}{Shift Up}
+
+   // Shift + Alt + Ctrl
+   +!^e::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{f Down}{f Up}{Ctrl Up}{Alt Up}{Shift Up}
+   +!^r::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{p Down}{p Up}{Ctrl Up}{Alt Up}{Shift Up}
+   +!^t::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{g Down}{g Up}{Ctrl Up}{Alt Up}{Shift Up}
+   +!^y::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{j Down}{j Up}{Ctrl Up}{Alt Up}{Shift Up}
+   +!^u::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{l Down}{l Up}{Ctrl Up}{Alt Up}{Shift Up}
+   +!^i::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{u Down}{u Up}{Ctrl Up}{Alt Up}{Shift Up}
+   +!^o::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{y Down}{y Up}{Ctrl Up}{Alt Up}{Shift Up}
+   +!^p::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{; Down}{; Up}{Ctrl Up}{Alt Up}{Shift Up}
+   +!^s::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{r Down}{r Up}{Ctrl Up}{Alt Up}{Shift Up}
+   +!^d::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{s Down}{s Up}{Ctrl Up}{Alt Up}{Shift Up}
+   +!^f::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{t Down}{t Up}{Ctrl Up}{Alt Up}{Shift Up}
+   +!^g::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{d Down}{d Up}{Ctrl Up}{Alt Up}{Shift Up}
+   +!^j::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{n Down}{n Up}{Ctrl Up}{Alt Up}{Shift Up}
+   +!^k::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{e Down}{e Up}{Ctrl Up}{Alt Up}{Shift Up}
+   +!^l::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{i Down}{i Up}{Ctrl Up}{Alt Up}{Shift Up}
+   +!^;::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{o Down}{o Up}{Ctrl Up}{Alt Up}{Shift Up}
+   +!^n::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{k Down}{k Up}{Ctrl Up}{Alt Up}{Shift Up}
+   
+   // Shift + Ctrl
+   +^e::SendInput {Blind}{Shift Down}{Ctrl Down}{f Down}{f Up}{Ctrl Up}{Shift Up}
+   +^r::SendInput {Blind}{Shift Down}{Ctrl Down}{p Down}{p Up}{Ctrl Up}{Shift Up}
+   +^t::SendInput {Blind}{Shift Down}{Ctrl Down}{g Down}{g Up}{Ctrl Up}{Shift Up}
+   +^y::SendInput {Blind}{Shift Down}{Ctrl Down}{j Down}{j Up}{Ctrl Up}{Shift Up}
+   +^u::SendInput {Blind}{Shift Down}{Ctrl Down}{l Down}{l Up}{Ctrl Up}{Shift Up}
+   +^i::SendInput {Blind}{Shift Down}{Ctrl Down}{u Down}{u Up}{Ctrl Up}{Shift Up}
+   +^o::SendInput {Blind}{Shift Down}{Ctrl Down}{y Down}{y Up}{Ctrl Up}{Shift Up}
+   +^p::SendInput {Blind}{Shift Down}{Ctrl Down}{; Down}{; Up}{Ctrl Up}{Shift Up}
+   +^s::SendInput {Blind}{Shift Down}{Ctrl Down}{r Down}{r Up}{Ctrl Up}{Shift Up}
+   +^d::SendInput {Blind}{Shift Down}{Ctrl Down}{s Down}{s Up}{Ctrl Up}{Shift Up}
+   +^f::SendInput {Blind}{Shift Down}{Ctrl Down}{t Down}{t Up}{Ctrl Up}{Shift Up}
+   +^g::SendInput {Blind}{Shift Down}{Ctrl Down}{d Down}{d Up}{Ctrl Up}{Shift Up}
+   +^j::SendInput {Blind}{Shift Down}{Ctrl Down}{n Down}{n Up}{Ctrl Up}{Shift Up}
+   +^k::SendInput {Blind}{Shift Down}{Ctrl Down}{e Down}{e Up}{Ctrl Up}{Shift Up}
+   +^l::SendInput {Blind}{Shift Down}{Ctrl Down}{i Down}{i Up}{Ctrl Up}{Shift Up}
+   +^;::SendInput {Blind}{Shift Down}{Ctrl Down}{o Down}{o Up}{Ctrl Up}{Shift Up}
+   +^n::SendInput {Blind}{Shift Down}{Ctrl Down}{k Down}{k Up}{Ctrl Up}{Shift Up}
+
+   // Alt
+   !e::SendInput {Blind}{Alt Down}{f Down}{f Up}{Alt Up}
+   !r::SendInput {Blind}{Alt Down}{p Down}{p Up}{Alt Up}
+   !t::SendInput {Blind}{Alt Down}{g Down}{g Up}{Alt Up}
+   !y::SendInput {Blind}{Alt Down}{j Down}{j Up}{Alt Up}
+   !u::SendInput {Blind}{Alt Down}{l Down}{l Up}{Alt Up}
+   !i::SendInput {Blind}{Alt Down}{u Down}{u Up}{Alt Up}
+   !o::SendInput {Blind}{Alt Down}{y Down}{y Up}{Alt Up}
+   !p::SendInput {Blind}{Alt Down}{; Down}{; Up}{Alt Up}
+   !s::SendInput {Blind}{Alt Down}{r Down}{r Up}{Alt Up}
+   !d::SendInput {Blind}{Alt Down}{s Down}{s Up}{Alt Up}
+   !f::SendInput {Blind}{Alt Down}{t Down}{t Up}{Alt Up}
+   !g::SendInput {Blind}{Alt Down}{d Down}{d Up}{Alt Up}
+   !j::SendInput {Blind}{Alt Down}{n Down}{n Up}{Alt Up}
+   !k::SendInput {Blind}{Alt Down}{e Down}{e Up}{Alt Up}
+   !l::SendInput {Blind}{Alt Down}{i Down}{i Up}{Alt Up}
+   !;::SendInput {Blind}{Alt Down}{o Down}{o Up}{Alt Up}
+   !n::SendInput {Blind}{Alt Down}{k Down}{k Up}{Alt Up}
+
+   // Alt + Ctrl
+   !^e::SendInput {Blind}{Alt Down}{Ctrl Down}{f Down}{f Up}{Ctrl Up}{Alt Up}
+   !^r::SendInput {Blind}{Alt Down}{Ctrl Down}{p Down}{p Up}{Ctrl Up}{Alt Up}
+   !^t::SendInput {Blind}{Alt Down}{Ctrl Down}{g Down}{g Up}{Ctrl Up}{Alt Up}
+   !^y::SendInput {Blind}{Alt Down}{Ctrl Down}{j Down}{j Up}{Ctrl Up}{Alt Up}
+   !^u::SendInput {Blind}{Alt Down}{Ctrl Down}{l Down}{l Up}{Ctrl Up}{Alt Up}
+   !^i::SendInput {Blind}{Alt Down}{Ctrl Down}{u Down}{u Up}{Ctrl Up}{Alt Up}
+   !^o::SendInput {Blind}{Alt Down}{Ctrl Down}{y Down}{y Up}{Ctrl Up}{Alt Up}
+   !^p::SendInput {Blind}{Alt Down}{Ctrl Down}{; Down}{; Up}{Ctrl Up}{Alt Up}
+   !^s::SendInput {Blind}{Alt Down}{Ctrl Down}{r Down}{r Up}{Ctrl Up}{Alt Up}
+   !^d::SendInput {Blind}{Alt Down}{Ctrl Down}{s Down}{s Up}{Ctrl Up}{Alt Up}
+   !^f::SendInput {Blind}{Alt Down}{Ctrl Down}{t Down}{t Up}{Ctrl Up}{Alt Up}
+   !^g::SendInput {Blind}{Alt Down}{Ctrl Down}{d Down}{d Up}{Ctrl Up}{Alt Up}
+   !^j::SendInput {Blind}{Alt Down}{Ctrl Down}{n Down}{n Up}{Ctrl Up}{Alt Up}
+   !^k::SendInput {Blind}{Alt Down}{Ctrl Down}{e Down}{e Up}{Ctrl Up}{Alt Up}
+   !^l::SendInput {Blind}{Alt Down}{Ctrl Down}{i Down}{i Up}{Ctrl Up}{Alt Up}
+   !^;::SendInput {Blind}{Alt Down}{Ctrl Down}{o Down}{o Up}{Ctrl Up}{Alt Up}
+   !^n::SendInput {Blind}{Alt Down}{Ctrl Down}{k Down}{k Up}{Ctrl Up}{Alt Up}
+
+   // Ctrl
+   ^e::SendInput {Blind}{Ctrl Down}{f Down}{f Up}{Ctrl Up}
+   ^r::SendInput {Blind}{Ctrl Down}{p Down}{p Up}{Ctrl Up}
+   ^t::SendInput {Blind}{Ctrl Down}{g Down}{g Up}{Ctrl Up}
+   ^y::SendInput {Blind}{Ctrl Down}{j Down}{j Up}{Ctrl Up}
+   ^u::SendInput {Blind}{Ctrl Down}{l Down}{l Up}{Ctrl Up}
+   ^i::SendInput {Blind}{Ctrl Down}{u Down}{u Up}{Ctrl Up}
+   ^o::SendInput {Blind}{Ctrl Down}{y Down}{y Up}{Ctrl Up}
+   ^p::SendInput {Blind}{Ctrl Down}{; Down}{; Up}{Ctrl Up}
+   ^s::SendInput {Blind}{Ctrl Down}{r Down}{r Up}{Ctrl Up}
+   ^d::SendInput {Blind}{Ctrl Down}{s Down}{s Up}{Ctrl Up}
+   ^f::SendInput {Blind}{Ctrl Down}{t Down}{t Up}{Ctrl Up}
+   ^g::SendInput {Blind}{Ctrl Down}{d Down}{d Up}{Ctrl Up}
+   ^j::SendInput {Blind}{Ctrl Down}{n Down}{n Up}{Ctrl Up}
+   ^k::SendInput {Blind}{Ctrl Down}{e Down}{e Up}{Ctrl Up}
+   ^l::SendInput {Blind}{Ctrl Down}{i Down}{i Up}{Ctrl Up}
+   ^;::SendInput {Blind}{Ctrl Down}{o Down}{o Up}{Ctrl Up}
+   ^n::SendInput {Blind}{Ctrl Down}{k Down}{k Up}{Ctrl Up}
+
+   // Left Win
+   <#e::SendInput {Blind}{Win Down}{f Down}{f Up}{Win Up}
+   <#r::SendInput {Blind}{Win Down}{p Down}{p Up}{Win Up}
+   <#t::SendInput {Blind}{Win Down}{g Down}{g Up}{Win Up}
+   <#y::SendInput {Blind}{Win Down}{j Down}{j Up}{Win Up}
+   <#u::SendInput {Blind}{Win Down}{l Down}{l Up}{Win Up}
+   <#i::SendInput {Blind}{Win Down}{u Down}{u Up}{Win Up}
+   <#o::SendInput {Blind}{Win Down}{y Down}{y Up}{Win Up}
+   <#p::SendInput {Blind}{Win Down}{; Down}{; Up}{Win Up}
+   <#s::SendInput {Blind}{Win Down}{r Down}{r Up}{Win Up}
+   <#d::SendInput {Blind}{Win Down}{s Down}{s Up}{Win Up}
+   <#f::SendInput {Blind}{Win Down}{t Down}{t Up}{Win Up}
+   <#g::SendInput {Blind}{Win Down}{d Down}{d Up}{Win Up}
+   <#j::SendInput {Blind}{Win Down}{n Down}{n Up}{Win Up}
+   <#k::SendInput {Blind}{Win Down}{e Down}{e Up}{Win Up}
+   <#l::SendInput {Blind}{Win Down}{i Down}{i Up}{Win Up}
+   <#;::SendInput {Blind}{Win Down}{o Down}{o Up}{Win Up}
+   <#n::SendInput {Blind}{Win Down}{k Down}{k Up}{Win Up}
+
+   // Right Win
+   >#e::
+   >#r::
+   >#t::
+   >#y::
+   >#u::
+   >#i::
+   >#o::
+   >#p::
+   >#s::
+   >#d::
+   >#f::
+   >#g::
+   >#j::
+   >#k::
+   >#l::
+   >#;::
+   >#n::
+      Return
+
+#If
+
+//////////////////////////////
+//         Win Lock         //
+//////////////////////////////
+#If (colemak and not pok3r)
+   
+   #l::
+      Return
+
+   #+1:: 
+      {
+         RegWrite, REG_DWORD, HKEY_CURRENT_USER, Software\Microsoft\Windows\CurrentVersion\Policies\System, DisableLockWorkstation, 0
+         DllCall("LockWorkStation")
+         sleep, 1000
+         RegWrite, REG_DWORD, HKEY_CURRENT_USER, Software\Microsoft\Windows\CurrentVersion\Policies\System, DisableLockWorkstation, 1
+      }
+      Return
 
 #If
