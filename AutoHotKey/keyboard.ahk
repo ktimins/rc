@@ -2,7 +2,8 @@
 #InstallKeybdHook
 #NoEnv 
 SendMode Input 
-SetTitleMatchMode 2
+SetTitleMatchMode, 2
+SetTitleMatchMode, slow
 
 //Suspend
 //Pause,,1
@@ -12,7 +13,7 @@ SetTitleMatchMode 2
    //Pause,,1
 Return
 
-!Pause::
+<!Pause::
    Reload
 Return
 
@@ -33,8 +34,19 @@ colemak := true
 Return
 
 normKeyboard:=false
-RAlt & Scrolllock::
+>!Scrolllock::
    normKeyboard:=not normKeyboard
+Return
+
+confKeyboard:=false
+>!+Scrolllock::
+<#+f::
+   confKeyboard:=not confKeyboard
+Return
+
+wasdKeyboard:=false
+<!+Scrolllock::
+   wasdKeyboard:=not wasdKeyboard
 Return
 
 !+w::
@@ -49,7 +61,7 @@ MouseDelay = 0
 //    Swap LCtrl & LWin     //
 //////////////////////////////
 
-#If (normKeyboard)
+#If (wasdKeyboard or confKeyboard)
    LWin::LCtrl
    LCtrl::LWin
    Rwin::Appskey
@@ -61,6 +73,13 @@ MouseDelay = 0
 //////////////////////////////
 
 // Win
+//#If (not wasdKeyboard or not confKeyboard)
+//   LWin::
+//   RWin::
+//      Return
+//   LWin & Space::SendInput {Blind}{LWin}
+//#If
+
 
 //////////////////////////////
 //        Capslock          //
@@ -71,7 +90,14 @@ MouseDelay = 0
    Capslock::
       SendInput {Blind}{Backspace DownTemp}
       SendInput {Blind}{Backspace Up}
-   Return
+      Return
+
+   !Capslock:
+      If GetKeyState("Capslock", T)
+         SetCapsLockState, On
+      Else
+         SetCapsLockState, Off
+      Return
 #If
 
 //////////////////////////////
@@ -179,7 +205,7 @@ MouseDelay = 0
 #If
 
 
-#If (pok3r and colemak and not WinActive("Title HwndWrapper") and not WinActive("ahk_Class Vim"))
+#If (pok3r and colemak and not wasdKeyboard)
    #Persistent
    SetCapsLockState, AlwaysOff
    
@@ -247,10 +273,8 @@ MouseDelay = 0
    Capslock & =::SendInput {Blind}{F12}
    
    // TKL Keys
-   Capslock & o::SendInput {Del Down}
-   Capslock & o up::SendInput {Del Up} 
-   Capslock & '::SendInput {Ins Down}
-   Capslock & ' up::SendInput {Ins Up}
+   Capslock & o::SendInput {Blind}{Del}
+   Capslock & '::SendInput {Blind}{Ins}
    
    Capslock & ;::SendInput {PrintScreen} Capslock & ]::SendInput {Pause}
    
@@ -265,12 +289,181 @@ MouseDelay = 0
 
 #If
 
+
+#If (pok3r and colemak and ConfKeyboard)
+   #Persistent
+   SetCapsLockState, AlwaysOff
+   
+   Capslock::
+   Return
+
+   // Unused keys
+   RAlt & `::
+   RAlt & r::
+   RAlt & t::
+   RAlt & \::
+   RAlt & g::
+   RAlt & x::
+   RAlt & c::
+   RAlt & v::
+   RAlt & b::
+   RAlt & ,::
+   RAlt & .::
+   //RAlt & /::  
+   RAlt & w::
+   RAlt & a::
+   RAlt & s::
+   RAlt & d::
+   
+   // Cursor Movement
+   RAlt & h::Send {Blind}{Left DownTemp}
+   RAlt & h up::Send {Blind}{Left Up}
+   
+   RAlt & n::Send {Blind}{Down DownTemp}
+   RAlt & n up::Send {Blind}{Down Up}
+   
+   RAlt & e::Send {Blind}{Up DownTemp}
+   RAlt & e up::Send {Blind}{Up Up}
+   
+   RAlt & i::Send {Blind}{Right DownTemp}
+   RAlt & i up::Send {Blind}{Right Up}
+   
+   
+   // Cursor Jumps
+   RAlt & u::SendInput {Blind}{Home Down}
+   RAlt & u up::SendInput {Blind}{Home Up}
+   
+   RAlt & k::SendInput {Blind}{End Down}
+   RAlt & k up::SendInput {Blind}{End Up}
+   
+   RAlt & l::SendInput {Blind}{PgUp Down}
+   RAlt & l up::SendInput {Blind}{PgUp Up}
+   
+   RAlt & y::SendInput {Blind}{PgDn Down}
+   RAlt & y up::SendInput {Blind}{PgDn Up}
+   
+   
+   // Function Keys
+   RAlt & 1::SendInput {Blind}{F1}
+   RAlt & 2::SendInput {Blind}{F2}
+   RAlt & 3::SendInput {Blind}{F3}
+   RAlt & 4::SendInput {Blind}{F4}
+   RAlt & 5::SendInput {Blind}{F5}
+   RAlt & 6::SendInput {Blind}{F6}
+   RAlt & 7::SendInput {Blind}{F7}
+   RAlt & 8::SendInput {Blind}{F8}
+   RAlt & 9::SendInput {Blind}{F9}
+   RAlt & 0::SendInput {Blind}{F10}
+   RAlt & -::SendInput {Blind}{F11}
+   RAlt & =::SendInput {Blind}{F12}
+   
+   // TKL Keys
+   RAlt & o::SendInput {Blind}{Del}
+   RAlt & '::SendInput {Blind}{Ins}
+   
+   RAlt & ;::SendInput {PrintScreen} RAlt & ]::SendInput {Pause}
+   
+
+   // Random
+   RAlt & Enter::SendInput {Ctrl down}{Enter}{Ctrl up}
+   RAlt & Space::SendInput {Ctrl down}{Space}{Ctrl up}
+
+   RAlt & j::Run calc.exe
+   RAlt & z::SendInput {RAlt}
+   
+
+#If
+
+#If (pok3r and colemak and wasdKeyboard)
+   #Persistent
+   SetCapsLockState, AlwaysOff
+   
+   Capslock::
+   Return
+
+   // Unused keys
+   AppsKey & `::
+   AppsKey & r::
+   AppsKey & t::
+   AppsKey & \::
+   AppsKey & g::
+   AppsKey & x::
+   AppsKey & c::
+   AppsKey & v::
+   AppsKey & b::
+   AppsKey & ,::
+   AppsKey & .::
+   AppsKey & /::  
+   AppsKey & w::
+   AppsKey & a::
+   AppsKey & s::
+   AppsKey & d::
+   
+   // Cursor Movement
+   AppsKey & h::Send {Blind}{Left DownTemp}
+   AppsKey & h up::Send {Blind}{Left Up}
+   
+   AppsKey & n::Send {Blind}{Down DownTemp}
+   AppsKey & n up::Send {Blind}{Down Up}
+   
+   AppsKey & e::Send {Blind}{Up DownTemp}
+   AppsKey & e up::Send {Blind}{Up Up}
+   
+   AppsKey & i::Send {Blind}{Right DownTemp}
+   AppsKey & i up::Send {Blind}{Right Up}
+   
+   
+   // Cursor Jumps
+   AppsKey & u::SendInput {Blind}{Home Down}
+   AppsKey & u up::SendInput {Blind}{Home Up}
+   
+   AppsKey & k::SendInput {Blind}{End Down}
+   AppsKey & k up::SendInput {Blind}{End Up}
+   
+   AppsKey & l::SendInput {Blind}{PgUp Down}
+   AppsKey & l up::SendInput {Blind}{PgUp Up}
+   
+   AppsKey & y::SendInput {Blind}{PgDn Down}
+   AppsKey & y up::SendInput {Blind}{PgDn Up}
+   
+   
+   // Function Keys
+   AppsKey & 1::SendInput {Blind}{F1}
+   AppsKey & 2::SendInput {Blind}{F2}
+   AppsKey & 3::SendInput {Blind}{F3}
+   AppsKey & 4::SendInput {Blind}{F4}
+   AppsKey & 5::SendInput {Blind}{F5}
+   AppsKey & 6::SendInput {Blind}{F6}
+   AppsKey & 7::SendInput {Blind}{F7}
+   AppsKey & 8::SendInput {Blind}{F8}
+   AppsKey & 9::SendInput {Blind}{F9}
+   AppsKey & 0::SendInput {Blind}{F10}
+   AppsKey & -::SendInput {Blind}{F11}
+   AppsKey & =::SendInput {Blind}{F12}
+   
+   // TKL Keys
+   AppsKey & o::SendInput {Blind}{Del}
+   AppsKey & '::SendInput {Blind}{Ins}
+   
+   AppsKey & ;::SendInput {PrintScreen} AppsKey & ]::SendInput {Pause}
+   
+
+   // Random
+   AppsKey & Enter::SendInput {Ctrl down}{Enter}{Ctrl up}
+   AppsKey & Space::SendInput {Ctrl down}{Space}{Ctrl up}
+
+   AppsKey & j::Run calc.exe
+   AppsKey & z::SendInput {AppsKey}
+   
+
+#If
+
 //////////////////////////////
 //         Colemak          //
 //////////////////////////////
 
 // Standard keys
-#If (colemak and not pok3r and not WinActive("ahk_exe devenv.exe") and not WinActive("ahk_Class Vim"))
+#If (colemak and not pok3r and not normKeyboard and not confKeyboard and ((not WinActive("ahk_exe devenv.exe") and not WinActive("ahk_Class Vim") and not WinActive("ahk_Class VIM") and not WinActive("VIM")) or WinActive("ahk_Class Chrome")))
 
    // Normal
    e::SendInput {Blind}{f Down}{f Up}
@@ -290,6 +483,23 @@ MouseDelay = 0
    l::SendInput {Blind}{i Down}{i Up}
    ;::SendInput {Blind}{o Down}{o Up}
    n::SendInput {Blind}{k Down}{k Up}
+   q::SendInput {Blind}{q Down}{q Up}
+   w::SendInput {Blind}{w Down}{w Up}
+   [::SendInput {Blind}{[ Down}{[ Up}
+   ]::SendInput {Blind}{] Down}{] Up}
+   \::SendInput {Blind}{\ Down}{\ Up}
+   a::SendInput {Blind}{a Down}{a Up}
+   h::SendInput {Blind}{h Down}{h Up}
+   '::SendInput {Blind}{' Down}{' Up}
+   z::SendInput {Blind}{z Down}{z Up}
+   x::SendInput {Blind}{x Down}{x Up}
+   c::SendInput {Blind}{c Down}{c Up}
+   v::SendInput {Blind}{v Down}{v Up}
+   b::SendInput {Blind}{b Down}{b Up}
+   m::SendInput {Blind}{m Down}{m Up}
+   ,::SendInput {Blind}{, Down}{, Up}
+   .::SendInput {Blind}{. Down}{. Up}
+   /::SendInput {Blind}{/ Down}{/ Up}
 
    // Shift
    +e::SendInput {Blind}{F Down}{F Up}
@@ -309,7 +519,23 @@ MouseDelay = 0
    +l::SendInput {Blind}{I Down}{I Up}
    +;::SendInput {Blind}{O Down}{O Up}
    +n::SendInput {Blind}{K Down}{K Up}
-   +3::SendInput {Blind}{# Down}{# Up}
+   +q::SendInput {Blind}{Q Down}{Q Up}
+   +w::SendInput {Blind}{W Down}{W Up}
+   +[::SendInput {Blind}{[ Down}{[ Up}
+   +]::SendInput {Blind}{] Down}{] Up}
+   +\::SendInput {Blind}{| Down}{| Up}
+   +a::SendInput {Blind}{A Down}{A Up}
+   +h::SendInput {Blind}{H Down}{H Up}
+   +'::SendInput {Blind}{" Down}{" Up}
+   +z::SendInput {Blind}{Z Down}{Z Up}
+   +x::SendInput {Blind}{X Down}{X Up}
+   +c::SendInput {Blind}{C Down}{C Up}
+   +v::SendInput {Blind}{V Down}{V Up}
+   +b::SendInput {Blind}{B Down}{B Up}
+   +m::SendInput {Blind}{M Down}{M Up}
+   +,::SendInput {Blind}{< Down}{< Up}
+   +.::SendInput {Blind}{> Down}{> Up}
+   +/::SendInput {Blind}{? Down}{? Up}
 
    // Shift + Alt
    +!e::SendInput {Blind}{Shift Down}{Alt Down}{f Down}{f Up}{Alt Up}{Shift Up}
@@ -469,12 +695,12 @@ MouseDelay = 0
 //////////////////////////////
 //         Win Lock         //
 //////////////////////////////
-#If (colemak and not pok3r)
+#If (true)
    
    #l::
       Return
 
-   #+1:: 
+   #+q:: 
       {
          RegWrite, REG_DWORD, HKEY_CURRENT_USER, Software\Microsoft\Windows\CurrentVersion\Policies\System, DisableLockWorkstation, 0
          DllCall("LockWorkStation")
@@ -484,3 +710,12 @@ MouseDelay = 0
       Return
 
 #If
+
+
+/////////////////////////////
+//       Sub-Routines      //
+/////////////////////////////
+
+SetColemak:
+   colemak = true
+   Return
