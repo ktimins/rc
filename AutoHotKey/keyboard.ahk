@@ -5,6 +5,22 @@ SendMode Input
 SetTitleMatchMode, 2
 SetTitleMatchMode, slow
 
+
+//////////////////////////////
+//      Set Variables       //
+//////////////////////////////
+
+colemak        := true
+colemakAllTime := false
+pok3r          := false
+wasdKeyboard   := false
+confKeyboard   := false
+normKeyboard   := false
+
+/////////////////////////////
+//      Base Hotkeys       //
+/////////////////////////////
+
 //Suspend
 //Pause,,1
 
@@ -17,34 +33,37 @@ Return
    Reload
 Return
 
-//////////////////////////////
-//      Set Variables       //
-//////////////////////////////
 
-pok3r := 0
 >#,::
 >!,::
    pok3r:=not pok3r
 Return
 
-colemak := true
 >#/::
 >!/::
    colemak:=not colemak
+   if (colemak) {
+      colemakAllTime := false
+   }
 Return
 
-normKeyboard:=false
+>#?::
+>!?::
+   colemakAllTime := not colemakAllTime
+   if (colemakAllTime) {
+      colemak := false
+   }
+Return
+
 >!Scrolllock::
    normKeyboard:=not normKeyboard
 Return
 
-confKeyboard:=false
 >!+Scrolllock::
 <#+f::
    confKeyboard:=not confKeyboard
 Return
 
-wasdKeyboard:=false
 <!+Scrolllock::
    wasdKeyboard:=not wasdKeyboard
 Return
@@ -92,12 +111,28 @@ MouseDelay = 0
       SendInput {Blind}{Backspace Up}
       Return
 
-   !Capslock:
-      If GetKeyState("Capslock", T)
-         SetCapsLockState, On
-      Else
-         SetCapsLockState, Off
+   ^Capslock::
+   ^!Capslock::
+   ^!+Capslock::
+   ^+Capslock::
+   !Capslock::
+   !+Capslock::
+   +Capslock::
+   #Capslock::
+   #!Capslock::
+   #^Capslock::
+   #^!Capslock::
+   #+Capslock::
       Return
+
+   
+
+   <!c::
+      //If GetKeyState("Capslock", T)
+      //   SetCapsLockState, On
+      //Else
+      //   SetCapsLockState, Off
+      //Return
 #If
 
 //////////////////////////////
@@ -453,7 +488,7 @@ MouseDelay = 0
    AppsKey & Space::SendInput {Ctrl down}{Space}{Ctrl up}
 
    AppsKey & j::Run calc.exe
-   AppsKey & z::SendInput {AppsKey}
+   AppsKey & z::SendInput {AppsKey}https://github.com/dhowland/EasyAVR.git
    
 
 #If
@@ -463,7 +498,7 @@ MouseDelay = 0
 //////////////////////////////
 
 // Standard keys
-#If (colemak and not pok3r and not normKeyboard and not confKeyboard and ((not WinActive("ahk_exe devenv.exe") and not WinActive("ahk_Class Vim") and not WinActive("ahk_Class VIM") and not WinActive("VIM")) or WinActive("ahk_Class Chrome")))
+#If (colemak and not pok3r and not normKeyboard and not confKeyboard and (((not WinActive("ahk_exe devenv.exe") and not WinActive("ahk_Class Vim") and not WinActive("ahk_Class VIM") and not WinActive("VIM")) or WinActive("ahk_Class Chrome"))) or colemakAllTime)
 
    // Normal
    e::SendInput {Blind}{f Down}{f Up}
@@ -536,6 +571,9 @@ MouseDelay = 0
    +,::SendInput {Blind}{< Down}{< Up}
    +.::SendInput {Blind}{> Down}{> Up}
    +/::SendInput {Blind}{? Down}{? Up}
+
+   <+Esc::SendInput {Blind}{~ Down}{~ Up}
+   >+Esc::SendInput {Blind}{` Down}{` Up}
 
    // Shift + Alt
    +!e::SendInput {Blind}{Shift Down}{Alt Down}{f Down}{f Up}{Alt Up}{Shift Up}
