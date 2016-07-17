@@ -127,7 +127,9 @@ MouseDelay = 0
 
    
 
-   <!c::
+   <!c::Capslock
+   <#c::Capslock
+      Return
       //If GetKeyState("Capslock", T)
       //   SetCapsLockState, On
       //Else
