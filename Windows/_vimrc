@@ -107,7 +107,7 @@ set cindent
 set cinkeys-=0#
 set indentkeys-=0#
 set hlsearch
-nmap <silent> <leader>h nohl
+noremap <leader>h :nohl<CR>
 set incsearch
 set ai
 set cindent
@@ -145,6 +145,9 @@ endif
 
 if has("autocmd")
    filetype plugin indent on
+   set shellslash
+   set grepprg=grep\ -nH\ $*
+   "let g:tex_flavor='latex'
 
    augroup vimrcEx
       au!
@@ -229,8 +232,10 @@ set shellcmdflag=-command
 "vmap <silent> <leader>x :FormatXML<CR>
 
 "au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>NUL
-nmap <silent> <leader>x gg=G
-vmap <silent> <leader>x gg=G
+nnoremap <silent> <leader>x gg=G
+vnoremap <silent> <leader>x gg=G
+
+nnoremap <silent> <leader>ll :%s/ at/ at\r   /g<CR>
 
 nnoremap <F5> :silent !"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --new-window %:p<CR>
 nmap <leader>mdb :silent !"C:\Program Files (x86)\Microsoft Office\Office14\MSACCESS.EXE" %:p<CR>
@@ -297,12 +302,47 @@ function! ViewHtmlText(url)
   endif
 endfunction
 " Save and view text for current html file.
-nnoremap <Leader>H :update<Bar>call ViewHtmlText(expand('%:p'))<CR>
+nnoremap <Leader>ht :update<Bar>call ViewHtmlText(expand('%:p'))<CR>
 " View text for visually selected url.
 "vnoremap <Leader>h y:call ViewHtmlText(@@)<CR>
 " View text for URL from clipboard.
 " On Linux, use @* for current selection or @+ for text in clipboard.
 "nnoremap <Leader>h :call ViewHtmlText(@+)<CR>
+
+"""""""""""""
+" Vim-Plug  "
+"""""""""""""
+"call plug#begin('~/.vim/plugged')
+
+"Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle' }
+
+"call plug#end()
+
+
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+"""""""""""""
+" Pathogen  "
+"""""""""""""
+call pathogen#infect('C:\Users\Timinsky\Git\vimfiles\{}')
+
+
+"""""""""""""
+"   JSON    "
+"""""""""""""
+au! BufRead, BufNewFile *.json set filetype=json
+
+augroup json_autocmd 
+  autocmd! 
+  autocmd FileType json set autoindent 
+  autocmd FileType json set formatoptions=tcq2l 
+  autocmd FileType json set textwidth=78 shiftwidth=3 
+  autocmd FileType json set softtabstop=3 tabstop=8 
+  autocmd FileType json set expandtab 
+  autocmd FileType json set foldmethod=syntax 
+  autocmd BufNewFile,BufRead *.json nnoremap == :%!python -m json.tool
+augroup END
 
 """""""""""""
 "  Colemak  "  
