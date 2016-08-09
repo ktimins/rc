@@ -16,10 +16,14 @@ pok3r          := false
 wasdKeyboard   := false
 confKeyboard   := false
 normKeyboard   := false
+ModifierStates := ""
 
 /////////////////////////////
 //      Base Hotkeys       //
 /////////////////////////////
+   #::
+      MsgBox, % getModifierStates()
+      Return
 
 //Suspend
 //Pause,,1
@@ -80,12 +84,12 @@ MouseDelay = 0
 //    Swap LCtrl & LWin     //
 //////////////////////////////
 
-#If (wasdKeyboard or confKeyboard)
-   LWin::LCtrl
-   LCtrl::LWin
-   Rwin::Appskey
-   Appskey::RWin
-#If
+//#If (wasdKeyboard or confKeyboard)
+//   LWin::LCtrl
+//   LCtrl::LWin
+//   Rwin::Appskey
+//   Appskey::RWin
+//#If
 
 //////////////////////////////
 //         Defaults         //
@@ -502,233 +506,108 @@ MouseDelay = 0
 // Standard keys
 #If (colemak and not pok3r and not normKeyboard and not confKeyboard and (((not WinActive("ahk_exe devenv.exe") and not WinActive("ahk_Class Vim") and not WinActive("ahk_Class VIM") and not WinActive("VIM")) or WinActive("ahk_Class Chrome"))) or colemakAllTime)
 
-   // Normal
-   e::SendInput {Blind}{f Down}{f Up}
-   r::SendInput {Blind}{p Down}{p Up}
-   t::SendInput {Blind}{g Down}{g Up}
-   y::SendInput {Blind}{j Down}{j Up}
-   u::SendInput {Blind}{l Down}{l Up}
-   i::SendInput {Blind}{u Down}{u Up}
-   o::SendInput {Blind}{y Down}{y Up}
-   p::SendInput {Blind}{; Down}{; Up}
-   s::SendInput {Blind}{r Down}{r Up}
-   d::SendInput {Blind}{s Down}{s Up}
-   f::SendInput {Blind}{t Down}{t Up}
-   g::SendInput {Blind}{d Down}{d Up}
-   j::SendInput {Blind}{n Down}{n Up}
-   k::SendInput {Blind}{e Down}{e Up}
-   l::SendInput {Blind}{i Down}{i Up}
-   ;::SendInput {Blind}{o Down}{o Up}
-   n::SendInput {Blind}{k Down}{k Up}
-   q::SendInput {Blind}{q Down}{q Up}
-   w::SendInput {Blind}{w Down}{w Up}
-   [::SendInput {Blind}{[ Down}{[ Up}
-   ]::SendInput {Blind}{] Down}{] Up}
-   \::SendInput {Blind}{\ Down}{\ Up}
-   a::SendInput {Blind}{a Down}{a Up}
-   h::SendInput {Blind}{h Down}{h Up}
-   '::SendInput {Blind}{' Down}{' Up}
-   z::SendInput {Blind}{z Down}{z Up}
-   x::SendInput {Blind}{x Down}{x Up}
-   c::SendInput {Blind}{c Down}{c Up}
-   v::SendInput {Blind}{v Down}{v Up}
-   b::SendInput {Blind}{b Down}{b Up}
-   m::SendInput {Blind}{m Down}{m Up}
-   ,::SendInput {Blind}{, Down}{, Up}
-   .::SendInput {Blind}{. Down}{. Up}
-   /::SendInput {Blind}{/ Down}{/ Up}
-
-   // Shift
-   +e::SendInput {Blind}{F Down}{F Up}
-   +r::SendInput {Blind}{P Down}{P Up}
-   +t::SendInput {Blind}{G Down}{G Up}
-   +y::SendInput {Blind}{J Down}{J Up}
-   +u::SendInput {Blind}{L Down}{L Up}
-   +i::SendInput {Blind}{U Down}{U Up}
-   +o::SendInput {Blind}{Y Down}{Y Up}
-   +p::SendInput {Blind}{: Down}{: Up}
-   +s::SendInput {Blind}{R Down}{R Up}
-   +d::SendInput {Blind}{S Down}{S Up}
-   +f::SendInput {Blind}{T Down}{T Up}
-   +g::SendInput {Blind}{D Down}{D Up}
-   +j::SendInput {Blind}{N Down}{N Up}
-   +k::SendInput {Blind}{E Down}{E Up}
-   +l::SendInput {Blind}{I Down}{I Up}
-   +;::SendInput {Blind}{O Down}{O Up}
-   +n::SendInput {Blind}{K Down}{K Up}
-   +q::SendInput {Blind}{Q Down}{Q Up}
-   +w::SendInput {Blind}{W Down}{W Up}
-   +[::SendInput {Blind}{[ Down}{[ Up}
-   +]::SendInput {Blind}{] Down}{] Up}
-   +\::SendInput {Blind}{| Down}{| Up}
-   +a::SendInput {Blind}{A Down}{A Up}
-   +h::SendInput {Blind}{H Down}{H Up}
-   +'::SendInput {Blind}{" Down}{" Up}
-   +z::SendInput {Blind}{Z Down}{Z Up}
-   +x::SendInput {Blind}{X Down}{X Up}
-   +c::SendInput {Blind}{C Down}{C Up}
-   +v::SendInput {Blind}{V Down}{V Up}
-   +b::SendInput {Blind}{B Down}{B Up}
-   +m::SendInput {Blind}{M Down}{M Up}
-   +,::SendInput {Blind}{< Down}{< Up}
-   +.::SendInput {Blind}{> Down}{> Up}
-   +/::SendInput {Blind}{? Down}{? Up}
-
-   <+Esc::SendInput {Blind}{~ Down}{~ Up}
-   >+Esc::SendInput {Blind}{` Down}{` Up}
-
-   // Shift + Alt
-   +!e::SendInput {Blind}{Shift Down}{Alt Down}{f Down}{f Up}{Alt Up}{Shift Up}
-   +!r::SendInput {Blind}{Shift Down}{Alt Down}{p Down}{p Up}{Alt Up}{Shift Up}
-   +!t::SendInput {Blind}{Shift Down}{Alt Down}{g Down}{g Up}{Alt Up}{Shift Up}
-   +!y::SendInput {Blind}{Shift Down}{Alt Down}{j Down}{j Up}{Alt Up}{Shift Up}
-   +!u::SendInput {Blind}{Shift Down}{Alt Down}{l Down}{l Up}{Alt Up}{Shift Up}
-   +!i::SendInput {Blind}{Shift Down}{Alt Down}{u Down}{u Up}{Alt Up}{Shift Up}
-   +!o::SendInput {Blind}{Shift Down}{Alt Down}{y Down}{y Up}{Alt Up}{Shift Up}
-   +!p::SendInput {Blind}{Shift Down}{Alt Down}{; Down}{; Up}{Alt Up}{Shift Up}
-   +!s::SendInput {Blind}{Shift Down}{Alt Down}{r Down}{r Up}{Alt Up}{Shift Up}
-   +!d::SendInput {Blind}{Shift Down}{Alt Down}{s Down}{s Up}{Alt Up}{Shift Up}
-   +!f::SendInput {Blind}{Shift Down}{Alt Down}{t Down}{t Up}{Alt Up}{Shift Up}
-   +!g::SendInput {Blind}{Shift Down}{Alt Down}{d Down}{d Up}{Alt Up}{Shift Up}
-   +!j::SendInput {Blind}{Shift Down}{Alt Down}{n Down}{n Up}{Alt Up}{Shift Up}
-   +!k::SendInput {Blind}{Shift Down}{Alt Down}{e Down}{e Up}{Alt Up}{Shift Up}
-   +!l::SendInput {Blind}{Shift Down}{Alt Down}{i Down}{i Up}{Alt Up}{Shift Up}
-   +!;::SendInput {Blind}{Shift Down}{Alt Down}{o Down}{o Up}{Alt Up}{Shift Up}
-   +!n::SendInput {Blind}{Shift Down}{Alt Down}{k Down}{k Up}{Alt Up}{Shift Up}
-
-   // Shift + Alt + Ctrl
-   +!^e::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{f Down}{f Up}{Ctrl Up}{Alt Up}{Shift Up}
-   +!^r::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{p Down}{p Up}{Ctrl Up}{Alt Up}{Shift Up}
-   +!^t::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{g Down}{g Up}{Ctrl Up}{Alt Up}{Shift Up}
-   +!^y::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{j Down}{j Up}{Ctrl Up}{Alt Up}{Shift Up}
-   +!^u::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{l Down}{l Up}{Ctrl Up}{Alt Up}{Shift Up}
-   +!^i::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{u Down}{u Up}{Ctrl Up}{Alt Up}{Shift Up}
-   +!^o::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{y Down}{y Up}{Ctrl Up}{Alt Up}{Shift Up}
-   +!^p::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{; Down}{; Up}{Ctrl Up}{Alt Up}{Shift Up}
-   +!^s::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{r Down}{r Up}{Ctrl Up}{Alt Up}{Shift Up}
-   +!^d::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{s Down}{s Up}{Ctrl Up}{Alt Up}{Shift Up}
-   +!^f::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{t Down}{t Up}{Ctrl Up}{Alt Up}{Shift Up}
-   +!^g::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{d Down}{d Up}{Ctrl Up}{Alt Up}{Shift Up}
-   +!^j::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{n Down}{n Up}{Ctrl Up}{Alt Up}{Shift Up}
-   +!^k::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{e Down}{e Up}{Ctrl Up}{Alt Up}{Shift Up}
-   +!^l::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{i Down}{i Up}{Ctrl Up}{Alt Up}{Shift Up}
-   +!^;::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{o Down}{o Up}{Ctrl Up}{Alt Up}{Shift Up}
-   +!^n::SendInput  {Blind}{Shift Down}{Alt Down}{Ctrl Down}{k Down}{k Up}{Ctrl Up}{Alt Up}{Shift Up}
-   
-   // Shift + Ctrl
-   +^e::SendInput {Blind}{Shift Down}{Ctrl Down}{f Down}{f Up}{Ctrl Up}{Shift Up}
-   +^r::SendInput {Blind}{Shift Down}{Ctrl Down}{p Down}{p Up}{Ctrl Up}{Shift Up}
-   +^t::SendInput {Blind}{Shift Down}{Ctrl Down}{g Down}{g Up}{Ctrl Up}{Shift Up}
-   +^y::SendInput {Blind}{Shift Down}{Ctrl Down}{j Down}{j Up}{Ctrl Up}{Shift Up}
-   +^u::SendInput {Blind}{Shift Down}{Ctrl Down}{l Down}{l Up}{Ctrl Up}{Shift Up}
-   +^i::SendInput {Blind}{Shift Down}{Ctrl Down}{u Down}{u Up}{Ctrl Up}{Shift Up}
-   +^o::SendInput {Blind}{Shift Down}{Ctrl Down}{y Down}{y Up}{Ctrl Up}{Shift Up}
-   +^p::SendInput {Blind}{Shift Down}{Ctrl Down}{; Down}{; Up}{Ctrl Up}{Shift Up}
-   +^s::SendInput {Blind}{Shift Down}{Ctrl Down}{r Down}{r Up}{Ctrl Up}{Shift Up}
-   +^d::SendInput {Blind}{Shift Down}{Ctrl Down}{s Down}{s Up}{Ctrl Up}{Shift Up}
-   +^f::SendInput {Blind}{Shift Down}{Ctrl Down}{t Down}{t Up}{Ctrl Up}{Shift Up}
-   +^g::SendInput {Blind}{Shift Down}{Ctrl Down}{d Down}{d Up}{Ctrl Up}{Shift Up}
-   +^j::SendInput {Blind}{Shift Down}{Ctrl Down}{n Down}{n Up}{Ctrl Up}{Shift Up}
-   +^k::SendInput {Blind}{Shift Down}{Ctrl Down}{e Down}{e Up}{Ctrl Up}{Shift Up}
-   +^l::SendInput {Blind}{Shift Down}{Ctrl Down}{i Down}{i Up}{Ctrl Up}{Shift Up}
-   +^;::SendInput {Blind}{Shift Down}{Ctrl Down}{o Down}{o Up}{Ctrl Up}{Shift Up}
-   +^n::SendInput {Blind}{Shift Down}{Ctrl Down}{k Down}{k Up}{Ctrl Up}{Shift Up}
-
-   // Alt
-   !e::SendInput {Blind}{Alt Down}{f Down}{f Up}{Alt Up}
-   !r::SendInput {Blind}{Alt Down}{p Down}{p Up}{Alt Up}
-   !t::SendInput {Blind}{Alt Down}{g Down}{g Up}{Alt Up}
-   !y::SendInput {Blind}{Alt Down}{j Down}{j Up}{Alt Up}
-   !u::SendInput {Blind}{Alt Down}{l Down}{l Up}{Alt Up}
-   !i::SendInput {Blind}{Alt Down}{u Down}{u Up}{Alt Up}
-   !o::SendInput {Blind}{Alt Down}{y Down}{y Up}{Alt Up}
-   !p::SendInput {Blind}{Alt Down}{; Down}{; Up}{Alt Up}
-   !s::SendInput {Blind}{Alt Down}{r Down}{r Up}{Alt Up}
-   !d::SendInput {Blind}{Alt Down}{s Down}{s Up}{Alt Up}
-   !f::SendInput {Blind}{Alt Down}{t Down}{t Up}{Alt Up}
-   !g::SendInput {Blind}{Alt Down}{d Down}{d Up}{Alt Up}
-   !j::SendInput {Blind}{Alt Down}{n Down}{n Up}{Alt Up}
-   !k::SendInput {Blind}{Alt Down}{e Down}{e Up}{Alt Up}
-   !l::SendInput {Blind}{Alt Down}{i Down}{i Up}{Alt Up}
-   !;::SendInput {Blind}{Alt Down}{o Down}{o Up}{Alt Up}
-   !n::SendInput {Blind}{Alt Down}{k Down}{k Up}{Alt Up}
-
-   // Alt + Ctrl
-   !^e::SendInput {Blind}{Alt Down}{Ctrl Down}{f Down}{f Up}{Ctrl Up}{Alt Up}
-   !^r::SendInput {Blind}{Alt Down}{Ctrl Down}{p Down}{p Up}{Ctrl Up}{Alt Up}
-   !^t::SendInput {Blind}{Alt Down}{Ctrl Down}{g Down}{g Up}{Ctrl Up}{Alt Up}
-   !^y::SendInput {Blind}{Alt Down}{Ctrl Down}{j Down}{j Up}{Ctrl Up}{Alt Up}
-   !^u::SendInput {Blind}{Alt Down}{Ctrl Down}{l Down}{l Up}{Ctrl Up}{Alt Up}
-   !^i::SendInput {Blind}{Alt Down}{Ctrl Down}{u Down}{u Up}{Ctrl Up}{Alt Up}
-   !^o::SendInput {Blind}{Alt Down}{Ctrl Down}{y Down}{y Up}{Ctrl Up}{Alt Up}
-   !^p::SendInput {Blind}{Alt Down}{Ctrl Down}{; Down}{; Up}{Ctrl Up}{Alt Up}
-   !^s::SendInput {Blind}{Alt Down}{Ctrl Down}{r Down}{r Up}{Ctrl Up}{Alt Up}
-   !^d::SendInput {Blind}{Alt Down}{Ctrl Down}{s Down}{s Up}{Ctrl Up}{Alt Up}
-   !^f::SendInput {Blind}{Alt Down}{Ctrl Down}{t Down}{t Up}{Ctrl Up}{Alt Up}
-   !^g::SendInput {Blind}{Alt Down}{Ctrl Down}{d Down}{d Up}{Ctrl Up}{Alt Up}
-   !^j::SendInput {Blind}{Alt Down}{Ctrl Down}{n Down}{n Up}{Ctrl Up}{Alt Up}
-   !^k::SendInput {Blind}{Alt Down}{Ctrl Down}{e Down}{e Up}{Ctrl Up}{Alt Up}
-   !^l::SendInput {Blind}{Alt Down}{Ctrl Down}{i Down}{i Up}{Ctrl Up}{Alt Up}
-   !^;::SendInput {Blind}{Alt Down}{Ctrl Down}{o Down}{o Up}{Ctrl Up}{Alt Up}
-   !^n::SendInput {Blind}{Alt Down}{Ctrl Down}{k Down}{k Up}{Ctrl Up}{Alt Up}
-
-   // Ctrl
-   ^e::SendInput {Blind}{Ctrl Down}{f Down}{f Up}{Ctrl Up}
-   ^r::SendInput {Blind}{Ctrl Down}{p Down}{p Up}{Ctrl Up}
-   ^t::SendInput {Blind}{Ctrl Down}{g Down}{g Up}{Ctrl Up}
-   ^y::SendInput {Blind}{Ctrl Down}{j Down}{j Up}{Ctrl Up}
-   ^u::SendInput {Blind}{Ctrl Down}{l Down}{l Up}{Ctrl Up}
-   ^i::SendInput {Blind}{Ctrl Down}{u Down}{u Up}{Ctrl Up}
-   ^o::SendInput {Blind}{Ctrl Down}{y Down}{y Up}{Ctrl Up}
-   ^p::SendInput {Blind}{Ctrl Down}{; Down}{; Up}{Ctrl Up}
-   ^s::SendInput {Blind}{Ctrl Down}{r Down}{r Up}{Ctrl Up}
-   ^d::SendInput {Blind}{Ctrl Down}{s Down}{s Up}{Ctrl Up}
-   ^f::SendInput {Blind}{Ctrl Down}{t Down}{t Up}{Ctrl Up}
-   ^g::SendInput {Blind}{Ctrl Down}{d Down}{d Up}{Ctrl Up}
-   ^j::SendInput {Blind}{Ctrl Down}{n Down}{n Up}{Ctrl Up}
-   ^k::SendInput {Blind}{Ctrl Down}{e Down}{e Up}{Ctrl Up}
-   ^l::SendInput {Blind}{Ctrl Down}{i Down}{i Up}{Ctrl Up}
-   ^;::SendInput {Blind}{Ctrl Down}{o Down}{o Up}{Ctrl Up}
-   ^n::SendInput {Blind}{Ctrl Down}{k Down}{k Up}{Ctrl Up}
-
-   // Left Win
-   <#e::SendInput {Blind}{Win Down}{f Down}{f Up}{Win Up}
-   <#r::SendInput {Blind}{Win Down}{p Down}{p Up}{Win Up}
-   <#t::SendInput {Blind}{Win Down}{g Down}{g Up}{Win Up}
-   <#y::SendInput {Blind}{Win Down}{j Down}{j Up}{Win Up}
-   <#u::SendInput {Blind}{Win Down}{l Down}{l Up}{Win Up}
-   <#i::SendInput {Blind}{Win Down}{u Down}{u Up}{Win Up}
-   <#o::SendInput {Blind}{Win Down}{y Down}{y Up}{Win Up}
-   <#p::SendInput {Blind}{Win Down}{; Down}{; Up}{Win Up}
-   <#s::SendInput {Blind}{Win Down}{r Down}{r Up}{Win Up}
-   <#d::SendInput {Blind}{Win Down}{s Down}{s Up}{Win Up}
-   <#f::SendInput {Blind}{Win Down}{t Down}{t Up}{Win Up}
-   <#g::SendInput {Blind}{Win Down}{d Down}{d Up}{Win Up}
-   <#j::SendInput {Blind}{Win Down}{n Down}{n Up}{Win Up}
-   <#k::SendInput {Blind}{Win Down}{e Down}{e Up}{Win Up}
-   <#l::SendInput {Blind}{Win Down}{i Down}{i Up}{Win Up}
-   <#;::SendInput {Blind}{Win Down}{o Down}{o Up}{Win Up}
-   <#n::SendInput {Blind}{Win Down}{k Down}{k Up}{Win Up}
-
-   // Right Win
-   >#e::
-   >#r::
-   >#t::
-   >#y::
-   >#u::
-   >#i::
-   >#o::
-   >#p::
-   >#s::
-   >#d::
-   >#f::
-   >#g::
-   >#j::
-   >#k::
-   >#l::
-   >#;::
-   >#n::
+   *q::
+      sendModifierStates("q")
       Return
+   *w::
+      sendModifierStates("w")
+      Return
+   *e::
+      sendModifierStates("f")
+      Return
+   *r::
+      sendModifierStates("p")
+      Return
+   *t::
+      sendModifierStates("g")
+      Return
+   *y::
+      sendModifierStates("j")
+      Return
+   *u::
+      sendModifierStates("l")
+      Return
+   *i::
+      sendModifierStates("u")
+      Return
+   *o::
+      sendModifierStates("y")
+      Return
+   *p::
+      sendModifierStates(";")
+      Return
+   *[::
+      sendModifierStates("[")
+      Return
+   *]::
+      sendModifierStates("]")
+      Return
+   *\::
+      sendModifierStates("\")
+      Return
+   *a::
+      sendModifierStates("a")
+      Return
+   *s::
+      sendModifierStates("r")
+      Return
+   *d::
+      sendModifierStates("s")
+      Return
+   *f::
+      sendModifierStates("t")
+      Return
+   *g::
+      sendModifierStates("d")
+      Return
+   *h::
+      sendModifierStates("h")
+      Return
+   *j::
+      sendModifierStates("n")
+      Return
+   *k::
+      sendModifierStates("e")
+      Return
+   *l::
+      sendModifierStates("i")
+      Return
+   *;::
+      sendModifierStates("o")
+      Return
+   *'::
+      sendModifierStates("'")
+      Return
+   *z::
+      sendModifierStates("z")
+      Return
+   *x::
+      sendModifierStates("x")
+      Return
+   *c::
+      sendModifierStates("c")
+      Return
+   *v::
+      sendModifierStates("v")
+      Return
+   *b::
+      sendModifierStates("b")
+         Return
+   *n::
+      sendModifierStates("k")
+         Return
+   *m::
+      sendModifierStates("m")
+         Return
+   *,::
+      sendModifierStates(",")
+         Return
+   *.::
+      sendModifierStates(".")
+         Return
+   */::
+      sendModifierStates("/")
+         Return
 
 #If
 
@@ -759,3 +638,42 @@ MouseDelay = 0
 SetColemak:
    colemak = true
    Return
+
+getModifierStates(ByRef AlphaForm = "")
+{
+    AlphaForm := ""
+    
+    if GetKeyState("LWin", "P") || GetKeyState("RWin", "P")
+    {
+        ReturnValue .= "#"
+        AlphaForm .= "W"
+    }
+
+    if GetKeyState("Ctrl", "P")
+    {
+        ReturnValue .= "^"
+        AlphaForm .= "C"
+    }
+
+    if GetKeyState("Alt", "P")
+    {
+        ReturnValue .= "!"
+        AlphaForm .= "A"
+    }
+
+    if GetKeyState("Shift", "P")
+    {
+        ReturnValue .= "+"
+        AlphaForm .= "S"
+    }
+
+    return ReturnValue
+}
+
+sendModifierStates(ByRef Key) 
+{
+      ModifierStates := getModifierStates()
+      if GetKeyState("CapsLock", "T") = 1
+         ModifierStates .= "+"
+      Send, %ModifierStates%{%Key%}
+}
