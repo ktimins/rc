@@ -21,9 +21,6 @@ ModifierStates := ""
 /////////////////////////////
 //      Base Hotkeys       //
 /////////////////////////////
-   #::
-      MsgBox, % getModifierStates()
-      Return
 
 //Suspend
 //Pause,,1
