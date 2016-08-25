@@ -18,6 +18,7 @@ colemakAllTime := false
 wasdKeyboard   := false
 confKeyboard   := false
 normKeyboard   := false
+pok3r          := false
 ModifierStates := ""
 
 ///////////////////////
@@ -80,6 +81,15 @@ Return
    colemak:=not colemak
    if (colemak) {
       colemakAllTime := false
+   }
+Return
+
+>!.::
+   pok3r := not pok3r
+   if (pok3r) {
+      KeyboardLED(1, "on",  3)
+   } else {
+      KeyboardLED(1, "off", 3)
    }
 Return
 
@@ -153,99 +163,97 @@ Return
    <#c::Capslock
 
 //////////////////////////////
-//         Pok3r            //
+//         pok3r            //
 //////////////////////////////
 
-   ^Space::
-      Send ^{Space}
+   #If (pok3r) 
+      *Space::
+         KeyWait, Space, T0.2
+         If ErrorLevel {
+            // Unused keys
+            Space & `::
+            Space & r::
+            Space & t::
+            Space & \::
+            Space & g::
+            Space & x::
+            Space & c::
+            Space & v::
+            Space & b::
+            Space & ,::
+            Space & .::
+            Space & /::  
+            Space & w::
+            Space & a::
+            Space & s::
+            Space & d::
+               Return
+
+            // Cursor Movement
+            Space & h::Send {Blind}{Left DownTemp}
+            Space & h up::Send {Blind}{Left Up}
+            
+            Space & j::Send {Blind}{Down DownTemp}
+            Space & j up::Send {Blind}{Down Up}
+            
+            Space & k::Send {Blind}{Up DownTemp}
+            Space & k up::Send {Blind}{Up Up}
+            
+            Space & l::Send {Blind}{Right DownTemp}
+            Space & l up::Send {Blind}{Right Up}
+            
+            
+            // Cursor Jumps
+            Space & i::SendInput {Blind}{Home Down}
+            Space & i up::SendInput {Blind}{Home Up}
+            
+            Space & n::SendInput {Blind}{End Down}
+            Space & n up::SendInput {Blind}{End Up}
+            
+            Space & u::SendInput {Blind}{PgUp Down}
+            Space & u up::SendInput {Blind}{PgUp Up}
+            
+            Space & o::SendInput {Blind}{PgDn Down}
+            Space & o up::SendInput {Blind}{PgDn Up}
+            
+            
+            // Function Keys
+            Space & 1::SendInput {Blind}{F1}
+            Space & 2::SendInput {Blind}{F2}
+            Space & 3::SendInput {Blind}{F3}
+            Space & 4::SendInput {Blind}{F4}
+            Space & 5::SendInput {Blind}{F5}
+            Space & 6::SendInput {Blind}{F6}
+            Space & 7::SendInput {Blind}{F7}
+            Space & 8::SendInput {Blind}{F8}
+            Space & 9::SendInput {Blind}{F9}
+            Space & 0::SendInput {Blind}{F10}
+            Space & -::SendInput {Blind}{F11}
+            Space & =::SendInput {Blind}{F12}
+            
+            // TKL Keys
+            Space & ;::SendInput {Del Down}
+            Space & ; up::SendInput {Del Up}
+            
+            Space & '::SendInput {Ins Down}
+            Space & ' up::SendInput {Ins Up}
+            
+            Space & p::SendInput {PrintScreen}
+            Space & ]::SendInput {Pause}
+            
+
+            // Random
+            Space & Enter::SendInput {Ctrl down}{Enter}{Ctrl up}
+
+            Space & y::Run calc.exe
+            Space & z::SendInput {AppsKey}
+            
+         } Else {
+            //MsgBox, Sending Space
+            sendModifierStates(" ")
+         }
       Return
-   *Space::
-      KeyWait, Space, T0.5
-      If ErrorLevel {
-         #Persistent
-         SetCapsLockState, AlwaysOff
-         
-         // Unused keys
-         Space & `::
-         Space & r::
-         Space & t::
-         Space & \::
-         Space & g::
-         Space & x::
-         Space & c::
-         Space & v::
-         Space & b::
-         Space & ,::
-         Space & .::
-         Space & /::  
-         Space & w::
-         Space & a::
-         Space & s::
-         Space & d::
-            Return
-
-         // Cursor Movement
-         Space & h::Send {Blind}{Left DownTemp}
-         Space & h up::Send {Blind}{Left Up}
-         
-         Space & j::Send {Blind}{Down DownTemp}
-         Space & j up::Send {Blind}{Down Up}
-         
-         Space & k::Send {Blind}{Up DownTemp}
-         Space & k up::Send {Blind}{Up Up}
-         
-         Space & l::Send {Blind}{Right DownTemp}
-         Space & l up::Send {Blind}{Right Up}
-         
-         
-         // Cursor Jumps
-         Space & i::SendInput {Blind}{Home Down}
-         Space & i up::SendInput {Blind}{Home Up}
-         
-         Space & n::SendInput {Blind}{End Down}
-         Space & n up::SendInput {Blind}{End Up}
-         
-         Space & u::SendInput {Blind}{PgUp Down}
-         Space & u up::SendInput {Blind}{PgUp Up}
-         
-         Space & o::SendInput {Blind}{PgDn Down}
-         Space & o up::SendInput {Blind}{PgDn Up}
-         
-         
-         // Function Keys
-         Space & 1::SendInput {Blind}{F1}
-         Space & 2::SendInput {Blind}{F2}
-         Space & 3::SendInput {Blind}{F3}
-         Space & 4::SendInput {Blind}{F4}
-         Space & 5::SendInput {Blind}{F5}
-         Space & 6::SendInput {Blind}{F6}
-         Space & 7::SendInput {Blind}{F7}
-         Space & 8::SendInput {Blind}{F8}
-         Space & 9::SendInput {Blind}{F9}
-         Space & 0::SendInput {Blind}{F10}
-         Space & -::SendInput {Blind}{F11}
-         Space & =::SendInput {Blind}{F12}
-         
-         // TKL Keys
-         Space & ;::SendInput {Del Down}
-         Space & ; up::SendInput {Del Up}
-         
-         Space & '::SendInput {Ins Down}
-         Space & ' up::SendInput {Ins Up}
-         
-         Space & p::SendInput {PrintScreen}
-         Space & ]::SendInput {Pause}
-         
-
-         // Random
-         Space & Enter::SendInput {Ctrl down}{Enter}{Ctrl up}
-
-         Space & y::Run calc.exe
-         Space & z::SendInput {AppsKey}
-         
-      } Else
-         Send {Space}
-   Return
+   #If 
 
 //////////////////////////////
 //         Colemak          //
@@ -356,7 +364,7 @@ Return
       sendModifierStates(dictColemak["/"])
          Return
 
-   sleep 100
+   //sleep 100
 
 #If
 
@@ -438,6 +446,74 @@ sendModifierStates(ByRef Key)
          Else
             ModifierStates .= "+"
       }
-      Send, %ModifierStates%{%Key%}
-      sleep 100
+      //MsgBox, The active key is "%ModifierStates% - %Key%"
+      If (Key = " ")
+         Send, %ModifierStates%{Space}
+      Else
+         Send, %ModifierStates%{%Key%}
+      //sleep 100
+}
+
+KeyboardLED(LEDvalue, Cmd, Kbd=1)
+{
+  SetUnicodeStr(fn,"\Device\KeyBoardClass" Kbd)
+  h_device:=NtCreateFile(fn,0+0x00000100+0x00000080+0x00100000,1,1,0x00000040+0x00000020,0)
+  
+  If Cmd= switch  //;switches every LED according to LEDvalue
+   KeyLED:= LEDvalue
+  If Cmd= on  //;forces all choosen LED's to ON (LEDvalue= 0 ->LED's according to keystate)
+   KeyLED:= LEDvalue | (GetKeyState("ScrollLock", "T") + 2*GetKeyState("NumLock", "T") + 4*GetKeyState("CapsLock", "T"))
+  If Cmd= off  //;forces all choosen LED's to OFF (LEDvalue= 0 ->LED's according to keystate)
+    {
+    LEDvalue:= LEDvalue ^ 7
+    KeyLED:= LEDvalue & (GetKeyState("ScrollLock", "T") + 2*GetKeyState("NumLock", "T") + 4*GetKeyState("CapsLock", "T"))
+    }
+  
+  success := DllCall( "DeviceIoControl"
+              ,  "ptr", h_device
+              , "uint", CTL_CODE( 0x0000000b     //; FILE_DEVICE_KEYBOARD
+                        , 2
+                        , 0             //; METHOD_BUFFERED
+                        , 0  )          //; FILE_ANY_ACCESS
+              , "int*", KeyLED << 16
+              , "uint", 4
+              ,  "ptr", 0
+              , "uint", 0
+              ,  "ptr*", output_actual
+              ,  "ptr", 0 )
+  
+  NtCloseFile(h_device)
+  return success
+}
+
+CTL_CODE( p_device_type, p_function, p_method, p_access )
+{
+  Return, ( p_device_type << 16 ) | ( p_access << 14 ) | ( p_function << 2 ) | p_method
+}
+
+
+NtCreateFile(ByRef wfilename,desiredaccess,sharemode,createdist,flags,fattribs)
+{
+  VarSetCapacity(objattrib,6*A_PtrSize,0)
+  VarSetCapacity(io,2*A_PtrSize,0)
+  VarSetCapacity(pus,2*A_PtrSize)
+  DllCall("ntdll\RtlInitUnicodeString","ptr",&pus,"ptr",&wfilename)
+  NumPut(6*A_PtrSize,objattrib,0)
+  NumPut(&pus,objattrib,2*A_PtrSize)
+  status:=DllCall("ntdll\ZwCreateFile","ptr*",fh,"UInt",desiredaccess,"ptr",&objattrib
+                  ,"ptr",&io,"ptr",0,"UInt",fattribs,"UInt",sharemode,"UInt",createdist
+                  ,"UInt",flags,"ptr",0,"UInt",0, "UInt")
+  return % fh
+}
+
+NtCloseFile(handle)
+{
+  return DllCall("ntdll\ZwClose","ptr",handle)
+}
+
+
+SetUnicodeStr(ByRef out, str_)
+{
+  VarSetCapacity(out,2*StrPut(str_,"utf-16"))
+  StrPut(str_,&out,"utf-16")
 }
