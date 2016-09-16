@@ -468,7 +468,7 @@ sendModifierStates(ByRef Key)
          Send, %ModifierStates%{Space}
       Else
          Send, %ModifierStates%{%Key%}
-      //sleep 50
+      sleep 100
 }
 
 KeyboardLED(LEDvalue, Cmd, Kbd=1)
