@@ -18,7 +18,8 @@ colemakAllTime := false
 wasdKeyboard   := false
 confKeyboard   := false
 normKeyboard   := false
-pok3r          := false
+pok3r          := true
+pok3rcolemak   := false
 ModifierStates := ""
 
 ///////////////////////
@@ -172,7 +173,109 @@ Return
 //         pok3r            //
 //////////////////////////////
 
-#If (pok3r) 
+#If (pok3rColemak and not pok3r) 
+   !Space::!Space
+   !#Space::#Space
+   !^Space::^Space
+   !+Space::+Space
+   +Space::+Space
+   ^Space::^Space
+   ^+Space::+Space
+
+   $Space::
+      KeyWait, Space, T0.5
+      If ErrorLevel {
+         // Unused keys
+         Space & `::
+         Space & r::
+         Space & t::
+         Space & \::
+         Space & g::
+         Space & x::
+         Space & c::
+         Space & v::
+         Space & b::
+         Space & ,::
+         Space & .::
+         Space & /::  
+         Space & w::
+         Space & a::
+         Space & s::
+         Space & d::
+            Return
+
+         // Cursor Movement
+         Space & h::Send {Blind}{Left DownTemp}
+         Space & h up::Send {Blind}{Left Up}
+         
+         Space & j::Send {Blind}{Down DownTemp}
+         Space & j up::Send {Blind}{Down Up}
+         
+         Space & k::Send {Blind}{Up DownTemp}
+         Space & k up::Send {Blind}{Up Up}
+         
+         Space & l::Send {Blind}{Right DownTemp}
+         Space & l up::Send {Blind}{Right Up}
+         
+         
+         // Cursor Jumps
+         Space & i::SendInput {Blind}{Home Down}
+         Space & i up::SendInput {Blind}{Home Up}
+         
+         Space & n::SendInput {Blind}{End Down}
+         Space & n up::SendInput {Blind}{End Up}
+         
+         Space & u::SendInput {Blind}{PgUp Down}
+         Space & u up::SendInput {Blind}{PgUp Up}
+         
+         Space & o::SendInput {Blind}{PgDn Down}
+         Space & o up::SendInput {Blind}{PgDn Up}
+         
+         
+         // Function Keys
+         Space & 1::SendInput {Blind}{F1}
+         Space & 2::SendInput {Blind}{F2}
+         Space & 3::SendInput {Blind}{F3}
+         Space & 4::SendInput {Blind}{F4}
+         Space & 5::SendInput {Blind}{F5}
+         Space & 6::SendInput {Blind}{F6}
+         Space & 7::SendInput {Blind}{F7}
+         Space & 8::SendInput {Blind}{F8}
+         Space & 9::SendInput {Blind}{F9}
+         Space & 0::SendInput {Blind}{F10}
+         Space & -::SendInput {Blind}{F11}
+         Space & =::SendInput {Blind}{F12}
+         
+         // TKL Keys
+         Space & ;::SendInput {Del Down}
+         Space & ; up::SendInput {Del Up}
+         
+         Space & '::SendInput {Ins Down}
+         Space & ' up::SendInput {Ins Up}
+         
+         Space & p::SendInput {PrintScreen}
+         Space & ]::SendInput {Pause}
+         
+
+         // Random
+         Space & Enter::SendInput {Ctrl down}{Enter}{Ctrl up}
+
+         Space & y::Run calc.exe
+
+         Space & z::
+            If GetKeyState("Shift","p")
+               SendInput {Shift Down}{AppsKey}{Shift Up}
+            Else
+               SendInput {AppsKey}
+            Return
+      } Else {
+         sendModifierStates(" ")
+      }
+   Return
+
+#If
+
+#If (pok3r and not pok3rColemak) 
    !Space::!Space
    !#Space::#Space
    !^Space::^Space
@@ -468,7 +571,7 @@ sendModifierStates(ByRef Key)
          Send, %ModifierStates%{Space}
       Else
          Send, %ModifierStates%{%Key%}
-      sleep 100
+      sleep 50
 }
 
 KeyboardLED(LEDvalue, Cmd, Kbd=1)
