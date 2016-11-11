@@ -13,7 +13,7 @@ SetTitleMatchMode, slow
 //      Set Variables       //
 //////////////////////////////
 
-colemak        := true
+colemak        := false
 colemakAllTime := false
 wasdKeyboard   := false
 confKeyboard   := false
@@ -83,27 +83,26 @@ Return
    if (colemak) {
       colemakAllTime := false
    }
+   if (colemak or colemakAllTIme) {
+      KeyboardLED(4, "on",  3)
+   } Else {
+      KeyboardLED(4, "off", 3)
+   }
 Return
 
 >!.::
    pok3r := not pok3r
-   if (pok3r) {
-      KeyboardLED(1, "on",  0)
-      KeyboardLED(1, "on",  1)
-      KeyboardLED(1, "on",  2)
-      KeyboardLED(1, "on",  3)
-   } else {
-      KeyboardLED(1, "off", 0)
-      KeyboardLED(1, "off", 1)
-      KeyboardLED(1, "off", 2)
-      KeyboardLED(1, "off", 3)
-   }
 Return
 
 >!?::
    colemakAllTime := not colemakAllTime
    if (colemakAllTime) {
       colemak := false
+   }
+   if (colemak or colemakAllTIme) {
+      KeyboardLED(4, "on",  3)
+   } Else {
+      KeyboardLED(4, "off", 3)
    }
 Return
 
@@ -125,6 +124,8 @@ Return
    MsgBox, The active window Title is "%Title%"
 Return
 
+
+
 //////////////////////////////
 //    Swap LCtrl & LWin     //
 //////////////////////////////
@@ -135,6 +136,7 @@ Return
    Rwin::Appskey
    Appskey::RWin
 #If
+
 
 #if (confKeyboard)
    LWin::LCtrl
@@ -167,7 +169,15 @@ Return
 
    
 
-   <#c::Capslock
+   <#c:: 
+      SendInput {Blind}{Capslock}
+      Loop, 10 {
+         KeyboardLED(4, "on",  3)
+         Sleep 250
+         KeyboardLED(4, "off", 3)
+         Sleep 250
+      }
+      Return
 
 //////////////////////////////
 //         pok3r            //
@@ -574,11 +584,12 @@ sendModifierStates(ByRef Key)
       sleep 50
 }
 
-KeyboardLED(LEDvalue, Cmd, Kbd=1)
+
+KeyboardLED(LEDvalue, Cmd, Kbd=3)
 {
   SetUnicodeStr(fn,"\Device\KeyBoardClass" Kbd)
   h_device:=NtCreateFile(fn,0+0x00000100+0x00000080+0x00100000,1,1,0x00000040+0x00000020,0)
-  
+
   If Cmd= switch  //;switches every LED according to LEDvalue
    KeyLED:= LEDvalue
   If Cmd= on  //;forces all choosen LED's to ON (LEDvalue= 0 ->LED's according to keystate)
@@ -588,7 +599,7 @@ KeyboardLED(LEDvalue, Cmd, Kbd=1)
     LEDvalue:= LEDvalue ^ 7
     KeyLED:= LEDvalue & (GetKeyState("ScrollLock", "T") + 2*GetKeyState("NumLock", "T") + 4*GetKeyState("CapsLock", "T"))
     }
-  
+
   success := DllCall( "DeviceIoControl"
               ,  "ptr", h_device
               , "uint", CTL_CODE( 0x0000000b     //; FILE_DEVICE_KEYBOARD
@@ -601,7 +612,7 @@ KeyboardLED(LEDvalue, Cmd, Kbd=1)
               , "uint", 0
               ,  "ptr*", output_actual
               ,  "ptr", 0 )
-  
+
   NtCloseFile(h_device)
   return success
 }
