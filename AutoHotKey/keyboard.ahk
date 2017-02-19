@@ -78,7 +78,7 @@ Return
    Reload
 Return
 
->!/::
+!/::
    colemak:=not colemak
    if (colemak) {
       colemakAllTime := false

@@ -106,7 +106,7 @@ set tabstop=3 " real tabs should be 8, and they will show with set list on
 set cinkeys-=0#
 set indentkeys-=0#
 set hlsearch
-nmap <silent> <leader>h nohl
+nmap <silent> <leader>h nohl<CR>
 set incsearch
 set ai
 set cindent

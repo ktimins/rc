@@ -1,4 +1,4 @@
-scriptencoding utf-8
+
 let homedir="C:\\Users\\TiminsKy"
 let $home = "C:\\Users\\Timinsky"
 
@@ -151,7 +151,7 @@ if has("autocmd")
 
    augroup vimrcEx
       au!
-      autocmd FileType text setlocal textwidth=130
+      autocmd FileType txt setlocal textwidth=130
       autocmd BufReadPost *
                \ if line("'\"") >= 1 && line("'\"") <= line("$") |
                \  exe "normal! g`\"" |
@@ -172,8 +172,8 @@ endif
 
 :let g:ps1_nofold_blocks = 1
 
-set shell=powershell
-set shellcmdflag=-command
+"set shell=powershell
+"set shellcmdflag=-command
 
 
 "" XML formatter
@@ -231,7 +231,7 @@ set shellcmdflag=-command
 "nmap <silent> <leader>x :%FormatXML<CR>
 "vmap <silent> <leader>x :FormatXML<CR>
 
-"au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>NUL
+au FileType xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
 nnoremap <silent> <leader>x gg=G
 vnoremap <silent> <leader>x gg=G
 
@@ -290,8 +290,6 @@ noremap  <buffer> <silent> j gj
 "noremap  <buffer> <silent> 0 g0
 "noremap  <buffer> <silent> $ g$
 
-let g:xml_syntax_folding=1
-au FileType xml setlocal foldmethod=syntax
 
 function! ViewHtmlText(url)
   if !empty(a:url)
@@ -310,25 +308,6 @@ nnoremap <Leader>ht :update<Bar>call ViewHtmlText(expand('%:p'))<CR>
 "nnoremap <Leader>h :call ViewHtmlText(@+)<CR>
 
 """""""""""""
-" Vim-Plug  "
-"""""""""""""
-"call plug#begin('~/.vim/plugged')
-
-"Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle' }
-
-"call plug#end()
-
-
-"autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
-"""""""""""""
-" Pathogen  "
-"""""""""""""
-call pathogen#infect('C:\Users\Timinsky\Git\vimfiles\{}')
-
-
-"""""""""""""
 "   JSON    "
 """""""""""""
 au! BufRead, BufNewFile *.json set filetype=json
@@ -337,12 +316,45 @@ augroup json_autocmd
   autocmd! 
   autocmd FileType json set autoindent 
   autocmd FileType json set formatoptions=tcq2l 
-  autocmd FileType json set textwidth=78 shiftwidth=3 
+  autocmd FileType json set shiftwidth=3 
   autocmd FileType json set softtabstop=3 tabstop=8 
   autocmd FileType json set expandtab 
   autocmd FileType json set foldmethod=syntax 
-  autocmd BufNewFile,BufRead *.json nnoremap == :%!python -m json.tool
+  autocmd BufNewFile,BufRead *.json nnoremap f== :%!python -m json.tool<CR>
 augroup END
+
+"""""""""""""
+"    XML    "
+"""""""""""""
+
+let g:xml_syntax_folding=1
+au! BufRead, BufNewFile *.xml set filetype=xml
+
+augroup xml_autocmd
+   autocmd!
+   autocmd FileType xml set cindent
+   autocmd FileType xml set formatoptions=tcq2l
+   autocmd FileType xml set shiftwidth=3 
+   autocmd FileType xml set softtabstop=3 tabstop=8 
+   autocmd FileType xml set expandtab 
+   autocmd FileType xml set foldmethod=indent 
+   autocmd BufNewFile,BufRead *.xml nnoremap f== :%!xmllint --format %<CR>
+augroup END
+
+"""""""""""""
+" Vim-Plug  "
+"""""""""""""
+call plug#begin('~/.vim/plugged')
+
+   Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle' }
+   Plug 'mbbill/undotree'
+
+call plug#end()
+
+
+autocmd StdinReadPre * let s:std_in=1
+noremap <C-n> :NERDTreeToggle<CR>
+noremap <C-z> :UndotreeToggle<CR>
 
 """""""""""""
 "  Colemak  "  
@@ -381,3 +393,5 @@ noremap! K E
 noremap! L I
 noremap! : O
 noremap! N K
+
+
