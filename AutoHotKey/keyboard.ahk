@@ -13,7 +13,7 @@ SetTitleMatchMode, slow
 //      Set Variables       //
 //////////////////////////////
 
-colemak        := false
+colemak        := true
 colemakAllTime := false
 wasdKeyboard   := false
 confKeyboard   := false
@@ -21,6 +21,12 @@ normKeyboard   := false
 pok3r          := true
 pok3rcolemak   := false
 ModifierStates := ""
+
+if (colemak or colemakAllTIme) {
+   KeyboardLED(4, "on",  3)
+} Else {
+   KeyboardLED(4, "off", 3)
+}
 
 ///////////////////////
 // QWERTY to Colemak //
@@ -171,12 +177,12 @@ Return
 
    <#c:: 
       SendInput {Blind}{Capslock}
-      Loop, 10 {
-         KeyboardLED(4, "on",  3)
-         Sleep 250
-         KeyboardLED(4, "off", 3)
-         Sleep 250
-      }
+//      Loop, 10 {
+//         KeyboardLED(4, "on",  3)
+//         Sleep 250
+//         KeyboardLED(4, "off", 3)
+//         Sleep 250
+//      }
       Return
 
 //////////////////////////////
