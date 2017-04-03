@@ -96,11 +96,11 @@ Return
    }
 Return
 
->!.::
+!.::
    pok3r := not pok3r
 Return
 
->!?::
+!?::
    colemakAllTime := not colemakAllTime
    if (colemakAllTime) {
       colemak := false
@@ -184,6 +184,25 @@ Return
 //         Sleep 250
 //      }
       Return
+
+//////////////////////////////
+//         Win Lock         //
+//////////////////////////////
+#If (true)
+   
+   #l::
+      Return
+
+   <#+q:: 
+      {
+         RegWrite, REG_DWORD, HKEY_CURRENT_USER, Software\Microsoft\Windows\CurrentVersion\Policies\System, DisableLockWorkstation, 0
+         DllCall("LockWorkStation")
+         sleep, 1000
+         RegWrite, REG_DWORD, HKEY_CURRENT_USER, Software\Microsoft\Windows\CurrentVersion\Policies\System, DisableLockWorkstation, 1
+      }
+      Return
+
+#If
 
 //////////////////////////////
 //         pok3r            //
@@ -397,6 +416,112 @@ Return
 //         Colemak          //
 //////////////////////////////
 
+#If (WinActive("ahk_exe devenv.exe") or WinActive("ahk_Class Vim") or WinActive("ahk_Class VIM") or WinActive("VIM"))
+   *q::
+      sendModifierStates("q")
+      Return
+   *w::
+      sendModifierStates("w")
+      Return
+   *e::
+      sendModifierStates("e")
+      Return
+   *r::
+      sendModifierStates("r")
+      Return
+   *t::
+      sendModifierStates("t")
+      Return
+   *y::
+      sendModifierStates("y")
+      Return
+   *u::
+      sendModifierStates("u")
+      Return
+   *i::
+      sendModifierStates("i")
+      Return
+   *o::
+      sendModifierStates("o")
+      Return
+   *p::
+      sendModifierStates("p")
+      Return
+   *[::
+      sendModifierStates("[")
+      Return
+   *]::
+      sendModifierStates("]")
+      Return
+   *\::
+      sendModifierStates("\")
+      Return
+   *a::
+      sendModifierStates("a")
+      Return
+   *s::
+      sendModifierStates("s")
+      Return
+   *d::
+      sendModifierStates("d")
+      Return
+   *f::
+      sendModifierStates("f")
+      Return
+   *g::
+      sendModifierStates("g")
+      Return
+   *h::
+      sendModifierStates("h")
+      Return
+   *j::
+      sendModifierStates("j")
+      Return
+   *k::
+      sendModifierStates("k")
+      Return
+   *l::
+      sendModifierStates("l")
+      Return
+   *;::
+      sendModifierStates(";")
+      Return
+   *'::
+      sendModifierStates("'")
+      Return
+   *z::
+      sendModifierStates("z")
+      Return
+   *x::
+      sendModifierStates("x")
+      Return
+   *c::
+      sendModifierStates("c")
+      Return
+   *v::
+      sendModifierStates("v")
+      Return
+   *b::
+      sendModifierStates("b")
+         Return
+   *n::
+      sendModifierStates("n")
+         Return
+   *m::
+      sendModifierStates("m")
+         Return
+   *,::
+      sendModifierStates(",")
+         Return
+   *.::
+      sendModifierStates(".")
+         Return
+   */::
+      sendModifierStates("/")
+         Return
+
+#If
+
 // Standard keys
 #If (colemak and  (((not WinActive("ahk_exe devenv.exe") and not WinActive("ahk_Class Vim") and not WinActive("ahk_Class VIM") and not WinActive("VIM")) or WinActive("ahk_Class Chrome"))) or colemakAllTime)
    *q::
@@ -504,25 +629,6 @@ Return
 
 #If
 
-//////////////////////////////
-//         Win Lock         //
-//////////////////////////////
-#If (true)
-   
-   #l::
-      Return
-
-   #+q:: 
-      {
-         RegWrite, REG_DWORD, HKEY_CURRENT_USER, Software\Microsoft\Windows\CurrentVersion\Policies\System, DisableLockWorkstation, 0
-         DllCall("LockWorkStation")
-         sleep, 1000
-         RegWrite, REG_DWORD, HKEY_CURRENT_USER, Software\Microsoft\Windows\CurrentVersion\Policies\System, DisableLockWorkstation, 1
-      }
-      Return
-
-#If
-
 
 /////////////////////////////
 //       Sub-Routines      //
@@ -533,18 +639,27 @@ getModifierStates(ByRef AlphaForm := "")
    AlphaForm := ""
    
    if (confKeyboard) {
+
       if GetKeyState("LWin", "P") || GetKeyState("RWin", "P")
       {
          ReturnValue .= "^"
          AlphaForm .= "C"
       }
 
-      if GetKeyState("Ctrl", "P")
+      if GetKeyState("LCtrl", "P")
       {
          ReturnValue .= "#"
          AlphaForm .= "W"
       }
+
+      if GetkeyState("RCtrl", "P")
+      {
+         ReturnValue .= "^"
+            AlphaForm .= "C"
+      }
+
    } Else {
+
       if GetKeyState("LWin", "P") || GetKeyState("RWin", "P")
       {
          ReturnValue .= "#"
