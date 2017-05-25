@@ -136,19 +136,19 @@ Return
 //    Swap LCtrl & LWin     //
 //////////////////////////////
 
-#If (wasdKeyboard or normKeyboard)
-   LWin::LCtrl
-   LCtrl::LWin
-   Rwin::Appskey
-   Appskey::RWin
-#If
+//#If (wasdKeyboard or normKeyboard)
+//   LWin::LCtrl
+//   LCtrl::LWin
+//   Rwin::Appskey
+//   Appskey::RWin
+//#If
 
 
-#if (confKeyboard)
-   LWin::LCtrl
-   LCtrl::LWIn
+//#if (confKeyboard)
+//   LWin::LCtrl
+//   LCtrl::LWIn
    
-#if
+//#if
 
 //////////////////////////////
 //        Capslock          //
@@ -416,7 +416,7 @@ Return
 //         Colemak          //
 //////////////////////////////
 
-#If (WinActive("ahk_exe devenv.exe") or WinActive("ahk_Class Vim") or WinActive("ahk_Class VIM") or WinActive("VIM"))
+#If ((WinActive("ahk_exe devenv.exe") or WinActive("ahk_Class Vim") or WinActive("ahk_Class VIM") or WinActive("VIM")) and not colemakAllTime)
    *q::
       sendModifierStates("q")
       Return
@@ -638,27 +638,27 @@ getModifierStates(ByRef AlphaForm := "")
 {
    AlphaForm := ""
    
-   if (confKeyboard) {
+   //if (confKeyboard) {
+//
+  //    if GetKeyState("LWin", "P") || GetKeyState("RWin", "P")
+    //  {
+      //   ReturnValue .= "^"
+        // AlphaForm .= "C"
+     // }
 
-      if GetKeyState("LWin", "P") || GetKeyState("RWin", "P")
-      {
-         ReturnValue .= "^"
-         AlphaForm .= "C"
-      }
+//      if GetKeyState("LCtrl", "P")
+  //    {
+    //     ReturnValue .= "#"
+      //   AlphaForm .= "W"
+      //}
 
-      if GetKeyState("LCtrl", "P")
-      {
-         ReturnValue .= "#"
-         AlphaForm .= "W"
-      }
+//      if GetkeyState("RCtrl", "P")
+  //    {
+    //     ReturnValue .= "^"
+      //      AlphaForm .= "C"
+      //}
 
-      if GetkeyState("RCtrl", "P")
-      {
-         ReturnValue .= "^"
-            AlphaForm .= "C"
-      }
-
-   } Else {
+//   } Else {
 
       if GetKeyState("LWin", "P") || GetKeyState("RWin", "P")
       {
@@ -683,7 +683,7 @@ getModifierStates(ByRef AlphaForm := "")
          ReturnValue .= "+"
          AlphaForm .= "S"
       }
-   }
+//   }
 
    return ReturnValue
 }
