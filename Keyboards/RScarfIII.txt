@@ -1,0 +1,53 @@
+Layer 0
+[{y:0.5},"Esc","F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12","PrtSc","Scroll Lock","Insert","Delete","Home","PgUp"],
+["~\n`","!\n1","@\n2","#\n3","$\n4","%\n5","^\n6","&\n7","*\n8","(\n9",")\n0","_\n-","+\n=",{w:2},"Backspace","Num Lock","/","*","-"],
+[{w:1.5},"Tab","Q","W","E","R","T","Y","U","I","O","P","{\n[","}\n]",{w:1.5},"|\n\\","7\nHome","8\n?","9\nPgUp",{h:2},"+"],
+[{w:1.75},"Caps Lock","A","S","D","F","G","H","J","K","L",":\n;","\"\n'",{w:2.25},"Enter","4\n?","5","6\n?"],
+[{w:2.25},"LShift","Z","X","C","V","B","N","M","<\n,",">\n.","?\n/",{w:2.75},"RShift","1\nEnd","2\n?","3\nPgDn",{h:2},"Enter"],
+[{w:1.25},"LWin",{w:1.25},"LCtrl",{w:1.25},"LAlt",{w:6.25},"Space",{w:1.25},"RAlt",{w:1.25},"FN0",{w:1.25},"Menu",{w:1.25},"RCtrl",{w:2},"0\nIns",".\nDel"]
+
+Layer 1
+[{y:0.5},"Esc","F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12","PrtSc","Scroll Lock","Insert","Delete","Home","PgUp"],
+["~\n`","F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12",{w:2},"Backspace","Num Lock","/","*","-"],
+[{w:1.5},"Tab",{a:7},"","","","","",{a:4},"Calc","PgUp","Home","PgDn","Psc","Scrlc","Pus\nBrk",{a:7,w:1.5},"",{a:4},"7\nHome","8\n?","9\nPgUp",{h:2},"+"],
+[{w:1.75},"Caps Lock","App","VolUp","VolDn","Mute","Play","Left","Down","Up","Right","Del","Ins",{w:2.25},"Enter","4\n?","5","6\n?"],
+[{w:2.25},"LShift","Undo","Cut","Copy","Paste","App","End",{a:7},"","","","",{a:4,w:2.75},"RShift","1\nEnd","2\n?","3\nPgDn",{h:2},"Enter"],
+[{w:1.25},"LWin",{w:1.25},"LCtrl",{w:1.25},"LAlt",{a:7,w:6.25},"Space",{a:4,w:1.25},"RAlt",{w:1.25},"FN0",{w:1.25},"FN26",{w:1.25},"RCtrl",{w:2},"0\nIns",".\nDel"]
+
+Layer 2
+[{y:0.5},"Esc","F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12","PrtSc","Scroll Lock","Insert","Delete","Home","PgUp"],
+["~\n`","F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12",{w:2},"Backspace","Num Lock","/","*","-"],
+[{w:1.5},"Tab","FN1","FN2","FN3","FN4","FN5","FN6","FN7","FN8","FN9","FN10","","",{a:7,w:1.5},"",{a:4},"7\nHome","8\n?","9\nPgUp",{h:2},"+"],
+[{w:1.75},"Caps Lock","FN11","FN12","FN13","FN14","FN15","FN16","FN17","FN18","FN19","FN20","",{w:2.25},"Enter","4\n?","5","6\n?"],
+[{w:2.25},"LShift","FN21","FN22","FN23","FN24","","","","","","",{a:4,w:2.75},"RShift","1\nEnd","2\n?","3\nPgDn",{h:2},"Enter"],
+[{w:1.25},"LWin",{w:1.25},"LCtrl",{w:1.25},"LAlt",{a:7,w:6.25},"Space",{a:4,w:1.25},"RAlt",{w:1.25},"FN0",{w:1.25},"FN26",{w:1.25},"RCtrl",{w:2},"0\nIns",".\nDel"]
+
+
+FN
+    [0] = ACTION_LAYER_MOMENTARY(1),
+    [1] = ACTION_FUNCTION(3, ),
+    [2] = ACTION_FUNCTION(4, ),
+    [3] = ACTION_FUNCTION(1, ),
+    [4] = ACTION_FUNCTION(),
+    [5] = ACTION_FUNCTION(5, 1),
+    [6] = ACTION_FUNCTION(5, 2),
+    [7] = ACTION_FUNCTION(5, 3),
+    [8] = ACTION_FUNCTION(5, ),
+    [9] = ACTION_FUNCTION(5, 4),
+    [10] = ACTION_FUNCTION(5, 5),
+    [11] = ACTION_FUNCTION(5, 6),
+    [12] = ACTION_FUNCTION(6, ),
+    [13] = ACTION_FUNCTION(5, 7),
+    [14] = ACTION_FUNCTION(5, 8),
+    [15] = ACTION_FUNCTION(5, 9),
+    [16] = ACTION_FUNCTION(6, 1),
+    [17] = ACTION_FUNCTION(5, 10),
+    [18] = ACTION_FUNCTION(5, 11),
+    [19] = ACTION_FUNCTION(5, 12),
+    [20] = ACTION_FUNCTION(6, 2),
+    [21] = ACTION_FUNCTION(5, 13),
+    [22] = ACTION_FUNCTION(5, 14),
+    [23] = ACTION_FUNCTION(5, 15),
+    [24] = ACTION_FUNCTION(6, 3),
+    [26] = ACTION_LAYER_MOMENTARY(2),
+
