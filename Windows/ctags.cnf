@@ -1,7 +1,24 @@
 --langdef=powershell
 --langmap=powershell:.ps1.psm1
 --regex-powershell=/^\s*[Ff]unction[\t ]*([a-zA-Z0-9_-]+)/\1/f,function/
---regex-powershell=/^.* ([a-zA-Z]+-[a-zA-Z0-9_]+)/\1/h,functionCall/
+--regex-powershell=/^.*([Ff]unction){0} ([a-zA-Z]+-[a-zA-Z0-9_]+)/\1/h,functionCall/
 --regex-powershell=/^\s*[Ff]ilter[\t ]*([a-zA-Z0-9_-]+)/\1/i,filter/
 --regex-powershell=/^\s*[sS]et-[Aa]lias[\t ]*([a-zA-Z0-9_-]+)/\1/a,alias/
 --regex-powershell=/^\s*#[rR]egion[\t ]*([a-zA-Z0-9_ -]+)\s*$/\1/r,region/
+
+--langdef=vb
+--langmap=vb:.vb.bas.cls
+--regex-vb=/^\s*(Public|Private|\b)[ \t]*Sub[ \t]+([a-zA-Z0-9_]+)/\2/s,subroutine/i
+--regex-vb=/^\s*(Public|Private|\b)[ \t]*Function[ \t]+([a-zA-Z0-9_]+)/\2/f,function/i
+--regex-vb=/^\s*(Public|Private)[ \t]+([a-zA-Z0-9_]+)[ \t]+As[ \t]+/\2/v,variable/i
+--regex-vb=/^\s*(Public|Private|\b)[ \t]*Const[ \t]+([a-zA-Z0-9_]+)[ \t]+(As|=)[ \t]+/\2/c,const/i
+--regex-vb=/^\s*(Public|\b)[ \t]*Property[ \t]*(Get|Let|Set)[ \t]+([a-zA-Z0-9_]+)/\3/n,name/i
+--regex-vb=/^\s*(Public|Private|\b)[ \t]*Enum[ \t]+([a-zA-Z0-9_]+)/\2/e,enum/i
+--regex-vb=/^\s*(Public|Private|\b)[ \t]*Type[ \t]+([a-zA-Z0-9_]+)/\1 : \2/t,type/i
+--regex-vb=/^\s*([a-zA-Z_]+):/\1/l,label/i
+--recurse
+--exclude="bin"
+--exclude="obj"
+--fields=+ianmzS
+--extra=+fq
+--vb-kinds=cn

@@ -21,7 +21,6 @@ set cpoptions=aABceFsmq
  "             ||+-- A backslash has no special meaning in mappings
  "             |+-- :write updates alternative file name
  "             +-- :read updates alternative file name
-syntax on
 set history=9999
 set timeoutlen=500
 set formatoptions+=n
@@ -41,6 +40,7 @@ set t_vb=
 set t_ut=
 
 filetype plugin indent on
+syntax on
 set backspace=indent,eol,start
 runtime! ftdetect*.vim
 set backup
@@ -55,7 +55,7 @@ if s:running_windows
 endif
 set noswapfile
 
-set fileformats=dos
+set fileformats=unix,dos
 set wildmenu
 set wildignore=*.pdf,*.pyo,*.pyc,*.zip,*.so,*.swp,*.dll,*.o,*.DS_Store,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png,*.a " ignore these
  if s:running_windows
@@ -107,7 +107,7 @@ set cindent
 set cinkeys-=0#
 set indentkeys-=0#
 set hlsearch
-noremap <leader>h :nohl<CR>
+nmap <leader>h :nohl<CR>
 set incsearch
 set ai
 set cindent
@@ -231,7 +231,6 @@ endif
 "nmap <silent> <leader>x :%FormatXML<CR>
 "vmap <silent> <leader>x :FormatXML<CR>
 
-au FileType xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
 nnoremap <silent> <leader>x gg=G
 vnoremap <silent> <leader>x gg=G
 
@@ -291,6 +290,9 @@ noremap  <buffer> <silent> j gj
 "noremap  <buffer> <silent> $ g$
 
 
+:let g:indent_guides_start_level = 2
+
+
 function! ViewHtmlText(url)
   if !empty(a:url)
     new
@@ -326,11 +328,13 @@ augroup END
 """""""""""""
 "    XML    "
 """""""""""""
-
+au! BufRead, BufNewFile *.sln set filetype=sln
 let g:xml_syntax_folding=1
 au! BufRead, BufNewFile *.xml set filetype=xml
+autocmd BufNewFile,BufRead *.xml nnoremap f== :%!xmllint --format %<CR>
 
-augroup xml_autocmd
+au FileType xml exe ":silent %!xmllint --format -"
+augroup xml
    autocmd!
    autocmd FileType xml set cindent
    autocmd FileType xml set formatoptions=tcq2l
@@ -338,20 +342,141 @@ augroup xml_autocmd
    autocmd FileType xml set softtabstop=3 tabstop=8 
    autocmd FileType xml set expandtab 
    autocmd FileType xml set foldmethod=indent 
-   autocmd BufNewFile,BufRead *.xml nnoremap f== :%!xmllint --format %<CR>
+   au FileType xml exe ":silent %!xmllint --format --valid --encode utf-8 -"
+   au FileType xml exe ":%s/ //g"
+   au FileType xml noremap <buffer> <silent> <C-F5> :%!xmllint --format - 
 augroup END
+
+au! BufRead, BufNewFile *.xaml set filetype=xaml
+augroup xaml
+   autocmd!
+   autocmd FileType xaml set cindent
+"   autocmd FileType xaml set formatoptions=tcq2l
+   autocmd FileType xaml set shiftwidth=3 
+   autocmd FileType xaml set softtabstop=3 tabstop=8 
+   autocmd FileType xaml set expandtab 
+   autocmd FileType xaml set foldmethod=indent 
+augroup END
+
+au FileType ps1 exe ":silent ! ctags -R %"
+au! BufRead, BufNewFile *.ps1 set filetype=ps1
+augroup ps1
+   autocmd!
+   autocmd FileType ps1 set cindent
+   autocmd FileType ps1 set formatoptions=tcq2l
+   autocmd FileType ps1 set shiftwidth=3 
+   autocmd FileType ps1 set softtabstop=3 tabstop=8 
+   autocmd FileType ps1 set expandtab 
+   autocmd FileType ps1 set foldmethod=indent 
+augroup END
+
+au FileType vb  exe ":silent ! ctags -R %"
+au FileType cls exe ":silent ! ctags -R %"
+au FileType bas exe ":silent ! ctags -R %"
+au FileType xml exe ":silent ! ctags -R %"
 
 """""""""""""
 " Vim-Plug  "
 """""""""""""
 call plug#begin('~/.vim/plugged')
-
+   
+   Plug 'nathanaelkane/vim-indent-guides'
+   Plug 'godlygeek/tabular'
+   Plug 'plasticboy/vim-markdown'
    Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle' }
    Plug 'mbbill/undotree'
+   Plug 'PProvost/vim-ps1'
+   Plug 'majutsushi/tagbar'
+   Plug 'chrisbra/csv.vim'
+   Plug 'godlygeek/tabular'
 
 call plug#end()
 
 
+""""""""""
+" TagBar "
+""""""""""
+noremap <silent> <F10> :TagbarToggle<CR>
+
+let g:tagbar_ctags_bin = 'C:\Users\TiminsKY\bin\ctags\ctags.exe'
+let g:tagbar_type_psm1 = {
+   \ 'ctagstype' : 'powershell',
+   \ 'kinds'     : [
+      \ 'f:function',
+      \ 'h:functionCall',
+      \ 'i:filter',
+      \ 'a:alias',
+      \ 'r:region'
+   \ ]
+\ }
+let g:tagbar_type_ps1 = {
+   \ 'ctagstype' : 'powershell',
+   \ 'kinds'     : [
+      \ 'f:function',
+      \ 'h:functionCall',
+      \ 'i:filter',
+      \ 'a:alias',
+      \ 'r:region'
+   \ ]
+\ }
+let g:tagbar_type_vb = {
+   \ 'ctagstype' : 'vb',
+   \ 'kinds'     : [
+      \ 's:subroutine',
+      \ 'f:function',
+      \ 'v:variable',
+      \ 'c:const',
+      \ 'n:name',
+      \ 'e:enum',
+      \ 't:type',
+      \ 'l:label'
+   \ ]   
+\ }
+let g:tagbar_type_cls = {
+   \ 'ctagstype' : 'vb',
+   \ 'kinds'     : [
+      \ 's:subroutine',
+      \ 'f:function',
+      \ 'v:variable',
+      \ 'c:const',
+      \ 'n:name',
+      \ 'e:enum',
+      \ 't:type',
+      \ 'l:label'
+   \ ]   
+\ }
+let g:tagbar_type_bas = {
+   \ 'ctagstype' : 'vb',
+   \ 'kinds'     : [
+      \ 's:subroutine',
+      \ 'f:function',
+      \ 'v:variable',
+      \ 'c:const',
+      \ 'n:name',
+      \ 'e:enum',
+      \ 't:type',
+      \ 'l:label'
+   \ ]   
+\ }
+let g:tagbar_type_xml = {
+   \ 'ctagstype'  : 'XML',
+   \ 'kinds'      : [
+      \ 'd:definitions'
+   \ ]
+\ }
+
+"""""""""""""""""""""
+" Vim Indent Guides "
+"""""""""""""""""""""
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_start_level = 2
+let g:indent_guides_indent_levels = 30
+let g:indent_guides_guide_size = 1
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
+
+"""""""""""""
+" Nerd Tree "
+"""""""""""""
 autocmd StdinReadPre * let s:std_in=1
 noremap <C-n> :NERDTreeToggle<CR>
 noremap <C-z> :UndotreeToggle<CR>
