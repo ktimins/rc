@@ -13,12 +13,12 @@ SetTitleMatchMode, slow
 //      Set Variables       //
 //////////////////////////////
 
-colemak        := true
+colemak        := false
 colemakAllTime := false
 wasdKeyboard   := false
 confKeyboard   := false
 normKeyboard   := false
-pok3r          := true
+pok3r          := false
 pok3rcolemak   := false
 ModifierStates := ""
 
@@ -290,6 +290,7 @@ Return
          
          Space & p::SendInput {PrintScreen}
          Space & ]::SendInput {Pause}
+	 Space & }::SendInput {Break}
          
 
          // Random

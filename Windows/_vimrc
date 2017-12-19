@@ -342,8 +342,8 @@ augroup xml
    autocmd FileType xml set softtabstop=3 tabstop=8 
    autocmd FileType xml set expandtab 
    autocmd FileType xml set foldmethod=indent 
-   au FileType xml exe ":silent %!xmllint --format --valid --encode utf-8 -"
-   au FileType xml exe ":%s/ //g"
+   au FileType xml exe ":silent %!xmllint --format --encode utf-8 -"
+   au FileType xml exe ":silent %s/\%x00//g"
    au FileType xml noremap <buffer> <silent> <C-F5> :%!xmllint --format - 
 augroup END
 
@@ -358,6 +358,9 @@ augroup xaml
    autocmd FileType xaml set foldmethod=indent 
 augroup END
 
+"""""""""""""
+"    PS1    "
+"""""""""""""
 au FileType ps1 exe ":silent ! ctags -R %"
 au! BufRead, BufNewFile *.ps1 set filetype=ps1
 augroup ps1
@@ -370,10 +373,19 @@ augroup ps1
    autocmd FileType ps1 set foldmethod=indent 
 augroup END
 
-au FileType vb  exe ":silent ! ctags -R %"
+"""""""""""""
+"    VB     "
+"""""""""""""
+au FileType vb exe ":silent ! ctags -R %"
 au FileType cls exe ":silent ! ctags -R %"
 au FileType bas exe ":silent ! ctags -R %"
-au FileType xml exe ":silent ! ctags -R %"
+au! BufRead, BufNewFile *.bas set filetype=vb
+au! BufRead, BufNewFile *.cls set filetype=vb
+
+"au FileType vb  exe ":silent ! ctags -R %"
+"au FileType cls exe ":silent ! ctags -R %"
+"au FileType bas exe ":silent ! ctags -R %"
+"au FileType xml exe ":silent ! ctags -R %"
 
 """""""""""""
 " Vim-Plug  "
@@ -389,6 +401,10 @@ call plug#begin('~/.vim/plugged')
    Plug 'majutsushi/tagbar'
    Plug 'chrisbra/csv.vim'
    Plug 'godlygeek/tabular'
+   Plug 'actionshrimp/vim-xpath'
+   Plug 'vim-scripts/PatternsOnText'
+   Plug 'vim-scripts/marvim'
+   Plug 'vim-scripts/fu'
 
 call plug#end()
 
