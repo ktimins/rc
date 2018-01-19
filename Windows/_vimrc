@@ -333,6 +333,8 @@ let g:xml_syntax_folding=1
 au! BufRead, BufNewFile *.xml set filetype=xml
 autocmd BufNewFile,BufRead *.xml nnoremap f== :%!xmllint --format %<CR>
 
+au FileType xsd exe ":silent %!xmllint --format -"
+
 au FileType xml exe ":silent %!xmllint --format -"
 augroup xml
    autocmd!
@@ -343,7 +345,7 @@ augroup xml
    autocmd FileType xml set expandtab 
    autocmd FileType xml set foldmethod=indent 
    au FileType xml exe ":silent %!xmllint --format --encode utf-8 -"
-   au FileType xml exe ":silent %s/\%x00//g"
+"   au FileType xml exe ":silent %s/\%x00//g"
    au FileType xml noremap <buffer> <silent> <C-F5> :%!xmllint --format - 
 augroup END
 
