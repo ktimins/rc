@@ -8,17 +8,31 @@
 
 --langdef=vb
 --langmap=vb:.vb.bas.cls
---regex-vb=/^\s*(Public|Private|\b)[ \t]*Sub[ \t]+([a-zA-Z0-9_]+)/\2/s,subroutine/i
---regex-vb=/^\s*(Public|Private|\b)[ \t]*Function[ \t]+([a-zA-Z0-9_]+)/\2/f,function/i
---regex-vb=/^\s*(Public|Private)[ \t]+([a-zA-Z0-9_]+)[ \t]+As[ \t]+/\2/v,variable/i
---regex-vb=/^\s*(Public|Private|\b)[ \t]*Const[ \t]+([a-zA-Z0-9_]+)[ \t]+(As|=)[ \t]+/\2/c,const/i
+--regex-vb=/^\s*(Public|Private|\b)[ \t]*Sub[ \t]+([a-zA-Z0-9_]+)/\2 - \1/s,subroutine/i
+--regex-vb=/^\s*(Public|Private|\b)[ \t]*Function[ \t]+([a-zA-Z0-9_]+)/\2 - \1/f,function/i
+--regex-vb=/^\s*(Public|Private)[ \t]+(m_[a-zA-Z0-9_]+)[ \t]+As[ \t]+/\2 - \1/m,module variable/i
+--regex-vb=/^\s*(Public|Private)[ \t]+(g_[a-zA-Z0-9_]+)[ \t]+As[ \t]+/\2 - \1/g,global variable/i
+--regex-vb=/^\s*(Public|Private|\b)[ \t]*Const[ \t]+([a-zA-Z0-9_]+)[ \t]+(As|=)[ \t]+/\2 - \1/c,const/i
 --regex-vb=/^\s*(Public|\b)[ \t]*Property[ \t]*(Get|Let|Set)[ \t]+([a-zA-Z0-9_]+)/\3/n,name/i
---regex-vb=/^\s*(Public|Private|\b)[ \t]*Enum[ \t]+([a-zA-Z0-9_]+)/\2/e,enum/i
---regex-vb=/^\s*(Public|Private|\b)[ \t]*Type[ \t]+([a-zA-Z0-9_]+)/\1 : \2/t,type/i
---regex-vb=/^\s*([a-zA-Z_]+):/\1/l,label/i
+--regex-vb=/^\s*(Public|Private|\b)[ \t]*Enum[ \t]+([a-zA-Z0-9_]+)/\2 - \1/e,enum/i
+--regex-vb=/^\s*(Public|Private|\b)[ \t]*Type[ \t]+([a-zA-Z0-9_]+)/\2 - \1/t,type/i
+--regex-vb=/^\s*((?:(?!Err(?:or)?Handler))[a-zA-Z0-9_]+):/\1/l,label/i
 --recurse
 --exclude="bin"
 --exclude="obj"
 --fields=+ianmzS
 --extra=+fq
 --vb-kinds=cn
+
+--langdef=XML
+--langmap=XML:.xml
+--regex-XML=/id="([a-zA-Z0-9_]+)"/\1/d,definition/
+
+--langdef=XSD
+--langmap=XSD:+.xsd
+--langmap=XSD:+.wsdl
+--regex-XSD=/^\s*<xs:[cC]omplex[tT]ype [a-zA-Z0-9="]*[ ]{0,1}name="([a-z_]+:){0,1}([a-zA-Z0-9_]+)"\s*>/\2/c,ComplexType/
+--regex-XSD=/^\s*<xs:[sS]imple[tT]ype [a-zA-Z0-9="]*[ ]{0,1}name="([a-z_]+:){0,1}([a-zA-Z0-9_]+)"\s*>/\2/s,SimpleType/
+--regex-XSD=/^\s*<xs:[eE]lement (name|ref)="([a-zA-Z0-9_]+)".*(?:([tT]ype)="((?:xs:)?[a-zA-Z0-9_]+)")?/\2 -- \4/e,Element/
+--exclude=.git
+--recurse=yes

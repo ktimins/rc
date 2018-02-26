@@ -87,6 +87,9 @@ set wildignore=*.pdf,*.pyo,*.pyc,*.zip,*.so,*.swp,*.dll,*.o,*.DS_Store,*.obj,*.b
  "              | | +-- readonly flag in square brackets
  "              | +-- rodified flag in square brackets
  "              +-- full path to file in the buffer
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
 " Text Formatting/Layout
 " set completeopt=menuone " don't use a pop up menu for completions
@@ -289,6 +292,7 @@ noremap  <buffer> <silent> j gj
 "noremap  <buffer> <silent> 0 g0
 "noremap  <buffer> <silent> $ g$
 
+:command CDPWD cd %:p:h
 
 :let g:indent_guides_start_level = 2
 
@@ -328,13 +332,26 @@ augroup END
 """""""""""""
 "    XML    "
 """""""""""""
-au! BufRead, BufNewFile *.sln set filetype=sln
+au BufRead, BufNewFile *.sln set filetype=sln
 let g:xml_syntax_folding=1
-au! BufRead, BufNewFile *.xml set filetype=xml
-autocmd BufNewFile,BufRead *.xml nnoremap f== :%!xmllint --format %<CR>
+au BufRead, BufNewFile *.xml set filetype=xml
+au BufRead, BufNewFile *.xsd set filetype=xsd
 
+au FileType xsd exe ":silent ! ctags -R %"
 au FileType xsd exe ":silent %!xmllint --format -"
+augroup xml
+   autocmd!
+   autocmd FileType xsd set cindent
+   autocmd FileType xsd set formatoptions=tcq2l
+   autocmd FileType xsd set shiftwidth=3 
+   autocmd FileType xsd set softtabstop=3 tabstop=8 
+   autocmd FileType xsd set expandtab 
+   autocmd FileType xsd set foldmethod=indent 
+   autocmd FileType xsd exe ":silent %!xmllint --format --encode utf-8 -"
+   autocmd FileType xsd noremap <buffer> <silent> f== :%!xmllint --format %<CR>
+augroup END
 
+au FileType xml exe ":silent ! ctags -R %"
 au FileType xml exe ":silent %!xmllint --format -"
 augroup xml
    autocmd!
@@ -346,7 +363,7 @@ augroup xml
    autocmd FileType xml set foldmethod=indent 
    au FileType xml exe ":silent %!xmllint --format --encode utf-8 -"
 "   au FileType xml exe ":silent %s/\%x00//g"
-   au FileType xml noremap <buffer> <silent> <C-F5> :%!xmllint --format - 
+   autocmd FileType xml noremap <buffer> <silent> f== :%!xmllint --format %<CR>
 augroup END
 
 au! BufRead, BufNewFile *.xaml set filetype=xaml
@@ -378,16 +395,11 @@ augroup END
 """""""""""""
 "    VB     "
 """""""""""""
+autocmd BufRead, BufNewFile *.cls set filetype=vb
 au FileType vb exe ":silent ! ctags -R %"
 au FileType cls exe ":silent ! ctags -R %"
 au FileType bas exe ":silent ! ctags -R %"
 au! BufRead, BufNewFile *.bas set filetype=vb
-au! BufRead, BufNewFile *.cls set filetype=vb
-
-"au FileType vb  exe ":silent ! ctags -R %"
-"au FileType cls exe ":silent ! ctags -R %"
-"au FileType bas exe ":silent ! ctags -R %"
-"au FileType xml exe ":silent ! ctags -R %"
 
 """""""""""""
 " Vim-Plug  "
@@ -407,9 +419,22 @@ call plug#begin('~/.vim/plugged')
    Plug 'vim-scripts/PatternsOnText'
    Plug 'vim-scripts/marvim'
    Plug 'vim-scripts/fu'
+   Plug 'scrooloose/vim-slumlord'
+   Plug 'aklt/plantuml-syntax'
+   Plug 'OmniSharp/omnisharp-vim'
+   Plug 'tpope/vim-dispatch'
+   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+   Plug 'vim-syntastic/syntastic'
 
 call plug#end()
 
+"""""""""""""
+" Syntastic "
+"""""""""""""
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 """"""""""
 " TagBar "
@@ -442,7 +467,8 @@ let g:tagbar_type_vb = {
    \ 'kinds'     : [
       \ 's:subroutine',
       \ 'f:function',
-      \ 'v:variable',
+      \ 'm:module variable',
+      \ 'g:global variable',
       \ 'c:const',
       \ 'n:name',
       \ 'e:enum',
@@ -455,7 +481,8 @@ let g:tagbar_type_cls = {
    \ 'kinds'     : [
       \ 's:subroutine',
       \ 'f:function',
-      \ 'v:variable',
+      \ 'm:module variable',
+      \ 'g:global variable',
       \ 'c:const',
       \ 'n:name',
       \ 'e:enum',
@@ -468,7 +495,8 @@ let g:tagbar_type_bas = {
    \ 'kinds'     : [
       \ 's:subroutine',
       \ 'f:function',
-      \ 'v:variable',
+      \ 'm:module variable',
+      \ 'g:global variable',
       \ 'c:const',
       \ 'n:name',
       \ 'e:enum',
@@ -479,7 +507,15 @@ let g:tagbar_type_bas = {
 let g:tagbar_type_xml = {
    \ 'ctagstype'  : 'XML',
    \ 'kinds'      : [
-      \ 'd:definitions'
+      \ 'd:definition'
+   \ ]
+\ }
+let g:tagbar_type_xsd = {
+   \ 'ctagstype'  : 'XSD',
+   \ 'kinds'      : [
+      \ 'c:ComplexType',
+      \ 's:SimpleType',
+      \ 'e:Element'
    \ ]
 \ }
 
