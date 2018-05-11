@@ -1,6 +1,8 @@
 --langdef=powershell
 --langmap=powershell:.ps1.psm1
 --regex-powershell=/^\s*[Ff]unction[\t ]*([a-zA-Z0-9_-]+)/\1/f,function/
+--regex-powershell=/^\s*[Cc]lass[\t ]* ([a-zA-Z0-9_-]+)/\1/c,class/
+--regex-powershell=/^\s*[Cc]lass[\t ]* ([a-zA-Z0-9_-]+)[\t ]+:[\t ]+([a-zA-Z0-9_-]+)/\1 : \2/d,class inherited/
 --regex-powershell=/^.*([Ff]unction){0} ([a-zA-Z]+-[a-zA-Z0-9_]+)/\1/h,functionCall/
 --regex-powershell=/^\s*[Ff]ilter[\t ]*([a-zA-Z0-9_-]+)/\1/i,filter/
 --regex-powershell=/^\s*[sS]et-[Aa]lias[\t ]*([a-zA-Z0-9_-]+)/\1/a,alias/
@@ -24,9 +26,10 @@
 --extra=+fq
 --vb-kinds=cn
 
---langdef=XML
---langmap=XML:.xml
---regex-XML=/id="([a-zA-Z0-9_]+)"/\1/d,definition/
+--langdef=xml
+--langmap=xml:.xml
+--regex-xml=/^\s*<([a-zA-Z0-9]+)>\s*$/\1/n,node set/
+--regex-xml=/<([a-zA-Z0-9]+)[^\/]*>/\1/t,tagname/
 
 --langdef=XSD
 --langmap=XSD:+.xsd

@@ -132,7 +132,8 @@ set undoreload=10000 " to undo forced reload with :e!
 if has("gui_running")
      " Basics
      "set guifont=Consolas:h9:cANSI " My favorite font
-     colorscheme fu
+     "colorscheme fu
+     colorscheme selenitic
      set guioptions+=ceb
      "               |||
      "               ||+-- use horizontal scroll bar
@@ -243,6 +244,26 @@ nnoremap <F5> :silent !"C:\Program Files (x86)\Google\Chrome\Application\chrome.
 nmap <leader>mdb :silent !"C:\Program Files (x86)\Microsoft Office\Office14\MSACCESS.EXE" %:p<CR>
 nmap <leader>doc :silent !"C:\Program Files (x86)\Microsoft Office\Office14\WINWORD.EXE" %:p<CR>
 
+let g:quickfix_is_open = 0
+function! QuickfixToggle()
+    if g:quickfix_is_open
+        cclose
+        let g:quickfix_is_open = 0
+    else
+        copen
+        let g:quickfix_is_open = 1
+    endif
+endfunction
+
+function! FindAll(regex)
+   cclose
+   exe 'bufdo! vimgrep /' . a:regex . '/%'
+   copen
+endfunction
+
+:command! -nargs=1 FA call FindAll(<f-args>)
+:command! FAC cclose
+
 function! ColorSchemeSwap()
    if g:colors_name ==? "fu"
       colorscheme habiLight
@@ -317,6 +338,9 @@ nnoremap <Leader>ht :update<Bar>call ViewHtmlText(expand('%:p'))<CR>
 "   JSON    "
 """""""""""""
 au! BufRead, BufNewFile *.json set filetype=json
+
+au FileType json exe ":silent ! ctags -R %"
+au FileType json exe ":silent %!python -m json.tool"
 
 augroup json_autocmd 
   autocmd! 
@@ -395,7 +419,9 @@ augroup END
 """""""""""""
 "    VB     "
 """""""""""""
-autocmd BufRead, BufNewFile *.cls set filetype=vb
+au BufNewFile,BufRead *.cls         call dist#ft#FTVB("vb")
+au BufNewFile,BufRead *.bas         call dist#ft#FTVB("vb")
+"au BufRead, BufNewFile *.cls set filetype=vb
 au FileType vb exe ":silent ! ctags -R %"
 au FileType cls exe ":silent ! ctags -R %"
 au FileType bas exe ":silent ! ctags -R %"
@@ -404,7 +430,8 @@ au! BufRead, BufNewFile *.bas set filetype=vb
 """""""""""""
 " Vim-Plug  "
 """""""""""""
-call plug#begin('~/.vim/plugged')
+"call plug#begin('~/.vim/plugged')
+call plug#begin('Z:/.vim/plugged')
    
    Plug 'nathanaelkane/vim-indent-guides'
    Plug 'godlygeek/tabular'
@@ -425,6 +452,14 @@ call plug#begin('~/.vim/plugged')
    Plug 'tpope/vim-dispatch'
    Plug 'Shougo/vimproc.vim', {'do' : 'make'}
    Plug 'vim-syntastic/syntastic'
+   Plug 'hallettj/jslint.vim'
+   Plug 'vim-scripts/Selenitic'
+   Plug 'Twinside/vim-codeoverview'
+   Plug 'severin-lemaignan/vim-minimap'
+   Plug 'elzr/vim-json'
+   Plug 'XadillaX/json-formatter.vim'
+   Plug 'andymass/vim-matchup'
+   Plug 'vim-scripts/SQLUtilities'
 
 call plug#end()
 
@@ -435,6 +470,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_json_checkers = ['jsonlint']
 
 """"""""""
 " TagBar "
@@ -456,6 +492,8 @@ let g:tagbar_type_ps1 = {
    \ 'ctagstype' : 'powershell',
    \ 'kinds'     : [
       \ 'f:function',
+      \ 'c:class',
+      \ 'd:class inherited',
       \ 'h:functionCall',
       \ 'i:filter',
       \ 'a:alias',
@@ -507,7 +545,8 @@ let g:tagbar_type_bas = {
 let g:tagbar_type_xml = {
    \ 'ctagstype'  : 'XML',
    \ 'kinds'      : [
-      \ 'd:definition'
+      \ 'n:node set',
+      \ 't:tagname'
    \ ]
 \ }
 let g:tagbar_type_xsd = {
@@ -534,6 +573,14 @@ let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 autocmd StdinReadPre * let s:std_in=1
 noremap <C-n> :NERDTreeToggle<CR>
 noremap <C-z> :UndotreeToggle<CR>
+
+
+"""""""""""""""""
+" Code Overview "
+"""""""""""""""""
+":ShowCodeOverview
+":CodeOverviewAuto
+":SnapshotFile
 
 """""""""""""
 "  Colemak  "  
@@ -572,5 +619,3 @@ noremap! K E
 noremap! L I
 noremap! : O
 noremap! N K
-
-
