@@ -460,6 +460,7 @@ call plug#begin('Z:/.vim/plugged')
    Plug 'XadillaX/json-formatter.vim'
    Plug 'andymass/vim-matchup'
    Plug 'vim-scripts/SQLUtilities'
+   Plug 'vim-scripts/align'
 
 call plug#end()
 
