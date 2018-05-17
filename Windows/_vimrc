@@ -1,6 +1,7 @@
 
 let homedir="C:\\Users\\TiminsKy"
 let $home = "C:\\Users\\Timinsky"
+let $fdrive = "F:\\vim"
 
 " Startup
 let s:running_windows = has("win16") || has ("win32") || has ("win64")
@@ -43,15 +44,13 @@ filetype plugin indent on
 syntax on
 set backspace=indent,eol,start
 runtime! ftdetect*.vim
-set backup
-"set backupdir=$home/_backup
-"set directory=$home/_backup
-set undofile
 
 if s:running_windows
-	set backupdir=$home\\_backup
-	set undodir=$home\\_undo
-	set directory=$home\\_temp
+   set backup
+   set undofile
+	set backupdir=$fdrive\\_backup
+	set undodir=$fdrive\\_undo
+	set directory=$fdrive\\_temp
 endif
 set noswapfile
 
