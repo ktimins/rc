@@ -314,6 +314,8 @@ noremap  <buffer> <silent> j gj
 
 :command CDPWD cd %:p:h
 
+noremap <buffer> <silent> <leader>fw :set wrap linebreak nolist<CR>
+
 :let g:indent_guides_start_level = 2
 
 
@@ -460,6 +462,26 @@ call plug#begin('Z:/.vim/plugged')
    Plug 'andymass/vim-matchup'
    Plug 'vim-scripts/SQLUtilities'
    Plug 'vim-scripts/align'
+   Plug 'shime/vim-livedown'
+   Plug 'editorconfig/editorconfig-vim'
+   Plug 'sjl/gundo.vim'
+   Plug 'nathanaelkane/vim-indent-guides'
+   Plug 'scrooloose/nerdcommenter'
+   Plug 'tpope/vim-repeat'
+   Plug 'tpope/vim-surround'
+   Plug 'tomtom/tcomment_vim'
+   Plug 'wellle/visual-split.vim'
+   Plug 'maxbrunsfeld/vim-yankstack'
+   Plug 'tpope/vim-fugitive'
+   Plug 'airblade/vim-gitgutter'
+   Plug 'mhinz/vim-signify'
+   Plug 'mhinz/vim-startify'
+   Plug 'OrangeT/vim-csharp'
+   Plug 'devjoe/vim-codequery'
+   Plug 'honza/vim-snippets'
+   Plug 'othree/javascript-libraries-syntax.vim'
+   Plug 'python-mode/python-mode'
+   Plug 'sukima/xmledit'
 
 call plug#end()
 
