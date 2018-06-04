@@ -1,0 +1,172 @@
+" vim:fdm=marker
+
+" Location Stuff {{{
+
+if $LOCATION == "WORK"
+   let homedir = "C:\\Users\\TiminsKy"
+   let $home = "C:\\Users\\Timinsky"
+   let $storage = "F:\\vim"
+elseif $LOCATION == "THEIA"
+   let homedir = "C:\\Users\\rzite"
+   let $home = "C:\\Users\\rzite"
+   let $storage = "C:\\Users\\rzite\\.vimstorage"
+else 
+   let $storage = ""
+endif
+
+" }}}
+
+" General {{{
+
+" Startup {{{
+let s:running_windows = has("win16") || has ("win32") || has ("win64")
+let s:colorful_term = (&term =~ "xterm") || (&term =~ "screen")
+
+" }}}
+
+" Leader
+let mapleader = ","
+
+" Sets how many lines of history VIM has to remember
+set history=9999
+
+" Sets the timeout length
+set timeoutlen=500
+
+" Set to auto read when a file is changed from the outside
+"set autoread
+
+" }}}
+
+" VIM User Interface {{{
+
+" Avoid garbled characters in Chinese language windows OS
+let $LANG='en' 
+set langmenu=en
+
+" Turn on the Wild menu
+set wildmenu
+
+" Ignore compiled files
+set wildignore=*.pdf,*.pyo,*.pyc,*.zip,*.so,*.swp,*.dll,*.o,*.DS_Store,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png,*.a " ignore these
+if s:running_windows
+   set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*,*\\bin\\*,*\\pkg\\*
+else
+   set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/bin/*,*/pkg/*
+endif
+
+"Always show current position
+set ruler
+
+" Height of the command bar
+set cmdheight=2
+
+" A buffer becomes hidden when it is abandoned
+set hid
+
+" Configure backspace so it acts as it should act
+set backspace=indent,eol,start
+set whichwrap+=<,>,h,l
+
+" Ignore case when searching
+set ignorecase
+
+" When searching try to be smart about cases 
+set smartcase
+
+" Highlight search results
+set hlsearch
+
+" Makes search act like search in modern browsers
+set incsearch 
+
+" Don't redraw while executing macros (good performance config)
+set lazyredraw 
+
+" For regular expressions turn magic on
+set magic
+
+" Show matching brackets when text indicator is over them
+set showmatch 
+" How many tenths of a second to blink when matching brackets
+set mat=2
+
+" No annoying sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+" Add a bit extra margin to the left
+set foldcolumn=1
+
+" Always show number
+set number
+
+" Don't show the relative number by default
+set norelativenumber
+
+" }}}
+
+" Colors and Fonts {{{
+
+" Enable syntax highlighting
+syntax enable 
+
+" Enable 256 colors palette in Gnome Terminal
+if $COLORTERM == 'gnome-terminal'
+    set t_Co=256
+endif
+
+set background=dark
+
+" Set extra options when running in GUI mode
+if has("gui_running")
+   " ColorScheme
+   try
+      colorscheme selenitic
+   catch
+      colorscheme elflord
+   endtry
+
+   " Font
+   try
+      set guifont=Anonymous_Pro:h11:cANSI
+   catch
+   endtry
+
+   " Hide the mouse cursor when typing
+   set mousehide
+
+   set guioptions=b
+   set guioptions-=T
+   set guioptions-=e
+   set t_Co=256
+   set guitablabel=%M\ %t
+else
+   colorscheme elflord
+endif
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+" }}}
+
+" Files, Backups, and Undo {{{
+
+if s:running_windows && $storage != ""
+   set backup
+   set undofile
+	set backupdir=$storage\\_backup
+	set undodir=$storage\\_undo
+	set directory=$storage\\_temp
+else
+   set nobackup
+   set noundofile
+endif
+set noswapfile
+
+" }}}

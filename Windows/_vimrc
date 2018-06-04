@@ -1,3 +1,4 @@
+" vim:fdm=marker
 
 let homedir="C:\\Users\\TiminsKy"
 let $home = "C:\\Users\\Timinsky"
@@ -133,7 +134,7 @@ if has("gui_running")
      "set guifont=Consolas:h9:cANSI " My favorite font
      "colorscheme fu
      colorscheme selenitic
-     set guifont=Anonymous_Pro:h11:cANSI:qDraft
+     set guifont=Anonymous_Pro:h11:cANSI
      set guioptions+=ceb
      "               |||
      "               ||+-- use horizontal scroll bar
