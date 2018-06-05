@@ -131,7 +131,7 @@ call plug#begin('~/.vim/plugged')
    Plug 'vim-scripts/marvim'
    Plug 'scrooloose/vim-slumlord'
    Plug 'aklt/plantuml-syntax'
-   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+   Plug 'Shougo/vimproc.vim'
    Plug 'vim-syntastic/syntastic'
    Plug 'hallettj/jslint.vim'
    Plug 'severin-lemaignan/vim-minimap'
@@ -156,6 +156,10 @@ call plug#begin('~/.vim/plugged')
    Plug 'python-mode/python-mode'
    Plug 'sukima/xmledit'
    Plug 'jiangmiao/auto-pairs'
+
+   " Completion {{{
+   Plug 'OmniSharp/omnisharp-vim'
+   " }}}
 
    " Movement {{{
    Plug 'yuttie/comfortable-motion.vim'
@@ -184,7 +188,7 @@ call plug#begin('~/.vim/plugged')
    " }}}
 
    " Search {{{
-   "Plug 'ctrlpvim/ctrlp.vim'
+   Plug 'ctrlpvim/ctrlp.vim'
    " }}}
 
    " Comments {{{
@@ -514,16 +518,16 @@ let g:syntastic_cs_checkers = ['code_checker']
 let g:airline#extensions#syntastic#enabled=1
 
 " syntastic error_symbol >
-  let airline#extensions#syntastic#error_symbol = 'E:'
+let airline#extensions#syntastic#error_symbol = 'E:'
 
 " syntastic statusline error format (see |syntastic_stl_format|) >
-  let airline#extensions#syntastic#stl_format_err = '%E{[%e(#%fe)]}'
+let airline#extensions#syntastic#stl_format_err = '%E{[%e(#%fe)]}'
 
 " syntastic warning >
-  let airline#extensions#syntastic#warning_symbol = 'W:'
+let airline#extensions#syntastic#warning_symbol = 'W:'
 
 " syntastic statusline warning format (see |syntastic_stl_format|) >
-  let airline#extensions#syntastic#stl_format_warn = '%W{[%w(#%fw)]}'
+let airline#extensions#syntastic#stl_format_warn = '%W{[%w(#%fw)]}'
 
 " }}}
 
@@ -660,6 +664,98 @@ set hidden
 
 nnoremap <leader>bn :bnext<CR>
 nnoremap <leader>bp :bprev<CR>
+
+" }}}
+
+" OmniSharp {{{
+
+" OmniSharp Server Path to EXE
+let g:OmniSharp_Server_path = 'C:\Users\TiminsKY\.omnisharp\OmniSharp.exe'
+
+" Select plugin for Code Actions and Find Symbols
+let g:OmniSharp_selector_ui = 'ctrlp'  " Use ctrlp
+" let g:OmniSharp_selector_ui = ''     " Use vim - command line, quickfix,  etc...
+
+" Automatically stop the server on close
+let g:OmniSharp_stop_server = 2
+
+" Set the type lookup function to use the preview window instead of echoing it
+let g:OmniSharp_typeLookupInPreview = 1
+
+" Timeout in seconds to wait for a response from the server
+let g:OmniSharp_timeout = 1
+
+" Don't autoselect first omnicomplete option, show options even if there is only
+" one (so the preview documentation is accessible). Remove 'preview' if you
+" don't want to see any documentation whatsoever.
+set completeopt=longest,menuone,preview
+
+" Set desired preview window height for viewing documentation.
+" You might also want to look at the echodoc plugin.
+set previewheight=5
+
+augroup omnisharp_commands
+    autocmd!
+
+    " Synchronous build (blocks Vim)
+    "autocmd FileType cs nnoremap <buffer> <F5> :wa!<CR>:OmniSharpBuild<CR>
+    " Builds can also run asynchronously with vim-dispatch installed
+    autocmd FileType cs nnoremap <buffer> <Leader>b :wa!<CR>:OmniSharpBuildAsync<CR>
+    " Automatic syntax check on events (TextChanged requires Vim 7.4)
+    autocmd BufEnter,TextChanged,InsertLeave *.cs SyntasticCheck
+
+    " Automatically add new cs files to the nearest project on save
+    autocmd BufWritePost *.cs call OmniSharp#AddToProject()
+
+    " Show type information automatically when the cursor stops moving
+    autocmd CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
+
+    " The following commands are contextual, based on the cursor position.
+    autocmd FileType cs nnoremap <buffer> gd :OmniSharpGotoDefinition<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>fi :OmniSharpFindImplementations<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>fs :OmniSharpFindSymbol<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>fu :OmniSharpFindUsages<CR>
+
+    " Finds members in the current buffer
+    autocmd FileType cs nnoremap <buffer> <Leader>fm :OmniSharpFindMembers<CR>
+
+    " Cursor can be anywhere on the line containing an issue
+    autocmd FileType cs nnoremap <buffer> <Leader>x  :OmniSharpFixIssue<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>fx :OmniSharpFixUsings<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>tt :OmniSharpTypeLookup<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>dc :OmniSharpDocumentation<CR>
+
+    " Navigate up and down by method/property/field
+    autocmd FileType cs nnoremap <buffer> <C-k> :OmniSharpNavigateUp<CR>
+    autocmd FileType cs nnoremap <buffer> <C-j> :OmniSharpNavigateDown<CR>
+augroup END
+
+" Contextual code actions (uses fzf, CtrlP or unite.vim when available)
+nnoremap <Leader><Space> :OmniSharpGetCodeActions<CR>
+" Run code actions with text selected in visual mode to extract method
+xnoremap <Leader><Space> :call OmniSharp#GetCodeActions('visual')<CR>
+
+" Rename with dialog
+nnoremap <Leader>nm :OmniSharpRename<CR>
+nnoremap <F2> :OmniSharpRename<CR>
+" Rename without dialog - with cursor on the symbol to rename: `:Rename newname`
+command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
+
+" Force OmniSharp to reload the solution. Useful when switching branches etc.
+nnoremap <Leader>rl :OmniSharpReloadSolution<CR>
+nnoremap <Leader>cf :OmniSharpCodeFormat<CR>
+" Load the current .cs file to the nearest project
+nnoremap <Leader>tp :OmniSharpAddToProject<CR>
+
+" Start the omnisharp server for the current solution
+nnoremap <Leader>ss :OmniSharpStartServer<CR>
+nnoremap <Leader>sp :OmniSharpStopServer<CR>
+
+" Add syntax highlighting for types and interfaces
+nnoremap <Leader>th :OmniSharpHighlightTypes<CR>
+
+" Enable snippet completion
+" let g:OmniSharp_want_snippet=1
 
 " }}}
 
