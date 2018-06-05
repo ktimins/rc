@@ -491,6 +491,10 @@ map <leader>q :e ~/buffer<cr>
 " Quickly open a markdown buffer for scribble
 map <leader>x :e ~/buffer.md<cr>
 
+" Set the filetyp for W files to be TXT
+au BufRead *.W set filetype=txt
+au BufRead *.W set nowrap
+
 " }}}
 
 " Startify {{{
@@ -506,7 +510,11 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_json_checkers = ['jsonlint']
-let g:syntastic_cs_checkers = ['code_checker']
+"let g:syntastic_cs_checkers = ['code_checker']
+let g:syntastic_cs_checkers = ['mcs']
+let g:syntastic_python_checkers = ['python']
+let g:syntastic_html_checkers = ['eslint']
+let g:syntastic_javascript_checkers = ['eslint']
 
 " }}}
 
@@ -683,7 +691,10 @@ let g:OmniSharp_stop_server = 2
 let g:OmniSharp_typeLookupInPreview = 1
 
 " Timeout in seconds to wait for a response from the server
-let g:OmniSharp_timeout = 1
+let g:OmniSharp_timeout = 10
+
+let g:OmniSharp_server_type = 'roslyn'
+let g:OmniSharp_prefer_global_sln = 1
 
 " Don't autoselect first omnicomplete option, show options even if there is only
 " one (so the preview documentation is accessible). Remove 'preview' if you
@@ -756,6 +767,12 @@ nnoremap <Leader>th :OmniSharpHighlightTypes<CR>
 
 " Enable snippet completion
 " let g:OmniSharp_want_snippet=1
+
+" }}}
+
+" GitGutter {{{
+
+let g:gitgutter_max_sign=2000
 
 " }}}
 
