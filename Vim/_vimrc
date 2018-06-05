@@ -36,6 +36,13 @@ set timeoutlen=500
 " Set to auto read when a file is changed from the outside
 "set autoread
 
+" Set undo stuff {{{
+" Persistent Undo
+set undolevels=1000
+" To undo forced reload with :e!
+set undoreload=10000
+" }}}
+
 " }}}
 
 " VIM User Interface {{{
@@ -108,6 +115,59 @@ set norelativenumber
 
 " }}}
 
+" Vim-Plug {{{
+
+call plug#begin('~/.vim/plugged')
+
+   Plug 'nathanaelkane/vim-indent-guides'
+   Plug 'godlygeek/tabular'
+   Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle' }
+   Plug 'mbbill/undotree'
+   Plug 'majutsushi/tagbar'
+   Plug 'chrisbra/csv.vim'
+   Plug 'vim-scripts/PatternsOnText'
+   Plug 'vim-scripts/marvim'
+   Plug 'vim-scripts/fu'
+   Plug 'scrooloose/vim-slumlord'
+   Plug 'aklt/plantuml-syntax'
+   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+   Plug 'vim-syntastic/syntastic'
+   Plug 'hallettj/jslint.vim'
+   Plug 'vim-scripts/Selenitic'
+   Plug 'severin-lemaignan/vim-minimap'
+   Plug 'elzr/vim-json'
+   Plug 'XadillaX/json-formatter.vim'
+   Plug 'andymass/vim-matchup'
+   Plug 'vim-scripts/align'
+   Plug 'shime/vim-livedown'
+   Plug 'editorconfig/editorconfig-vim'
+   Plug 'sjl/gundo.vim'
+   Plug 'nathanaelkane/vim-indent-guides'
+   Plug 'scrooloose/nerdcommenter'
+   Plug 'tpope/vim-repeat'
+   Plug 'tpope/vim-surround'
+   Plug 'tpope/vim-dispatch'
+   Plug 'tomtom/tcomment_vim'
+   Plug 'wellle/visual-split.vim'
+   Plug 'maxbrunsfeld/vim-yankstack'
+   Plug 'tpope/vim-fugitive'
+   Plug 'airblade/vim-gitgutter'
+   Plug 'mhinz/vim-signify'
+   Plug 'mhinz/vim-startify'
+   Plug 'OrangeT/vim-csharp'
+   Plug 'devjoe/vim-codequery'
+   Plug 'honza/vim-snippets'
+   Plug 'othree/javascript-libraries-syntax.vim'
+   Plug 'python-mode/python-mode'
+   Plug 'sukima/xmledit'
+   Plug 'jiangmiao/auto-pairs'
+   Plug 'kien/ctrlp.vim'
+   Plug 'bling/vim-airline'
+
+call plug#end()
+
+" }}}
+
 " Colors and Fonts {{{
 
 " Enable syntax highlighting
@@ -168,5 +228,388 @@ else
    set noundofile
 endif
 set noswapfile
+
+" }}}
+
+" Text, Tab, and Indent related {{{
+
+" Use spaces instead of tabs
+set expandtab
+
+" Be smart when using tabs ;)
+set smarttab
+
+" 1 tab == 3 spaces
+set shiftwidth=3
+set tabstop=3
+
+if has("autocmd")
+   filetype plugin indent on
+   set shellslash
+   set grepprg=grep\ -nH\ $*
+   "let g:tex_flavor='latex'
+
+   augroup vimrcEx
+      au!
+      autocmd FileType txt setlocal textwidth=130
+      autocmd BufReadPost *
+               \ if line("'\"") >= 1 && line("'\"") <= line("$") |
+               \  exe "normal! g`\"" |
+               \ endif
+   augroup END
+else
+   set autoindent
+endif
+
+set si "Smart indent
+set wrap "Wrap lines
+
+" }}}
+
+" Diff {{{
+
+if !exists(":DiffOrig")
+   command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+            \ | wincmd p | diffthis
+endif
+
+" }}}
+
+" Visual Mode related {{{
+
+" Visual mode pressing * or # searches for the current selection
+" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+
+" }}}
+
+" Moving Around, Tabs, Windows, Buffers {{{
+
+" Disable highlight when <leader><cr> is pressed
+map <silent> <leader><cr> :noh<cr>
+
+" Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+" Close the current buffer
+map <leader>bd :Bclose<cr>:tabclose<cr>gT
+
+" Close all the buffers
+map <leader>ba :bufdo bd<cr>
+
+map <leader>l :bnext<cr>
+map <leader>h :bprevious<cr>
+
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" Specify the behavior when switching between buffers 
+try
+  set switchbuf=useopen,usetab,newtab
+  set stal=2
+catch
+endtry
+
+" Return to last edit position when opening files (You want this!)
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+" }}}
+
+" Status Line {{{
+
+" Always show the status line
+set laststatus=2
+
+" }}}
+
+" Editing Mappings {{{
+" }}}
+
+" Spell Checking {{{
+
+" Pressing ,ss will toggle and untoggle spell checking
+map <leader>ss :setlocal spell!<cr>
+
+" Shortcuts using <leader>
+map <leader>sn ]s
+map <leader>sp [s
+map <leader>sa zg
+map <leader>s? z=
+
+" }}}
+
+" Languages {{{
+
+
+"""""""""""""
+"   JSON    "
+"""""""""""""
+au! BufRead, BufNewFile *.json set filetype=json
+
+au FileType json exe ":silent ! ctags -R %"
+au FileType json exe ":silent %!python -m json.tool"
+
+augroup json_autocmd 
+  autocmd! 
+  autocmd FileType json set autoindent 
+  autocmd FileType json set formatoptions=tcq2l 
+  autocmd FileType json set shiftwidth=3 
+  autocmd FileType json set softtabstop=3 tabstop=8 
+  autocmd FileType json set expandtab 
+  autocmd FileType json set foldmethod=syntax 
+  autocmd BufNewFile,BufRead *.json nnoremap f== :%!python -m json.tool<CR>
+augroup END
+
+"""""""""""""
+"    XML    "
+"""""""""""""
+au BufRead, BufNewFile *.sln set filetype=sln
+let g:xml_syntax_folding=1
+au BufRead, BufNewFile *.xml set filetype=xml
+au BufRead, BufNewFile *.xsd set filetype=xsd
+
+au FileType xsd exe ":silent ! ctags -R %"
+au FileType xsd exe ":silent %!xmllint --format -"
+augroup xml
+   autocmd!
+   autocmd FileType xsd set cindent
+   autocmd FileType xsd set formatoptions=tcq2l
+   autocmd FileType xsd set shiftwidth=3 
+   autocmd FileType xsd set softtabstop=3 tabstop=8 
+   autocmd FileType xsd set expandtab 
+   autocmd FileType xsd set foldmethod=indent 
+   autocmd FileType xsd exe ":silent %!xmllint --format --encode utf-8 -"
+   autocmd FileType xsd noremap <buffer> <silent> f== :%!xmllint --format %<CR>
+augroup END
+
+au FileType xml exe ":silent ! ctags -R %"
+au FileType xml exe ":silent %!xmllint --format -"
+augroup xml
+   autocmd!
+   autocmd FileType xml set cindent
+   autocmd FileType xml set formatoptions=tcq2l
+   autocmd FileType xml set shiftwidth=3 
+   autocmd FileType xml set softtabstop=3 tabstop=8 
+   autocmd FileType xml set expandtab 
+   autocmd FileType xml set foldmethod=indent 
+   au FileType xml exe ":silent %!xmllint --format --encode utf-8 -"
+"   au FileType xml exe ":silent %s/\%x00//g"
+   autocmd FileType xml noremap <buffer> <silent> f== :%!xmllint --format %<CR>
+augroup END
+
+au! BufRead, BufNewFile *.xaml set filetype=xaml
+augroup xaml
+   autocmd!
+   autocmd FileType xaml set cindent
+"   autocmd FileType xaml set formatoptions=tcq2l
+   autocmd FileType xaml set shiftwidth=3 
+   autocmd FileType xaml set softtabstop=3 tabstop=8 
+   autocmd FileType xaml set expandtab 
+   autocmd FileType xaml set foldmethod=indent 
+augroup END
+
+"""""""""""""
+"    PS1    "
+"""""""""""""
+au FileType ps1 exe ":silent ! ctags -R %"
+au! BufRead, BufNewFile *.ps1 set filetype=ps1
+augroup ps1
+   autocmd!
+   autocmd FileType ps1 set cindent
+   autocmd FileType ps1 set formatoptions=tcq2l
+   autocmd FileType ps1 set shiftwidth=3 
+   autocmd FileType ps1 set softtabstop=3 tabstop=8 
+   autocmd FileType ps1 set expandtab 
+   autocmd FileType ps1 set foldmethod=indent 
+augroup END
+
+"""""""""""""
+"    VB     "
+"""""""""""""
+au BufNewFile,BufRead *.cls         call dist#ft#FTVB("vb")
+au BufNewFile,BufRead *.bas         call dist#ft#FTVB("vb")
+"au BufRead, BufNewFile *.cls set filetype=vb
+au FileType vb exe ":silent ! ctags -R %"
+au FileType cls exe ":silent ! ctags -R %"
+au FileType bas exe ":silent ! ctags -R %"
+au! BufRead, BufNewFile *.bas set filetype=vb
+
+" }}}
+
+" Misc {{{
+
+" Remove the Windows ^M - when the encodings gets messed up
+noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+" Quickly open a buffer for scribble
+map <leader>q :e ~/buffer<cr>
+
+" Quickly open a markdown buffer for scribble
+map <leader>x :e ~/buffer.md<cr>
+
+" }}}
+
+" Startify {{{
+
+let g:startify_bookmarks = [ {'c': 'C:/Users/rzite/Git/rc/Vim/_vimrc'} ]
+
+" }}}
+
+" Syntastic {{{
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_json_checkers = ['jsonlint']
+let g:syntastic_cs_checkers = ['code_checker']
+
+" }}}
+
+" TagBar {{{ 
+"
+noremap <silent> <F10> :TagbarToggle<CR>
+
+let g:tagbar_ctags_bin = 'C:\Users\TiminsKY\bin\ctags\ctags.exe'
+let g:tagbar_type_psm1 = {
+   \ 'ctagstype' : 'powershell',
+   \ 'kinds'     : [
+      \ 'f:function',
+      \ 'h:functionCall',
+      \ 'i:filter',
+      \ 'a:alias',
+      \ 'r:region'
+   \ ]
+\ }
+let g:tagbar_type_ps1 = {
+   \ 'ctagstype' : 'powershell',
+   \ 'kinds'     : [
+      \ 'f:function',
+      \ 'c:class',
+      \ 'd:class inherited',
+      \ 'h:functionCall',
+      \ 'i:filter',
+      \ 'a:alias',
+      \ 'r:region'
+   \ ]
+\ }
+let g:tagbar_type_vb = {
+   \ 'ctagstype' : 'vb',
+   \ 'kinds'     : [
+      \ 's:subroutine',
+      \ 'f:function',
+      \ 'm:module variable',
+      \ 'g:global variable',
+      \ 'c:const',
+      \ 'n:name',
+      \ 'e:enum',
+      \ 't:type',
+      \ 'l:label'
+   \ ]   
+\ }
+let g:tagbar_type_cls = {
+   \ 'ctagstype' : 'vb',
+   \ 'kinds'     : [
+      \ 's:subroutine',
+      \ 'f:function',
+      \ 'm:module variable',
+      \ 'g:global variable',
+      \ 'c:const',
+      \ 'n:name',
+      \ 'e:enum',
+      \ 't:type',
+      \ 'l:label'
+   \ ]   
+\ }
+let g:tagbar_type_bas = {
+   \ 'ctagstype' : 'vb',
+   \ 'kinds'     : [
+      \ 's:subroutine',
+      \ 'f:function',
+      \ 'm:module variable',
+      \ 'g:global variable',
+      \ 'c:const',
+      \ 'n:name',
+      \ 'e:enum',
+      \ 't:type',
+      \ 'l:label'
+   \ ]   
+\ }
+let g:tagbar_type_xml = {
+   \ 'ctagstype'  : 'XML',
+   \ 'kinds'      : [
+      \ 'n:node set',
+      \ 't:tagname'
+   \ ]
+\ }
+let g:tagbar_type_xsd = {
+   \ 'ctagstype'  : 'XSD',
+   \ 'kinds'      : [
+      \ 'c:ComplexType',
+      \ 's:SimpleType',
+      \ 'e:Element'
+   \ ]
+\ }
+
+" }}}
+
+" Vim Indent Guides {{{
+
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_start_level = 2
+let g:indent_guides_indent_levels = 30
+let g:indent_guides_guide_size = 1
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
+
+" }}}
+
+" Nerd Tree {{{
+
+autocmd StdinReadPre * let s:std_in=1
+noremap <C-n> :NERDTreeToggle<CR>
+noremap <C-z> :UndotreeToggle<CR>
+
+" }}}
+
+" Colemak {{{
+
+noremap! e f
+noremap! r p
+noremap! t g
+noremap! y j
+noremap! u l
+noremap! i u
+noremap! o y
+noremap! p ;
+noremap! s r
+noremap! d s
+noremap! f t
+noremap! g d
+noremap! j n
+noremap! k e
+noremap! l i
+noremap! ; o
+noremap! n k
+noremap! E F
+noremap! R P
+noremap! T G
+noremap! Y J
+noremap! U L
+noremap! I U
+noremap! O Y
+noremap! P :
+noremap! S R
+noremap! D S
+noremap! F T
+noremap! G D
+noremap! J N
+noremap! K E
+noremap! L I
+noremap! : O
+noremap! N K
 
 " }}}
