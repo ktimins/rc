@@ -36,6 +36,9 @@ set timeoutlen=500
 " Set to auto read when a file is changed from the outside
 "set autoread
 
+" UTF-8 Encoding
+set encoding=utf-8
+
 " Set undo stuff {{{
 " Persistent Undo
 set undolevels=1000
@@ -135,7 +138,6 @@ call plug#begin('~/.vim/plugged')
    Plug 'hallettj/jslint.vim'
    Plug 'vim-scripts/Selenitic'
    Plug 'severin-lemaignan/vim-minimap'
-   Plug 'elzr/vim-json'
    Plug 'XadillaX/json-formatter.vim'
    Plug 'andymass/vim-matchup'
    Plug 'vim-scripts/align'
@@ -150,8 +152,6 @@ call plug#begin('~/.vim/plugged')
    Plug 'tomtom/tcomment_vim'
    Plug 'wellle/visual-split.vim'
    Plug 'maxbrunsfeld/vim-yankstack'
-   Plug 'tpope/vim-fugitive'
-   Plug 'airblade/vim-gitgutter'
    Plug 'mhinz/vim-signify'
    Plug 'mhinz/vim-startify'
    Plug 'OrangeT/vim-csharp'
@@ -161,8 +161,36 @@ call plug#begin('~/.vim/plugged')
    Plug 'python-mode/python-mode'
    Plug 'sukima/xmledit'
    Plug 'jiangmiao/auto-pairs'
-   Plug 'kien/ctrlp.vim'
+
+   " Tabs {{{
+   Plug 'ap/vim-buftabline'
+   " }}}
+
+   " Syntax {{{
+   Plug 'elzr/vim-json'
+   Plug 'othree/html5.vim'
+   Plug 'sheerun/vim-polyglot'
+   
+   " }}}
+
+   " Search {{{
+   "Plug 'ctrlpvim/ctrlp.vim'
+   " }}}
+
+   " Comments {{{
+   Plug 'scrooloose/nerdcommenter'
+   " }}}
+
+   " Git {{{
+   Plug 'tpope/vim-fugitive'
+   Plug 'junegunn/gv.vim'
+   Plug 'airblade/vim-gitgutter'
+   " }}}
+
+   " Status Line {{{
    Plug 'bling/vim-airline'
+   Plug 'vim-airline/vim-airline-themes'
+   " }}}
 
 call plug#end()
 
@@ -191,7 +219,7 @@ if has("gui_running")
 
    " Font
    try
-      set guifont=Anonymous_Pro:h11:cANSI
+      set guifont=Anonymous_Pro:h11
    catch
    endtry
 
@@ -470,11 +498,52 @@ let g:syntastic_cs_checkers = ['code_checker']
 
 " }}}
 
+" Airline {{{
+
+" Syntastic {{{{
+
+" Enable Syntastic integration
+let g:airline#extensions#syntastic#enabled=1
+
+" syntastic error_symbol >
+  let airline#extensions#syntastic#error_symbol = 'E:'
+
+" syntastic statusline error format (see |syntastic_stl_format|) >
+  let airline#extensions#syntastic#stl_format_err = '%E{[%e(#%fe)]}'
+
+" syntastic warning >
+  let airline#extensions#syntastic#warning_symbol = 'W:'
+
+" syntastic statusline warning format (see |syntastic_stl_format|) >
+  let airline#extensions#syntastic#stl_format_warn = '%W{[%w(#%fw)]}'
+
+" }}}
+
+" Tagbar {{{
+
+" enable/disable tagbar integration 
+  let g:airline#extensions#tagbar#enabled = 1
+
+" change how tags are displayed (:help tagbar-statusline) 
+  let g:airline#extensions#tagbar#flags = ''
+  let g:airline#extensions#tagbar#flags = 'f'
+  let g:airline#extensions#tagbar#flags = 's'
+  let g:airline#extensions#tagbar#flags = 'p'
+
+" }}} 
+
+" }}}
+
 " TagBar {{{ 
 "
 noremap <silent> <F10> :TagbarToggle<CR>
 
-let g:tagbar_ctags_bin = 'C:\Users\TiminsKY\bin\ctags\ctags.exe'
+if $LOCATION == "WORK"
+   let g:tagbar_ctags_bin = 'C:\Users\TiminsKY\bin\ctags\ctags.exe'
+elseif $LOCATION == "THEIA"
+   let g:tagbar_ctags_bin = 'C:\ProgramData\chocolatey\bin\ctags.exe'
+endif
+
 let g:tagbar_type_psm1 = {
    \ 'ctagstype' : 'powershell',
    \ 'kinds'     : [
@@ -485,6 +554,7 @@ let g:tagbar_type_psm1 = {
       \ 'r:region'
    \ ]
 \ }
+
 let g:tagbar_type_ps1 = {
    \ 'ctagstype' : 'powershell',
    \ 'kinds'     : [
@@ -572,6 +642,16 @@ let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 autocmd StdinReadPre * let s:std_in=1
 noremap <C-n> :NERDTreeToggle<CR>
 noremap <C-z> :UndotreeToggle<CR>
+
+" }}}
+
+" BufTabLine {{{
+
+" Keep buffers open without displaying them on the screen
+set hidden
+
+nnoremap <leader>bn :bnext<CR>
+nnoremap <leader>bp :bprev<CR>
 
 " }}}
 
