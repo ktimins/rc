@@ -126,7 +126,6 @@ call plug#begin('~/.vim/plugged')
    Plug 'vim-scripts/PatternsOnText'
    Plug 'vim-scripts/marvim'
    Plug 'scrooloose/vim-slumlord'
-   Plug 'hallettj/jslint.vim'
    Plug 'XadillaX/json-formatter.vim'
    Plug 'andymass/vim-matchup'
    Plug 'shime/vim-livedown'
@@ -326,7 +325,6 @@ if has("autocmd")
 
    augroup vimrcEx
       au!
-      autocmd FileType txt setlocal textwidth=130
       autocmd BufReadPost *
                \ if line("'\"") >= 1 && line("'\"") <= line("$") |
                \  exe "normal! g`\"" |
@@ -337,7 +335,6 @@ else
 endif
 
 set si "Smart indent
-set wrap "Wrap lines
 
 " }}}
 
@@ -561,9 +558,6 @@ map <leader>q :e ~/buffer<cr>
 
 " Quickly open a markdown buffer for scribble
 map <leader>x :e ~/buffer.md<cr>
-
-" Set no wrap
-set nowrap
 
 " }}}
 
