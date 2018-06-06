@@ -203,6 +203,7 @@ call plug#begin('~/.vim/plugged')
    Plug 'sheerun/vim-polyglot'
    Plug 'OrangeT/vim-csharp'
    Plug 'othree/javascript-libraries-syntax.vim'
+   Plug 'tacahiroy/vim-vb'
    " }}}
 
    " Coloring {{{
