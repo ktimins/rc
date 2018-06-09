@@ -1,218 +1,901 @@
-scriptencoding utf-8
-let homedir="C:\\Users\\TiminsKy"
-let $home = "C:\\Users\\Timinsky"
+" vim:fdm=marker
 
-" Startup
-let s:running_windows = has("win16") || has ("win32") || has ("win64")
-let s:colorful_term = (&term =~ "xterm") || (&term =~ "screen")
+" Location Stuff {{{1
 
-" Basics
-nmap , <leader>
-set nocompatible
-set background=dark
-set fenc=utf-8
-set cpoptions=aABceFsmq
- "             |||||||||
- "             ||||||||+-- When joining lines, leave the cursor between joined lines
- "             |||||||+-- When a new match is created (showmatch) pause for .5
- "             ||||||+-- Set buffer options when entering the buffer
- "             |||||+-- :write command updates current file name automatically add <CR> to the last line when using :@r
- "             |||+-- Searching continues at the end of the match at the cursor position
- "             ||+-- A backslash has no special meaning in mappings
- "             |+-- :write updates alternative file name
- "             +-- :read updates alternative file name
-syntax on
-set history=9999
-set timeoutlen=500
-set formatoptions+=n
-set formatlistpat=^\\s*\\(\\d\\\|[-*]\\)\\+[\\]:.)}\\t\ ]\\s*
-set viminfo+=!
-set nomore
-set ttyfast
-set ttyscroll=5
-set number
-set norelativenumber
-map <F3> ggVGg?
-map <C-C> <Esc>
+   if $LOCATION ==? 'WORK'
+      let homedir = 'C:\\Users\\TiminsKy'
+      let $home = 'C:\\Users\\Timinsky'
+      let $storage = 'F:\\vim'
+   elseif $LOCATION ==? 'THEIA'
+      let homedir = 'C:\\Users\\rzite'
+      let $home = 'C:\\Users\\rzite'
+      let $storage = 'C:\\Users\\rzite\\.vimstorage'
+   else 
+      let $storage = ''
+   endif
 
-set noerrorbells
-set novisualbell
-set t_vb=
+" }}}
 
-set t_ut=
+" General {{{1
 
-filetype plugin indent on
-set backspace=indent,eol,start
-runtime! ftdetect*.vim
-set backup
-"set backupdir=$home/_backup
-"set directory=$home/_backup
-set undofile
+   " Startup {{{2
 
-if s:running_windows
-	set backupdir=$home\\_backup
-	set undodir=$home\\_undo
-	set directory=$home\\_temp
-endif
-set noswapfile
+      let s:running_windows = has('win16') || has ('win32') || has ('win64')
+      let s:colorful_term = (&term =~? 'xterm') || (&term =~? 'screen')
 
-set fileformats=dos
-set wildmenu
-set wildignore=*.pdf,*.pyo,*.pyc,*.zip,*.so,*.swp,*.dll,*.o,*.DS_Store,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png,*.a " ignore these
- if s:running_windows
-     set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*,*\\bin\\*,*\\pkg\\*
- else
-     set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/bin/*,*/pkg/*
- endif
- set wildmode=list:longest " turn on wild mode huge list
- set viewoptions=folds,options,cursor,unix,slash " Windows/Linux compatibility
-" set nojoinspaces " Prevents inserting two spaces after punctuation on a join (J)
- set splitbelow " new splits are down
- set splitright " new vsplits are to the right
- set switchbuf=useopen " jump to first open window with buffer
+   " }}}
 
- set sidescroll=5 " If you hit edge, jump 5
- set scrolljump=5 " If you hit bottom or top, jump 5
- set laststatus=2
- set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
- "              | | | | |  |   |      |  |     |    |
- "              | | | | |  |   |      |  |     |    +-- current column
- "              | | | | |  |   |      |  |     +-- current line
- "              | | | | |  |   |      |  +-- current % into file
- "              | | | | |  |   |      +-- current syntax in square brackets
- "              | | | | |  |   +-- current fileformat
- "              | | | | |  |
- "              | | | | |  +-- number of lines
- "              | | | | +-- preview flag in square brackets
- "              | | | +-- help flag in square brackets
- "              | | +-- readonly flag in square brackets
- "              | +-- rodified flag in square brackets
- "              +-- full path to file in the buffer
+   " Leader
+   let mapleader = ','
 
-" Text Formatting/Layout
-" set completeopt=menuone " don't use a pop up menu for completions
-set diffopt=filler,iwhite " filler and whitespace
-set expandtab " no real tabs please!
-set formatoptions=rq " Automatically insert comment leader on return, and let gq format comments
-set ignorecase " case insensitive by default
-set infercase " case inferred by default
-set smartcase " if there are caps, go case-sensitive
-set nowrap " do not wrap line
-set textwidth=0 " No autowrapping
-set shiftround " when at 3 spaces, and I hit > ... go to 4, not 5
-set shiftwidth=3 " auto-indent amount when using cindent, >>, << and stuff like that
-set softtabstop=3 " when hitting tab or backspace, how many spaces should a tab be (see expandtab)
-set tabstop=3 " real tabs should be 8, and they will show with set list on
-set cinkeys-=0#
-set indentkeys-=0#
-set hlsearch
-nmap <silent> <leader>h nohl<CR>
-set incsearch
-set ai
-set cindent
-autocmd BufNewFile,BufRead *.txt set nocindent
- 
-" Folding
-set foldenable " Turn on folding
-set foldmethod=indent " Fold on the marker
-"set foldmarker={,} " use simple markers
-set foldlevel=100 " Don't autofold anything (but I can still fold manually)
-set foldnestmax=100 " I only like to fold outer functions
-set foldopen=block,hor,mark,percent,quickfix,tag " what movements open folds
-nnoremap <space> za
+   " Sets how many lines of history VIM has to remember
+   set history=9999
 
- 
-set undolevels=1000 " persistent undo
-set undoreload=10000 " to undo forced reload with :e! 
+   " Sets the timeout length
+   set timeoutlen=500
 
-if has("gui_running")
-     " Basics
-     "set guifont=Consolas:h9:cANSI " My favorite font
-     colorscheme fu
-     set guioptions+=ceb
-     "               |||
-     "               ||+-- use horizontal scroll bar
-     "               |+-- use simple dialogs rather than pop-ups
-     "               +-- use GUI tabs, not console style tabs
-     set mousehide " hide the mouse cursor when typing
-     nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
-     nnoremap <C-F2> :if &go=~#'T'<Bar>set go-=T<Bar>else<Bar>set go+=T<Bar>endif<CR>
-     nnoremap <C-F3> :if &go=~#'r'<Bar>set go-=r<Bar>else<Bar>set go+=r<Bar>endif<CR>
-else
-	colorscheme elflord
-endif
+   " Set to auto read when a file is changed from the outside
+   "set autoread
 
-if has("autocmd")
-   filetype plugin indent on
+   " UTF-8 Encoding
+   set encoding=utf-8
 
-   augroup vimrcEx
-      au!
-      autocmd FileType text setlocal textwidth=130
-      autocmd BufReadPost *
-               \ if line("'\"") >= 1 && line("'\"") <= line("$") |
-               \  exe "normal! g`\"" |
-               \ endif
+   " Set undo stuff {{{2
+      
+      " Persistent Undo
+      set undolevels=1000
+      " To undo forced reload with :e!
+      set undoreload=10000
+
+   " }}}
+
+" }}}
+
+" VIM User Interface {{{1
+
+   " Avoid garbled characters in Chinese language windows OS
+   let $LANG='en' 
+   set langmenu=en
+
+   " Turn on the Wild menu
+   set wildmenu
+
+   " Ignore compiled files
+   set wildignore=*.pdf,*.pyo,*.pyc,*.zip,*.so,*.swp,*.dll,*.o,*.DS_Store,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png,*.a " ignore these
+   if s:running_windows
+      set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*,*\\bin\\*,*\\pkg\\*
+   else
+      set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/bin/*,*/pkg/*
+   endif
+
+   "Always show current position
+   set ruler
+
+   " Height of the command bar
+   set cmdheight=2
+
+   " A buffer becomes hidden when it is abandoned
+   set hid
+
+   " Configure backspace so it acts as it should act
+   set backspace=indent,eol,start
+   set whichwrap+=<,>,h,l
+
+   " Ignore case when searching
+   set ignorecase
+
+   " When searching try to be smart about cases 
+   set smartcase
+
+   " Highlight search results
+   set hlsearch
+
+   " Makes search act like search in modern browsers
+   set incsearch 
+
+   " Don't redraw while executing macros (good performance config)
+   set lazyredraw 
+
+   " For regular expressions turn magic on
+   set magic
+
+   " Show matching brackets when text indicator is over them
+   set showmatch 
+   " How many tenths of a second to blink when matching brackets
+   set mat=2
+
+   " No annoying sound on errors
+   set noerrorbells
+   set novisualbell
+   set t_vb=
+   set tm=500
+
+   " Add a bit extra margin to the left
+   set foldcolumn=1
+
+" }}}
+
+" Vim-Plug {{{1
+
+   call plug#begin('~/.vim/plugged')
+
+      Plug 'godlygeek/tabular'
+      Plug 'vim-scripts/PatternsOnText'
+      Plug 'vim-scripts/marvim'
+      Plug 'scrooloose/vim-slumlord'
+      Plug 'andymass/vim-matchup'
+      Plug 'shime/vim-livedown'
+      Plug 'maxbrunsfeld/vim-yankstack'
+      Plug 'devjoe/vim-codequery'
+      Plug 'python-mode/python-mode'
+      Plug 'sukima/xmledit'
+      Plug 'jiangmiao/auto-pairs'
+
+      " Configuration {{{2
+         Plug 'editorconfig/editorconfig-vim'
+      " }}}
+
+      " Insert {{{2
+         Plug 'scrooloose/nerdcommenter'
+         Plug 'tpope/vim-repeat'
+         Plug 'tpope/vim-surround'
+         Plug 'honza/vim-snippets'
+         Plug 'vim-scripts/align'
+      " }}}
+
+      " Formatting {{{2
+         Plug 'chiel92/vim-autoformat'
+         Plug 'XadillaX/json-formatter.vim'
+      " }}}
+
+      " Checkers {{{2
+         Plug 'tpope/vim-dispatch'
+         Plug 'Shougo/vimproc.vim'
+         Plug 'vim-syntastic/syntastic'
+         Plug 'reedes/vim-wordy'
+      " }}}
+
+      " Undo {{{2
+         Plug 'sjl/gundo.vim'
+      " }}}
+
+      " Visual {{{2
+         Plug 'wellle/visual-split.vim'
+         Plug 'majutsushi/tagbar'
+         Plug 'nathanaelkane/vim-indent-guides'
+         Plug 'mhinz/vim-startify'
+         Plug 'chrisbra/csv.vim'
+         Plug 'severin-lemaignan/vim-minimap'
+         Plug 'nathanaelkane/vim-indent-guides'
+         Plug 'myusuf3/numbers.vim'
+      " }}}
+
+      " Completion {{{2
+         Plug 'OmniSharp/omnisharp-vim'
+      " }}}
+
+      " Movement {{{2
+         Plug 'yuttie/comfortable-motion.vim'
+      " }}}
+
+      " ColorSchemes {{{2
+         Plug 'vim-scripts/fu'
+         Plug 'vim-scripts/Selenitic'
+      " }}}
+
+      " NerdTree {{{2
+         Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle' }
+         Plug 'xuyuanp/nerdtree-git-plugin'
+      " }}}
+
+      " Tabs {{{2
+         Plug 'ap/vim-buftabline'
+      " }}}
+
+      " Syntax {{{2
+         Plug 'aklt/plantuml-syntax'
+         Plug 'elzr/vim-json'
+         Plug 'othree/html5.vim'
+         Plug 'sheerun/vim-polyglot'
+         Plug 'OrangeT/vim-csharp'
+         Plug 'othree/javascript-libraries-syntax.vim'
+         Plug 'tacahiroy/vim-vb'
+      " }}}
+
+      " Coloring {{{2
+         Plug 'ap/vim-css-color'
+      " }}}
+
+      " Search {{{2
+         Plug 'ctrlpvim/ctrlp.vim'
+      " }}}
+
+      " Comments {{{2
+         Plug 'scrooloose/nerdcommenter'
+      " }}}
+
+      " Source Control {{{2
+         Plug 'mhinz/vim-signify'
+         " Git {{{3
+            Plug 'tpope/vim-git'
+            Plug 'tpope/vim-fugitive'
+            Plug 'tpope/vim-rhubarb'
+            Plug 'junegunn/gv.vim'
+            Plug 'idanarye/vim-merginal'
+            Plug 'jreybert/vimagit'
+         " }}}
+      " }}}
+
+      " Status Line {{{2
+         Plug 'bling/vim-airline'
+         Plug 'vim-airline/vim-airline-themes'
+         Plug 'powerline/fonts'
+      " }}}
+
+   call plug#end()
+
+" }}}
+
+" Colors and Fonts {{{1
+
+   " Enable syntax highlighting
+   syntax enable 
+
+   " Enable 256 colors palette in Gnome Terminal
+   if $COLORTERM ==? 'gnome-terminal'
+       set t_Co=256
+   endif
+
+   " Set extra options when running in GUI mode
+   if has('gui_running')
+      " ColorScheme
+      try
+         "colorscheme selenitic
+         colorscheme fu
+      catch
+         colorscheme elflord
+      endtry
+
+      " Font
+      try
+         " Prefer Anonymice Powerline. This is Anonymous Pro, but with Powerline hacks
+         set guifont=Anonymice_Powerline:h11
+      catch
+         try
+            " Else, get normal Anonymous Pro
+            set guifont=Anonymous_Pro:h11
+         catch
+            " Failback to good old Courier New
+            set guitfont=Courier_New:h11
+         endtry
+      endtry
+
+      " Hide the mouse cursor when typing
+      set mousehide
+
+      set guioptions=b
+      set guioptions-=T
+      set guioptions-=e
+      set t_Co=256
+      set guitablabel=%M\ %t
+   else
+      colorscheme elflord
+   endif
+
+   " Set utf8 as standard encoding and en_US as the standard language
+   set encoding=utf8
+
+   " Use Unix as the standard file type
+   set ffs=unix,dos,mac
+
+" }}}
+
+" Files, Backups, and Undo {{{1
+
+   if s:running_windows && $storage !=? '' 
+      set backup
+      set undofile
+      set backupdir=$storage\\_backup
+      set undodir=$storage\\_undo
+      set directory=$storage\\_temp
+   else
+      set nobackup
+      set noundofile
+   endif
+   set noswapfile
+
+" }}}
+
+" Text, Tab, and Indent related {{{1
+
+   " Use spaces instead of tabs
+   set expandtab
+
+   " Be smart when using tabs ;)
+   set smarttab
+
+   " 1 tab == 3 spaces
+   set shiftwidth=3
+   set tabstop=3
+
+   if has('autocmd')
+      filetype plugin indent on
+      set shellslash
+      set grepprg=grep\ -nH\ $*
+      "let g:tex_flavor='latex'
+
+      augroup vimrcEx
+         au!
+         autocmd BufReadPost *
+                  \ if line('"\"') >= 1 && line('"\"') <= line('$') |
+                  \  exe "normal! g`\"" |
+                  \ endif
+      augroup END
+   else
+      set autoindent
+   endif
+
+   set si "Smart indent
+
+" }}}
+
+" Diff {{{1
+
+   if !exists(':DiffOrig')
+      command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+               \ | wincmd p | diffthis
+   endif
+
+" }}}
+
+" Visual Mode related {{{1
+
+   " Visual mode pressing * or # searches for the current selection
+   " Super useful! From an idea by Michael Naumann
+   vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+   vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+
+" }}}
+
+" Moving Around, Tabs, Windows, Buffers {{{1
+
+   " Disable highlight when <leader><cr> is pressed
+   map <silent> <leader><cr> :noh<cr>
+
+   " Smart way to move between windows
+   map <C-j> <C-W>j
+   map <C-k> <C-W>k
+   map <C-h> <C-W>h
+   map <C-l> <C-W>l
+
+   " Close the current buffer
+   map <leader>bd :Bclose<cr>:tabclose<cr>gT
+
+   " Close all the buffers
+   map <leader>ba :bufdo bd<cr>
+
+   " Switch CWD to the directory of the open buffer
+   map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+   " Specify the behavior when switching between buffers 
+   try
+     set switchbuf=useopen,usetab,newtab
+     set stal=2
+   catch
+   endtry
+
+   " Return to last edit position when opening files (You want this!)
+   augroup restart
+      au BufReadPost * if line('"\"') > 1 && line('"\"') <= line('$') | exe 'normal! g'\'' | endif
    augroup END
-else
-   set autoindent
-endif
 
-if !exists(":DiffOrig")
-   command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
-            \ | wincmd p | diffthis
-endif
+" }}}
 
-if has('langmap') && exists('+langnoremap')
-   set langnoremap
-endif
+" Status Line {{{1
 
-:let g:ps1_nofold_blocks = 1
+" Always show the status line
+set laststatus=2
 
-set shell=powershell
-set shellcmdflag=-command
+" Airline {{{2
 
-nmap <silent> <leader>x gg=G
-vmap <silent> <leader>x gg=G
+" Syntastic {{{{3
 
-noremap  <buffer> <silent> k gk
-noremap  <buffer> <silent> j gj
-"noremap  <buffer> <silent> 0 g0
-"noremap  <buffer> <silent> $ g$
+" Enable Syntastic integration
+let g:airline#extensions#syntastic#enabled=1
 
-"""""""""""""
-"  Colemak  "  
-"""""""""""""
-noremap! e f
-noremap! r p
-noremap! t g
-noremap! y j
-noremap! u l
-noremap! i u
-noremap! o y
-noremap! p ;
-noremap! s r
-noremap! d s
-noremap! f t
-noremap! g d
-noremap! j n
-noremap! k e
-noremap! l i
-noremap! ; o
-noremap! n k
-noremap! E F
-noremap! R P
-noremap! T G
-noremap! Y J
-noremap! U L
-noremap! I U
-noremap! O Y
-noremap! P :
-noremap! S R
-noremap! D S
-noremap! F T
-noremap! G D
-noremap! J N
-noremap! K E
-noremap! L I
-noremap! : O
-noremap! N K
+" syntastic error_symbol >
+let airline#extensions#syntastic#error_symbol = 'E:'
+
+" syntastic statusline error format (see |syntastic_stl_format|) >
+let airline#extensions#syntastic#stl_format_err = '%E{[%e(#%fe)]}'
+
+" syntastic warning >
+let airline#extensions#syntastic#warning_symbol = 'W:'
+
+" syntastic statusline warning format (see |syntastic_stl_format|) >
+let airline#extensions#syntastic#stl_format_warn = '%W{[%w(#%fw)]}'
+
+" }}}
+
+" Tagbar {{{3
+
+" enable/disable tagbar integration 
+  let g:airline#extensions#tagbar#enabled = 1
+
+" change how tags are displayed (:help tagbar-statusline) 
+  let g:airline#extensions#tagbar#flags = ''
+  let g:airline#extensions#tagbar#flags = 'f'
+  let g:airline#extensions#tagbar#flags = 's'
+  let g:airline#extensions#tagbar#flags = 'p'
+
+" }}} 
+
+" Powerline {{{3
+let g:airline_powerline_fonts=1
+" }}}
+
+" }}}
+
+" }}}
+
+" Spell Checking {{{1
+
+   " Pressing ,ss will toggle and untoggle spell checking
+   map <leader>ss :setlocal spell!<cr>
+
+   " Shortcuts using <leader>
+   map <leader>sn ]s
+   map <leader>sp [s
+   map <leader>sa zg
+   map <leader>s? z=
+
+" }}}
+
+" Languages {{{1
+
+   " All Languages {{{2
+
+      augroup all_autocmd
+         au FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+      augroup END
+   
+   " }}}
+
+   " JSON {{{2
+
+      augroup json
+        autocmd! 
+        au BufRead,BufNewFile json set filetype=json
+        au FileType json set autoindent 
+        au FileType json set formatoptions=tcq2l 
+        au FileType json set shiftwidth=4 
+        au FileType json set softtabstop=4 tabstop=4
+        au FileType json set expandtab 
+        au FileType json set foldmethod=syntax 
+        au BufNewFile,BufRead *.json nnoremap f== :%!python -m json.tool<CR>
+      augroup END
+
+   " }}}
+
+   " XML {{{2
+
+      augroup xml_grouping
+         au!
+         au FileType xml,xsd,sln,xaml let g:xml_syntax_folding
+         au FileType xml,xsd,sln,xaml set cindent
+         au FileType xml,xsd,sln,xaml set formatoptions=tcq2l
+         au FileType xml,xsd,sln,xaml set shiftwidth=3 
+         au FileType xml,xsd,sln,xaml set softtabstop=3 tabstop=8 
+         au FileType xml,xsd,sln,xaml set expandtab 
+         au FileType xml,xsd,sln,xaml set foldmethod=indent 
+      augroup END
+   
+      " SLN {{{3
+         augroup sln
+            au!
+            au BufRead, BufNewFile *.sln set filetype=sln
+         augroup END
+      " }}}
+      
+      " XSD {{{3
+
+         augroup xml
+            au!
+            au BufRead, BufNewFile *.xsd set filetype=xsd
+         augroup END
+
+      " }}}
+   
+      " XML {{{3
+      
+         augroup xml
+            au!
+            au BufRead, BufNewFile *.xml set filetype=xml
+         augroup END
+
+   " }}}
+
+      " XAML {{{3
+         augroup xaml
+            au!
+            au BufRead, BufNewFile *.xaml set filetype=xaml
+         augroup END
+      " }}}
+
+   " }}}
+
+   " Powershell {{{2
+
+      augroup ps1
+         au!
+         au BufRead, BufNewFile *.ps1 set filetype=ps1
+         au FileType ps1 set cindent
+         au FileType ps1 set formatoptions=tcq2l
+         au FileType ps1 set shiftwidth=3 
+         au FileType ps1 set softtabstop=3 tabstop=3
+         au FileType ps1 set expandtab 
+         au FileType ps1 set foldmethod=indent 
+      augroup END
+
+   " }}}
+
+   " Visual Basic {{{2
+
+      augroup vb
+         au!
+         au FileType vb,cls,bas set filetype=vb
+      augroup END
+
+   " }}}
+
+" }}}
+
+" Misc {{{1
+
+   " Remove the Windows ^M - when the encodings gets messed up
+   noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+   " Quickly open a buffer for scribble
+   map <leader>q :e ~/buffer<cr>
+
+   " Quickly open a markdown buffer for scribble
+   map <leader>x :e ~/buffer.md<cr>
+
+" }}}
+
+" Startify {{{1
+
+   if $LOCATION ==? 'WORK'
+      let g:startify_bookmarks = [ {'c': 'C:/Users/TiminsKy/Git/rc/Vim/_vimrc'} ]
+   elseif $LOCATION ==? 'THEIA'
+      let g:startify_bookmarks = [ {'c': 'C:/Users/rzite/Git/rc/Vim/_vimrc'} ]
+   endif
+
+" }}}
+
+" Syntastic {{{1
+
+   let g:syntastic_always_populate_loc_list = 1
+   let g:syntastic_auto_loc_list = 1
+   let g:syntastic_check_on_open = 1
+   let g:syntastic_check_on_wq = 0
+   let g:syntastic_json_checkers = ['jsonlint']
+   let g:syntastic_cs_checkers = ['mcs']
+   let g:syntastic_python_checkers = ['python']
+   let g:syntastic_html_checkers = ['tidy']
+   let g:syntastic_xml_checkers = ['tidy']
+   let g:syntastic_javascript_checkers = ['eslint']
+   let g:syntastic_vim_checkers = ['vint']
+
+" }}}
+
+" TagBar {{{1
+
+   " Map Tagbar 
+   noremap <silent> <F10> :TagbarToggle<CR>
+
+   " Tell Tagbar where ctags is
+   if $LOCATION ==? 'WORK'
+      let g:tagbar_ctags_bin = 'C:\Users\TiminsKY\bin\ctags\ctags.exe'
+   elseif $LOCATION ==? 'THEIA'
+      let g:tagbar_ctags_bin = 'C:\ProgramData\chocolatey\bin\ctags.exe'
+   endif
+
+   " Setup custom ctags settings
+   " Powershell {{{2
+      
+      " PS1 {{{3
+      
+         let g:tagbar_type_ps1 = {
+            \ 'ctagstype' : 'powershell',
+            \ 'kinds'     : [
+               \ 'f:function',
+               \ 'c:class',
+               \ 'd:class inherited',
+               \ 'h:functionCall',
+               \ 'i:filter',
+               \ 'a:alias',
+               \ 'r:region'
+            \ ]
+         \ }
+
+      " }}}
+
+      " PSM1 {{{3
+
+         let g:tagbar_type_psm1 = {
+            \ 'ctagstype' : 'powershell',
+            \ 'kinds'     : [
+               \ 'f:function',
+               \ 'h:functionCall',
+               \ 'i:filter',
+               \ 'a:alias',
+               \ 'r:region'
+            \ ]
+         \ }
+
+      " }}}
+
+   " Visual Basic {{{2
+
+      let g:tagbar_type_vb = {
+         \ 'ctagstype' : 'vb',
+         \ 'kinds'     : [
+            \ 's:subroutine',
+            \ 'f:function',
+            \ 'm:module variable',
+            \ 'g:global variable',
+            \ 'c:const',
+            \ 'n:name',
+            \ 'e:enum',
+            \ 't:type',
+            \ 'l:label'
+         \ ]   
+      \ }
+
+      let g:tagbar_type_cls = {
+         \ 'ctagstype' : 'vb',
+         \ 'kinds'     : [
+            \ 's:subroutine',
+            \ 'f:function',
+            \ 'm:module variable',
+            \ 'g:global variable',
+            \ 'c:const',
+            \ 'n:name',
+            \ 'e:enum',
+            \ 't:type',
+            \ 'l:label'
+         \ ]   
+      \ }
+
+      let g:tagbar_type_bas = {
+         \ 'ctagstype' : 'vb',
+         \ 'kinds'     : [
+            \ 's:subroutine',
+            \ 'f:function',
+            \ 'm:module variable',
+            \ 'g:global variable',
+            \ 'c:const',
+            \ 'n:name',
+            \ 'e:enum',
+            \ 't:type',
+            \ 'l:label'
+         \ ]   
+      \ }
+
+   " }}}
+
+   " XML {{{2
+
+      " XML {{{3
+
+         let g:tagbar_type_xml = {
+            \ 'ctagstype'  : 'XML',
+            \ 'kinds'      : [
+               \ 'n:node set',
+               \ 't:tagname'
+            \ ]
+         \ }
+
+      " }}}
+      
+      " XSD {{{3
+
+         let g:tagbar_type_xsd = {
+            \ 'ctagstype'  : 'XSD',
+            \ 'kinds'      : [
+               \ 'c:ComplexType',
+               \ 's:SimpleType',
+               \ 'e:Element'
+            \ ]
+         \ }
+
+      " }}}
+
+   " }}}
+
+" }}}
+
+" Vim Indent Guides {{{1
+
+   let g:indent_guides_enable_on_vim_startup = 1
+   let g:indent_guides_start_level = 2
+   let g:indent_guides_indent_levels = 30
+   let g:indent_guides_guide_size = 1
+   let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
+
+" }}}
+
+" Nerd Tree {{{1
+
+   augroup nerd_tree
+      au!
+      au StdinReadPre * let s:std_in=1
+   augroup END
+
+   noremap <C-n> :NERDTreeToggle<CR>
+   noremap <C-z> :UndotreeToggle<CR>
+
+" }}}
+
+" BufTabLine {{{1
+
+   " Keep buffers open without displaying them on the screen
+   set hidden
+
+   nnoremap <leader>bn :bnext<CR>
+   nnoremap <leader>bp :bprev<CR>
+
+" }}}
+
+" OmniSharp {{{1
+
+   " OmniSharp Server Path to EXE
+   if $LOCATION ==? 'WORK'
+      let g:OmniSharp_Server_path = 'C:\Users\TiminsKY\.omnisharp\OmniSharp.exe'
+   elseif $LOCATION ==? 'THEIA'
+      let g:OmniSHarp_Server_path = 'C:\Users\rzite\.omnisharp\OmniSharp.exe'
+   endif
+
+   " Select plugin for Code Actions and Find Symbols
+   let g:OmniSharp_selector_ui = 'ctrlp'  " Use ctrlp
+   " let g:OmniSharp_selector_ui = ''     " Use vim - command line, quickfix,  etc...
+
+   " Automatically stop the server on close
+   let g:OmniSharp_stop_server = 2
+
+   " Set the type lookup function to use the preview window instead of echoing it
+   let g:OmniSharp_typeLookupInPreview = 1
+
+   " Timeout in seconds to wait for a response from the server
+   let g:OmniSharp_timeout = 10
+
+   let g:OmniSharp_server_type = 'roslyn'
+   let g:OmniSharp_prefer_global_sln = 1
+
+   " Don't autoselect first omnicomplete option, show options even if there is only
+   " one (so the preview documentation is accessible). Remove 'preview' if you
+   " don't want to see any documentation whatsoever.
+   set completeopt=longest,menuone,preview
+
+   " Set desired preview window height for viewing documentation.
+   " You might also want to look at the echodoc plugin.
+   set previewheight=5
+
+   augroup omnisharp_commands
+       autocmd!
+
+       " Synchronous build (blocks Vim)
+       "autocmd FileType cs nnoremap <buffer> <F5> :wa!<CR>:OmniSharpBuild<CR>
+       " Builds can also run asynchronously with vim-dispatch installed
+       autocmd FileType cs nnoremap <buffer> <Leader>b :wa!<CR>:OmniSharpBuildAsync<CR>
+       " Automatic syntax check on events (TextChanged requires Vim 7.4)
+       autocmd BufEnter,TextChanged,InsertLeave *.cs SyntasticCheck
+
+       " Automatically add new cs files to the nearest project on save
+       autocmd BufWritePost *.cs call OmniSharp#AddToProject()
+
+       " Show type information automatically when the cursor stops moving
+       autocmd CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
+
+       " The following commands are contextual, based on the cursor position.
+       autocmd FileType cs nnoremap <buffer> gd :OmniSharpGotoDefinition<CR>
+       autocmd FileType cs nnoremap <buffer> <Leader>fi :OmniSharpFindImplementations<CR>
+       autocmd FileType cs nnoremap <buffer> <Leader>fs :OmniSharpFindSymbol<CR>
+       autocmd FileType cs nnoremap <buffer> <Leader>fu :OmniSharpFindUsages<CR>
+
+       " Finds members in the current buffer
+       autocmd FileType cs nnoremap <buffer> <Leader>fm :OmniSharpFindMembers<CR>
+
+       " Cursor can be anywhere on the line containing an issue
+       autocmd FileType cs nnoremap <buffer> <Leader>x  :OmniSharpFixIssue<CR>
+       autocmd FileType cs nnoremap <buffer> <Leader>fx :OmniSharpFixUsings<CR>
+       autocmd FileType cs nnoremap <buffer> <Leader>tt :OmniSharpTypeLookup<CR>
+       autocmd FileType cs nnoremap <buffer> <Leader>dc :OmniSharpDocumentation<CR>
+
+       " Navigate up and down by method/property/field
+       autocmd FileType cs nnoremap <buffer> <C-k> :OmniSharpNavigateUp<CR>
+       autocmd FileType cs nnoremap <buffer> <C-j> :OmniSharpNavigateDown<CR>
+   augroup END
+
+   " Contextual code actions (uses fzf, CtrlP or unite.vim when available)
+   nnoremap <Leader><Space> :OmniSharpGetCodeActions<CR>
+   " Run code actions with text selected in visual mode to extract method
+   xnoremap <Leader><Space> :call OmniSharp#GetCodeActions('visual')<CR>
+
+   " Rename with dialog
+   nnoremap <Leader>nm :OmniSharpRename<CR>
+   nnoremap <F2> :OmniSharpRename<CR>
+   " Rename without dialog - with cursor on the symbol to rename: `:Rename newname`
+   command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
+
+   " Force OmniSharp to reload the solution. Useful when switching branches etc.
+   nnoremap <Leader>rl :OmniSharpReloadSolution<CR>
+   nnoremap <Leader>cf :OmniSharpCodeFormat<CR>
+   " Load the current .cs file to the nearest project
+   nnoremap <Leader>tp :OmniSharpAddToProject<CR>
+
+   " Start the omnisharp server for the current solution
+   nnoremap <Leader>ss :OmniSharpStartServer<CR>
+   nnoremap <Leader>sp :OmniSharpStopServer<CR>
+
+   " Add syntax highlighting for types and interfaces
+   nnoremap <Leader>th :OmniSharpHighlightTypes<CR>
+
+   " Enable snippet completion
+   " let g:OmniSharp_want_snippet=1
+
+" }}}
+
+" Signify {{{1
+   let g:signify_vcs_list = [ 'git', 'tfs' ]
+   let g:signify_realtime = 1
+" }}}
+
+" Numbers {{{1
+   
+   let g:numbers_exclude = ['tagbar', 'gundo', 'nerdtree']
+
+" }}}
+
+" Colemak {{{1
+
+   " This hack allows me to type in insert mode and command 'bar' as colemak
+   " while keeping all commands as QWERTY
+   
+   noremap! e f
+   noremap! r p
+   noremap! t g
+   noremap! y j
+   noremap! u l
+   noremap! i u
+   noremap! o y
+   noremap! p ;
+   noremap! s r
+   noremap! d s
+   noremap! f t
+   noremap! g d
+   noremap! j n
+   noremap! k e
+   noremap! l i
+   noremap! ; o
+   noremap! n k
+   noremap! E F
+   noremap! R P
+   noremap! T G
+   noremap! Y J
+   noremap! U L
+   noremap! I U
+   noremap! O Y
+   noremap! P :
+   noremap! S R
+   noremap! D S
+   noremap! F T
+   noremap! G D
+   noremap! J N
+   noremap! K E
+   noremap! L I
+   noremap! : O
+   noremap! N K
+
+" }}}

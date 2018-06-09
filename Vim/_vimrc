@@ -167,6 +167,7 @@
          Plug 'chrisbra/csv.vim'
          Plug 'severin-lemaignan/vim-minimap'
          Plug 'nathanaelkane/vim-indent-guides'
+         Plug 'myusuf3/numbers.vim'
       " }}}
 
       " Completion {{{2
@@ -228,7 +229,6 @@
       " Status Line {{{2
          Plug 'bling/vim-airline'
          Plug 'vim-airline/vim-airline-themes'
-         Plug 'powerline/fonts'
       " }}}
 
    call plug#end()
@@ -565,9 +565,9 @@ let g:airline_powerline_fonts=1
 " Startify {{{1
 
    if $LOCATION ==? 'WORK'
-      let g:startify_bookmarks = [ {'c': 'C:/Users/TiminsKy/Git/rc/Vim/_vimrc'} ]
+      let g:startify_bookmarks = [ {'v': 'C:/Users/TiminsKy/Git/rc/Vim/_vimrc'} ]
    elseif $LOCATION ==? 'THEIA'
-      let g:startify_bookmarks = [ {'c': 'C:/Users/rzite/Git/rc/Vim/_vimrc'} ]
+      let g:startify_bookmarks = [ {'v': 'C:/Users/rzite/Git/rc/Vim/_vimrc'} ]
    endif
 
 " }}}
@@ -849,6 +849,12 @@ let g:airline_powerline_fonts=1
 " Signify {{{1
    let g:signify_vcs_list = [ 'git', 'tfs' ]
    let g:signify_realtime = 1
+" }}}
+
+" Numbers {{{1
+   
+   let g:numbers_exclude = ['tagbar', 'gundo', 'nerdtree']
+
 " }}}
 
 " Colemak {{{1
