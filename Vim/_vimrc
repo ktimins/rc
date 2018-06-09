@@ -2,16 +2,16 @@
 
 " Location Stuff {{{1
 
-   if $LOCATION == "WORK"
-      let homedir = "C:\\Users\\TiminsKy"
-      let $home = "C:\\Users\\Timinsky"
-      let $storage = "F:\\vim"
-   elseif $LOCATION == "THEIA"
-      let homedir = "C:\\Users\\rzite"
-      let $home = "C:\\Users\\rzite"
-      let $storage = "C:\\Users\\rzite\\.vimstorage"
+   if $LOCATION ==? 'WORK'
+      let homedir = 'C:\\Users\\TiminsKy'
+      let $home = 'C:\\Users\\Timinsky'
+      let $storage = 'F:\\vim'
+   elseif $LOCATION ==? 'THEIA'
+      let homedir = 'C:\\Users\\rzite'
+      let $home = 'C:\\Users\\rzite'
+      let $storage = 'C:\\Users\\rzite\\.vimstorage'
    else 
-      let $storage = ""
+      let $storage = ''
    endif
 
 " }}}
@@ -20,13 +20,13 @@
 
    " Startup {{{2
 
-      let s:running_windows = has("win16") || has ("win32") || has ("win64")
-      let s:colorful_term = (&term =~ "xterm") || (&term =~ "screen")
+      let s:running_windows = has('win16') || has ('win32') || has ('win64')
+      let s:colorful_term = (&term =~? 'xterm') || (&term =~? 'screen')
 
    " }}}
 
    " Leader
-   let mapleader = ","
+   let mapleader = ','
 
    " Sets how many lines of history VIM has to remember
    set history=9999
@@ -221,6 +221,7 @@
             Plug 'tpope/vim-rhubarb'
             Plug 'junegunn/gv.vim'
             Plug 'idanarye/vim-merginal'
+            Plug 'jreybert/vimagit'
          " }}}
       " }}}
 
@@ -240,12 +241,12 @@
    syntax enable 
 
    " Enable 256 colors palette in Gnome Terminal
-   if $COLORTERM == 'gnome-terminal'
+   if $COLORTERM ==? 'gnome-terminal'
        set t_Co=256
    endif
 
    " Set extra options when running in GUI mode
-   if has("gui_running")
+   if has('gui_running')
       " ColorScheme
       try
          "colorscheme selenitic
@@ -290,7 +291,7 @@
 
 " Files, Backups, and Undo {{{1
 
-   if s:running_windows && $storage != ""
+   if s:running_windows && $storage !=? '' 
       set backup
       set undofile
       set backupdir=$storage\\_backup
@@ -316,7 +317,7 @@
    set shiftwidth=3
    set tabstop=3
 
-   if has("autocmd")
+   if has('autocmd')
       filetype plugin indent on
       set shellslash
       set grepprg=grep\ -nH\ $*
@@ -325,7 +326,7 @@
       augroup vimrcEx
          au!
          autocmd BufReadPost *
-                  \ if line("'\"") >= 1 && line("'\"") <= line("$") |
+                  \ if line('"\"') >= 1 && line('"\"') <= line('$') |
                   \  exe "normal! g`\"" |
                   \ endif
       augroup END
@@ -339,7 +340,7 @@
 
 " Diff {{{1
 
-   if !exists(":DiffOrig")
+   if !exists(':DiffOrig')
       command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
                \ | wincmd p | diffthis
    endif
@@ -383,7 +384,9 @@
    endtry
 
    " Return to last edit position when opening files (You want this!)
-   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+   augroup restart
+      au BufReadPost * if line('"\"') > 1 && line('"\"') <= line('$') | exe 'normal! g'\'' | endif
+   augroup END
 
 " }}}
 
@@ -561,9 +564,9 @@ let g:airline_powerline_fonts=1
 
 " Startify {{{1
 
-   if $LOCATION == 'WORK'
+   if $LOCATION ==? 'WORK'
       let g:startify_bookmarks = [ {'c': 'C:/Users/TiminsKy/Git/rc/Vim/_vimrc'} ]
-   elseif $LOCATION == 'THEIA'
+   elseif $LOCATION ==? 'THEIA'
       let g:startify_bookmarks = [ {'c': 'C:/Users/rzite/Git/rc/Vim/_vimrc'} ]
    endif
 
@@ -591,9 +594,9 @@ let g:airline_powerline_fonts=1
    noremap <silent> <F10> :TagbarToggle<CR>
 
    " Tell Tagbar where ctags is
-   if $LOCATION == "WORK"
+   if $LOCATION ==? 'WORK'
       let g:tagbar_ctags_bin = 'C:\Users\TiminsKY\bin\ctags\ctags.exe'
-   elseif $LOCATION == "THEIA"
+   elseif $LOCATION ==? 'THEIA'
       let g:tagbar_ctags_bin = 'C:\ProgramData\chocolatey\bin\ctags.exe'
    endif
 
@@ -747,9 +750,9 @@ let g:airline_powerline_fonts=1
 " OmniSharp {{{1
 
    " OmniSharp Server Path to EXE
-   if $LOCATION == 'WORK'
+   if $LOCATION ==? 'WORK'
       let g:OmniSharp_Server_path = 'C:\Users\TiminsKY\.omnisharp\OmniSharp.exe'
-   elseif $LOCATION == 'THEIA'
+   elseif $LOCATION ==? 'THEIA'
       let g:OmniSHarp_Server_path = 'C:\Users\rzite\.omnisharp\OmniSharp.exe'
    endif
 
