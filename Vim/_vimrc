@@ -120,7 +120,7 @@
 
 " Vim-Plug {{{1
 
-   if $LOCATION == 'WORK'
+   if $LOCATION ==? 'WORK'
       call plug#begin('F:/vimstorage/plugged')
    else
       call plug#begin('~/.vim/plugged')
@@ -178,7 +178,6 @@
          Plug 'mhinz/vim-startify'
          Plug 'chrisbra/csv.vim'
          Plug 'severin-lemaignan/vim-minimap'
-         Plug 'nathanaelkane/vim-indent-guides'
          Plug 'myusuf3/numbers.vim'
       " }}}
 
@@ -517,7 +516,7 @@ EOF
 
       augroup xml_grouping
          au!
-         au FileType xml,xsd,sln,xaml let g:xml_syntax_folding=1
+         au FileType xml,xsd,sln,xaml let g:xml_syntax_folding=4
          au FileType xml,xsd,sln,xaml set cindent
          au FileType xml,xsd,sln,xaml set formatoptions=tcq2l
          au FileType xml,xsd,sln,xaml set shiftwidth=3 
