@@ -5,7 +5,7 @@
    if $LOCATION == "WORK"
       let homedir = "C:\\Users\\TiminsKy"
       let $home = "C:\\Users\\Timinsky"
-      let $storage = "F:\\vim"
+      let $storage = "F:\\vimstorage"
    elseif $LOCATION == "THEIA"
       let homedir = "C:\\Users\\rzite"
       let $home = "C:\\Users\\rzite"
@@ -113,11 +113,18 @@
    " Add a bit extra margin to the left
    set foldcolumn=1
 
+   " Set NOWRAP
+   set nowrap
+
 " }}}
 
 " Vim-Plug {{{1
 
-   call plug#begin('~/.vim/plugged')
+   if $LOCATION == 'WORK'
+      call plug#begin('F:/vimstorage/plugged')
+   else
+      call plug#begin('~/.vim/plugged')
+   endif
 
       Plug 'godlygeek/tabular'
       Plug 'vim-scripts/PatternsOnText'
@@ -153,6 +160,10 @@
          Plug 'Shougo/vimproc.vim'
          Plug 'vim-syntastic/syntastic'
          Plug 'reedes/vim-wordy'
+      " }}}
+
+      " Languages {{{2
+      Plug 'tacahiroy/vim-vb'
       " }}}
 
       " Undo {{{2
@@ -221,6 +232,7 @@
             Plug 'tpope/vim-rhubarb'
             Plug 'junegunn/gv.vim'
             Plug 'idanarye/vim-merginal'
+            Plug 'jreybert/vimagit'
          " }}}
       " }}}
 
@@ -248,8 +260,8 @@
    if has("gui_running")
       " ColorScheme
       try
-         "colorscheme selenitic
-         colorscheme fu
+         colorscheme selenitic
+         "colorscheme fu
       catch
          colorscheme elflord
       endtry
@@ -477,7 +489,7 @@ let g:airline_powerline_fonts=1
 
       augroup xml_grouping
          au!
-         au FileType xml,xsd,sln,xaml let g:xml_syntax_folding
+         au FileType xml,xsd,sln,xaml let g:xml_syntax_folding=1
          au FileType xml,xsd,sln,xaml set cindent
          au FileType xml,xsd,sln,xaml set formatoptions=tcq2l
          au FileType xml,xsd,sln,xaml set shiftwidth=3 
@@ -539,7 +551,7 @@ let g:airline_powerline_fonts=1
 
       augroup vb
          au!
-         au FileType vb,cls,bas set filetype=vb
+         au BufNewFile,BufRead vb,cls,bas set filetype=vb
       augroup END
 
    " }}}
