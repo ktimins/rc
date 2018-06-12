@@ -127,7 +127,6 @@
       Plug 'shime/vim-livedown'
       Plug 'maxbrunsfeld/vim-yankstack'
       Plug 'devjoe/vim-codequery'
-      Plug 'python-mode/python-mode'
       Plug 'sukima/xmledit'
       Plug 'jiangmiao/auto-pairs'
 
@@ -146,6 +145,7 @@
       " Formatting {{{2
          Plug 'chiel92/vim-autoformat'
          Plug 'XadillaX/json-formatter.vim'
+         Plug 'Vimjas/vim-python-pep8-indent'
       " }}}
 
       " Checkers {{{2
@@ -153,6 +153,7 @@
          Plug 'Shougo/vimproc.vim'
          Plug 'vim-syntastic/syntastic'
          Plug 'reedes/vim-wordy'
+         Plug 'nvie/vim-flake8'
       " }}}
 
       " Undo {{{2
@@ -460,6 +461,30 @@ let g:airline_powerline_fonts=1
    
    " }}}
 
+   " Python {{{2
+
+      augroup python
+         au BufNewFile,BufRead *.py set tabstop=4
+         au BufNewFile,BufRead *.py set softtabstop=4
+         au BufNewFile,BufRead *.py set shiftwidth=4
+         au BufNewFile,BufRead *.py set textwidth=79
+         au BufNewFile,BufRead *.py set expandtab
+         au BufNewFile,BufRead *.py set autoindent
+         au FileType *.py let python_highlight_all=1
+         au BufNewFile,BufRead *.py set fileformat=unix
+      augroup END
+
+      py << EOF
+import os
+import sys
+if 'VIRTUAL_ENV' in os.environ:
+   project_base_dir = os.environ['VIRTUAL_ENV']
+   activate_this = os.path.join(project_base_dir, 'bin/activivate_this.py')
+   execfile(activate_this, dict(__file__=activate_this))
+EOF
+
+   " }}}
+
    " JSON {{{2
 
       augroup json
@@ -580,7 +605,7 @@ let g:airline_powerline_fonts=1
    let g:syntastic_check_on_wq = 0
    let g:syntastic_json_checkers = ['jsonlint']
    let g:syntastic_cs_checkers = ['mcs']
-   let g:syntastic_python_checkers = ['python']
+   let g:syntastic_python_checkers = ['frosted']
    let g:syntastic_html_checkers = ['tidy']
    let g:syntastic_xml_checkers = ['tidy']
    let g:syntastic_javascript_checkers = ['eslint']
