@@ -247,7 +247,6 @@
 
    " Tags {{{2
       Plug 'majutsushi/tagbar'
-      Plug 'szw/vim-tags'
    "}}}
 
    call plug#end()
