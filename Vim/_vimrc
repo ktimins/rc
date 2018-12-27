@@ -144,6 +144,10 @@
          Plug 'editorconfig/editorconfig-vim'
       " }}}
 
+      " Database {{{2
+         Plug 'tpope/vim-dadbod'
+      "}}}
+
       " Insert {{{2
          Plug 'scrooloose/nerdcommenter'
          Plug 'tpope/vim-repeat'
@@ -167,7 +171,12 @@
       " }}}
 
       " Languages {{{2
-      Plug 'tacahiroy/vim-vb'
+         " VB {{{3
+            Plug 'tacahiroy/vim-vb'
+         "}}}
+         " JSON {{{3
+            Plug 'tpope/vim-jdaddy'
+         "}}}
       " }}}
 
       " Undo {{{2
@@ -186,6 +195,7 @@
 
       " Completion {{{2
          Plug 'OmniSharp/omnisharp-vim'
+         "Plug 'Valloric/YouCompleteMe'
       " }}}
 
       " Movement {{{2
@@ -293,6 +303,7 @@
       set guioptions=b
       set guioptions-=T
       set guioptions-=e
+      set guioptions+=r
       set t_Co=256
       set guitablabel=%M\ %t
    else
@@ -531,6 +542,7 @@ EOF
          au FileType xml,xsd,sln,xaml set softtabstop=3 tabstop=8 
          au FileType xml,xsd,sln,xaml set expandtab 
          au FileType xml,xsd,sln,xaml set foldmethod=indent 
+         au FileType xml,xsd,sln,xaml Autoformat
       augroup END
    
       " SLN {{{3
@@ -554,6 +566,7 @@ EOF
          augroup xml
             au!
             au BufRead, BufNewFile xml set filetype=xml
+            au FileType *.Billing.XML foldlevelstart=5
          augroup END
 
    " }}}
@@ -618,7 +631,7 @@ EOF
 " Startify {{{1
 
    if $LOCATION ==? 'WORK'
-      let g:startify_bookmarks = [ {'v': 'C:/Users/TiminsKy/Git/rc/Vim/_vimrc'} ]
+      let g:startify_bookmarks = [ {'v': 'C:/Users/TiminsKy/Git/rc/Vim/_vimrc'}, {'b': 'F:/Work/Products/DailyBuild/App/Core/Coding/BillingDecisions/BillingDecisions.cls'} ]
    elseif $LOCATION ==? 'THEIA'
       let g:startify_bookmarks = [ {'v': 'C:/Users/rzite/Git/rc/Vim/_vimrc'} ]
    endif
@@ -629,7 +642,7 @@ EOF
 
    let g:syntastic_always_populate_loc_list = 1
    let g:syntastic_auto_loc_list = 1
-   let g:syntastic_check_on_open = 1
+   let g:syntastic_check_on_open = 0
    let g:syntastic_check_on_wq = 0
    let g:syntastic_json_checkers = ['jsonlint']
    let g:syntastic_cs_checkers = ['mcs']
@@ -804,9 +817,9 @@ EOF
 
    " OmniSharp Server Path to EXE
    if $LOCATION ==? 'WORK'
-      let g:OmniSharp_Server_path = 'C:\Users\TiminsKY\.omnisharp\OmniSharp.exe'
+      let g:OmniSharp_server_path = 'C:\Users\TiminsKY\.omnisharp\OmniSharp.exe'
    elseif $LOCATION ==? 'THEIA'
-      let g:OmniSHarp_Server_path = 'C:\Users\rzite\.omnisharp\OmniSharp.exe'
+      let g:OmniSharp_server_path = 'C:\Users\rzite\.omnisharp\OmniSharp.exe'
    endif
 
    " Select plugin for Code Actions and Find Symbols
@@ -845,7 +858,7 @@ EOF
        autocmd BufEnter,TextChanged,InsertLeave *.cs SyntasticCheck
 
        " Automatically add new cs files to the nearest project on save
-       autocmd BufWritePost *.cs call OmniSharp#AddToProject()
+       "autocmd BufWritePost *.cs call OmniSharp#AddToProject()
 
        " Show type information automatically when the cursor stops moving
        autocmd CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
@@ -929,6 +942,31 @@ EOF
    nnoremap <silent> <C-u> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -2)<CR>
    nnoremap <silent> <C-f> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 4)<CR>
    nnoremap <silent> <C-b> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -4)<CR>
+
+"}}}
+
+" Custom Functions {{{1
+
+   " XML {{{2
+   
+      function! XmlBeautify()
+        call XmlMinify()
+        execute "%s/></>\r</e"
+        normal! gg=G
+      endfunction
+        
+      function! XmlMinify()
+        set filetype=xml
+        filetype indent on
+        normal! ggVGJ
+        execute "%s/>\s\+</></e"
+        execute "%s/> </></e"
+      endfunction
+
+      command! XmlBeautify    execute "call XmlBeautify()" | execute "call XmlBeautify()"
+      command! XmlMinify      execute "call XmlMinify()"
+
+   "}}}
 
 "}}}
 
