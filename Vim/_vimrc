@@ -168,6 +168,7 @@
 
       " Languages {{{2
       Plug 'tacahiroy/vim-vb'
+      Plug 'adamclerk/vim-razor'
       " }}}
 
       " Undo {{{2
@@ -186,6 +187,7 @@
 
       " Completion {{{2
          Plug 'OmniSharp/omnisharp-vim'
+         Plug 'vim-scripts/aspnetide.vim'
       " }}}
 
       " Movement {{{2
