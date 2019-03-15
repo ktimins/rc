@@ -198,7 +198,7 @@ Return
       }
       Return
 
-   !123:: 
+   !1:: 
       iKbd = 0
       Loop, 7 {
          Loop, 10 {
