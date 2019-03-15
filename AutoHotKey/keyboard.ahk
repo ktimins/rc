@@ -13,13 +13,22 @@ SetTitleMatchMode, slow
 //      Set Variables       //
 //////////////////////////////
 
-colemak        := false
+//colemak        := false
+//colemakAllTime := false
+//wasdKeyboard   := false
+//confKeyboard   := false
+//normKeyboard   := false
+//pok3r          := false
+//pok3rcolemak   := false
+//ModifierStates := ""
+
+colemak        := true
 colemakAllTime := false
-wasdKeyboard   := false
+wasdKeyboard   := true
 confKeyboard   := false
 normKeyboard   := false
 pok3r          := false
-pok3rcolemak   := false
+pok3rcolemak   := true
 ModifierStates := ""
 
 if (colemak or colemakAllTIme) {
@@ -97,7 +106,13 @@ Return
 Return
 
 !.::
-   pok3r := not pok3r
+   if (colemak or colemakAllTime) {
+       pok3rcolemak := not pok3rcolemak
+       pok3r := false
+   } Else {
+       pok3r := not pok3r
+       pok3rcolemak := false
+   }
 Return
 
 !?::
@@ -130,7 +145,7 @@ Return
    MsgBox, The active window Title is "%Title%"
 Return
 
-
++Right::+Insert
 
 //////////////////////////////
 //    Swap LCtrl & LWin     //
@@ -177,18 +192,30 @@ Return
 
    <#c:: 
       SendInput {Blind}{Capslock}
-//      Loop, 10 {
-//         KeyboardLED(4, "on",  3)
-//         Sleep 250
-//         KeyboardLED(4, "off", 3)
-//         Sleep 250
-//      }
+      Loop, 20 {
+         KeyboardLED(4, "switch",  3)
+         Sleep 250
+      }
       Return
 
+   !123:: 
+      iKbd = 0
+      Loop, 7 {
+         Loop, 10 {
+            KeyboardLED(7, "switch",  iKbd)
+            Sleep 100
+         }
+         iKbd = iKbd + 1
+      }
+      Return
 //////////////////////////////
 //         Win Lock         //
 //////////////////////////////
 #If (true)
+
+   #,::RegWrite, REG_DWORD, HKEY_CURRENT_USER, Software\Microsoft\Windows\CurrentVersion\Policies\System, DisableLockWorkstation, 0
+   
+   #.::RegWrite, REG_DWORD, HKEY_CURRENT_USER, Software\Microsoft\Windows\CurrentVersion\Policies\System, DisableLockWorkstation, 1
    
    #l::
       Return
