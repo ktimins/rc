@@ -24,11 +24,11 @@ SetTitleMatchMode, slow
 
 colemak        := true
 colemakAllTime := false
-wasdKeyboard   := true
+wasdKeyboard   := false
 confKeyboard   := false
 normKeyboard   := false
 pok3r          := false
-pok3rcolemak   := true
+pok3rcolemak   := false
 ModifierStates := ""
 
 if (colemak or colemakAllTIme) {
@@ -198,16 +198,6 @@ Return
       }
       Return
 
-   !123:: 
-      iKbd = 0
-      Loop, 7 {
-         Loop, 10 {
-            KeyboardLED(7, "switch",  iKbd)
-            Sleep 100
-         }
-         iKbd = iKbd + 1
-      }
-      Return
 //////////////////////////////
 //         Win Lock         //
 //////////////////////////////
