@@ -140,7 +140,10 @@
       Plug 'sukima/xmledit'
       Plug 'jiangmiao/auto-pairs'
       Plug 'chrisbra/vim-diff-enhanced'
-      Plug 'editorconfig/editorconfig-vim'
+      " }}}
+
+      " Configuration {{{2
+         Plug 'editorconfig/editorconfig-vim'
       " }}}
 
       " Database {{{2
@@ -151,7 +154,6 @@
          Plug 'scrooloose/nerdcommenter'
          Plug 'tpope/vim-repeat'
          Plug 'tpope/vim-surround'
-         Plug 'honza/vim-snippets'
          Plug 'honza/vim-snippets'
          Plug 'vim-scripts/align'
       " }}}
@@ -202,7 +204,7 @@
       " Completion {{{2
          Plug 'OmniSharp/omnisharp-vim'
          Plug 'Valloric/YouCompleteMe'
-      " }}}
+         Plug 'vim-scripts/aspnetide.vim'      " }}}
 
       " Movement {{{2
          Plug 'yuttie/comfortable-motion.vim'
