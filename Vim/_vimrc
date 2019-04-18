@@ -617,7 +617,17 @@ EOF
 
       augroup vb
          au!
-         au FileType vb,cls,bas set filetype=vb
+         au FileType vb set filetype=vb
+      augroup END
+      
+      augroup cls
+         au!
+         au FileType cls set filetype=vb
+      augroup END
+
+      augroup bas
+         au!
+         au FileType bas set filetype=vb
       augroup END
 
    " }}}
@@ -649,7 +659,7 @@ EOF
 " Startify {{{1
 
    if $LOCATION ==? 'WORK'
-      let g:startify_bookmarks = [ {'v': 'C:/Users/TiminsKy/Git/rc/Vim/_vimrc'}, {'b': 'F:/Work/Products/DailyBuild/App/Core/Coding/BillingDecisions/BillingDecisions.cls'} ]
+      let g:startify_bookmarks = [ {'v': 'C:/Users/TiminsKy/Git/rc/Vim/_vimrc'}, {'b': 'F:/Work/Products/DailyBuild/App/Core/Coding/BillingDecisions/BillingDecisions.cls'}, {'p': 'C:/Users/TiminsKy/Git/rc/Windows/Microsoft.Powershell_profile.ps1'} ]
    elseif $LOCATION ==? 'THEIA'
       let g:startify_bookmarks = [ {'v': 'C:/Users/rzite/Git/rc/Vim/_vimrc'} ]
    endif
