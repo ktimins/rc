@@ -193,21 +193,18 @@ Return
    <#c:: 
       SendInput {Blind}{Capslock}
       Loop, 20 {
+         KeyboardLED(4, "on",  3)
+         Sleep 100
+         KeyboardLED(4, "off",  3)
+         Sleep 100
+      }
+      Loop, 20 {
          KeyboardLED(4, "switch",  3)
          Sleep 250
       }
       Return
 
-   !1:: 
-      iKbd = 0
-      Loop, 7 {
-         Loop, 10 {
-            KeyboardLED(7, "switch",  iKbd)
-            Sleep 100
-         }
-         iKbd = iKbd + 1
-      }
-      Return
+
 //////////////////////////////
 //         Win Lock         //
 //////////////////////////////

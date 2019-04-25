@@ -72,6 +72,8 @@ dictColemak    := {"q":"q"
 //      Base Hotkeys       //
 /////////////////////////////
 
+^+SPACE::  Winset, Alwaysontop, , A
+
 //Suspend
 //Pause,,1
 
