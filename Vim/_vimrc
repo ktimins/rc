@@ -139,6 +139,8 @@
       Plug 'devjoe/vim-codequery'
       Plug 'sukima/xmledit'
       Plug 'jiangmiao/auto-pairs'
+      Plug 'chrisbra/vim-diff-enhanced'
+      " }}}
 
       " Configuration {{{2
          Plug 'editorconfig/editorconfig-vim'
@@ -177,7 +179,12 @@
          " JSON {{{3
             Plug 'tpope/vim-jdaddy'
          "}}}
-      Plug 'adamclerk/vim-razor'
+         " MarkDown {{{3
+            Plug 'gabrielelana/vim-markdown'
+         "}}}
+         " Razor Syntax {{{3
+            Plug 'adamclerk/vim-razor'
+         "}}}
       " }}}
 
       " Undo {{{2
@@ -192,6 +199,9 @@
          Plug 'severin-lemaignan/vim-minimap'
          Plug 'myusuf3/numbers.vim'
          Plug 'skywind3000/vim-preview'
+         Plug 'jlanzarotta/bufexplorer'
+         Plug 'vim-scripts/visSum.vim'
+         Plug 'tomtom/shymenu_vim'
       " }}}
 
       " Completion {{{2
@@ -225,6 +235,7 @@
          Plug 'OrangeT/vim-csharp'
          Plug 'othree/javascript-libraries-syntax.vim'
          Plug 'tacahiroy/vim-vb'
+         Plug 'PProvost/vim-ps1'
       " }}}
 
       " Coloring {{{2
@@ -237,6 +248,7 @@
 
       " Comments {{{2
          Plug 'scrooloose/nerdcommenter'
+         Plug 'actionshrimp/vim-xpath'
       " }}}
 
       " Source Control {{{2
@@ -327,11 +339,12 @@
       set backupdir=$storage\\_backup
       set undodir=$storage\\_undo
       set directory=$storage\\_temp
+      set swapfile
    else
       set nobackup
       set noundofile
+      set noswapfile
    endif
-   set noswapfile
 
 " }}}
 
@@ -516,7 +529,7 @@ EOF
 
    " }}}
 
-   " JSON {{{2
+   " jSON {{{2
 
       augroup json
         autocmd! 
@@ -536,15 +549,22 @@ EOF
 
       augroup xml_grouping
          au!
-         au FileType xml,xsd,sln,xaml let g:xml_syntax_folding=4
-         au FileType xml,xsd,sln,xaml set cindent
-         au FileType xml,xsd,sln,xaml set formatoptions=tcq2l
-         au FileType xml,xsd,sln,xaml set shiftwidth=3 
-         au FileType xml,xsd,sln,xaml set softtabstop=3 tabstop=8 
-         au FileType xml,xsd,sln,xaml set expandtab 
-         au FileType xml,xsd,sln,xaml set foldmethod=indent 
-         au FileType xml,xsd,sln,xaml Autoformat
+         au FileType html,xml,xsd,sln,xaml let g:xml_syntax_folding=4
+         au FileType html,xml,xsd,sln,xaml set cindent
+         au FileType html,xml,xsd,sln,xaml set formatoptions=tcq2l
+         au FileType html,xml,xsd,sln,xaml set shiftwidth=2 
+         au FileType html,xml,xsd,sln,xaml set softtabstop=2 tabstop=2 
+         au FileType html,xml,xsd,sln,xaml set expandtab 
+         au FileType html,xml,xsd,sln,xaml set foldmethod=indent 
+         au FileType html,xml,xsd,sln,xaml Autoformat
       augroup END
+
+      " HTML {{{3
+         augroup html
+            au!
+            au FileType html nnoremap <C-F5> :%!'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe'<CR>
+         augroup END
+      "}}}
    
       " SLN {{{3
          augroup sln
@@ -600,7 +620,17 @@ EOF
 
       augroup vb
          au!
-         au FileType *.vb,*.cls,*.bas set filetype=vb
+         au FileType vb set filetype=vb
+      augroup END
+      
+      augroup cls
+         au!
+         au FileType cls set filetype=vb
+      augroup END
+
+      augroup bas
+         au!
+         au FileType bas set filetype=vb
       augroup END
 
    " }}}
@@ -632,7 +662,7 @@ EOF
 " Startify {{{1
 
    if $LOCATION ==? 'WORK'
-      let g:startify_bookmarks = [ {'v': 'C:/Users/TiminsKy/Git/rc/Vim/_vimrc'}, {'b': 'F:/Work/Products/DailyBuild/App/Core/Coding/BillingDecisions/BillingDecisions.cls'} ]
+      let g:startify_bookmarks = [ {'v': 'C:/Users/TiminsKy/Git/rc/Vim/_vimrc'}, {'b': 'F:/Work/Products/DailyBuild/App/Core/Coding/BillingDecisions/BillingDecisions.cls'}, {'p': 'C:/Users/TiminsKy/Git/rc/Windows/Microsoft.Powershell_profile.ps1'} ]
    elseif $LOCATION ==? 'THEIA'
       let g:startify_bookmarks = [ {'v': 'C:/Users/rzite/Git/rc/Vim/_vimrc'} ]
    endif
@@ -649,7 +679,9 @@ EOF
    let g:syntastic_cs_checkers = ['mcs']
    let g:syntastic_python_checkers = ['frosted']
    let g:syntastic_html_checkers = ['tidy']
-   let g:syntastic_xml_checkers = ['tidy']
+   "let g:syntastic_xml_checkers = ['tidy']
+   let g:syntastic_xml_checkers = ['xmllint']
+   let g:syntastic_xml_xmllint_args = "--schema F:\XML\WorkThroughPols\EndorsementRequest_0.0.0.17.xsd"
    let g:syntastic_javascript_checkers = ['eslint']
    let g:syntastic_vim_checkers = ['vint']
 
@@ -937,8 +969,6 @@ EOF
    "" Friction and Air Resistance
    "let g:comfortable_motion_friction = 0.0
    "let g:comfortable_motion_air_drag = 4.0
-
-   let g:comfortable_motion_impulse_multiplier = 0.5  " Feel free to increase/decrease this value.
    nnoremap <silent> <C-d> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 2)<CR>
    nnoremap <silent> <C-u> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -2)<CR>
    nnoremap <silent> <C-f> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 4)<CR>
@@ -966,6 +996,16 @@ EOF
 
       command! XmlBeautify    execute "call XmlBeautify()" | execute "call XmlBeautify()"
       command! XmlMinify      execute "call XmlMinify()"
+
+
+      function! FindAll()
+          call inputsave()
+          let p = input('Enter pattern:')
+          call inputrestore()
+          execute 'vimgrep "'.p.'" % |copen'
+      endfunction
+
+      nnoremap <leader>ff execute :Call FindAll()<cr>
 
    "}}}
 

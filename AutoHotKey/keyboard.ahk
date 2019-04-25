@@ -24,11 +24,11 @@ SetTitleMatchMode, slow
 
 colemak        := true
 colemakAllTime := false
-wasdKeyboard   := true
+wasdKeyboard   := false
 confKeyboard   := false
 normKeyboard   := false
 pok3r          := false
-pok3rcolemak   := true
+pok3rcolemak   := false
 ModifierStates := ""
 
 if (colemak or colemakAllTIme) {

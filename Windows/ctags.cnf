@@ -24,7 +24,6 @@
 --exclude="obj"
 --fields=+ianmzS
 --extra=+fq
---vb-kinds=cn
 
 --langdef=xml
 --langmap=xml:.xml
