@@ -994,17 +994,17 @@ EOF
       command! XmlBeautify    execute "call XmlBeautify()" | execute "call XmlBeautify()"
       command! XmlMinify      execute "call XmlMinify()"
 
+   "}}} 
+   
+   function! FindAll()
+      call inputsave()
+      let p = input('Enter pattern:')
+      call inputrestore()
+      execute 'vimgrep "'.p.'" % |copen'
+   endfunction
 
-      function! FindAll()
-          call inputsave()
-          let p = input('Enter pattern:')
-          call inputrestore()
-          execute 'vimgrep "'.p.'" % |copen'
-      endfunction
+   nnoremap <leader>ff execute :Call FindAll()<cr>
 
-      nnoremap <leader>ff execute :Call FindAll()<cr>
-
-   "}}}
 
 "}}}
 

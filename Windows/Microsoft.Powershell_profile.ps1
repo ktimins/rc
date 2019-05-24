@@ -61,7 +61,8 @@ New-Alias gvim Invoke-GVim -Force;
 $TempDir = 'C:\Users\TiminsKy\AppData\Local\Temp'
 $ENFDir = 'C:\Users\TiminsKy\Documents\ENF'
 
-$Pass2Dir = 'F:\Work\Products\DailyBuild\App\core\Coding\'
+$AppDir = 'F:\Work\Products\DailyBuild\App'
+$Pass2Dir = (Join-Path -Path $AppDir -ChildPath 'core\Coding')
 $CrumDir = 'L:'
 
 ##############################
@@ -190,7 +191,11 @@ Function Edit-Vimrc {
 }
 
 Function Cd-Pass2 {
-   cd $Pass2Dir
+   Push-Location $Pass2Dir
+}
+
+Function Cd-App {
+   Push-Location $AppDir
 }
 
 Function Cd-Crum {

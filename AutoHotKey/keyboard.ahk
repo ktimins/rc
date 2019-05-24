@@ -22,7 +22,7 @@ SetTitleMatchMode, slow
 //pok3rcolemak   := false
 //ModifierStates := ""
 
-colemak        := true
+colemak        := false
 colemakAllTime := false
 wasdKeyboard   := false
 confKeyboard   := false
@@ -145,7 +145,12 @@ Return
    MsgBox, The active window Title is "%Title%"
 Return
 
-+Right::+Insert
+//+Right::+Insert
+
+<#Space:: Send, ^``
+
+<!j::AltTab
+<!k::ShiftAltTab
 
 //////////////////////////////
 //    Swap LCtrl & LWin     //
@@ -190,7 +195,7 @@ Return
 
    
 
-   <#c:: 
+   <#+Backspace:: 
       SendInput {Blind}{Capslock}
       Loop, 20 {
          KeyboardLED(4, "switch",  3)
