@@ -182,6 +182,9 @@
          " MarkDown {{{3
             Plug 'gabrielelana/vim-markdown'
          "}}}
+         " Razor Syntax {{{3
+            Plug 'adamclerk/vim-razor'
+         "}}}
       " }}}
 
       " Undo {{{2
