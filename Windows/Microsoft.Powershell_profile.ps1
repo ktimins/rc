@@ -51,8 +51,8 @@ Function Invoke-GVim {
 #          Aliases           #
 ##############################
 #New-Alias which Get-Command
-New-Alias vim Invoke-Vim -Force;
-New-Alias gvim Invoke-GVim -Force;
+#New-Alias vim Invoke-Vim -Force;
+#New-Alias gvim Invoke-GVim -Force;
 
 ##############################
 #         Variables          #
@@ -164,9 +164,9 @@ Function Edit-Profile {
         )
    $file = 'C:\Users\TiminsKY\Git\rc\Windows\Microsoft.Powershell_profile.ps1';
    If ($GVim) {
-      gvim $file;
+      gvim.bat $file;
    } Else {
-      vim $file;
+      vim.bat $file;
    }
    Copy-Profile;
    . $PROFILE;
@@ -183,15 +183,19 @@ Function Edit-Vimrc {
         )
    $file = 'C:\Users\TiminsKy\Git\rc\Vim\_vimrc';
    If ($GVim) {
-      gvim $file;
+      gvim.bat $file;
    } Else {
-      vim $file;
+      vim.bat $file;
    }
    Copy-Vimrc;
 }
 
 Function Cd-Pass2 {
    Push-Location $Pass2Dir
+}
+
+Function Cd-Bill {
+   Push-Location (Join-Path -Path $Pass2Dir -ChildPath 'BillingInterface')
 }
 
 Function Cd-App {

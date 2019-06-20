@@ -681,7 +681,6 @@ EOF
    let g:syntastic_html_checkers = ['tidy']
    "let g:syntastic_xml_checkers = ['tidy']
    let g:syntastic_xml_checkers = ['xmllint']
-   let g:syntastic_xml_xmllint_args = "--schema F:\XML\WorkThroughPols\EndorsementRequest_0.0.0.17.xsd"
    let g:syntastic_javascript_checkers = ['eslint']
    let g:syntastic_vim_checkers = ['vint']
 
@@ -737,6 +736,21 @@ EOF
    " Visual Basic {{{2
 
       let g:tagbar_type_vb = {
+         \ 'ctagstype' : 'vb',
+         \ 'kinds'     : [
+            \ 's:subroutine',
+            \ 'f:function',
+            \ 'm:module variable',
+            \ 'g:global variable',
+            \ 'c:const',
+            \ 'n:name',
+            \ 'e:enum',
+            \ 't:type',
+            \ 'l:label'
+         \ ]   
+      \ }
+
+      let g:tagbar_type_vbnet = {
          \ 'ctagstype' : 'vb',
          \ 'kinds'     : [
             \ 's:subroutine',
@@ -997,7 +1011,6 @@ EOF
       command! XmlBeautify    execute "call XmlBeautify()" | execute "call XmlBeautify()"
       command! XmlMinify      execute "call XmlMinify()"
 
-   "}}} 
    
    function! FindAll()
       call inputsave()
@@ -1008,6 +1021,7 @@ EOF
 
    nnoremap <leader>ff execute :Call FindAll()<cr>
 
+   "}}}
 
 "}}}
 
