@@ -145,12 +145,12 @@ Return
    MsgBox, The active window Title is "%Title%"
 Return
 
-//+Right::+Insert
+//+Right::+Insert{{
 
 <#Space:: Send, ^``
 
-<!j::AltTab
-<!k::ShiftAltTab
+//<!j::AltTab
+//<!k::ShiftAltTab
 
 //////////////////////////////
 //    Swap LCtrl & LWin     //
@@ -449,6 +449,17 @@ Return
 //////////////////////////////
 //         Colemak          //
 //////////////////////////////
+
+//   If (not colemak and not colemakAllTime) {
+//      +Space & t::
+//         SendInput {Blind}{Alt down}{F4}{Alt up}
+//         Return
+//   } else {
+//      +Space & f::
+//         SendInput {Blind}{Alt down}{F4}{Alt up}
+//         Return
+//   }
+
 
 #If ((WinActive("ahk_exe devenv.exe") or WinActive("ahk_Class Vim") or WinActive("ahk_Class VIM") or WinActive("VIM")) and not colemakAllTime)
    *q::

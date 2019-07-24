@@ -80,7 +80,7 @@ if ($host.Name -eq 'ConsoleHost') {
 
 Import-Module TiminsKy -DisableNameChecking
 
-#Import-Module ErrorCorrect -DisableNameChecking
+Import-Module ErrorCorrect -DisableNameChecking
 
 Import-Module EDI -DisableNameChecking
 

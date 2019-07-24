@@ -1,0 +1,34 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Avl-Recov	C:/Users/TiminsKY/Documents/WindowsPowerShell/Modules/TiminsKy/TiminsKy.psm1	/^Function Avl-Recov {$/;"	kind:f	line:84
+CD-Alex	C:/Users/TiminsKY/Documents/WindowsPowerShell/Modules/TiminsKy/TiminsKy.psm1	/^function CD-Alex {Set-Location 'C:\\Users\\TiminsKY\\Git\\Alex'}$/;"	kind:f	line:15
+CD-ENF	C:/Users/TiminsKY/Documents/WindowsPowerShell/Modules/TiminsKy/TiminsKy.psm1	/^function CD-ENF {Set-Location $ENFDir}$/;"	kind:f	line:10
+CD-TEMP	C:/Users/TiminsKY/Documents/WindowsPowerShell/Modules/TiminsKy/TiminsKy.psm1	/^function CD-TEMP {Set-Location $env:TEMP}$/;"	kind:f	line:13
+Cmd-FixRef	C:/Users/TiminsKY/Documents/WindowsPowerShell/Modules/TiminsKy/TiminsKy.psm1	/^Function Cmd-FixRef {$/;"	kind:f	line:50
+Compare-File	C:/Users/TiminsKY/Documents/WindowsPowerShell/Modules/TiminsKy/TiminsKy.psm1	/^Function Compare-File {$/;"	kind:f	line:327
+Create-SPOFolder	C:/Users/TiminsKY/Documents/WindowsPowerShell/Modules/TiminsKy/TiminsKy.psm1	/^Function Create-SPOFolder(){$/;"	kind:f	line:465
+Delete-SPOFolder	C:/Users/TiminsKY/Documents/WindowsPowerShell/Modules/TiminsKy/TiminsKy.psm1	/^Function Delete-SPOFolder(){$/;"	kind:f	line:569
+Edit-Profile	C:/Users/TiminsKY/Documents/WindowsPowerShell/Modules/TiminsKy/TiminsKy.psm1	/^Function Edit-Profile { Invoke-Expression "& 'C:\/Program Files (x86)\/Vim\/vim80\/vim.exe' $Profile" }$/;"	kind:f	line:26
+Get-Assembly	C:/Users/TiminsKY/Documents/WindowsPowerShell/Modules/TiminsKy/TiminsKy.psm1	/^function Get-Assembly$/;"	kind:f	line:184
+Get-Config	C:/Users/TiminsKY/Documents/WindowsPowerShell/Modules/TiminsKy/TiminsKy.psm1	/^Function Get-Config {$/;"	kind:f	line:132
+Get-DomainUser	C:/Users/TiminsKY/Documents/WindowsPowerShell/Modules/TiminsKy/TiminsKy.psm1	/^function Get-DomainUser {$/;"	kind:f	line:311
+Get-OutlookAppointments	C:/Users/TiminsKY/Documents/WindowsPowerShell/Modules/TiminsKy/TiminsKy.psm1	/^Function Get-OutlookAppointments {$/;"	kind:f	line:276
+Get-SPOContextInfo	C:/Users/TiminsKY/Documents/WindowsPowerShell/Modules/TiminsKy/TiminsKy.psm1	/^Function Get-SPOContextInfo(){$/;"	kind:f	line:720
+Get-SPOFolder	C:/Users/TiminsKY/Documents/WindowsPowerShell/Modules/TiminsKy/TiminsKy.psm1	/^Function Get-SPOFolder(){$/;"	kind:f	line:424
+Get-Trans	C:/Users/TiminsKY/Documents/WindowsPowerShell/Modules/TiminsKy/TiminsKy.psm1	/^function Get-Trans {$/;"	kind:f	line:18
+Invoke-RestSPO	C:/Users/TiminsKY/Documents/WindowsPowerShell/Modules/TiminsKy/TiminsKy.psm1	/^Function Invoke-RestSPO(){$/;"	kind:f	line:606
+Open-GVim	C:/Users/TiminsKY/Documents/WindowsPowerShell/Modules/TiminsKy/TiminsKy.psm1	/^Function Open-GVim { Invoke-Expression "& 'C:\/Program Files (x86)\/Vim\/vim80\/gvim.exe'" }$/;"	kind:f	line:7
+Open-Vim	C:/Users/TiminsKY/Documents/WindowsPowerShell/Modules/TiminsKy/TiminsKy.psm1	/^Function Open-Vim { Invoke-Expression "& 'C:\/Program Files (x86)\/Vim\/vim80\/vim.exe'" }$/;"	kind:f	line:4
+Register-File	C:/Users/TiminsKY/Documents/WindowsPowerShell/Modules/TiminsKy/TiminsKy.psm1	/^Function Register-File {$/;"	kind:f	line:251
+Reload-Profile	C:/Users/TiminsKY/Documents/WindowsPowerShell/Modules/TiminsKy/TiminsKy.psm1	/^function Reload-Profile { & $profile }$/;"	kind:f	line:29
+Remote-AR7VM	C:/Users/TiminsKY/Documents/WindowsPowerShell/Modules/TiminsKy/TiminsKy.psm1	/^Function Remote-AR7VM { Enter-PSSession HFDARIVERA7VM }$/;"	kind:f	line:43
+Stream-CopyTo	C:/Users/TiminsKY/Documents/WindowsPowerShell/Modules/TiminsKy/TiminsKy.psm1	/^Function Stream-CopyTo([System.IO.Stream]$Source, [System.IO.Stream]$Destination)$/;"	kind:f	line:740
+Test-ADAuthentication	C:/Users/TiminsKY/Documents/WindowsPowerShell/Modules/TiminsKy/TiminsKy.psm1	/^Function Test-ADAuthentication {$/;"	kind:f	line:400
+Test-Command	C:/Users/TiminsKY/Documents/WindowsPowerShell/Modules/TiminsKy/TiminsKy.psm1	/^Function Test-Command {$/;"	kind:f	line:110
+TiminsKy.psm1	C:/Users/TiminsKY/Documents/WindowsPowerShell/Modules/TiminsKy/TiminsKy.psm1	1;"	kind:F	line:1
+Update-SPOFolder	C:/Users/TiminsKY/Documents/WindowsPowerShell/Modules/TiminsKy/TiminsKy.psm1	/^Function Update-SPOFolder(){$/;"	kind:f	line:516
+aria-DL	C:/Users/TiminsKY/Documents/WindowsPowerShell/Modules/TiminsKy/TiminsKy.psm1	/^Function aria-DL {$/;"	kind:f	line:34

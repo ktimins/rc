@@ -11,3 +11,4 @@ isVarType(var, type) {
    if var is %type%
       return True
 }
+
