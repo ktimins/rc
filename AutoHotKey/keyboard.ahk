@@ -31,6 +31,16 @@ pok3r          := false
 pok3rcolemak   := false
 ModifierStates := ""
 
+
+//////////////////////////////
+//       Run Scripts        //
+//////////////////////////////
+
+
+
+//////////////////////////////
+//          LEDs            //
+//////////////////////////////
 if (colemak or colemakAllTIme) {
    KeyboardLED(4, "on",  3)
 } Else {
@@ -450,16 +460,15 @@ Return
 //         Colemak          //
 //////////////////////////////
 
-//   If (not colemak and not colemakAllTime) {
-//      +Space & t::
-//         SendInput {Blind}{Alt down}{F4}{Alt up}
-//         Return
-//   } else {
-//      +Space & f::
-//         SendInput {Blind}{Alt down}{F4}{Alt up}
-//         Return
-//   }
-
+If (colemak or colemakAllTime) {
+   <!<+f::
+      SendInput {Blind}{Alt down}{F4}{Alt up}
+      Return
+} else {
+   <!<+t::
+      SendInput {Blind}{Alt down}{F4}{Alt up}
+      Return
+}
 
 #If ((WinActive("ahk_exe devenv.exe") or WinActive("ahk_Class Vim") or WinActive("ahk_Class VIM") or WinActive("VIM")) and not colemakAllTime)
    *q::
