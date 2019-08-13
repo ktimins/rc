@@ -231,6 +231,35 @@ Function Avl-Recov {
 #           Random           #
 ##############################
 
+Function Create-Msgbox {
+Param (
+    [String]$Message,
+    [String]$Title = 'Message box title',   
+    [String]$buttons = 'OKCancel'
+)
+# This function displays a message box by calling the .Net Windows.Forms (MessageBox class)
+ 
+# Load the assembly
+Add-Type -AssemblyName System.Windows.Forms | Out-Null
+ 
+# Define the button types
+Switch ($buttons) {
+   'ok' {$btn = [System.Windows.Forms.MessageBoxButtons]::OK; break}
+   'okcancel' {$btn = [System.Windows.Forms.MessageBoxButtons]::OKCancel; break}
+   'AbortRetryIgnore' {$btn = [System.Windows.Forms.MessageBoxButtons]::AbortRetryIgnore; break}
+   'YesNoCancel' {$btn = [System.Windows.Forms.MessageBoxButtons]::YesNoCancel; break}
+   'YesNo' {$btn = [System.Windows.Forms.MessageBoxButtons]::yesno; break}
+   'RetryCancel'{$btn = [System.Windows.Forms.MessageBoxButtons]::RetryCancel; break}
+   Default {$btn = [System.Windows.Forms.MessageBoxButtons]::RetryCancel; break}
+}
+ 
+  # Display the message box
+  $Return=[System.Windows.Forms.MessageBox]::Show($Message,$Title,$btn)
+  $Return
+}
+
+New-Alias -Name msgbox -Value Create-Msgbox;
+
 Function Invoke-FileWatcher {
    Param(
          [Parameter(Mandatory=$true,ValueFromPipeline=$true,Position=0)]

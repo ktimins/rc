@@ -139,6 +139,7 @@
       Plug 'devjoe/vim-codequery'
       Plug 'sukima/xmledit'
       Plug 'jiangmiao/auto-pairs'
+      Plug 'vim-scripts/a.vim'
 
       " Diff {{{2
       Plug 'rickhowe/diffchar.vim'
@@ -406,22 +407,22 @@
 " Moving Around, Tabs, Windows, Buffers {{{1
 
    " Disable highlight when <leader><cr> is pressed
-   map <silent> <leader><cr> :noh<cr>
+   noremap <silent> <leader><cr> :noh<cr>
 
    " Smart way to move between windows
-   map <C-j> <C-W>j
-   map <C-k> <C-W>k
-   map <C-h> <C-W>h
-   map <C-l> <C-W>l
+   noremap <C-j> <C-W>j
+   noremap <C-k> <C-W>k
+   noremap <C-h> <C-W>h
+   noremap <C-l> <C-W>l
 
    " Close the current buffer
-   map <leader>bd :Bclose<cr>:tabclose<cr>gT
+   noremap <leader>bd :Bclose<cr>:tabclose<cr>gT
 
    " Close all the buffers
-   map <leader>ba :bufdo bd<cr>
+   noremap <leader>ba :bufdo bd<cr>
 
    " Switch CWD to the directory of the open buffer
-   map <leader>cd :cd %:p:h<cr>:pwd<cr>
+   noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
    " Specify the behavior when switching between buffers 
    try
@@ -549,7 +550,7 @@ EOF
         au FileType json set softtabstop=4 tabstop=4
         au FileType json set expandtab 
         au FileType json set foldmethod=syntax 
-        au BufNewFile,BufRead *.json nnoremap f== :%!python -m json.tool<CR>
+        au BufNewFile,BufRead *.json nnoremap f== :silent %!python -m json.tool<CR>
       augroup END
 
    " }}}
@@ -565,13 +566,22 @@ EOF
          au FileType html,xml,xsd,sln,xaml set softtabstop=2 tabstop=2 
          au FileType html,xml,xsd,sln,xaml set expandtab 
          au FileType html,xml,xsd,sln,xaml set foldmethod=indent 
+         au FileType xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
          au FileType html,xml,xsd,sln,xaml Autoformat
+         au FileType xml,xsd,xaml nnoremap f== :silent %!xmllint --format --recover - 2>/dev/null<CR>
       augroup END
 
       " HTML {{{3
          augroup html
             au!
-            au FileType html nnoremap <C-F5> :%!'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe'<CR>
+            au FileType html nnoremap <C-F5> :silent !'C:\Users\TiminsKY\AppData\Local\Programs\Opera\launcher.exe' %:p<CR>
+         augroup END
+      "}}}
+
+      " Markdown {{{3
+         augroup md
+            au!
+            au FileType md nnoremap <C-F5> :silent !'C:\Users\TiminsKY\AppData\Local\Programs\Opera\launcher.exe' %:p<CR>
          augroup END
       "}}}
    
@@ -1009,9 +1019,9 @@ EOF
 
    let g:comfortable_motion_impulse_multiplier = 1
 
-   nnoremap <silent> <C-d> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 2)<CR>
+   nnoremap <silent> <C-d> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 4)<CR>
    nnoremap <silent> <C-u> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -2)<CR>
-   nnoremap <silent> <C-f> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 4)<CR>
+   nnoremap <silent> <C-f> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 2)<CR>
    nnoremap <silent> <C-b> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -4)<CR>
 
 "}}}

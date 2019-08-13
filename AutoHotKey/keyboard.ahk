@@ -13,15 +13,6 @@ SetTitleMatchMode, slow
 //      Set Variables       //
 //////////////////////////////
 
-//colemak        := false
-//colemakAllTime := false
-//wasdKeyboard   := false
-//confKeyboard   := false
-//normKeyboard   := false
-//pok3r          := false
-//pok3rcolemak   := false
-//ModifierStates := ""
-
 colemak        := false
 colemakAllTime := false
 wasdKeyboard   := false
@@ -30,13 +21,15 @@ normKeyboard   := false
 pok3r          := false
 pok3rcolemak   := false
 ModifierStates := ""
-
+printScreen    := false
 
 //////////////////////////////
 //       Run Scripts        //
 //////////////////////////////
 
-
+#If (A_ComputerName = "HFDKTIMINSW7D")
+   Run work.ahk
+#If
 
 //////////////////////////////
 //          LEDs            //
@@ -136,6 +129,29 @@ Return
       KeyboardLED(4, "off", 3)
    }
 Return
+
+#If (colemak or colemakAllTime) 
+   #!r::
+      printScreen := not printScreen
+   return
+   #!+r::
+      printScreen := false
+   return
+#If
+
+#If (not (colemak or colemakAllTime))
+   #!p::
+      printScreen := not printScreen
+   return
+   #!+p::
+      printScreen := false
+   return
+#If
+
+#If (printScreen) 
+   <+Space::SendInput {PrintScreen}
+#If
+
 
 >!Scrolllock::
    normKeyboard:=not normKeyboard

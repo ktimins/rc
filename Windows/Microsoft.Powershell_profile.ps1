@@ -64,6 +64,7 @@ $ENFDir = 'C:\Users\TiminsKy\Documents\ENF'
 $AppDir = 'F:\Work\Products\DailyBuild\App'
 $Pass2Dir = (Join-Path -Path $AppDir -ChildPath 'core\Coding')
 $CrumDir = 'L:'
+$BillingSchemaDir = "F:\Work\Products\DailyBuild\System\Shared\BillingSchema";
 
 ##############################
 #          Modules           #
@@ -195,7 +196,7 @@ Function Cd-Pass2 {
 }
 
 Function Cd-Bill {
-   Push-Location (Join-Path -Path $Pass2Dir -ChildPath 'BillingInterface')
+   Push-Location (Join-Path -Path $Pass2Dir -ChildPath 'BillingDecisions')
 }
 
 Function Cd-App {
@@ -203,7 +204,24 @@ Function Cd-App {
 }
 
 Function Cd-Crum {
-   cd $CrumDir
+   Push-Location $CrumDir
+}
+
+Function Cd-BillingSchema {
+   Push-Location $BillingSchemaDir;
+}
+
+Function Update-BillingSchema {
+   Start-Process -FilePath (Get-Command tf).Definition -ArgumentList "vc get $BillingSchemaDir /recursive /overwrite /noprompt" -NoNewWindow -Wait;
+}
+
+Function Update-TfsFiles {
+   Param(
+         [Switch]$Recursive
+        )
+   $pwd = Get-Location;
+   $args = "vc get $pwd $(If ($Recursive) {"/recursive "})/noprompt";
+   Start-Process -FilePath (Get-Command tf).Definition -ArgumentList $args -NoNewWindow -Wait;
 }
 
 
