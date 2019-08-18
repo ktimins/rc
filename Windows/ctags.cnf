@@ -38,3 +38,5 @@
 --regex-XSD=/^\s*<xs:[eE]lement (name|ref)="([a-zA-Z0-9_]+)".*(?:([tT]ype)="((?:xs:)?[a-zA-Z0-9_]+)")?/\2 -- \4/e,Element/
 --exclude=.git
 --recurse=yes
+
+--langdef=

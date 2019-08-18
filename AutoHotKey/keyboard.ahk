@@ -13,15 +13,6 @@ SetTitleMatchMode, slow
 //      Set Variables       //
 //////////////////////////////
 
-//colemak        := false
-//colemakAllTime := false
-//wasdKeyboard   := false
-//confKeyboard   := false
-//normKeyboard   := false
-//pok3r          := false
-//pok3rcolemak   := false
-//ModifierStates := ""
-
 colemak        := false
 colemakAllTime := false
 wasdKeyboard   := false
@@ -30,7 +21,19 @@ normKeyboard   := false
 pok3r          := false
 pok3rcolemak   := false
 ModifierStates := ""
+printScreen    := false
 
+//////////////////////////////
+//       Run Scripts        //
+//////////////////////////////
+
+#If (A_ComputerName = "HFDKTIMINSW7D")
+   Run work.ahk
+#If
+
+//////////////////////////////
+//          LEDs            //
+//////////////////////////////
 if (colemak or colemakAllTIme) {
    KeyboardLED(4, "on",  3)
 } Else {
@@ -127,6 +130,29 @@ Return
    }
 Return
 
+#If (colemak or colemakAllTime) 
+   #!r::
+      printScreen := not printScreen
+   return
+   #!+r::
+      printScreen := false
+   return
+#If
+
+#If (not (colemak or colemakAllTime))
+   #!p::
+      printScreen := not printScreen
+   return
+   #!+p::
+      printScreen := false
+   return
+#If
+
+#If (printScreen) 
+   <+Space::SendInput {PrintScreen}
+#If
+
+
 >!Scrolllock::
    normKeyboard:=not normKeyboard
 Return
@@ -145,12 +171,12 @@ Return
    MsgBox, The active window Title is "%Title%"
 Return
 
-//+Right::+Insert
+//+Right::+Insert{{
 
 <#Space:: Send, ^``
 
-<!j::AltTab
-<!k::ShiftAltTab
+//<!j::AltTab
+//<!k::ShiftAltTab
 
 //////////////////////////////
 //    Swap LCtrl & LWin     //
@@ -455,9 +481,23 @@ IfWinActive, Plex
 
 #If
 
+#If (WinActive("ahk_exe vb6.exe"))
+   F7::+F8
+#If
+
 //////////////////////////////
 //         Colemak          //
 //////////////////////////////
+
+If (colemak or colemakAllTime) {
+   <!<+f::
+      SendInput {Blind}{Alt down}{F4}{Alt up}
+      Return
+} else {
+   <!<+t::
+      SendInput {Blind}{Alt down}{F4}{Alt up}
+      Return
+}
 
 #If ((WinActive("ahk_exe devenv.exe") or WinActive("ahk_Class Vim") or WinActive("ahk_Class VIM") or WinActive("VIM")) and not colemakAllTime)
    *q::

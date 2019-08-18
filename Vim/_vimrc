@@ -63,9 +63,9 @@
    " Ignore compiled files
    set wildignore=*.pdf,*.pyo,*.pyc,*.zip,*.so,*.swp,*.dll,*.o,*.DS_Store,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png,*.a " ignore these
    if s:running_windows
-      set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*,*\\bin\\*,*\\pkg\\*
+      set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*,*\\bin\\*,*\\pkg\\*,*\\.vs\\*,*\\.localhistory\\*
    else
-      set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/bin/*,*/pkg/*
+      set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/bin/*,*/pkg/*,*/.vs/*,*/.localhistory/*
    endif
 
    "Always show current position
@@ -139,6 +139,10 @@
       Plug 'devjoe/vim-codequery'
       Plug 'sukima/xmledit'
       Plug 'jiangmiao/auto-pairs'
+      Plug 'vim-scripts/a.vim'
+
+      " Diff {{{2
+      Plug 'rickhowe/diffchar.vim'
       Plug 'chrisbra/vim-diff-enhanced'
       " }}}
 
@@ -167,7 +171,8 @@
       " Checkers {{{2
          Plug 'tpope/vim-dispatch'
          Plug 'Shougo/vimproc.vim'
-         Plug 'vim-syntastic/syntastic'
+         "Plug 'vim-syntastic/syntastic'
+         Plug 'w0rp/ale'
          Plug 'reedes/vim-wordy'
          Plug 'nvie/vim-flake8'
       " }}}
@@ -205,8 +210,8 @@
       " }}}
 
       " Completion {{{2
-         Plug 'OmniSharp/omnisharp-vim'
-         Plug 'Valloric/YouCompleteMe'
+         "Plug 'OmniSharp/omnisharp-vim'
+         "Plug 'Valloric/YouCompleteMe'
          Plug 'vim-scripts/aspnetide.vim'      " }}}
 
       " Movement {{{2
@@ -402,22 +407,22 @@
 " Moving Around, Tabs, Windows, Buffers {{{1
 
    " Disable highlight when <leader><cr> is pressed
-   map <silent> <leader><cr> :noh<cr>
+   noremap <silent> <leader><cr> :noh<cr>
 
    " Smart way to move between windows
-   map <C-j> <C-W>j
-   map <C-k> <C-W>k
-   map <C-h> <C-W>h
-   map <C-l> <C-W>l
+   noremap <C-j> <C-W>j
+   noremap <C-k> <C-W>k
+   noremap <C-h> <C-W>h
+   noremap <C-l> <C-W>l
 
    " Close the current buffer
-   map <leader>bd :Bclose<cr>:tabclose<cr>gT
+   noremap <leader>bd :Bclose<cr>:tabclose<cr>gT
 
    " Close all the buffers
-   map <leader>ba :bufdo bd<cr>
+   noremap <leader>ba :bufdo bd<cr>
 
    " Switch CWD to the directory of the open buffer
-   map <leader>cd :cd %:p:h<cr>:pwd<cr>
+   noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
    " Specify the behavior when switching between buffers 
    try
@@ -440,24 +445,29 @@
 
    " Airline {{{2
 
-      " Syntastic {{{{3
-
-         " Enable Syntastic integration
-         let g:airline#extensions#syntastic#enabled=1
-
-         " syntastic error_symbol >
-         let airline#extensions#syntastic#error_symbol = 'E:'
-
-         " syntastic statusline error format (see |syntastic_stl_format|) >
-         let airline#extensions#syntastic#stl_format_err = '%E{[%e(#%fe)]}'
-
-         " syntastic warning >
-         let airline#extensions#syntastic#warning_symbol = 'W:'
-
-         " syntastic statusline warning format (see |syntastic_stl_format|) >
-         let airline#extensions#syntastic#stl_format_warn = '%W{[%w(#%fw)]}'
+      " ALE {{{3
+         
+         let g:airline#extensions#ale#enabled = 1
 
       " }}}
+      "" Syntastic {{{{3
+
+         "" Enable Syntastic integration
+         "let g:airline#extensions#syntastic#enabled=1
+
+         "" syntastic error_symbol >
+         "let airline#extensions#syntastic#error_symbol = 'E:'
+
+         "" syntastic statusline error format (see |syntastic_stl_format|) >
+         "let airline#extensions#syntastic#stl_format_err = '%E{[%e(#%fe)]}'
+
+         "" syntastic warning >
+         "let airline#extensions#syntastic#warning_symbol = 'W:'
+
+         "" syntastic statusline warning format (see |syntastic_stl_format|) >
+         "let airline#extensions#syntastic#stl_format_warn = '%W{[%w(#%fw)]}'
+
+      "" }}}
 
       " Tagbar {{{3
 
@@ -529,7 +539,7 @@ EOF
 
    " }}}
 
-   " jSON {{{2
+   " JSON {{{2
 
       augroup json
         autocmd! 
@@ -540,7 +550,7 @@ EOF
         au FileType json set softtabstop=4 tabstop=4
         au FileType json set expandtab 
         au FileType json set foldmethod=syntax 
-        au BufNewFile,BufRead *.json nnoremap f== :%!python -m json.tool<CR>
+        au BufNewFile,BufRead *.json nnoremap f== :silent %!python -m json.tool<CR>
       augroup END
 
    " }}}
@@ -556,13 +566,22 @@ EOF
          au FileType html,xml,xsd,sln,xaml set softtabstop=2 tabstop=2 
          au FileType html,xml,xsd,sln,xaml set expandtab 
          au FileType html,xml,xsd,sln,xaml set foldmethod=indent 
+         au FileType xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
          au FileType html,xml,xsd,sln,xaml Autoformat
+         au FileType xml,xsd,xaml nnoremap f== :silent %!xmllint --format --recover - 2>/dev/null<CR>
       augroup END
 
       " HTML {{{3
          augroup html
             au!
-            au FileType html nnoremap <C-F5> :%!'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe'<CR>
+            au FileType html nnoremap <C-F5> :silent !'C:\Users\TiminsKY\AppData\Local\Programs\Opera\launcher.exe' %:p<CR>
+         augroup END
+      "}}}
+
+      " Markdown {{{3
+         augroup md
+            au!
+            au FileType md nnoremap <C-F5> :silent !'C:\Users\TiminsKY\AppData\Local\Programs\Opera\launcher.exe' %:p<CR>
          augroup END
       "}}}
    
@@ -624,8 +643,8 @@ EOF
       augroup END
       
       augroup cls
-         au!
-         au FileType cls set filetype=vb
+         au FileType *.cls set filetype=vb
+         au BufRead, BufNewFile *.cls set filetype=vb
       augroup END
 
       augroup bas
@@ -669,23 +688,36 @@ EOF
 
 " }}}
 
-" Syntastic {{{1
+" ALE {{{1
 
-   let g:syntastic_always_populate_loc_list = 1
-   let g:syntastic_auto_loc_list = 1
-   let g:syntastic_check_on_open = 0
-   let g:syntastic_check_on_wq = 0
-   let g:syntastic_json_checkers = ['jsonlint']
-   let g:syntastic_cs_checkers = ['mcs']
-   let g:syntastic_python_checkers = ['frosted']
-   let g:syntastic_html_checkers = ['tidy']
-   "let g:syntastic_xml_checkers = ['tidy']
-   let g:syntastic_xml_checkers = ['xmllint']
-   let g:syntastic_xml_xmllint_args = "--schema F:\XML\WorkThroughPols\EndorsementRequest_0.0.0.17.xsd"
-   let g:syntastic_javascript_checkers = ['eslint']
-   let g:syntastic_vim_checkers = ['vint']
+   let g:ale_linters = {
+      \  'javascript': ['eslint'],
+      \  'json': ['jsonlint'],
+      \  'cs': ['mcs'],
+      \  'python': ['frosted'],
+      \  'html': ['tidy'],
+      \  'xml': ['tidy', 'xmllint'],
+      \  'vim': ['vint']
+   \}
 
 " }}}
+
+"" Syntastic {{{1
+
+   "let g:syntastic_always_populate_loc_list = 1
+   "let g:syntastic_auto_loc_list = 1
+   "let g:syntastic_check_on_open = 0
+   "let g:syntastic_check_on_wq = 0
+   "let g:syntastic_json_checkers = ['jsonlint']
+   "let g:syntastic_cs_checkers = ['mcs']
+   "let g:syntastic_python_checkers = ['frosted']
+   "let g:syntastic_html_checkers = ['tidy']
+   ""let g:syntastic_xml_checkers = ['tidy']
+   "let g:syntastic_xml_checkers = ['xmllint']
+   "let g:syntastic_javascript_checkers = ['eslint']
+   "let g:syntastic_vim_checkers = ['vint']
+
+"" }}}
 
 " TagBar {{{1
 
@@ -737,6 +769,21 @@ EOF
    " Visual Basic {{{2
 
       let g:tagbar_type_vb = {
+         \ 'ctagstype' : 'vb',
+         \ 'kinds'     : [
+            \ 's:subroutine',
+            \ 'f:function',
+            \ 'm:module variable',
+            \ 'g:global variable',
+            \ 'c:const',
+            \ 'n:name',
+            \ 'e:enum',
+            \ 't:type',
+            \ 'l:label'
+         \ ]   
+      \ }
+
+      let g:tagbar_type_vbnet = {
          \ 'ctagstype' : 'vb',
          \ 'kinds'     : [
             \ 's:subroutine',
@@ -846,104 +893,104 @@ EOF
 
 " }}}
 
-" OmniSharp {{{1
+"" OmniSharp {{{1
 
-   " OmniSharp Server Path to EXE
-   if $LOCATION ==? 'WORK'
-      let g:OmniSharp_server_path = 'C:\Users\TiminsKY\.omnisharp\OmniSharp.exe'
-   elseif $LOCATION ==? 'THEIA'
-      let g:OmniSharp_server_path = 'C:\Users\rzite\.omnisharp\OmniSharp.exe'
-   endif
+   "" OmniSharp Server Path to EXE
+   "if $LOCATION ==? 'WORK'
+      "let g:OmniSharp_server_path = 'C:\Users\TiminsKY\.omnisharp\OmniSharp.exe'
+   "elseif $LOCATION ==? 'THEIA'
+      "let g:OmniSharp_server_path = 'C:\Users\rzite\.omnisharp\OmniSharp.exe'
+   "endif
 
-   " Select plugin for Code Actions and Find Symbols
-   let g:OmniSharp_selector_ui = 'ctrlp'  " Use ctrlp
-   " let g:OmniSharp_selector_ui = ''     " Use vim - command line, quickfix,  etc...
+   "" Select plugin for Code Actions and Find Symbols
+   "let g:OmniSharp_selector_ui = 'ctrlp'  " Use ctrlp
+   "" let g:OmniSharp_selector_ui = ''     " Use vim - command line, quickfix,  etc...
 
-   " Automatically stop the server on close
-   let g:OmniSharp_stop_server = 2
+   "" Automatically stop the server on close
+   "let g:OmniSharp_stop_server = 2
 
-   " Set the type lookup function to use the preview window instead of echoing it
-   let g:OmniSharp_typeLookupInPreview = 1
+   "" Set the type lookup function to use the preview window instead of echoing it
+   "let g:OmniSharp_typeLookupInPreview = 1
 
-   " Timeout in seconds to wait for a response from the server
-   let g:OmniSharp_timeout = 10
+   "" Timeout in seconds to wait for a response from the server
+   "let g:OmniSharp_timeout = 10
 
-   let g:OmniSharp_server_type = 'roslyn'
-   let g:OmniSharp_prefer_global_sln = 1
+   "let g:OmniSharp_server_type = 'roslyn'
+   "let g:OmniSharp_prefer_global_sln = 1
 
-   " Don't autoselect first omnicomplete option, show options even if there is only
-   " one (so the preview documentation is accessible). Remove 'preview' if you
-   " don't want to see any documentation whatsoever.
-   set completeopt=longest,menuone,preview
+   "" Don't autoselect first omnicomplete option, show options even if there is only
+   "" one (so the preview documentation is accessible). Remove 'preview' if you
+   "" don't want to see any documentation whatsoever.
+   "set completeopt=longest,menuone,preview
 
-   " Set desired preview window height for viewing documentation.
-   " You might also want to look at the echodoc plugin.
-   set previewheight=5
+   "" Set desired preview window height for viewing documentation.
+   "" You might also want to look at the echodoc plugin.
+   "set previewheight=5
 
-   augroup omnisharp_commands
-       autocmd!
+   "augroup omnisharp_commands
+       "autocmd!
 
-       " Synchronous build (blocks Vim)
-       "autocmd FileType cs nnoremap <buffer> <F5> :wa!<CR>:OmniSharpBuild<CR>
-       " Builds can also run asynchronously with vim-dispatch installed
-       autocmd FileType cs nnoremap <buffer> <Leader>b :wa!<CR>:OmniSharpBuildAsync<CR>
-       " Automatic syntax check on events (TextChanged requires Vim 7.4)
-       autocmd BufEnter,TextChanged,InsertLeave *.cs SyntasticCheck
+       "" Synchronous build (blocks Vim)
+       ""autocmd FileType cs nnoremap <buffer> <F5> :wa!<CR>:OmniSharpBuild<CR>
+       "" Builds can also run asynchronously with vim-dispatch installed
+       "autocmd FileType cs nnoremap <buffer> <Leader>b :wa!<CR>:OmniSharpBuildAsync<CR>
+       "" Automatic syntax check on events (TextChanged requires Vim 7.4)
+       "autocmd BufEnter,TextChanged,InsertLeave *.cs SyntasticCheck
 
-       " Automatically add new cs files to the nearest project on save
-       "autocmd BufWritePost *.cs call OmniSharp#AddToProject()
+       "" Automatically add new cs files to the nearest project on save
+       ""autocmd BufWritePost *.cs call OmniSharp#AddToProject()
 
-       " Show type information automatically when the cursor stops moving
-       autocmd CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
+       "" Show type information automatically when the cursor stops moving
+       "autocmd CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
 
-       " The following commands are contextual, based on the cursor position.
-       autocmd FileType cs nnoremap <buffer> gd :OmniSharpGotoDefinition<CR>
-       autocmd FileType cs nnoremap <buffer> <Leader>fi :OmniSharpFindImplementations<CR>
-       autocmd FileType cs nnoremap <buffer> <Leader>fs :OmniSharpFindSymbol<CR>
-       autocmd FileType cs nnoremap <buffer> <Leader>fu :OmniSharpFindUsages<CR>
+       "" The following commands are contextual, based on the cursor position.
+       "autocmd FileType cs nnoremap <buffer> gd :OmniSharpGotoDefinition<CR>
+       "autocmd FileType cs nnoremap <buffer> <Leader>fi :OmniSharpFindImplementations<CR>
+       "autocmd FileType cs nnoremap <buffer> <Leader>fs :OmniSharpFindSymbol<CR>
+       "autocmd FileType cs nnoremap <buffer> <Leader>fu :OmniSharpFindUsages<CR>
 
-       " Finds members in the current buffer
-       autocmd FileType cs nnoremap <buffer> <Leader>fm :OmniSharpFindMembers<CR>
+       "" Finds members in the current buffer
+       "autocmd FileType cs nnoremap <buffer> <Leader>fm :OmniSharpFindMembers<CR>
 
-       " Cursor can be anywhere on the line containing an issue
-       autocmd FileType cs nnoremap <buffer> <Leader>x  :OmniSharpFixIssue<CR>
-       autocmd FileType cs nnoremap <buffer> <Leader>fx :OmniSharpFixUsings<CR>
-       autocmd FileType cs nnoremap <buffer> <Leader>tt :OmniSharpTypeLookup<CR>
-       autocmd FileType cs nnoremap <buffer> <Leader>dc :OmniSharpDocumentation<CR>
+       "" Cursor can be anywhere on the line containing an issue
+       "autocmd FileType cs nnoremap <buffer> <Leader>x  :OmniSharpFixIssue<CR>
+       "autocmd FileType cs nnoremap <buffer> <Leader>fx :OmniSharpFixUsings<CR>
+       "autocmd FileType cs nnoremap <buffer> <Leader>tt :OmniSharpTypeLookup<CR>
+       "autocmd FileType cs nnoremap <buffer> <Leader>dc :OmniSharpDocumentation<CR>
 
-       " Navigate up and down by method/property/field
-       autocmd FileType cs nnoremap <buffer> <C-k> :OmniSharpNavigateUp<CR>
-       autocmd FileType cs nnoremap <buffer> <C-j> :OmniSharpNavigateDown<CR>
-   augroup END
+       "" Navigate up and down by method/property/field
+       "autocmd FileType cs nnoremap <buffer> <C-k> :OmniSharpNavigateUp<CR>
+       "autocmd FileType cs nnoremap <buffer> <C-j> :OmniSharpNavigateDown<CR>
+   "augroup END
 
-   " Contextual code actions (uses fzf, CtrlP or unite.vim when available)
-   nnoremap <Leader><Space> :OmniSharpGetCodeActions<CR>
-   " Run code actions with text selected in visual mode to extract method
-   xnoremap <Leader><Space> :call OmniSharp#GetCodeActions('visual')<CR>
+   "" Contextual code actions (uses fzf, CtrlP or unite.vim when available)
+   "nnoremap <Leader><Space> :OmniSharpGetCodeActions<CR>
+   "" Run code actions with text selected in visual mode to extract method
+   "xnoremap <Leader><Space> :call OmniSharp#GetCodeActions('visual')<CR>
 
-   " Rename with dialog
-   nnoremap <Leader>nm :OmniSharpRename<CR>
-   nnoremap <F2> :OmniSharpRename<CR>
-   " Rename without dialog - with cursor on the symbol to rename: `:Rename newname`
-   command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
+   "" Rename with dialog
+   "nnoremap <Leader>nm :OmniSharpRename<CR>
+   "nnoremap <F2> :OmniSharpRename<CR>
+   "" Rename without dialog - with cursor on the symbol to rename: `:Rename newname`
+   "command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
 
-   " Force OmniSharp to reload the solution. Useful when switching branches etc.
-   nnoremap <Leader>rl :OmniSharpReloadSolution<CR>
-   nnoremap <Leader>cf :OmniSharpCodeFormat<CR>
-   " Load the current .cs file to the nearest project
-   nnoremap <Leader>tp :OmniSharpAddToProject<CR>
+   "" Force OmniSharp to reload the solution. Useful when switching branches etc.
+   "nnoremap <Leader>rl :OmniSharpReloadSolution<CR>
+   "nnoremap <Leader>cf :OmniSharpCodeFormat<CR>
+   "" Load the current .cs file to the nearest project
+   "nnoremap <Leader>tp :OmniSharpAddToProject<CR>
 
-   " Start the omnisharp server for the current solution
-   nnoremap <Leader>ss :OmniSharpStartServer<CR>
-   nnoremap <Leader>sp :OmniSharpStopServer<CR>
+   "" Start the omnisharp server for the current solution
+   "nnoremap <Leader>ss :OmniSharpStartServer<CR>
+   "nnoremap <Leader>sp :OmniSharpStopServer<CR>
 
-   " Add syntax highlighting for types and interfaces
-   nnoremap <Leader>th :OmniSharpHighlightTypes<CR>
+   "" Add syntax highlighting for types and interfaces
+   "nnoremap <Leader>th :OmniSharpHighlightTypes<CR>
 
-   " Enable snippet completion
-   let g:OmniSharp_want_snippet=1
+   "" Enable snippet completion
+   "let g:OmniSharp_want_snippet=1
 
-" }}}
+"" }}}
 
 " Signify {{{1
    let g:signify_vcs_list = [ 'git', 'tfs' ]
@@ -969,9 +1016,12 @@ EOF
    "" Friction and Air Resistance
    "let g:comfortable_motion_friction = 0.0
    "let g:comfortable_motion_air_drag = 4.0
-   nnoremap <silent> <C-d> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 2)<CR>
+
+   let g:comfortable_motion_impulse_multiplier = 1
+
+   nnoremap <silent> <C-d> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 4)<CR>
    nnoremap <silent> <C-u> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -2)<CR>
-   nnoremap <silent> <C-f> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 4)<CR>
+   nnoremap <silent> <C-f> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 2)<CR>
    nnoremap <silent> <C-b> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -4)<CR>
 
 "}}}
@@ -997,7 +1047,7 @@ EOF
       command! XmlBeautify    execute "call XmlBeautify()" | execute "call XmlBeautify()"
       command! XmlMinify      execute "call XmlMinify()"
 
-   "}}} 
+   "}}}
    
    function! FindAll()
       call inputsave()

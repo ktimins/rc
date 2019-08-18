@@ -51,8 +51,8 @@ Function Invoke-GVim {
 #          Aliases           #
 ##############################
 #New-Alias which Get-Command
-New-Alias vim Invoke-Vim -Force;
-New-Alias gvim Invoke-GVim -Force;
+#New-Alias vim Invoke-Vim -Force;
+#New-Alias gvim Invoke-GVim -Force;
 
 ##############################
 #         Variables          #
@@ -64,6 +64,7 @@ $ENFDir = 'C:\Users\TiminsKy\Documents\ENF'
 $AppDir = 'F:\Work\Products\DailyBuild\App'
 $Pass2Dir = (Join-Path -Path $AppDir -ChildPath 'core\Coding')
 $CrumDir = 'L:'
+$BillingSchemaDir = "F:\Work\Products\DailyBuild\System\Shared\BillingSchema";
 
 ##############################
 #          Modules           #
@@ -80,7 +81,7 @@ if ($host.Name -eq 'ConsoleHost') {
 
 Import-Module TiminsKy -DisableNameChecking
 
-#Import-Module ErrorCorrect -DisableNameChecking
+Import-Module ErrorCorrect -DisableNameChecking
 
 Import-Module EDI -DisableNameChecking
 
@@ -164,9 +165,9 @@ Function Edit-Profile {
         )
    $file = 'C:\Users\TiminsKY\Git\rc\Windows\Microsoft.Powershell_profile.ps1';
    If ($GVim) {
-      gvim $file;
+      gvim.bat $file;
    } Else {
-      vim $file;
+      vim.bat $file;
    }
    Copy-Profile;
    . $PROFILE;
@@ -183,9 +184,9 @@ Function Edit-Vimrc {
         )
    $file = 'C:\Users\TiminsKy\Git\rc\Vim\_vimrc';
    If ($GVim) {
-      gvim $file;
+      gvim.bat $file;
    } Else {
-      vim $file;
+      vim.bat $file;
    }
    Copy-Vimrc;
 }
@@ -194,12 +195,33 @@ Function Cd-Pass2 {
    Push-Location $Pass2Dir
 }
 
+Function Cd-Bill {
+   Push-Location (Join-Path -Path $Pass2Dir -ChildPath 'BillingDecisions')
+}
+
 Function Cd-App {
    Push-Location $AppDir
 }
 
 Function Cd-Crum {
-   cd $CrumDir
+   Push-Location $CrumDir
+}
+
+Function Cd-BillingSchema {
+   Push-Location $BillingSchemaDir;
+}
+
+Function Update-BillingSchema {
+   Start-Process -FilePath (Get-Command tf).Definition -ArgumentList "vc get $BillingSchemaDir /recursive /overwrite /noprompt" -NoNewWindow -Wait;
+}
+
+Function Update-TfsFiles {
+   Param(
+         [Switch]$Recursive
+        )
+   $pwd = Get-Location;
+   $args = "vc get $pwd $(If ($Recursive) {"/recursive "})/noprompt";
+   Start-Process -FilePath (Get-Command tf).Definition -ArgumentList $args -NoNewWindow -Wait;
 }
 
 
