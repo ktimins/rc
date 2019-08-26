@@ -28,7 +28,7 @@ printScreen    := false
 //////////////////////////////
 
 #If (A_ComputerName = "HFDKTIMINSW7D")
-   Run work.ahk
+//   Run work.ahk
 #If
 
 //////////////////////////////

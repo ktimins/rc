@@ -357,166 +357,6 @@
 
 " }}}
 
-" Languages {{{1
-
-   " All Languages {{{2
-
-      augroup all_autocmd
-         au FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-      augroup END
-   
-   " }}}
-
-   " Python {{{2
-
-      augroup python
-         au BufNewFile,BufRead *.py set tabstop=4
-         au BufNewFile,BufRead *.py set softtabstop=4
-         au BufNewFile,BufRead *.py set shiftwidth=4
-         au BufNewFile,BufRead *.py set textwidth=79
-         au BufNewFile,BufRead *.py set expandtab
-         au BufNewFile,BufRead *.py set autoindent
-         au FileType *.py let python_highlight_all=1
-         au BufNewFile,BufRead *.py set fileformat=unix
-      augroup END
-
-      py << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-   project_base_dir = os.environ['VIRTUAL_ENV']
-   activate_this = os.path.join(project_base_dir, 'bin/activivate_this.py')
-   execfile(activate_this, dict(__file__=activate_this))
-EOF
-
-   " }}}
-
-   " JSON {{{2
-
-      augroup json
-        autocmd! 
-        au BufRead,BufNewFile json set filetype=json
-        au FileType json set autoindent 
-        au FileType json set formatoptions=tcq2l 
-        au FileType json set shiftwidth=4 
-        au FileType json set softtabstop=4 tabstop=4
-        au FileType json set expandtab 
-        au FileType json set foldmethod=syntax 
-        au BufNewFile,BufRead *.json nnoremap f== :silent %!python -m json.tool<CR>
-      augroup END
-
-   " }}}
-
-   " XML {{{2
-
-      augroup xml_grouping
-         au!
-         au FileType html,xml,xsd,sln,xaml let g:xml_syntax_folding=4
-         au FileType html,xml,xsd,sln,xaml set cindent
-         au FileType html,xml,xsd,sln,xaml set formatoptions=tcq2l
-         au FileType html,xml,xsd,sln,xaml set shiftwidth=2 
-         au FileType html,xml,xsd,sln,xaml set softtabstop=2 tabstop=2 
-         au FileType html,xml,xsd,sln,xaml set expandtab 
-         au FileType html,xml,xsd,sln,xaml set foldmethod=indent 
-         au FileType xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
-         au FileType html,xml,xsd,sln,xaml Autoformat
-         au FileType xml,xsd,xaml nnoremap f== :silent %!xmllint --format --recover - 2>/dev/null<CR>
-      augroup END
-
-      " HTML {{{3
-         augroup html
-            au!
-            au FileType html nnoremap <C-F5> :silent !'C:\Users\TiminsKY\AppData\Local\Programs\Opera\launcher.exe' %:p<CR>
-         augroup END
-      "}}}
-
-      " Markdown {{{3
-         augroup md
-            au!
-            au FileType md nnoremap <C-F5> :silent !'C:\Users\TiminsKY\AppData\Local\Programs\Opera\launcher.exe' %:p<CR>
-         augroup END
-      "}}}
-   
-      " SLN {{{3
-         augroup sln
-            au!
-            au BufRead, BufNewFile sln set filetype=sln
-         augroup END
-      " }}}
-      
-      " XSD {{{3
-
-         augroup xsd
-            au!
-            au BufRead, BufNewFile xsd set filetype=xsd
-         augroup END
-
-      " }}}
-   
-      " XML {{{3
-      
-         augroup xml
-            au!
-            au BufRead, BufNewFile xml set filetype=xml
-            au FileType *.Billing.XML foldlevelstart=5
-         augroup END
-
-   " }}}
-
-      " XAML {{{3
-         augroup xaml
-            au!
-            au BufRead, BufNewFile *.xaml set filetype=xaml
-         augroup END
-      " }}}
-
-   " }}}
-
-   " Powershell {{{2
-
-      augroup ps1
-         au!
-         au BufRead, BufNewFile *.ps1 set filetype=ps1
-         au FileType ps1 set cindent
-         au FileType ps1 set formatoptions=tcq2l
-         au FileType ps1 set shiftwidth=3 
-         au FileType ps1 set softtabstop=3 tabstop=3
-         au FileType ps1 set expandtab 
-         au FileType ps1 set foldmethod=indent 
-      augroup END
-
-   " }}}
-
-   " Visual Basic {{{2
-
-      augroup vb
-         au!
-         au FileType vb set filetype=vb
-      augroup END
-      
-      augroup cls
-         au FileType *.cls set filetype=vb
-         au BufRead, BufNewFile *.cls set filetype=vb
-      augroup END
-
-      augroup bas
-         au!
-         au FileType bas set filetype=vb
-      augroup END
-
-   " }}}
-
-   " Vimscript {{{2
-
-      augroup vimscript
-         au!
-         au FileType vim set foldlevelstart=0
-      augroup END
-   
-   "}}}
-
-" }}}
-
 " Misc {{{1
 
    " Remove the Windows ^M - when the encodings gets messed up
@@ -877,6 +717,161 @@ EOF
    nnoremap <silent> <C-b> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -4)<CR>
 
 "}}}
+
+" Languages {{{1
+
+   " All Languages {{{2
+
+      augroup all_autocmd
+         au FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+      augroup END
+   
+   " }}}
+
+   " Python {{{2
+
+      augroup python
+         au BufNewFile,BufRead *.py set tabstop=4
+         au BufNewFile,BufRead *.py set softtabstop=4
+         au BufNewFile,BufRead *.py set shiftwidth=4
+         au BufNewFile,BufRead *.py set textwidth=79
+         au BufNewFile,BufRead *.py set expandtab
+         au BufNewFile,BufRead *.py set autoindent
+         au FileType *.py let python_highlight_all=1
+         au BufNewFile,BufRead *.py set fileformat=unix
+      augroup END
+
+      py << EOF
+import os
+import sys
+if 'VIRTUAL_ENV' in os.environ:
+   project_base_dir = os.environ['VIRTUAL_ENV']
+   activate_this = os.path.join(project_base_dir, 'bin/activivate_this.py')
+   execfile(activate_this, dict(__file__=activate_this))
+EOF
+
+   " }}}
+
+   " JSON {{{2
+
+      augroup json
+        autocmd! 
+        au BufRead,BufNewFile json set filetype=json
+        au FileType json set autoindent 
+        au FileType json set formatoptions=tcq2l 
+        au FileType json set shiftwidth=4 
+        au FileType json set softtabstop=4 tabstop=4
+        au FileType json set expandtab 
+        au FileType json set foldmethod=syntax 
+        au BufNewFile,BufRead *.json nnoremap f== :silent %!python -m json.tool<CR>
+      augroup END
+
+   " }}}
+
+   " XML {{{2
+
+      augroup xml_grouping
+         au!
+         au FileType html,xml,xsd,sln,xaml let g:xml_syntax_folding=4
+         au FileType html,xml,xsd,sln,xaml set cindent
+         au FileType html,xml,xsd,sln,xaml set formatoptions=tcq2l
+         au FileType html,xml,xsd,sln,xaml set shiftwidth=2 
+         au FileType html,xml,xsd,sln,xaml set softtabstop=2 tabstop=2 
+         au FileType html,xml,xsd,sln,xaml set expandtab 
+         au FileType html,xml,xsd,sln,xaml set foldmethod=indent 
+         au FileType xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
+         au FileType html,xml,xsd,sln,xaml Autoformat
+         au FileType xml,xsd,xaml nnoremap f== :silent %!xmllint --format --recover - 2>/dev/null<CR>
+      augroup END
+
+      " HTML {{{3
+         augroup html
+            au!
+            au FileType html nnoremap <C-F5> :silent !'C:\Users\TiminsKY\AppData\Local\Programs\Opera\launcher.exe' %:p<CR>
+         augroup END
+      "}}}
+
+      " Markdown {{{3
+         augroup md
+            au!
+            au FileType md nnoremap <C-F5> :silent !'C:\Users\TiminsKY\AppData\Local\Programs\Opera\launcher.exe' %:p<CR>
+         augroup END
+      "}}}
+   
+      " SLN {{{3
+         augroup sln
+            au!
+            au BufRead, BufNewFile sln set filetype=sln
+         augroup END
+      " }}}
+      
+      " XSD {{{3
+
+         augroup xsd
+            au!
+            au BufRead, BufNewFile xsd set filetype=xsd
+         augroup END
+
+      " }}}
+   
+      " XML {{{3
+      
+         augroup xml
+            au!
+            au BufRead, BufNewFile xml set filetype=xml
+            au FileType *.Billing.XML foldlevelstart=5
+         augroup END
+
+   " }}}
+
+      " XAML {{{3
+         augroup xaml
+            au!
+            au BufRead, BufNewFile *.xaml set filetype=xaml
+         augroup END
+      " }}}
+
+   " }}}
+
+   " Powershell {{{2
+
+      augroup ps1
+         au!
+         au BufRead, BufNewFile *.ps1 set filetype=ps1
+         au FileType ps1 set cindent
+         au FileType ps1 set formatoptions=tcq2l
+         au FileType ps1 set shiftwidth=3 
+         au FileType ps1 set softtabstop=3 tabstop=3
+         au FileType ps1 set expandtab 
+         au FileType ps1 set foldmethod=indent 
+      augroup END
+
+   " }}}
+
+   " Visual Basic {{{2
+
+      augroup vb
+         au!
+         au FileType vb set filetype=vb
+      augroup END
+      
+      augroup bas
+         au!
+         au FileType bas set filetype=vb
+      augroup END
+
+   " }}}
+
+   " Vimscript {{{2
+
+      augroup vimscript
+         au!
+         au FileType vim set foldlevelstart=0
+      augroup END
+   
+   "}}}
+
+" }}}
 
 " Custom Functions {{{1
 
