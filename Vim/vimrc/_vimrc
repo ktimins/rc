@@ -3,15 +3,15 @@
 " Location Stuff {{{1
 
    if $LOCATION ==? 'WORK'
-      let homedir = 'C:\\Users\\TiminsKy'
-      let $home = 'C:\\Users\\Timinsky'
-      let $storage = 'F:\\vim'
-      let $vimrc_plug = 'Z:\\_vimrc.plug'
+      let homedir = 'C:\Users\TiminsKy'
+      let $home = 'C:\Users\Timinsky'
+      let $storage = 'F:\vim'
+      let $vimrc_plug = 'Z:\_vimrc.plug'
    elseif $LOCATION ==? 'THEIA'
-      let homedir = 'C:\\Users\\rzite'
-      let $home = 'C:\\Users\\rzite'
-      let $storage = 'C:\\Users\\rzite\\.vimstorage'
-      let $vimrc_plug = '~\\_vimrc.plug'
+      let homedir = 'C:\Users\rzite'
+      let $home = 'C:\Users\rzite'
+      let $storage = 'C:\Users\rzite\.vimstorage'
+      let $vimrc_plug = '~\_vimrc.plug'
    else 
       let $storage = ''
       let $vimrc_plug = '~/.vimrc.plug'
@@ -373,9 +373,13 @@
 " Startify {{{1
 
    if $LOCATION ==? 'WORK'
-      let g:startify_bookmarks = [ {'v': 'C:/Users/TiminsKy/Git/rc/Vim/_vimrc'}, {'b': 'F:/Work/Products/DailyBuild/App/Core/Coding/BillingDecisions/BillingDecisions.cls'}, {'p': 'C:/Users/TiminsKy/Git/rc/Windows/Microsoft.Powershell_profile.ps1'} ]
+      let g:startify_bookmarks = [ 
+                                 \ {'v': 'C:/Users/TiminsKy/Git/rc/Vim/vimrc/_vimrc'}, 
+                                 \ {'b': 'F:/Work/Products/DailyBuild/App/Core/Coding/BillingDecisions/BillingDecisions.cls'}, 
+                                 \ {'p': 'C:/Users/TiminsKy/Git/rc/Windows/Microsoft.Powershell_profile.ps1'} 
+                               \ ]
    elseif $LOCATION ==? 'THEIA'
-      let g:startify_bookmarks = [ {'v': 'C:/Users/rzite/Git/rc/Vim/_vimrc'} ]
+      let g:startify_bookmarks = [ {'v': 'C:/Users/rzite/Git/rc/Vim/vimrc/_vimrc'} ]
    endif
 
 " }}}
@@ -587,28 +591,31 @@
 
 "" OmniSharp {{{1
 
+   "" Use the stdio version of OmniSharp-roslyn
+   let g:OmniSharp_server_stdio = 1
+
    "" OmniSharp Server Path to EXE
-   "if $LOCATION ==? 'WORK'
-      "let g:OmniSharp_server_path = 'C:\Users\TiminsKY\.omnisharp\OmniSharp.exe'
-   "elseif $LOCATION ==? 'THEIA'
-      "let g:OmniSharp_server_path = 'C:\Users\rzite\.omnisharp\OmniSharp.exe'
-   "endif
+   if $LOCATION ==? 'WORK'
+      let g:OmniSharp_server_path = 'C:\Users\TiminsKY\.omnisharp\omnisharp-roslyn\OmniSharp.exe'
+   elseif $LOCATION ==? 'THEIA'
+      let g:OmniSharp_server_path = 'C:\Users\rzite\.omnisharp\OmniSharp.exe'
+   endif
 
    "" Select plugin for Code Actions and Find Symbols
    "let g:OmniSharp_selector_ui = 'ctrlp'  " Use ctrlp
    "" let g:OmniSharp_selector_ui = ''     " Use vim - command line, quickfix,  etc...
 
    "" Automatically stop the server on close
-   "let g:OmniSharp_stop_server = 2
+   let g:OmniSharp_stop_server = 2
 
    "" Set the type lookup function to use the preview window instead of echoing it
-   "let g:OmniSharp_typeLookupInPreview = 1
+   let g:OmniSharp_typeLookupInPreview = 1
 
    "" Timeout in seconds to wait for a response from the server
-   "let g:OmniSharp_timeout = 10
+   let g:OmniSharp_timeout = 10
 
-   "let g:OmniSharp_server_type = 'roslyn'
-   "let g:OmniSharp_prefer_global_sln = 1
+   let g:OmniSharp_server_type = 'roslyn'
+   let g:OmniSharp_prefer_global_sln = 1
 
    "" Don't autoselect first omnicomplete option, show options even if there is only
    "" one (so the preview documentation is accessible). Remove 'preview' if you
@@ -617,7 +624,7 @@
 
    "" Set desired preview window height for viewing documentation.
    "" You might also want to look at the echodoc plugin.
-   "set previewheight=5
+   set previewheight=5
 
    "augroup omnisharp_commands
        "autocmd!
@@ -717,6 +724,12 @@
    nnoremap <silent> <C-b> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -4)<CR>
 
 "}}}
+
+" GitGutter {{{1
+
+   let g:gitgutter_max_signs = 1000  " default value
+
+" }}}
 
 " Languages {{{1
 

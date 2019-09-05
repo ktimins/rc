@@ -58,13 +58,16 @@ Function Invoke-GVim {
 #         Variables          #
 ##############################
 
-$TempDir = 'C:\Users\TiminsKy\AppData\Local\Temp'
-$ENFDir = 'C:\Users\TiminsKy\Documents\ENF'
+$TempDir = 'C:\Users\TiminsKy\AppData\Local\Temp';
+$ENFDir = 'C:\Users\TiminsKy\Documents\ENF';
 
-$AppDir = 'F:\Work\Products\DailyBuild\App'
-$Pass2Dir = (Join-Path -Path $AppDir -ChildPath 'core\Coding')
-$CrumDir = 'L:'
-$BillingSchemaDir = "F:\Work\Products\DailyBuild\System\Shared\BillingSchema";
+$HomeDir = 'C:\Users\TiminsKY\';
+$GitDir = (Join-Path -Path $HomeDir -ChildPath 'Git');
+
+$AppDir = 'F:\Work\Products\DailyBuild\App';
+$Pass2Dir = (Join-Path -Path $AppDir -ChildPath 'core\Coding');
+$CrumDir = 'L:';
+$BillingSchemaDir = "F:\Work\Products\DailyBuild\System\Shared\BillingSchema";;
 
 ##############################
 #          Modules           #
@@ -174,7 +177,10 @@ Function Edit-Profile {
 }
 
 Function Copy-Vimrc {
-   Copy-Item -Path 'C:\Users\TiminsKy\Git\rc\Vim\_vimrc' -Destination 'Z:\_vimrc' -Force
+   Get-ChildItem -Path 'C:\Users\TiminsKy\Git\rc\Vim\vimrc' -Recurse | ForEach-Object {
+      Copy-Item -Path $_.FullName -Destination 'Z:\' -Recurse -Force -Container -Verbose;
+      Copy-Item -Path $_.FullName -Destination $HomeDir -Recurse -Force -Container -Verbose -ErrorAction SilentlyContinue;
+   }
 }
 
 Function Edit-Vimrc {
@@ -182,13 +188,17 @@ Function Edit-Vimrc {
          [Parameter(Mandatory=$false)]
          [Switch]$GVim
         )
-   $file = 'C:\Users\TiminsKy\Git\rc\Vim\_vimrc';
+   $file = 'C:\Users\TiminsKy\Git\rc\Vim\vimrc\_vimrc';
    If ($GVim) {
-      gvim.bat $file;
+      gvim $file;
    } Else {
-      vim.bat $file;
+      vim $file;
    }
    Copy-Vimrc;
+}
+
+Function Cd-Git {
+   Push-Location $GitDir;
 }
 
 Function Cd-Pass2 {
