@@ -1,0 +1,172 @@
+" vim:fdm=marker
+
+" Vim-Plug {{{1
+
+   " Preamble {{{2
+      if $LOCATION ==? 'WORK'
+         call plug#begin('F:/vimstorage/plugged')
+      else
+         call plug#begin('~/.vim/plugged')
+      endif
+   " }}}
+
+   " MISC {{{2
+      Plug 'godlygeek/tabular'
+      Plug 'vim-scripts/PatternsOnText'
+      Plug 'vim-scripts/marvim'
+      Plug 'scrooloose/vim-slumlord'
+      Plug 'andymass/vim-matchup'
+      Plug 'shime/vim-livedown'
+      Plug 'maxbrunsfeld/vim-yankstack'
+      Plug 'devjoe/vim-codequery'
+      Plug 'sukima/xmledit'
+      Plug 'jiangmiao/auto-pairs'
+      Plug 'vim-scripts/a.vim'
+   " }}}
+
+   " Diff {{{2
+      Plug 'rickhowe/diffchar.vim'
+      Plug 'chrisbra/vim-diff-enhanced'
+   " }}}
+
+   " Configuration {{{2
+      Plug 'editorconfig/editorconfig-vim'
+   " }}}
+
+   " Database {{{2
+      Plug 'tpope/vim-dadbod'
+   "}}}
+
+   " Insert {{{2
+      Plug 'scrooloose/nerdcommenter'
+      Plug 'tpope/vim-repeat'
+      Plug 'tpope/vim-surround'
+      Plug 'honza/vim-snippets'
+      Plug 'vim-scripts/align'
+   " }}}
+
+   " Formatting {{{2
+      Plug 'chiel92/vim-autoformat'
+      Plug 'XadillaX/json-formatter.vim'
+      Plug 'Vimjas/vim-python-pep8-indent'
+   " }}}
+
+   " Checkers {{{2
+      Plug 'tpope/vim-dispatch'
+      Plug 'Shougo/vimproc.vim'
+      "Plug 'vim-syntastic/syntastic'
+      Plug 'w0rp/ale'
+      Plug 'reedes/vim-wordy'
+      Plug 'nvie/vim-flake8'
+   " }}}
+
+   " Languages {{{2
+      " VB {{{3
+         Plug 'tacahiroy/vim-vb'
+      "}}}
+      " JSON {{{3
+         Plug 'tpope/vim-jdaddy'
+      "}}}
+      " MarkDown {{{3
+         Plug 'gabrielelana/vim-markdown'
+      "}}}
+      " Razor Syntax {{{3
+         Plug 'adamclerk/vim-razor'
+      "}}}
+   " }}}
+
+   " Undo {{{2
+      Plug 'sjl/gundo.vim'
+   " }}}
+
+   " Visual {{{2
+      Plug 'wellle/visual-split.vim'
+      Plug 'nathanaelkane/vim-indent-guides'
+      Plug 'mhinz/vim-startify'
+      Plug 'chrisbra/csv.vim'
+      Plug 'severin-lemaignan/vim-minimap'
+      Plug 'myusuf3/numbers.vim'
+      Plug 'skywind3000/vim-preview'
+      Plug 'jlanzarotta/bufexplorer'
+      Plug 'vim-scripts/visSum.vim'
+      Plug 'tomtom/shymenu_vim'
+   " }}}
+
+   " Completion {{{2
+      Plug 'OmniSharp/omnisharp-vim'
+      "Plug 'Valloric/YouCompleteMe'
+      Plug 'vim-scripts/aspnetide.vim'      " }}}
+
+   " Movement {{{2
+      Plug 'yuttie/comfortable-motion.vim'
+   " }}}
+
+   " ColorSchemes {{{2
+      Plug 'vim-scripts/fu'
+      Plug 'vim-scripts/Selenitic'
+   " }}}
+
+   " NerdTree {{{2
+      Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle' }
+      Plug 'xuyuanp/nerdtree-git-plugin'
+   " }}}
+
+   " Tabs {{{2
+      Plug 'ap/vim-buftabline'
+   " }}}
+
+   " Syntax {{{2
+      Plug 'aklt/plantuml-syntax'
+      Plug 'elzr/vim-json'
+      Plug 'othree/html5.vim'
+      Plug 'sheerun/vim-polyglot'
+      Plug 'OrangeT/vim-csharp'
+      Plug 'othree/javascript-libraries-syntax.vim'
+      Plug 'tacahiroy/vim-vb'
+      Plug 'PProvost/vim-ps1'
+   " }}}
+
+   " Coloring {{{2
+      Plug 'ap/vim-css-color'
+   " }}}
+
+   " Search {{{2
+      Plug 'ctrlpvim/ctrlp.vim'
+   " }}}
+
+   " Comments {{{2
+      Plug 'scrooloose/nerdcommenter'
+      Plug 'actionshrimp/vim-xpath'
+   " }}}
+
+   " Source Control {{{2
+      Plug 'mhinz/vim-signify'
+      " Git {{{3
+         Plug 'tpope/vim-git'
+         Plug 'tpope/vim-fugitive'
+         Plug 'tpope/vim-rhubarb'
+         Plug 'junegunn/gv.vim'
+         Plug 'idanarye/vim-merginal'
+         Plug 'jreybert/vimagit'
+         Plug 'airblade/vim-gitgutter'
+         Plug 'c9s/helper.vim'
+         Plug 'c9s/treemenu.vim'
+         Plug 'c9s/hypergit.vim'
+      " }}}
+   " }}}
+
+   " Status Line {{{2
+      Plug 'bling/vim-airline'
+      Plug 'vim-airline/vim-airline-themes'
+   " }}}
+
+   " Tags {{{2
+      Plug 'majutsushi/tagbar'
+   "}}}
+
+   " Close {{{2
+      call plug#end()
+   " }}}
+
+" }}}
+

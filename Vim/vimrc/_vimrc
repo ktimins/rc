@@ -3,15 +3,18 @@
 " Location Stuff {{{1
 
    if $LOCATION ==? 'WORK'
-      let homedir = 'C:\\Users\\TiminsKy'
-      let $home = 'C:\\Users\\Timinsky'
-      let $storage = 'F:\\vim'
+      let homedir = 'C:\Users\TiminsKy'
+      let $home = 'C:\Users\Timinsky'
+      let $storage = 'F:\vim'
+      let $vimrc_plug = 'Z:\_vimrc.plug'
    elseif $LOCATION ==? 'THEIA'
-      let homedir = 'C:\\Users\\rzite'
-      let $home = 'C:\\Users\\rzite'
-      let $storage = 'C:\\Users\\rzite\\.vimstorage'
+      let homedir = 'C:\Users\rzite'
+      let $home = 'C:\Users\rzite'
+      let $storage = 'C:\Users\rzite\.vimstorage'
+      let $vimrc_plug = '~\_vimrc.plug'
    else 
       let $storage = ''
+      let $vimrc_plug = '~/.vimrc.plug'
    endif
 
 " }}}
@@ -123,161 +126,10 @@
 
 " Vim-Plug {{{1
 
-   if $LOCATION ==? 'WORK'
-      call plug#begin('F:/vimstorage/plugged')
-   else
-      call plug#begin('~/.vim/plugged')
+   " Call the [\._]vimrc.plug file
+   if filereadable(expand($vimrc_plug))
+      execute "source " . $vimrc_plug
    endif
-
-      Plug 'godlygeek/tabular'
-      Plug 'vim-scripts/PatternsOnText'
-      Plug 'vim-scripts/marvim'
-      Plug 'scrooloose/vim-slumlord'
-      Plug 'andymass/vim-matchup'
-      Plug 'shime/vim-livedown'
-      Plug 'maxbrunsfeld/vim-yankstack'
-      Plug 'devjoe/vim-codequery'
-      Plug 'sukima/xmledit'
-      Plug 'jiangmiao/auto-pairs'
-      Plug 'vim-scripts/a.vim'
-
-      " Diff {{{2
-      Plug 'rickhowe/diffchar.vim'
-      Plug 'chrisbra/vim-diff-enhanced'
-      " }}}
-
-      " Configuration {{{2
-         Plug 'editorconfig/editorconfig-vim'
-      " }}}
-
-      " Database {{{2
-         Plug 'tpope/vim-dadbod'
-      "}}}
-
-      " Insert {{{2
-         Plug 'scrooloose/nerdcommenter'
-         Plug 'tpope/vim-repeat'
-         Plug 'tpope/vim-surround'
-         Plug 'honza/vim-snippets'
-         Plug 'vim-scripts/align'
-      " }}}
-
-      " Formatting {{{2
-         Plug 'chiel92/vim-autoformat'
-         Plug 'XadillaX/json-formatter.vim'
-         Plug 'Vimjas/vim-python-pep8-indent'
-      " }}}
-
-      " Checkers {{{2
-         Plug 'tpope/vim-dispatch'
-         Plug 'Shougo/vimproc.vim'
-         "Plug 'vim-syntastic/syntastic'
-         Plug 'w0rp/ale'
-         Plug 'reedes/vim-wordy'
-         Plug 'nvie/vim-flake8'
-      " }}}
-
-      " Languages {{{2
-         " VB {{{3
-            Plug 'tacahiroy/vim-vb'
-         "}}}
-         " JSON {{{3
-            Plug 'tpope/vim-jdaddy'
-         "}}}
-         " MarkDown {{{3
-            Plug 'gabrielelana/vim-markdown'
-         "}}}
-         " Razor Syntax {{{3
-            Plug 'adamclerk/vim-razor'
-         "}}}
-      " }}}
-
-      " Undo {{{2
-         Plug 'sjl/gundo.vim'
-      " }}}
-
-      " Visual {{{2
-         Plug 'wellle/visual-split.vim'
-         Plug 'nathanaelkane/vim-indent-guides'
-         Plug 'mhinz/vim-startify'
-         Plug 'chrisbra/csv.vim'
-         Plug 'severin-lemaignan/vim-minimap'
-         Plug 'myusuf3/numbers.vim'
-         Plug 'skywind3000/vim-preview'
-         Plug 'jlanzarotta/bufexplorer'
-         Plug 'vim-scripts/visSum.vim'
-         Plug 'tomtom/shymenu_vim'
-      " }}}
-
-      " Completion {{{2
-         "Plug 'OmniSharp/omnisharp-vim'
-         "Plug 'Valloric/YouCompleteMe'
-         Plug 'vim-scripts/aspnetide.vim'      " }}}
-
-      " Movement {{{2
-         Plug 'yuttie/comfortable-motion.vim'
-      " }}}
-
-      " ColorSchemes {{{2
-         Plug 'vim-scripts/fu'
-         Plug 'vim-scripts/Selenitic'
-      " }}}
-
-      " NerdTree {{{2
-         Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle' }
-         Plug 'xuyuanp/nerdtree-git-plugin'
-      " }}}
-
-      " Tabs {{{2
-         Plug 'ap/vim-buftabline'
-      " }}}
-
-      " Syntax {{{2
-         Plug 'aklt/plantuml-syntax'
-         Plug 'elzr/vim-json'
-         Plug 'othree/html5.vim'
-         Plug 'sheerun/vim-polyglot'
-         Plug 'OrangeT/vim-csharp'
-         Plug 'othree/javascript-libraries-syntax.vim'
-         Plug 'tacahiroy/vim-vb'
-         Plug 'PProvost/vim-ps1'
-      " }}}
-
-      " Coloring {{{2
-         Plug 'ap/vim-css-color'
-      " }}}
-
-      " Search {{{2
-         Plug 'ctrlpvim/ctrlp.vim'
-      " }}}
-
-      " Comments {{{2
-         Plug 'scrooloose/nerdcommenter'
-         Plug 'actionshrimp/vim-xpath'
-      " }}}
-
-      " Source Control {{{2
-         Plug 'mhinz/vim-signify'
-         " Git {{{3
-            Plug 'tpope/vim-git'
-            Plug 'tpope/vim-fugitive'
-            Plug 'tpope/vim-rhubarb'
-            Plug 'junegunn/gv.vim'
-            Plug 'idanarye/vim-merginal'
-            Plug 'jreybert/vimagit'
-         " }}}
-      " }}}
-
-      " Status Line {{{2
-         Plug 'bling/vim-airline'
-         Plug 'vim-airline/vim-airline-themes'
-      " }}}
-
-   " Tags {{{2
-      Plug 'majutsushi/tagbar'
-   "}}}
-
-   call plug#end()
 
 " }}}
 
@@ -505,166 +357,6 @@
 
 " }}}
 
-" Languages {{{1
-
-   " All Languages {{{2
-
-      augroup all_autocmd
-         au FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-      augroup END
-   
-   " }}}
-
-   " Python {{{2
-
-      augroup python
-         au BufNewFile,BufRead *.py set tabstop=4
-         au BufNewFile,BufRead *.py set softtabstop=4
-         au BufNewFile,BufRead *.py set shiftwidth=4
-         au BufNewFile,BufRead *.py set textwidth=79
-         au BufNewFile,BufRead *.py set expandtab
-         au BufNewFile,BufRead *.py set autoindent
-         au FileType *.py let python_highlight_all=1
-         au BufNewFile,BufRead *.py set fileformat=unix
-      augroup END
-
-      py << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-   project_base_dir = os.environ['VIRTUAL_ENV']
-   activate_this = os.path.join(project_base_dir, 'bin/activivate_this.py')
-   execfile(activate_this, dict(__file__=activate_this))
-EOF
-
-   " }}}
-
-   " JSON {{{2
-
-      augroup json
-        autocmd! 
-        au BufRead,BufNewFile json set filetype=json
-        au FileType json set autoindent 
-        au FileType json set formatoptions=tcq2l 
-        au FileType json set shiftwidth=4 
-        au FileType json set softtabstop=4 tabstop=4
-        au FileType json set expandtab 
-        au FileType json set foldmethod=syntax 
-        au BufNewFile,BufRead *.json nnoremap f== :silent %!python -m json.tool<CR>
-      augroup END
-
-   " }}}
-
-   " XML {{{2
-
-      augroup xml_grouping
-         au!
-         au FileType html,xml,xsd,sln,xaml let g:xml_syntax_folding=4
-         au FileType html,xml,xsd,sln,xaml set cindent
-         au FileType html,xml,xsd,sln,xaml set formatoptions=tcq2l
-         au FileType html,xml,xsd,sln,xaml set shiftwidth=2 
-         au FileType html,xml,xsd,sln,xaml set softtabstop=2 tabstop=2 
-         au FileType html,xml,xsd,sln,xaml set expandtab 
-         au FileType html,xml,xsd,sln,xaml set foldmethod=indent 
-         au FileType xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
-         au FileType html,xml,xsd,sln,xaml Autoformat
-         au FileType xml,xsd,xaml nnoremap f== :silent %!xmllint --format --recover - 2>/dev/null<CR>
-      augroup END
-
-      " HTML {{{3
-         augroup html
-            au!
-            au FileType html nnoremap <C-F5> :silent !'C:\Users\TiminsKY\AppData\Local\Programs\Opera\launcher.exe' %:p<CR>
-         augroup END
-      "}}}
-
-      " Markdown {{{3
-         augroup md
-            au!
-            au FileType md nnoremap <C-F5> :silent !'C:\Users\TiminsKY\AppData\Local\Programs\Opera\launcher.exe' %:p<CR>
-         augroup END
-      "}}}
-   
-      " SLN {{{3
-         augroup sln
-            au!
-            au BufRead, BufNewFile sln set filetype=sln
-         augroup END
-      " }}}
-      
-      " XSD {{{3
-
-         augroup xsd
-            au!
-            au BufRead, BufNewFile xsd set filetype=xsd
-         augroup END
-
-      " }}}
-   
-      " XML {{{3
-      
-         augroup xml
-            au!
-            au BufRead, BufNewFile xml set filetype=xml
-            au FileType *.Billing.XML foldlevelstart=5
-         augroup END
-
-   " }}}
-
-      " XAML {{{3
-         augroup xaml
-            au!
-            au BufRead, BufNewFile *.xaml set filetype=xaml
-         augroup END
-      " }}}
-
-   " }}}
-
-   " Powershell {{{2
-
-      augroup ps1
-         au!
-         au BufRead, BufNewFile *.ps1 set filetype=ps1
-         au FileType ps1 set cindent
-         au FileType ps1 set formatoptions=tcq2l
-         au FileType ps1 set shiftwidth=3 
-         au FileType ps1 set softtabstop=3 tabstop=3
-         au FileType ps1 set expandtab 
-         au FileType ps1 set foldmethod=indent 
-      augroup END
-
-   " }}}
-
-   " Visual Basic {{{2
-
-      augroup vb
-         au!
-         au FileType vb set filetype=vb
-      augroup END
-      
-      augroup cls
-         au FileType *.cls set filetype=vb
-         au BufRead, BufNewFile *.cls set filetype=vb
-      augroup END
-
-      augroup bas
-         au!
-         au FileType bas set filetype=vb
-      augroup END
-
-   " }}}
-
-   " Vimscript {{{2
-
-      augroup vimscript
-         au!
-         au FileType vim set foldlevelstart=0
-      augroup END
-   
-   "}}}
-
-" }}}
-
 " Misc {{{1
 
    " Remove the Windows ^M - when the encodings gets messed up
@@ -681,9 +373,13 @@ EOF
 " Startify {{{1
 
    if $LOCATION ==? 'WORK'
-      let g:startify_bookmarks = [ {'v': 'C:/Users/TiminsKy/Git/rc/Vim/_vimrc'}, {'b': 'F:/Work/Products/DailyBuild/App/Core/Coding/BillingDecisions/BillingDecisions.cls'}, {'p': 'C:/Users/TiminsKy/Git/rc/Windows/Microsoft.Powershell_profile.ps1'} ]
+      let g:startify_bookmarks = [ 
+                                 \ {'v': 'C:/Users/TiminsKy/Git/rc/Vim/vimrc/_vimrc'}, 
+                                 \ {'b': 'F:/Work/Products/DailyBuild/App/Core/Coding/BillingDecisions/BillingDecisions.cls'}, 
+                                 \ {'p': 'C:/Users/TiminsKy/Git/rc/Windows/Microsoft.Powershell_profile.ps1'} 
+                               \ ]
    elseif $LOCATION ==? 'THEIA'
-      let g:startify_bookmarks = [ {'v': 'C:/Users/rzite/Git/rc/Vim/_vimrc'} ]
+      let g:startify_bookmarks = [ {'v': 'C:/Users/rzite/Git/rc/Vim/vimrc/_vimrc'} ]
    endif
 
 " }}}
@@ -859,17 +555,6 @@ EOF
 
    " }}}
 
-   " VIMRC {{{2
-   
-      let g:tagbar_type_vimrc = {
-         \ 'ctagstype' : 'vimrc',
-         \ 'kinds'     : [
-            \ 'g:group',
-         \ ] 
-      \ } 
-
-   " }}}
-
 " }}}
 
 " Vim Indent Guides {{{1
@@ -906,28 +591,31 @@ EOF
 
 "" OmniSharp {{{1
 
+   "" Use the stdio version of OmniSharp-roslyn
+   let g:OmniSharp_server_stdio = 1
+
    "" OmniSharp Server Path to EXE
-   "if $LOCATION ==? 'WORK'
-      "let g:OmniSharp_server_path = 'C:\Users\TiminsKY\.omnisharp\OmniSharp.exe'
-   "elseif $LOCATION ==? 'THEIA'
-      "let g:OmniSharp_server_path = 'C:\Users\rzite\.omnisharp\OmniSharp.exe'
-   "endif
+   if $LOCATION ==? 'WORK'
+      let g:OmniSharp_server_path = 'C:\Users\TiminsKY\.omnisharp\omnisharp-roslyn\OmniSharp.exe'
+   elseif $LOCATION ==? 'THEIA'
+      let g:OmniSharp_server_path = 'C:\Users\rzite\.omnisharp\OmniSharp.exe'
+   endif
 
    "" Select plugin for Code Actions and Find Symbols
    "let g:OmniSharp_selector_ui = 'ctrlp'  " Use ctrlp
    "" let g:OmniSharp_selector_ui = ''     " Use vim - command line, quickfix,  etc...
 
    "" Automatically stop the server on close
-   "let g:OmniSharp_stop_server = 2
+   let g:OmniSharp_stop_server = 2
 
    "" Set the type lookup function to use the preview window instead of echoing it
-   "let g:OmniSharp_typeLookupInPreview = 1
+   let g:OmniSharp_typeLookupInPreview = 1
 
    "" Timeout in seconds to wait for a response from the server
-   "let g:OmniSharp_timeout = 10
+   let g:OmniSharp_timeout = 10
 
-   "let g:OmniSharp_server_type = 'roslyn'
-   "let g:OmniSharp_prefer_global_sln = 1
+   let g:OmniSharp_server_type = 'roslyn'
+   let g:OmniSharp_prefer_global_sln = 1
 
    "" Don't autoselect first omnicomplete option, show options even if there is only
    "" one (so the preview documentation is accessible). Remove 'preview' if you
@@ -936,7 +624,7 @@ EOF
 
    "" Set desired preview window height for viewing documentation.
    "" You might also want to look at the echodoc plugin.
-   "set previewheight=5
+   set previewheight=5
 
    "augroup omnisharp_commands
        "autocmd!
@@ -1036,6 +724,167 @@ EOF
    nnoremap <silent> <C-b> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -4)<CR>
 
 "}}}
+
+" GitGutter {{{1
+
+   let g:gitgutter_max_signs = 1000  " default value
+
+" }}}
+
+" Languages {{{1
+
+   " All Languages {{{2
+
+      augroup all_autocmd
+         au FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+      augroup END
+   
+   " }}}
+
+   " Python {{{2
+
+      augroup python
+         au BufNewFile,BufRead *.py set tabstop=4
+         au BufNewFile,BufRead *.py set softtabstop=4
+         au BufNewFile,BufRead *.py set shiftwidth=4
+         au BufNewFile,BufRead *.py set textwidth=79
+         au BufNewFile,BufRead *.py set expandtab
+         au BufNewFile,BufRead *.py set autoindent
+         au FileType *.py let python_highlight_all=1
+         au BufNewFile,BufRead *.py set fileformat=unix
+      augroup END
+
+      py << EOF
+import os
+import sys
+if 'VIRTUAL_ENV' in os.environ:
+   project_base_dir = os.environ['VIRTUAL_ENV']
+   activate_this = os.path.join(project_base_dir, 'bin/activivate_this.py')
+   execfile(activate_this, dict(__file__=activate_this))
+EOF
+
+   " }}}
+
+   " JSON {{{2
+
+      augroup json
+        autocmd! 
+        au BufRead,BufNewFile json set filetype=json
+        au FileType json set autoindent 
+        au FileType json set formatoptions=tcq2l 
+        au FileType json set shiftwidth=4 
+        au FileType json set softtabstop=4 tabstop=4
+        au FileType json set expandtab 
+        au FileType json set foldmethod=syntax 
+        au BufNewFile,BufRead *.json nnoremap f== :silent %!python -m json.tool<CR>
+      augroup END
+
+   " }}}
+
+   " XML {{{2
+
+      augroup xml_grouping
+         au!
+         au FileType html,xml,xsd,sln,xaml let g:xml_syntax_folding=4
+         au FileType html,xml,xsd,sln,xaml set cindent
+         au FileType html,xml,xsd,sln,xaml set formatoptions=tcq2l
+         au FileType html,xml,xsd,sln,xaml set shiftwidth=2 
+         au FileType html,xml,xsd,sln,xaml set softtabstop=2 tabstop=2 
+         au FileType html,xml,xsd,sln,xaml set expandtab 
+         au FileType html,xml,xsd,sln,xaml set foldmethod=indent 
+         au FileType xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
+         au FileType html,xml,xsd,sln,xaml Autoformat
+         au FileType xml,xsd,xaml nnoremap f== :silent %!xmllint --format --recover - 2>/dev/null<CR>
+      augroup END
+
+      " HTML {{{3
+         augroup html
+            au!
+            au FileType html nnoremap <C-F5> :silent !'C:\Users\TiminsKY\AppData\Local\Programs\Opera\launcher.exe' %:p<CR>
+         augroup END
+      "}}}
+
+      " Markdown {{{3
+         augroup md
+            au!
+            au FileType md nnoremap <C-F5> :silent !'C:\Users\TiminsKY\AppData\Local\Programs\Opera\launcher.exe' %:p<CR>
+         augroup END
+      "}}}
+   
+      " SLN {{{3
+         augroup sln
+            au!
+            au BufRead, BufNewFile sln set filetype=sln
+         augroup END
+      " }}}
+      
+      " XSD {{{3
+
+         augroup xsd
+            au!
+            au BufRead, BufNewFile xsd set filetype=xsd
+         augroup END
+
+      " }}}
+   
+      " XML {{{3
+      
+         augroup xml
+            au!
+            au BufRead, BufNewFile xml set filetype=xml
+            au FileType *.Billing.XML foldlevelstart=5
+         augroup END
+
+   " }}}
+
+      " XAML {{{3
+         augroup xaml
+            au!
+            au BufRead, BufNewFile *.xaml set filetype=xaml
+         augroup END
+      " }}}
+
+   " }}}
+
+   " Powershell {{{2
+
+      augroup ps1
+         au!
+         au BufRead, BufNewFile *.ps1 set filetype=ps1
+         au FileType ps1 set cindent
+         au FileType ps1 set formatoptions=tcq2l
+         au FileType ps1 set shiftwidth=3 
+         au FileType ps1 set softtabstop=3 tabstop=3
+         au FileType ps1 set expandtab 
+         au FileType ps1 set foldmethod=indent 
+      augroup END
+
+   " }}}
+
+   " Visual Basic {{{2
+
+      augroup vb
+         au!
+         au FileType vb set filetype=vb
+      augroup END
+      
+      augroup bas
+         au!
+         au FileType bas set filetype=vb
+      augroup END
+
+   " }}}
+
+   " Vimscript {{{2
+
+      augroup vimscript
+         au!
+         au FileType vim set foldlevelstart=0
+      augroup END
+   
+   "}}}
+
+" }}}
 
 " Custom Functions {{{1
 
