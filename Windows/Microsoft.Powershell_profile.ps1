@@ -67,7 +67,8 @@ $GitDir = (Join-Path -Path $HomeDir -ChildPath 'Git');
 $AppDir = 'F:\Work\Products\DailyBuild\App';
 $Pass2Dir = (Join-Path -Path $AppDir -ChildPath 'core\Coding');
 $CrumDir = 'L:';
-$BillingSchemaDir = "F:\Work\Products\DailyBuild\System\Shared\BillingSchema";;
+$BillingSchemaDir = "F:\Work\Products\DailyBuild\System\Shared\BillingSchema";
+$CmdFixRefDir = "F:\Work\DevOps\BIDTools\Tools\Misc\CmdFixReference";
 
 ##############################
 #          Modules           #
@@ -211,6 +212,10 @@ Function Cd-Bill {
 
 Function Cd-App {
    Push-Location $AppDir
+}
+
+Function Cd-CmdFixRef {
+   Push-Location $CmdFixRefDir;
 }
 
 Function Cd-Crum {

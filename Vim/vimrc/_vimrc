@@ -754,15 +754,6 @@
          au BufNewFile,BufRead *.py set fileformat=unix
       augroup END
 
-      py << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-   project_base_dir = os.environ['VIRTUAL_ENV']
-   activate_this = os.path.join(project_base_dir, 'bin/activivate_this.py')
-   execfile(activate_this, dict(__file__=activate_this))
-EOF
-
    " }}}
 
    " JSON {{{2

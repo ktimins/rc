@@ -49,6 +49,7 @@
       Plug 'chiel92/vim-autoformat'
       Plug 'XadillaX/json-formatter.vim'
       Plug 'Vimjas/vim-python-pep8-indent'
+      Plug 'JayDoubleu/vim-pwsh-formatter'
    " }}}
 
    " Checkers {{{2
@@ -89,7 +90,6 @@
       Plug 'skywind3000/vim-preview'
       Plug 'jlanzarotta/bufexplorer'
       Plug 'vim-scripts/visSum.vim'
-      Plug 'tomtom/shymenu_vim'
    " }}}
 
    " Completion {{{2

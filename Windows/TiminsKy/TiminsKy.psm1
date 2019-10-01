@@ -124,7 +124,11 @@ Function Get-BIComps {
 #         CmdFixRef          #
 ##############################
 
-   Function Invoke-FixRef ([String]$Path) {
+   Function Invoke-FixRef {
+      Param(
+            [Parameter(Mandatory=$true,ValueFromPipeline=$true,Position=1)]
+            [String]$Path
+            );
       $fixRefPath = (Join-Path -Path 'C:\Users\TiminsKY' -ChildPath (Join-Path -Path "bin" -ChildPath "CmdFixRef.exe"));
       $paths = @();
       $Path | ForEach-Object {
@@ -180,6 +184,13 @@ Function Get-BIComps {
       }
    }
 
+Function Start-CiBillVbg {
+   Param();
+   Invoke-FixRefAndRun -Path 'F:\Work\Products\DailyBuild\App\core\Coding\BillingDecisions\BillingInterface.vbg';
+}
+
+Set-Alias CiBillVbg Start-CiBillVbg;
+
 Function Start-VB6 {
    Param(
          [Parameter(Mandatory=$true,ValueFromPipeline=$true,Position=1)]
@@ -197,6 +208,20 @@ Function FixRef-VB6 {
         )
    Cmd-FixRef $ToOpen;
    Start-VB6 $ToOpen;
+}
+
+Function Kill-VB6 {
+   Param();
+   Try {
+      $proc = Get-Process -Name 'VB6' -ErrorAction Stop;
+      $num = $proc.Count;
+      $proc | Stop-Process -ErrorAction Stop;
+      $singular = 'process has';
+      $plural = 'processes have';
+      "$num VB6 $(@{$true=$plural;$false=$singular}[($num -gt 1)]) been killed." | Write-Output;
+   } Catch [ProcessCommandException] {
+      "No VB6 process was running at time of command execution." | Write-Output;
+   } Catch {}
 }
 
 ##############################
