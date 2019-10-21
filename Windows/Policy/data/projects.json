@@ -1,0 +1,11 @@
+{
+    "Projects": [
+        {
+            "Name": "CiBillingInterface",
+            "VBP": "CiBillingInterface.vbp",
+            "Output": "CiBillingInterface.dll",
+            "Directory": "F:\\Work\\Products\\DailyBuild\\App\\core\\Coding\\BillingDecisions",
+            "CIDir": "C:\\ddrive\\Insurance Decisions\\Policy Decisions\\Comps"
+        }
+    ]
+}

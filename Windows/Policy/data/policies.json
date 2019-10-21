@@ -1,0 +1,27 @@
+{
+    "Client": [{
+        "Name": "Allstate",
+        "CustomerNo": "123",
+        "CustomerId": "A7",
+        "ListNo": 4,
+        "Policies": [{
+            "SAN": "5687549TG00000",
+            "Transaction": 36
+        },
+        {
+            "SAN": "7250949TG00000",
+            "Transaction": 11
+        }]
+    },
+    {
+        "Name": "LWCC",
+        "CustomerNo": "204",
+        "CustomerId": "L1",
+        "ListNo": 41,
+        "Policies": [{
+            "SAN": "15745120000000",
+            "Transaction": 1
+        }]
+    }
+    ]
+}
