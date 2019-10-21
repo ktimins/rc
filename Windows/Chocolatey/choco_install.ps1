@@ -1,19 +1,16 @@
-choco install -y Chocolatey v0.10.15 Professional
-choco install -y 7zip
-choco install -y 7zip.install
-choco install -y autohotkey
-choco install -y autohotkey.portable
-choco install -y ccleaner
+choco upgrade -y autohotkey
+choco upgrade -y autohotkey.portable
+choco upgrade -y ccleaner
 choco install -y checksum
-choco install -y chocolatey
-choco install -y chocolatey-core.extension
-choco install -y chocolatey-dotnetfx.extension
-choco install -y chocolatey-visualstudio.extension
-choco install -y chocolatey-vscode.extension
-choco install -y chocolatey-windowsupdate.extension
-choco install -y chocolatey.extension
-choco install -y chocolatey.server
-choco install -y chocolateygui
+choco upgrade -y chocolatey
+choco upgrade -y chocolatey-core.extension
+choco upgrade -y chocolatey-dotnetfx.extension
+choco upgrade -y chocolatey-visualstudio.extension
+choco upgrade -y chocolatey-vscode.extension
+choco upgrade -y chocolatey-windowsupdate.extension
+choco upgrade -y chocolatey.extension
+choco upgrade -y chocolatey.server
+choco upgrade -y chocolateygui
 choco install -y cloc
 choco install -y dexpot
 choco install -y dotnetcore-runtime.install
@@ -21,7 +18,7 @@ choco install -y dotnetcore-sdk
 choco install -y dotnetfx
 choco install -y dotPeek
 choco install -y filezilla
-choco install -y microsoft-teams
+choco upgrade -y microsoft-teams
 choco install -y mRemoteNG
 choco install -y nodejs
 choco install -y nodejs.install
@@ -38,4 +35,4 @@ choco install -y rainmeter
 choco install -y silentcmd
 choco install -y sysinternals
 choco install -y tortoisegit
-choco install -y 39 packages installed.
+choco install -y 37 packages installed.
