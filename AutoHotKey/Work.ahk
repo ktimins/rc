@@ -1,3 +1,11 @@
+#CommentFlag //
+#InstallKeybdHook
+#NoEnv 
+SendMode Input 
+SetTitleMatchMode, 2
+SetTitleMatchMode, slow
+
+
 ^!p::
    InputBox, ppmNumber, Enter PPM Log Number, Please enter your seven digit PPM Log number.
    ppmNumber := Trim(ppmNumber)
@@ -22,5 +30,3 @@ isVarType(var, type) {
    if var is %type%
       return True
 }
-
-

@@ -240,6 +240,10 @@
 
 " Diff {{{1
 
+   if has("patch-8.1.0360") 
+      set diffopt+=internal,algorithm:patience 
+   endif
+
    if !exists(':DiffOrig')
       command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
                \ | wincmd p | diffthis
@@ -385,6 +389,9 @@
 " }}}
 
 " ALE {{{1
+
+   " Only run linters named in ale_linters settings.
+   let g:ale_linters_explicit = 1
 
    let g:ale_linters = {
       \  'javascript': ['eslint'],
@@ -783,9 +790,9 @@
          au FileType html,xml,xsd,sln,xaml set softtabstop=2 tabstop=2 
          au FileType html,xml,xsd,sln,xaml set expandtab 
          au FileType html,xml,xsd,sln,xaml set foldmethod=indent 
-         au FileType xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
+         au FileType xml exe ":silent %!xmllint --format --recover - 2>NUL:"
          au FileType html,xml,xsd,sln,xaml Autoformat
-         au FileType xml,xsd,xaml nnoremap f== :silent %!xmllint --format --recover - 2>/dev/null<CR>
+         au FileType xml,xsd,xaml nnoremap f== :silent %!xmllint --format --recover - 2>NUL:<CR>
       augroup END
 
       " HTML {{{3
