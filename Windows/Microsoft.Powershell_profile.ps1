@@ -59,16 +59,17 @@ Function Invoke-GVim {
 ##############################
 
 $TempDir = 'C:\Users\TiminsKy\AppData\Local\Temp';
-$ENFDir = 'C:\Users\TiminsKy\Documents\ENF';
 
 $HomeDir = 'C:\Users\TiminsKY\';
 $GitDir = (Join-Path -Path $HomeDir -ChildPath 'Git');
 
-$AppDir = 'F:\Work\Products\DailyBuild\App';
+$DailyDir = 'C:\Work\Products\DailyBuild'; 
+$AppDir = (Join-Path -Path $DailyDir -ChildPath 'App');
+$WebUiDir = (Join-Path -Path $DailyDir -ChildPath 'CommercialIntellisys\Web\UI')
 $Pass2Dir = (Join-Path -Path $AppDir -ChildPath 'core\Coding');
+$BillingSchemaDir = (Join-Path -Path $DailyDir -ChildPath 'System\Shared\BillingSchema');
 $CrumDir = 'L:';
-$BillingSchemaDir = "F:\Work\Products\DailyBuild\System\Shared\BillingSchema";
-$CmdFixRefDir = "F:\Work\DevOps\BIDTools\Tools\Misc\CmdFixReference";
+$CmdFixRefDir = "C:\Users\timinsky\bin";
 
 ##############################
 #          Modules           #
@@ -85,18 +86,18 @@ if ($host.Name -eq 'ConsoleHost') {
 
 Import-Module TiminsKy -DisableNameChecking
 
-Import-Module ErrorCorrect -DisableNameChecking
+#Import-Module ErrorCorrect -DisableNameChecking
 
 Import-Module EDI -DisableNameChecking
 
 Import-Module adoLib
 
-Import-Module GetSPOListModule
+#Import-Module GetSPOListModule
 
 #Import-Module PersistentHistory
 Import-Module AdvancedHistory
 
-Import-Module ActiveDirectory
+#Import-Module ActiveDirectory
 
 Import-Module PowerShellGet
 
@@ -268,18 +269,18 @@ Function fortune {
 ##############################
 Clear-Host
 $PSVers = "$($PSVersionTable.PSVersion.Major).$($PSVersionTable.PSVersion.Minor)"
-$prngFortune = Get-Random -minimum 0 -maximum 6
-$fort = "`n"
-switch ($prngFortune) {
-   0        { $fort += fortune }
-   1        { $fort += fortune -hh }
-   2        { $fort += fortune -simpsons }
-   3        { $fort += fortune -gump }
-   4        { $fort += fortune -friends }
-   Default  { $fort  = "" }
-}
+#$prngFortune = Get-Random -minimum 0 -maximum 6
+#$fort = "`n"
+#switch ($prngFortune) {
+   #0        { $fort += fortune }
+   #1        { $fort += fortune -hh }
+   #2        { $fort += fortune -simpsons }
+   #3        { $fort += fortune -gump }
+   #4        { $fort += fortune -friends }
+   #Default  { $fort  = "" }
+#}
 $welcome = $env:USERNAME + ": Welcome to Powershell v" + $PSVers + "."
-$fort
+#$fort
 if ($PSVers -gt 2) {
    cowsay $welcome
 } else {
@@ -297,4 +298,5 @@ if (Test-Path($ChocolateyProfile)) {
 
 
 # Load Posh-GitHub
-. 'C:\Users\TiminsKY\Documents\WindowsPowerShell\Modules\Posh-GitHub\Posh-GitHub-Profile.ps1'
+Import-Module 'C:\tools\poshgit\dahlbyk-posh-git-9bda399\src\posh-git.psd1'
+#. 'C:\Users\TiminsKY\Documents\WindowsPowerShell\Modules\Posh-GitHub\Posh-GitHub-Profile.ps1'

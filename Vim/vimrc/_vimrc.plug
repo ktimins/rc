@@ -4,7 +4,7 @@
 
    " Preamble {{{2
       if $LOCATION ==? 'WORK'
-         call plug#begin('F:/vimstorage/plugged')
+         call plug#begin('E:/vimstorage/plugged')
       else
          call plug#begin('~/.vim/plugged')
       endif
@@ -16,7 +16,6 @@
       Plug 'vim-scripts/marvim'
       Plug 'scrooloose/vim-slumlord'
       Plug 'andymass/vim-matchup'
-      Plug 'shime/vim-livedown'
       Plug 'maxbrunsfeld/vim-yankstack'
       Plug 'devjoe/vim-codequery'
       Plug 'sukima/xmledit'
@@ -67,6 +66,7 @@
       "}}}
       " JSON {{{3
          Plug 'tpope/vim-jdaddy'
+         Plug 'elzr/vim-json'
       "}}}
       " MarkDown {{{3
          Plug 'gabrielelana/vim-markdown'
@@ -74,6 +74,13 @@
       " Razor Syntax {{{3
          Plug 'adamclerk/vim-razor'
       "}}}
+      " XML / XPath {{{3
+         Plug 'actionshrimp/vim-xpath'
+      " }}}
+   " }}}
+
+   " Execution {{{2
+      "Plug 'shougo/vimproc.vim'
    " }}}
 
    " Undo {{{2
@@ -82,20 +89,31 @@
 
    " Visual {{{2
       Plug 'wellle/visual-split.vim'
-      Plug 'nathanaelkane/vim-indent-guides'
       Plug 'mhinz/vim-startify'
       Plug 'chrisbra/csv.vim'
       Plug 'severin-lemaignan/vim-minimap'
       Plug 'myusuf3/numbers.vim'
       Plug 'skywind3000/vim-preview'
-      Plug 'jlanzarotta/bufexplorer'
       Plug 'vim-scripts/visSum.vim'
+      Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+
+      " Indentation {{{3
+         "Plug 'nathanaelkane/vim-indent-guides'
+         Plug 'yggdroot/indentline'
+      " }}}
+
+      " Parantheses {{{3
+         "Plug 'luochen1990/rainbow' 
+      " }}}
+
    " }}}
 
    " Completion {{{2
       Plug 'OmniSharp/omnisharp-vim'
       "Plug 'Valloric/YouCompleteMe'
-      Plug 'vim-scripts/aspnetide.vim'      " }}}
+      Plug 'vim-scripts/aspnetide.vim'      
+      "Plug 'neoclide/coc.nvim', {'branch': 'release'}
+   " }}}
 
    " Movement {{{2
       Plug 'yuttie/comfortable-motion.vim'
@@ -111,8 +129,9 @@
       Plug 'xuyuanp/nerdtree-git-plugin'
    " }}}
 
-   " Tabs {{{2
+   " Tabs / Buffers {{{2
       Plug 'ap/vim-buftabline'
+      Plug 'jlanzarotta/bufexplorer'
    " }}}
 
    " Syntax {{{2
@@ -128,15 +147,16 @@
 
    " Coloring {{{2
       Plug 'ap/vim-css-color'
+      Plug 'rafi/awesome-vim-colorschemes'
    " }}}
 
    " Search {{{2
       Plug 'ctrlpvim/ctrlp.vim'
+      "Plug 'junegunn/fzf'
    " }}}
 
    " Comments {{{2
       Plug 'scrooloose/nerdcommenter'
-      Plug 'actionshrimp/vim-xpath'
    " }}}
 
    " Source Control {{{2
@@ -162,6 +182,7 @@
 
    " Tags {{{2
       Plug 'majutsushi/tagbar'
+      "Plug 'craigemery/vim-autotag'
    "}}}
 
    " Close {{{2

@@ -1,0 +1,14 @@
+{
+    "Client": [
+        {
+            "Name": "LWCC",
+            "CustomerNo": "204",
+            "CustomerId": "L1",
+            "ListNo": 41,
+            "Policies": [{
+                "SAN": "15745120000000",
+                "Transaction": 1
+            }]
+        }
+    ]
+}

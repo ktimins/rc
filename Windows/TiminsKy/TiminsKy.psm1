@@ -251,6 +251,40 @@ Function Avl-Recov {
 
 }
 
+##############################
+#     Powershell Helpers     #
+##############################
+
+Function Get-UpdateHelpVersion {
+	Param(
+		[parameter(Mandatory=$False)]
+		[String[]]
+		$Module
+	)
+	$HelpInfoNamespace = @{helpInfo='http://schemas.microsoft.com/powershell/help/2010/05'}
+
+	if ($Module) { $Modules = Get-Module $Module -ListAvailable | where {$_.HelpInfoUri} }
+	else { $Modules = Get-Module -ListAvailable | where {$_.HelpInfoUri} }
+
+	foreach ($mModule in $Modules)
+	{
+		$mDir = $mModule.ModuleBase
+
+		if (Test-Path $mdir\*helpinfo.xml)
+		{
+			$mName=$mModule.Name
+			$mNodes = dir $mdir\*helpinfo.xml -ErrorAction SilentlyContinue |
+				Select-Xml -Namespace $HelpInfoNamespace -XPath "//helpInfo:UICulture"
+			foreach ($mNode in $mNodes)
+			{
+				$mCulture=$mNode.Node.UICultureName
+				$mVer=$mNode.Node.UICultureVersion
+
+				[PSCustomObject]@{"ModuleName"=$mName; "Culture"=$mCulture; "Version"=$mVer}
+			}
+		}
+	}
+}
 
 ##############################
 #           Random           #
@@ -1017,8 +1051,8 @@ Function Delete-SPOFolder(){
       $contextInfo = Get-SPOContextInfo  $WebUrl $UserName $Password
       Invoke-RestSPO -Url $Url -Method Post -UserName $UserName -Password $Password -RequestDigest $contextInfo.GetContextWebInformation.FormDigestValue -ETag "*" -XHTTPMethod "DELETE"
 }
-Add-Type -Path "C:\Program Files\Common Files\microsoft shared\Web Server Extensions\15\ISAPI\Microsoft.SharePoint.Client.dll" 
-Add-Type -Path "C:\Program Files\Common Files\microsoft shared\Web Server Extensions\15\ISAPI\Microsoft.SharePoint.Client.Runtime.dll" 
+#Add-Type -Path "C:\Program Files\Common Files\microsoft shared\Web Server Extensions\15\ISAPI\Microsoft.SharePoint.Client.dll" 
+#Add-Type -Path "C:\Program Files\Common Files\microsoft shared\Web Server Extensions\15\ISAPI\Microsoft.SharePoint.Client.Runtime.dll" 
 
 <#
 .Synopsis
