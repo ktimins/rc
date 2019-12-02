@@ -89,7 +89,9 @@ Function Get-CompsLink {
          [Parameter(Mandatory=$true,ValueFromPipeline=$true,Position=0)]
          [String]$Name,
          [Parameter(Mandatory=$false)]
-         [Switch]$Copy
+         [Switch]$Copy,
+         [Parameter(Mandatory=$false)]
+         [Switch]$CopyAll
         );
 
    New-Variable -Name 'COMPS_DIR_DAILY_BUILDS' -Value '\\filer01\ci-builds\DailyBuilds\Distribution\Patches\Comps' -Option Constant;
@@ -110,7 +112,11 @@ Function Get-CompsLink {
    If ($Copy) {
       $return[0].Path | Write-Verbose;
       $return[0].Path | Set-Clipboard;
-   } 
+   } ElseIf ($CopyAll) {
+      $str = $return.Path -join "`n";
+      $str | Write-Verbose;
+      $str | Set-Clipboard;
+   }
 
    Return $return;
 
