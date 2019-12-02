@@ -5,8 +5,8 @@
    if $LOCATION ==? 'WORK'
       let homedir = 'C:\Users\TiminsKy'
       let $home = 'C:\Users\Timinsky'
-      let $storage = 'F:\vim'
-      let $vimrc_plug = 'Z:\_vimrc.plug'
+      let $storage = 'E:\vim'
+      let $vimrc_plug = 'C:\Users\TiminsKy\_vimrc.plug'
    elseif $LOCATION ==? 'THEIA'
       let homedir = 'C:\Users\rzite'
       let $home = 'C:\Users\rzite'
@@ -195,8 +195,9 @@
       set undofile
       set backupdir=$storage\\_backup
       set undodir=$storage\\_undo
-      set directory=$storage\\_temp
-      set swapfile
+      set noswapfile
+      "set directory=$storage\\_temp
+      "set swapfile
    else
       set nobackup
       set noundofile
@@ -217,8 +218,10 @@
    set shiftwidth=3
    set tabstop=3
 
+   filetype plugin indent on
+
    if has('autocmd')
-      filetype plugin indent on
+      "filetype plugin indent on
       set shellslash
       set grepprg=grep\ -nH\ $*
       "let g:tex_flavor='latex'
@@ -239,6 +242,15 @@
 " }}}
 
 " Diff {{{1
+ 
+   " started In Diff-Mode set diffexpr (plugin not loaded yet)
+   "if &diff
+       "let &diffexpr='EnhancedDiff#Diff("git diff", "--diff-algorithm=patience")'
+   "endif
+
+   if has("patch-8.1.0360") 
+      set diffopt+=algorithm:patience 
+   endif
 
    if !exists(':DiffOrig')
       command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
@@ -375,7 +387,7 @@
    if $LOCATION ==? 'WORK'
       let g:startify_bookmarks = [ 
                                  \ {'v': 'C:/Users/TiminsKy/Git/rc/Vim/vimrc/_vimrc'}, 
-                                 \ {'b': 'F:/Work/Products/DailyBuild/App/Core/Coding/BillingDecisions/BillingDecisions.cls'}, 
+                                 \ {'b': 'C:/Work/Products/DailyBuild/App/Core/Coding/BillingDecisions/BillingDecisions.cls'}, 
                                  \ {'p': 'C:/Users/TiminsKy/Git/rc/Windows/Microsoft.Powershell_profile.ps1'} 
                                \ ]
    elseif $LOCATION ==? 'THEIA'
@@ -393,7 +405,8 @@
       \  'python': ['frosted'],
       \  'html': ['tidy'],
       \  'xml': ['tidy', 'xmllint'],
-      \  'vim': ['vint']
+      \  'vim': ['vint'],
+      \  'powershell': ['powershell', 'psscriptanalyzer']
    \}
 
 " }}}
@@ -428,6 +441,7 @@
    endif
 
    " Setup custom ctags settings
+
    " Powershell {{{2
       
       " PS1 {{{3
@@ -559,11 +573,11 @@
 
 " Vim Indent Guides {{{1
 
-   let g:indent_guides_enable_on_vim_startup = 1
-   let g:indent_guides_start_level = 2
-   let g:indent_guides_indent_levels = 30
-   let g:indent_guides_guide_size = 1
-   let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
+   "let g:indent_guides_enable_on_vim_startup = 1
+   "let g:indent_guides_start_level = 2
+   "let g:indent_guides_indent_levels = 30
+   "let g:indent_guides_guide_size = 1
+   "let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 
 " }}}
 
@@ -731,6 +745,22 @@
 
 " }}}
 
+" vim-instant-markdown {{{1
+
+  "Uncomment to override defaults:
+  "let g:instant_markdown_slow = 1
+  "let g:instant_markdown_autostart = 0
+  "let g:instant_markdown_open_to_the_world = 1
+  "let g:instant_markdown_allow_unsafe_content = 1
+  "let g:instant_markdown_allow_external_content = 0
+  "let g:instant_markdown_mathjax = 1
+  "let g:instant_markdown_logfile = '/tmp/instant_markdown.log'
+  "let g:instant_markdown_autoscroll = 0
+  "let g:instant_markdown_port = 8888
+  "let g:instant_markdown_python = 1
+
+" }}}
+
 " Languages {{{1
 
    " All Languages {{{2
@@ -783,9 +813,9 @@
          au FileType html,xml,xsd,sln,xaml set softtabstop=2 tabstop=2 
          au FileType html,xml,xsd,sln,xaml set expandtab 
          au FileType html,xml,xsd,sln,xaml set foldmethod=indent 
-         au FileType xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
+         au FileType xml exe ":silent %!xmllint.exe --format --recover - 2>NUL:"
          au FileType html,xml,xsd,sln,xaml Autoformat
-         au FileType xml,xsd,xaml nnoremap f== :silent %!xmllint --format --recover - 2>/dev/null<CR>
+         au FileType xml,xsd,xaml nnoremap f== :silent %!xmllint.exe --format --recover - 2>NUL:<CR>
       augroup END
 
       " HTML {{{3
