@@ -859,6 +859,17 @@ EOF
 
    " }}}
 
+   " VIMRC {{{2
+   
+      let g:tagbar_type_vimrc = {
+         \ 'ctagstype' : 'vimrc',
+         \ 'kinds'     : [
+            \ 'g:group',
+         \ ] 
+      \ } 
+
+   " }}}
+
 " }}}
 
 " Vim Indent Guides {{{1

@@ -1,0 +1,32 @@
+12-31-2018  09:24:14
+
+5687549TG00000 -- 123 -- Unlocked
+Opening Policy
+Setup Policy
+Creating Coding
+Current TransSeqNo:      36
+Current OOS Coding:      0
+Coding 0 [Coding process completed succesfully]
+Calling UserHook
+UserHook 0 [User Hook [A7GarUH.UserHook] Error 429]
+Cleanup Policy
+Closing Policy
+
+
+
+12-31-2018  09:24:18
+
+7250949TG00000 -- 123 -- Unlocked
+Opening Policy
+Setup Policy
+Creating Coding
+Current TransSeqNo:      11
+Current OOS Coding:      0
+Coding 0 [Coding process completed succesfully]
+Calling UserHook
+UserHook 0 [User Hook [A7GarUH.UserHook] Error 429]
+Cleanup Policy
+Closing Policy
+
+
+

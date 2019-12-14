@@ -89,7 +89,9 @@ Function Get-CompsLink {
          [Parameter(Mandatory=$true,ValueFromPipeline=$true,Position=0)]
          [String]$Name,
          [Parameter(Mandatory=$false)]
-         [Switch]$Copy
+         [Switch]$Copy,
+         [Parameter(Mandatory=$false)]
+         [Switch]$CopyAll
         );
 
    New-Variable -Name 'COMPS_DIR_DAILY_BUILDS' -Value '\\filer01\ci-builds\DailyBuilds\Distribution\Patches\Comps' -Option Constant;
@@ -110,7 +112,11 @@ Function Get-CompsLink {
    If ($Copy) {
       $return[0].Path | Write-Verbose;
       $return[0].Path | Set-Clipboard;
-   } 
+   } ElseIf ($CopyAll) {
+      $str = $return.Path -join "`n";
+      $str | Write-Verbose;
+      $str | Set-Clipboard;
+   }
 
    Return $return;
 
@@ -124,7 +130,11 @@ Function Get-BIComps {
 #         CmdFixRef          #
 ##############################
 
-   Function Invoke-FixRef ([String]$Path) {
+   Function Invoke-FixRef {
+      Param(
+            [Parameter(Mandatory=$true,ValueFromPipeline=$true,Position=1)]
+            [String]$Path
+            );
       $fixRefPath = (Join-Path -Path 'C:\Users\TiminsKY' -ChildPath (Join-Path -Path "bin" -ChildPath "CmdFixRef.exe"));
       $paths = @();
       $Path | ForEach-Object {
@@ -180,6 +190,13 @@ Function Get-BIComps {
       }
    }
 
+Function Start-CiBillVbg {
+   Param();
+   Invoke-FixRefAndRun -Path 'F:\Work\Products\DailyBuild\App\core\Coding\BillingDecisions\BillingInterface.vbg';
+}
+
+Set-Alias CiBillVbg Start-CiBillVbg;
+
 Function Start-VB6 {
    Param(
          [Parameter(Mandatory=$true,ValueFromPipeline=$true,Position=1)]
@@ -197,6 +214,20 @@ Function FixRef-VB6 {
         )
    Cmd-FixRef $ToOpen;
    Start-VB6 $ToOpen;
+}
+
+Function Kill-VB6 {
+   Param();
+   Try {
+      $proc = Get-Process -Name 'VB6' -ErrorAction Stop;
+      $num = $proc.Count;
+      $proc | Stop-Process -ErrorAction Stop;
+      $singular = 'process has';
+      $plural = 'processes have';
+      "$num VB6 $(@{$true=$plural;$false=$singular}[($num -gt 1)]) been killed." | Write-Output;
+   } Catch [ProcessCommandException] {
+      "No VB6 process was running at time of command execution." | Write-Output;
+   } Catch {}
 }
 
 ##############################
@@ -226,6 +257,40 @@ Function Avl-Recov {
 
 }
 
+##############################
+#     Powershell Helpers     #
+##############################
+
+Function Get-UpdateHelpVersion {
+	Param(
+		[parameter(Mandatory=$False)]
+		[String[]]
+		$Module
+	)
+	$HelpInfoNamespace = @{helpInfo='http://schemas.microsoft.com/powershell/help/2010/05'}
+
+	if ($Module) { $Modules = Get-Module $Module -ListAvailable | where {$_.HelpInfoUri} }
+	else { $Modules = Get-Module -ListAvailable | where {$_.HelpInfoUri} }
+
+	foreach ($mModule in $Modules)
+	{
+		$mDir = $mModule.ModuleBase
+
+		if (Test-Path $mdir\*helpinfo.xml)
+		{
+			$mName=$mModule.Name
+			$mNodes = dir $mdir\*helpinfo.xml -ErrorAction SilentlyContinue |
+				Select-Xml -Namespace $HelpInfoNamespace -XPath "//helpInfo:UICulture"
+			foreach ($mNode in $mNodes)
+			{
+				$mCulture=$mNode.Node.UICultureName
+				$mVer=$mNode.Node.UICultureVersion
+
+				[PSCustomObject]@{"ModuleName"=$mName; "Culture"=$mCulture; "Version"=$mVer}
+			}
+		}
+	}
+}
 
 ##############################
 #           Random           #
@@ -992,8 +1057,8 @@ Function Delete-SPOFolder(){
       $contextInfo = Get-SPOContextInfo  $WebUrl $UserName $Password
       Invoke-RestSPO -Url $Url -Method Post -UserName $UserName -Password $Password -RequestDigest $contextInfo.GetContextWebInformation.FormDigestValue -ETag "*" -XHTTPMethod "DELETE"
 }
-Add-Type -Path "C:\Program Files\Common Files\microsoft shared\Web Server Extensions\15\ISAPI\Microsoft.SharePoint.Client.dll" 
-Add-Type -Path "C:\Program Files\Common Files\microsoft shared\Web Server Extensions\15\ISAPI\Microsoft.SharePoint.Client.Runtime.dll" 
+#Add-Type -Path "C:\Program Files\Common Files\microsoft shared\Web Server Extensions\15\ISAPI\Microsoft.SharePoint.Client.dll" 
+#Add-Type -Path "C:\Program Files\Common Files\microsoft shared\Web Server Extensions\15\ISAPI\Microsoft.SharePoint.Client.Runtime.dll" 
 
 <#
 .Synopsis
@@ -1151,146 +1216,146 @@ Function Stream-CopyTo([System.IO.Stream]$Source, [System.IO.Stream]$Destination
       }
 }
 
-#requires -version 5.0
-Function ConvertTo-Markdown {
-    <#
-.Synopsis
-Convert pipeline output to a markdown document.
-.Description
-This command is designed to accept pipelined output and create a markdown document. The pipeline output will formatted as a text block. You can optionally define a title, content to appear before the output and content to appear after the output.
+##requires -version 5.0
+#Function ConvertTo-Markdown {
+    #<#
+#.Synopsis
+#Convert pipeline output to a markdown document.
+#.Description
+#This command is designed to accept pipelined output and create a markdown document. The pipeline output will formatted as a text block. You can optionally define a title, content to appear before the output and content to appear after the output.
 
-The command does not create a text file. You need to pipe results from this command to a cmdlet like Out-File or Set-Content. See examples.
-.Parameter Title
-Specify a top level title. You do not need to include any markdown.
-.Parameter PreContent
-Enter whatever content you want to appear before converted input. You can use whatever markdown you wish.
-.Parameter PostContent
-Enter whatever content you want to appear after converted input. You can use whatever markdown you wish.
-.Parameter Width
-Specify the document width. Depending on what you intend to do with the markdown from this command you may want to adjust this value.
-.Example
-PS C:\> Get-Service Bits,Winrm | Convertto-Markdown -title "Service Check" -precontent "## $($env:computername)" -postcontent "_report $(Get-Date)_" 
+#The command does not create a text file. You need to pipe results from this command to a cmdlet like Out-File or Set-Content. See examples.
+#.Parameter Title
+#Specify a top level title. You do not need to include any markdown.
+#.Parameter PreContent
+#Enter whatever content you want to appear before converted input. You can use whatever markdown you wish.
+#.Parameter PostContent
+#Enter whatever content you want to appear after converted input. You can use whatever markdown you wish.
+#.Parameter Width
+#Specify the document width. Depending on what you intend to do with the markdown from this command you may want to adjust this value.
+#.Example
+#PS C:\> Get-Service Bits,Winrm | Convertto-Markdown -title "Service Check" -precontent "## $($env:computername)" -postcontent "_report $(Get-Date)_" 
 
-# Service Check
+## Service Check
 
-## THINK51
+### THINK51
 
-```text
+#```text
 
- Status   Name               DisplayName
- ------   ----               -----------
- Running  Bits               Background Intelligent Transfer Ser...
- Running  Winrm              Windows Remote Management (WS-Manag...
-```
+ #Status   Name               DisplayName
+ #------   ----               -----------
+ #Running  Bits               Background Intelligent Transfer Ser...
+ #Running  Winrm              Windows Remote Management (WS-Manag...
+#```
 
-_report 07/20/2018 18:40:52_
+#_report 07/20/2018 18:40:52_
 
-.Example
-PS C:\> Get-Service Bits,Winrm | Convertto-Markdown -title "Service Check" -precontent "## $($env:computername)" -postcontent "_report $(Get-Date)_" | Out-File c:\work\svc.md
+#.Example
+#PS C:\> Get-Service Bits,Winrm | Convertto-Markdown -title "Service Check" -precontent "## $($env:computername)" -postcontent "_report $(Get-Date)_" | Out-File c:\work\svc.md
 
-Re-run the previous command and save output to a file.
+#Re-run the previous command and save output to a file.
 
-.Example
-PS C:\> $computers = "srv1","srv2","srv4"
-PS C:\> $Title = "System Report"
-PS C:\> $footer = "_report run $(Get-Date) by $($env:USERDOMAIN)\$($env:USERNAME)_"
-PS C:\> $sb =  {
->> $os = get-ciminstance -classname win32_operatingsystem -property caption,lastbootUptime
->> [PSCustomObject]@{
->> PSVersion = $PSVersionTable.PSVersion
->> OS = $os.caption
->> Uptime = (Get-Date) - $os.lastbootUpTime
->> SizeFreeGB = (Get-Volume -DriveLetter C).SizeRemaining /1GB
->> }
->> }
-PS C:\> $out = Convertto-Markdown -title $Title
-PS C:\> foreach ($computer in $computers) {
->>  $out+= Invoke-command -scriptblock $sb -ComputerName $computer -HideComputerName |
->>  Select-Object -Property * -ExcludeProperty RunspaceID |
->>  ConvertTo-Markdown -PreContent "## $($computer.toUpper())"
->> }
-PS C:\>$out += ConvertTo-Markdown -PostContent $footer
-PS C:\>$out | set-content c:\work\report.md
+#.Example
+#PS C:\> $computers = "srv1","srv2","srv4"
+#PS C:\> $Title = "System Report"
+#PS C:\> $footer = "_report run $(Get-Date) by $($env:USERDOMAIN)\$($env:USERNAME)_"
+#PS C:\> $sb =  {
+#>> $os = get-ciminstance -classname win32_operatingsystem -property caption,lastbootUptime
+#>> [PSCustomObject]@{
+#>> PSVersion = $PSVersionTable.PSVersion
+#>> OS = $os.caption
+#>> Uptime = (Get-Date) - $os.lastbootUpTime
+#>> SizeFreeGB = (Get-Volume -DriveLetter C).SizeRemaining /1GB
+#>> }
+#>> }
+#PS C:\> $out = Convertto-Markdown -title $Title
+#PS C:\> foreach ($computer in $computers) {
+#>>  $out+= Invoke-command -scriptblock $sb -ComputerName $computer -HideComputerName |
+#>>  Select-Object -Property * -ExcludeProperty RunspaceID |
+#>>  ConvertTo-Markdown -PreContent "## $($computer.toUpper())"
+#>> }
+#PS C:\>$out += ConvertTo-Markdown -PostContent $footer
+#PS C:\>$out | set-content c:\work\report.md
 
-Here is an example that create a series of markdown fragments for each computer and at the end creates a markdown document.
-.Link
-Convertto-HTML
-.Link
-Out-File
+#Here is an example that create a series of markdown fragments for each computer and at the end creates a markdown document.
+#.Link
+#Convertto-HTML
+#.Link
+#Out-File
 
-.Notes
-Learn more about PowerShell: https://jdhitsolutions.com/blog/essential-powershell-resources/
+#.Notes
+#Learn more about PowerShell: https://jdhitsolutions.com/blog/essential-powershell-resources/
 
-.Inputs
-[object]
-#>
+#.Inputs
+#[object]
+##>
 
-   [cmdletbinding()]
-   [outputtype([string[]])]
-   Param(
-       [Parameter(Position = 0, ValueFromPipeline)]
-       [object]$Inputobject,
-       [Parameter()]
-       [string]$Title,
-       [string[]]$PreContent,
-       [string[]]$PostContent,
-       [ValidateScript( {$_ -ge 10})]
-       [int]$Width = 80
-   )
+   #[cmdletbinding()]
+   #[outputtype([string[]])]
+   #Param(
+       #[Parameter(Position = 0, ValueFromPipeline)]
+       #[object]$Inputobject,
+       #[Parameter()]
+       #[string]$Title,
+       #[string[]]$PreContent,
+       #[string[]]$PostContent,
+       #[ValidateScript( {$_ -ge 10})]
+       #[int]$Width = 80
+   #)
 
-   Begin {
-       Write-Verbose "[BEGIN  ] Starting $($myinvocation.MyCommand)"
-       #initialize an array to hold incoming data
-       $data = @()
+   #Begin {
+       #Write-Verbose "[BEGIN  ] Starting $($myinvocation.MyCommand)"
+       ##initialize an array to hold incoming data
+       #$data = @()
 
-       #initialize an empty here string for markdown text
-       $Text = @"
+       ##initialize an empty here string for markdown text
+       #$Text = @"
 
-"@
-       If ($title) {
-           Write-Verbose "[BEGIN  ] Adding Title: $Title"
-           $Text += "# $Title`n`n"
-       }
-       If ($precontent) {
-           Write-Verbose "[BEGIN  ] Adding Precontent"
-           $Text += $precontent
-           $text += "`n`n"
-       }
+#"@
+       #If ($title) {
+           #Write-Verbose "[BEGIN  ] Adding Title: $Title"
+           #$Text += "# $Title`n`n"
+       #}
+       #If ($precontent) {
+           #Write-Verbose "[BEGIN  ] Adding Precontent"
+           #$Text += $precontent
+           #$text += "`n`n"
+       #}
 
-   } #begin
+   #} #begin
 
-   Process {
-       #add incoming objects to data array
-       Write-Verbose "[PROCESS] Adding processed object"
-       $data += $Inputobject
+   #Process {
+       ##add incoming objects to data array
+       #Write-Verbose "[PROCESS] Adding processed object"
+       #$data += $Inputobject
 
-   } #process
-   End {
-       #add the data to the text
-       if ($data) {
-           #convert data to strings and trim each line
-           Write-Verbose "[END    ] Converting data to strings"
-           [string]$trimmed = (($data | Out-String -Width $width).split("`n")).ForEach( {"$($_.trimend())`n"})
-           Write-Verbose "[END    ] Adding to markdown"
-           $text += @"
-``````text
-$($trimmed.trimend())
-``````
+   #} #process
+   #End {
+       ##add the data to the text
+       #if ($data) {
+           ##convert data to strings and trim each line
+           #Write-Verbose "[END    ] Converting data to strings"
+           #[string]$trimmed = (($data | Out-String -Width $width).split("`n")).ForEach( {"$($_.trimend())`n"})
+           #Write-Verbose "[END    ] Adding to markdown"
+           #$text += @"
+#``````text
+#$($trimmed.trimend())
+#``````
 
-"@
-        }
+#"@
+        #}
 
-        If ($postcontent) {
-            Write-Verbose "[END    ] Adding postcontent"
-            $text += "`n"
-            $text += $postcontent
-        }
-        #write the markdown to the pipeline
-        $text
-        Write-Verbose "[END    ] Ending $($myinvocation.MyCommand)"
-    } #end
+        #If ($postcontent) {
+            #Write-Verbose "[END    ] Adding postcontent"
+            #$text += "`n"
+            #$text += $postcontent
+        #}
+        ##write the markdown to the pipeline
+        #$text
+        #Write-Verbose "[END    ] Ending $($myinvocation.MyCommand)"
+    #} #end
 
-} #close ConvertTo-Markdown
+#} #close ConvertTo-Markdown
 
 
 function Get-ComObject {

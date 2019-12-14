@@ -1,0 +1,177 @@
+{
+    "Environments": [
+        {
+            "Name": "DailyBuilds",
+            "Databases":[
+                {
+                    "Name":"WIP",
+                    "Server": "HFDWPINSQL16PV2\\DAILYBUILDS08",
+                    "Table": "ID1000WIP",
+                    "Username":"GARDEF",
+                    "Password":"GARDEF"
+                },
+                {
+                    "Name":"CDB",
+                    "Server": "HFDWPINSQL16PV1\\DailyBuilds07",
+                    "Table": "ID1000CDB",
+                    "Username":"GARDEF",
+                    "Password":"GARDEF"
+                }
+            ]
+        },
+        {
+            "Name": "MP01",
+            "Databases":[
+                {
+                    "Name": "WIP",
+                    "Server": "HFDWPMP12SQL01.mp.local\\SQL03",
+                    "Table": "MP01WIP",
+                    "Username": "GARDEF",
+                    "Password": "GARDEF"
+                },
+                {
+                    "Name": "CDB",
+                    "Server": "HFDWPMP12SQL01.mp.local\\SQL03",
+                    "Table": "MP01CDB",
+                    "Username": "GARDEF",
+                    "Password": "GARDEF"
+                }
+            ]
+        },
+        {
+            "Name": "MP02",
+            "Databases":[
+                {
+                    "Name": "WIP",
+                    "Server": "HFDWPMP12SQL01.mp.local\\SQL03",
+                    "Table": "MP02WIP",
+                    "Username": "GARDEF",
+                    "Password": "GARDEF"
+                },
+                {
+                    "Name": "CDB",
+                    "Server": "HFDWPMP12SQL01.mp.local\\SQL03",
+                    "Table": "MP02CDB",
+                    "Username": "GARDEF",
+                    "Password": "GARDEF"
+                }
+            ]
+        },
+        {
+            "Name": "MP03",
+            "Databases":[
+                {
+                    "Name": "WIP",
+                    "Server": "HFDWPMP12SQL01.mp.local\\SQL03",
+                    "Table": "MP03WIP",
+                    "Username": "GARDEF",
+                    "Password": "GARDEF"
+                },
+                {
+                    "Name": "CDB",
+                    "Server": "HFDWPMP12SQL01.mp.local\\SQL03",
+                    "Table": "MP03CDB",
+                    "Username": "GARDEF",
+                    "Password": "GARDEF"
+                }
+            ]
+        },
+        {
+            "Name": "MP04",
+            "Databases":[
+                {
+                    "Name": "WIP",
+                    "Server": "HFDWPMP12SQL01.mp.local\\SQL03",
+                    "Table": "MP04WIP",
+                    "Username": "GARDEF",
+                    "Password": "GARDEF"
+                },
+                {
+                    "Name": "CDB",
+                    "Server": "HFDWPMP12SQL01.mp.local\\SQL03",
+                    "Table": "MP04CDB",
+                    "Username": "GARDEF",
+                    "Password": "GARDEF"
+                }
+            ]
+        },
+        {
+            "Name": "MP05",
+            "Databases":[
+                {
+                    "Name": "WIP",
+                    "Server": "HFDWPMP12SQL01.mp.local\\SQL03",
+                    "Table": "MP05WIP",
+                    "Username": "GARDEF",
+                    "Password": "GARDEF"
+                },
+                {
+                    "Name": "CDB",
+                    "Server": "HFDWPMP12SQL01.mp.local\\SQL03",
+                    "Table": "MP05CDB",
+                    "Username": "GARDEF",
+                    "Password": "GARDEF"
+                }
+            ]
+        },
+        {
+            "Name": "MP06",
+            "Databases":[
+                {
+                    "Name": "WIP",
+                    "Server": "HFDWPMP12SQL01.mp.local\\SQL03",
+                    "Table": "MP06WIP",
+                    "Username": "GARDEF",
+                    "Password": "GARDEF"
+                },
+                {
+                    "Name": "CDB",
+                    "Server": "HFDWPMP12SQL01.mp.local\\SQL03",
+                    "Table": "MP06CDB",
+                    "Username": "GARDEF",
+                    "Password": "GARDEF"
+                }
+            ]
+        },
+        {
+            "Name": "MP07",
+            "Databases":[
+                {
+                    "Name": "WIP",
+                    "Server": "HFDWPMP12SQL01.mp.local\\SQL03",
+                    "Table": "MP07WIP",
+                    "Username": "GARDEF",
+                    "Password": "GARDEF"
+                },
+                {
+                    "Name": "CDB",
+                    "Server": "HFDWPMP12SQL01.mp.local\\SQL03",
+                    "Table": "MP07CDB",
+                    "Username": "GARDEF",
+                    "Password": "GARDEF"
+                }
+            ]
+        },
+        {
+            "Name": "MP08",
+            "Databases":[
+                {
+                    "Name": "WIP",
+                    "Server": "HFDWPMP12SQL01.mp.local\\SQL03",
+                    "Table": "MP08WIP",
+                    "Username": "GARDEF",
+                    "Password": "GARDEF"
+                },
+                {
+                    "Name": "CDB",
+                    "Server": "HFDWPMP12SQL01.mp.local\\SQL03",
+                    "Table": "MP08CDB",
+                    "Username": "GARDEF",
+                    "Password": "GARDEF"
+                }
+            ]
+        }
+    ],
+    "Me":"HFDKTIMINSW7D",
+    "Machine":"HFDKTIMINSW7D"
+}

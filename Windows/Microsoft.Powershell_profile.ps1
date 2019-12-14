@@ -58,13 +58,18 @@ Function Invoke-GVim {
 #         Variables          #
 ##############################
 
-$TempDir = 'C:\Users\TiminsKy\AppData\Local\Temp'
-$ENFDir = 'C:\Users\TiminsKy\Documents\ENF'
+$TempDir = 'C:\Users\TiminsKy\AppData\Local\Temp';
 
-$AppDir = 'F:\Work\Products\DailyBuild\App'
-$Pass2Dir = (Join-Path -Path $AppDir -ChildPath 'core\Coding')
-$CrumDir = 'L:'
-$BillingSchemaDir = "F:\Work\Products\DailyBuild\System\Shared\BillingSchema";
+$HomeDir = 'C:\Users\TiminsKY\';
+$GitDir = (Join-Path -Path $HomeDir -ChildPath 'Git');
+
+$DailyDir = 'C:\Work\Products\DailyBuild'; 
+$AppDir = (Join-Path -Path $DailyDir -ChildPath 'App');
+$WebUiDir = (Join-Path -Path $DailyDir -ChildPath 'CommercialIntellisys\Web\UI')
+$Pass2Dir = (Join-Path -Path $AppDir -ChildPath 'core\Coding');
+$BillingSchemaDir = (Join-Path -Path $DailyDir -ChildPath 'System\Shared\BillingSchema');
+$CrumDir = 'L:';
+$CmdFixRefDir = "C:\Users\timinsky\bin";
 
 ##############################
 #          Modules           #
@@ -81,18 +86,18 @@ if ($host.Name -eq 'ConsoleHost') {
 
 Import-Module TiminsKy -DisableNameChecking
 
-Import-Module ErrorCorrect -DisableNameChecking
+#Import-Module ErrorCorrect -DisableNameChecking
 
 Import-Module EDI -DisableNameChecking
 
 Import-Module adoLib
 
-Import-Module GetSPOListModule
+#Import-Module GetSPOListModule
 
 #Import-Module PersistentHistory
 Import-Module AdvancedHistory
 
-Import-Module ActiveDirectory
+#Import-Module ActiveDirectory
 
 Import-Module PowerShellGet
 
@@ -174,7 +179,10 @@ Function Edit-Profile {
 }
 
 Function Copy-Vimrc {
-   Copy-Item -Path 'C:\Users\TiminsKy\Git\rc\Vim\_vimrc' -Destination 'Z:\_vimrc' -Force
+   Get-ChildItem -Path 'C:\Users\TiminsKy\Git\rc\Vim\vimrc' -Recurse | ForEach-Object {
+      Copy-Item -Path $_.FullName -Destination 'Z:\' -Recurse -Force -Container -Verbose;
+      Copy-Item -Path $_.FullName -Destination $HomeDir -Recurse -Force -Container -Verbose -ErrorAction SilentlyContinue;
+   }
 }
 
 Function Edit-Vimrc {
@@ -182,13 +190,17 @@ Function Edit-Vimrc {
          [Parameter(Mandatory=$false)]
          [Switch]$GVim
         )
-   $file = 'C:\Users\TiminsKy\Git\rc\Vim\_vimrc';
+   $file = 'C:\Users\TiminsKy\Git\rc\Vim\vimrc\_vimrc';
    If ($GVim) {
-      gvim.bat $file;
+      gvim $file;
    } Else {
-      vim.bat $file;
+      vim $file;
    }
    Copy-Vimrc;
+}
+
+Function Cd-Git {
+   Push-Location $GitDir;
 }
 
 Function Cd-Pass2 {
@@ -201,6 +213,10 @@ Function Cd-Bill {
 
 Function Cd-App {
    Push-Location $AppDir
+}
+
+Function Cd-CmdFixRef {
+   Push-Location $CmdFixRefDir;
 }
 
 Function Cd-Crum {
@@ -253,18 +269,18 @@ Function fortune {
 ##############################
 Clear-Host
 $PSVers = "$($PSVersionTable.PSVersion.Major).$($PSVersionTable.PSVersion.Minor)"
-$prngFortune = Get-Random -minimum 0 -maximum 6
-$fort = "`n"
-switch ($prngFortune) {
-   0        { $fort += fortune }
-   1        { $fort += fortune -hh }
-   2        { $fort += fortune -simpsons }
-   3        { $fort += fortune -gump }
-   4        { $fort += fortune -friends }
-   Default  { $fort  = "" }
-}
+#$prngFortune = Get-Random -minimum 0 -maximum 6
+#$fort = "`n"
+#switch ($prngFortune) {
+   #0        { $fort += fortune }
+   #1        { $fort += fortune -hh }
+   #2        { $fort += fortune -simpsons }
+   #3        { $fort += fortune -gump }
+   #4        { $fort += fortune -friends }
+   #Default  { $fort  = "" }
+#}
 $welcome = $env:USERNAME + ": Welcome to Powershell v" + $PSVers + "."
-$fort
+#$fort
 if ($PSVers -gt 2) {
    cowsay $welcome
 } else {
@@ -282,4 +298,5 @@ if (Test-Path($ChocolateyProfile)) {
 
 
 # Load Posh-GitHub
-. 'C:\Users\TiminsKY\Documents\WindowsPowerShell\Modules\Posh-GitHub\Posh-GitHub-Profile.ps1'
+Import-Module 'C:\tools\poshgit\dahlbyk-posh-git-9bda399\src\posh-git.psd1'
+#. 'C:\Users\TiminsKY\Documents\WindowsPowerShell\Modules\Posh-GitHub\Posh-GitHub-Profile.ps1'

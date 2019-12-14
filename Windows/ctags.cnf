@@ -18,7 +18,6 @@
 --regex-vb=/^\s*(Public|\b)[ \t]*Property[ \t]*(Get|Let|Set)[ \t]+([a-zA-Z0-9_]+)/\3/n,name/i
 --regex-vb=/^\s*(Public|Private|\b)[ \t]*Enum[ \t]+([a-zA-Z0-9_]+)/\2 - \1/e,enum/i
 --regex-vb=/^\s*(Public|Private|\b)[ \t]*Type[ \t]+([a-zA-Z0-9_]+)/\2 - \1/t,type/i
---regex-vb=/^\s*((?:(?!Err(?:or)?Handler))[a-zA-Z0-9_]+):/\1/l,label/i
 --recurse
 --exclude="bin"
 --exclude="obj"
@@ -35,8 +34,12 @@
 --langmap=XSD:+.wsdl
 --regex-XSD=/^\s*<xs:[cC]omplex[tT]ype [a-zA-Z0-9="]*[ ]{0,1}name="([a-z_]+:){0,1}([a-zA-Z0-9_]+)"\s*>/\2/c,ComplexType/
 --regex-XSD=/^\s*<xs:[sS]imple[tT]ype [a-zA-Z0-9="]*[ ]{0,1}name="([a-z_]+:){0,1}([a-zA-Z0-9_]+)"\s*>/\2/s,SimpleType/
---regex-XSD=/^\s*<xs:[eE]lement (name|ref)="([a-zA-Z0-9_]+)".*(?:([tT]ype)="((?:xs:)?[a-zA-Z0-9_]+)")?/\2 -- \4/e,Element/
 --exclude=.git
+--recurse=yes
+
+--langdef=vim
+--langmap=vimrc:(_vimrc).vim.plug
+--regex-vimrc=/^\s*"\s*(.*)\s*\{\{\{(\d*)/\2 -- \1/g,Group/
 --recurse=yes
 
 --langdef=

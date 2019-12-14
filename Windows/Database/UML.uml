@@ -1,0 +1,25 @@
+
+      ,--------.
+      |Object  |
+      |--------|
+      |--------|
+      |equals()|
+      `--------'
+           |
+           |
+,--------------------.
+|ArrayList           |
+|--------------------|
+|Object[] elementData|
+|--------------------|
+|size()              |
+`--------------------'
+
+@startuml
+Object <|-- ArrayList
+
+Object : equals()
+ArrayList : Object[] elementData
+ArrayList : size()
+
+@enduml
