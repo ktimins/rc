@@ -1,4 +1,12 @@
-" vim:fdm=marker
+"vim:fdm=marker
+
+" Needed Stuff {{{1
+
+   set nossl
+   set encoding=utf-8
+
+" }}}
+
 
 " Location Stuff {{{1
 

@@ -55,23 +55,6 @@ Function Invoke-GVim {
 #New-Alias gvim Invoke-GVim -Force;
 
 ##############################
-#         Variables          #
-##############################
-
-$TempDir = 'C:\Users\TiminsKy\AppData\Local\Temp';
-
-$HomeDir = 'C:\Users\TiminsKY\';
-$GitDir = (Join-Path -Path $HomeDir -ChildPath 'Git');
-
-$DailyDir = 'C:\Work\Products\DailyBuild'; 
-$AppDir = (Join-Path -Path $DailyDir -ChildPath 'App');
-$WebUiDir = (Join-Path -Path $DailyDir -ChildPath 'CommercialIntellisys\Web\UI')
-$Pass2Dir = (Join-Path -Path $AppDir -ChildPath 'core\Coding');
-$BillingSchemaDir = (Join-Path -Path $DailyDir -ChildPath 'System\Shared\BillingSchema');
-$CrumDir = 'L:';
-$CmdFixRefDir = "C:\Users\timinsky\bin";
-
-##############################
 #          Modules           #
 ##############################
 #Import-Module Pscx -arg "$(Split-Path $profile -parent)\Pscx.UserPreferences.ps1" 
@@ -111,6 +94,66 @@ Import-Module oh-my-posh
 #Import-Module posh-tex  
 #Import-Module posh-vs
 #Install-PoshVs
+
+##############################
+#         Variables          #
+##############################
+
+$TempDir = 'C:\Users\TiminsKy\AppData\Local\Temp';
+
+$HomeDir = 'C:\Users\TiminsKY\';
+$GitDir = (Join-Path -Path $HomeDir -ChildPath 'Git');
+$rcGitDir = (Join-Path -Path $GitDir -ChildPath 'rc');
+$ps1ScriptDir = (Join-Path -Path (Join-Path -Path $rcGitDir -ChildPath 'Windows') -ChildPath 'Scripts');
+
+$DailyDir = 'C:\Work\Products\DailyBuild'; 
+$AppDir = (Join-Path -Path $DailyDir -ChildPath 'App');
+$WebUiDir = (Join-Path -Path $DailyDir -ChildPath 'CommercialIntellisys\Web\UI')
+$Pass2Dir = (Join-Path -Path $AppDir -ChildPath 'core\Coding');
+$BillingSchemaDir = (Join-Path -Path $DailyDir -ChildPath 'System\Shared\BillingSchema');
+$CrumDir = 'L:';
+$CmdFixRefDir = "C:\Users\timinsky\bin";
+
+##############################
+#        Change Dirs         #
+##############################
+
+Function Cd-Git {
+   Push-Location $GitDir;
+}
+
+Function Cd-RcGit {
+   Push-Location $rcGitDir;
+}
+
+Function Cd-ScriptsDir {
+   Push-Location $ps1ScriptDir;
+}
+
+Function Cd-Pass2 {
+   Push-Location $Pass2Dir
+}
+
+Function Cd-Bill {
+   Push-Location (Join-Path -Path $Pass2Dir -ChildPath 'BillingDecisions')
+}
+
+Function Cd-App {
+   Push-Location $AppDir
+}
+
+Function Cd-CmdFixRef {
+   Push-Location $CmdFixRefDir;
+}
+
+Function Cd-Crum {
+   Push-Location $CrumDir
+}
+
+Function Cd-BillingSchema {
+   Push-Location $BillingSchemaDir;
+}
+
 
 ##############################
 #  Console Display settings  #
@@ -197,34 +240,6 @@ Function Edit-Vimrc {
       vim $file;
    }
    Copy-Vimrc;
-}
-
-Function Cd-Git {
-   Push-Location $GitDir;
-}
-
-Function Cd-Pass2 {
-   Push-Location $Pass2Dir
-}
-
-Function Cd-Bill {
-   Push-Location (Join-Path -Path $Pass2Dir -ChildPath 'BillingDecisions')
-}
-
-Function Cd-App {
-   Push-Location $AppDir
-}
-
-Function Cd-CmdFixRef {
-   Push-Location $CmdFixRefDir;
-}
-
-Function Cd-Crum {
-   Push-Location $CrumDir
-}
-
-Function Cd-BillingSchema {
-   Push-Location $BillingSchemaDir;
 }
 
 Function Update-BillingSchema {

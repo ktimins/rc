@@ -296,6 +296,35 @@ Function Get-UpdateHelpVersion {
 #           Random           #
 ##############################
 
+Function Create-LogPpmDir {
+   Param(
+         [Parameter(Mandatory=$False,ValueFromPipeline=$true,Position=1)]
+         [ValidateScript({$_ -match "^\d{7}$"})]
+         [String]$Number,
+         [Switch]$Billing,
+         [Switch]$Explorer
+        );
+
+   $logsDir = 'C:\Users\timinsky\Git\ppm_logs';
+
+   $dirToCreate = $logsDir;
+
+   If ($Billing) {
+      $dirToCreate = Join-Path -Path $dirToCreate -ChildPath 'Billing';
+   }
+
+   $dirToCreate = Join-Path -Path $dirToCreate -ChildPath $Number;
+
+   New-Item -ItemType 'directory' -Path $dirToCreate;
+
+   If ($Explorer) {
+      & "explorer.exe" $dirToCreate;
+   }
+
+   Return $dirToCreate;
+
+}
+
 Function Create-Msgbox {
 Param (
     [String]$Message,
