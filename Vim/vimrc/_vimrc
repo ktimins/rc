@@ -1,4 +1,4 @@
-"vim:fdm=marker
+" vim:fdm=marker
 
 " Needed Stuff {{{1
 
@@ -6,7 +6,6 @@
    set encoding=utf-8
 
 " }}}
-
 
 " Location Stuff {{{1
 
@@ -945,15 +944,56 @@
 
    "}}}
    
-   function! FindAll()
-      call inputsave()
-      let p = input('Enter pattern:')
-      call inputrestore()
-      execute 'vimgrep "'.p.'" % |copen'
-   endfunction
+   " Wrapping {{{2
 
-   nnoremap <leader>ff execute :Call FindAll()<cr>
+      function! ChooseWrap()
+         let l:choice=confirm("Toggle Wrapping?", "&yes\n&no", 0)
+         if l:choice==1
+            if &wrap
+               call DisableDisplayWrapping()
+            else
+               call EnableDisplayWrapping()
+            endif
+         endif
+      endfunction
 
+      function! EnableDisplayWrapping()
+         if !&wrap
+            setlocal wrap nolist linebreak
+            " don't skip wrapped lines
+            nnoremap <buffer> k gk
+            nnoremap <buffer> j gj
+            vnoremap <buffer> k gk
+            vnoremap <buffer> j gj
+         endif
+      endfunction
+
+      function! DisableDisplayWrapping()
+         if &wrap
+            setlocal nowrap list nolinebreak
+            nunmap <buffer> k
+            nunmap <buffer> j
+            vunmap <buffer> k
+            vunmap <buffer> j
+         endif
+      endfunction
+
+      nnoremap <leader>cw :call ChooseWrap()<CR>
+   
+   " }}}
+
+   " grepping {{{2
+
+      function! FindAll()
+         call inputsave()
+         let p = input('Enter pattern:')
+         call inputrestore()
+         execute 'vimgrep "'.p.'" % |copen'
+      endfunction
+
+      nnoremap <leader>ff execute :Call FindAll()<cr>
+
+   " }}}
 
 "}}}
 

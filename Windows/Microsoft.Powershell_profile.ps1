@@ -1,3 +1,5 @@
+# vim:fdm=marker
+
 ##############################
 #           Basic            #
 ##############################
@@ -8,44 +10,6 @@ Set-ExecutionPolicy Unrestricted
 #
 #$provider = Get-PSProvider filesystem
 #$provider.Home = 'C:\Users\TiminsKy'
-
-##############################
-#    (G)Vim.bat Functions    #
-##############################
-Function Run-Vim {
-   param(
-         [Parameter(Mandatory=$False, Position=0)]
-         [Boolean]$Gui,
-         [Parameter(Mandatory=$False, ValueFromRemainingArguments=$True, Position=1)]
-         [String[]]$FileArgs
-        );
-
-   If ($Gui) {
-      Invoke-GVim $FileArgs;
-   } Else {
-      Invoke-Vim $FileArgs;
-   }
-}
-
-Function Invoke-Vim {
-   param(
-         [Parameter(Mandatory=$False, ValueFromPipeline=$True, ValueFromRemainingArguments=$True, Position=0)]
-         [String[]]$FileArgs = $Null
-        );
-
-   ($sp = "Start-Process vim.bat $(if ($FileArgs) {-ArgumentList $("$FileArgs")}) -Wait;");
-   Invoke-Expression $sp;
-}
-
-Function Invoke-GVim {
-   param(
-         [Parameter(Mandatory=$False, ValueFromPipeline=$True, ValueFromRemainingArguments=$True, Position=0)]
-         [String[]]$FileArgs = $Null
-        );
-
-   ($sp = "Start-Process gvim.bat $(if ($FileArgs) {-ArgumentList $("$FileArgs")}) -Wait;");
-   Invoke-Expression $sp;
-}
 
 ##############################
 #          Aliases           #
@@ -69,7 +33,7 @@ if ($host.Name -eq 'ConsoleHost') {
 
 Import-Module TiminsKy -DisableNameChecking
 
-#Import-Module ErrorCorrect -DisableNameChecking
+Import-Module ErrorCorrect -DisableNameChecking
 
 Import-Module EDI -DisableNameChecking
 
@@ -259,24 +223,24 @@ Function Update-TfsFiles {
 ##############################
 #          Fortune           #
 ##############################
-Function fortune {
-   param(
-         [switch]$hh
-        )
-   $dir = 'C:\Users\TiminsKY\Documents\WindowsPowerShell'
-   If ($hh) {
-      [System.IO.File]::ReadAllText((Split-Path $profile)+'\hitchhiker.txt') -replace "`r`n", "`n" -split "`n%`n" | Get-Random
-   } ElseIf ($simpsons) {
-      [System.IO.File]::ReadAllText((Split-Path $profile)+'\chalkboard.txt') -replace "`r`n", "`n" -split "`n%`n" | Get-Random
-   } ElseIf ($gump) {
-      [System.IO.File]::ReadAllText((Split-Path $profile)+'\fgump.txt') -replace "`r`n", "`n" -split "`n%`n" | Get-Random
-   } ElseIf ($friends) {
-      [System.IO.File]::ReadAllText((Split-Path $profile)+'\friends.txt') -replace "`r`n", "`n" -split "`n%`n" | Get-Random
-   } Else {
-      [System.IO.File]::ReadAllText((Split-Path $profile)+'\fortune.txt') -replace "`r`n", "`n" -split "`n%`n" | Get-Random
-   }
+#Function fortune {
+   #param(
+         #[switch]$hh
+        #)
+   #$dir = 'C:\Users\TiminsKY\Documents\WindowsPowerShell'
+   #If ($hh) {
+      #[System.IO.File]::ReadAllText((Split-Path $profile)+'\hitchhiker.txt') -replace "`r`n", "`n" -split "`n%`n" | Get-Random
+   #} ElseIf ($simpsons) {
+      #[System.IO.File]::ReadAllText((Split-Path $profile)+'\chalkboard.txt') -replace "`r`n", "`n" -split "`n%`n" | Get-Random
+   #} ElseIf ($gump) {
+      #[System.IO.File]::ReadAllText((Split-Path $profile)+'\fgump.txt') -replace "`r`n", "`n" -split "`n%`n" | Get-Random
+   #} ElseIf ($friends) {
+      #[System.IO.File]::ReadAllText((Split-Path $profile)+'\friends.txt') -replace "`r`n", "`n" -split "`n%`n" | Get-Random
+   #} Else {
+      #[System.IO.File]::ReadAllText((Split-Path $profile)+'\fortune.txt') -replace "`r`n", "`n" -split "`n%`n" | Get-Random
+   #}
 
-}
+#}
 
 
 ##############################
