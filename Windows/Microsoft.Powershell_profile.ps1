@@ -1,8 +1,6 @@
 # vim:fdm=marker
 
-##############################
-#           Basic            #
-##############################
+# Basic {{{1
 Set-ExecutionPolicy Unrestricted
 
 #$ProfileRoot = (Split-Path -Parent $MyInvocation.MyCommand.Path)
@@ -11,16 +9,16 @@ Set-ExecutionPolicy Unrestricted
 #$provider = Get-PSProvider filesystem
 #$provider.Home = 'C:\Users\TiminsKy'
 
-##############################
-#          Aliases           #
-##############################
+# }}}
+
+# Aliases {{{1
 #New-Alias which Get-Command
 #New-Alias vim Invoke-Vim -Force;
 #New-Alias gvim Invoke-GVim -Force;
 
-##############################
-#          Modules           #
-##############################
+# }}}
+
+# Modules {{{1
 #Import-Module Pscx -arg "$(Split-Path $profile -parent)\Pscx.UserPreferences.ps1" 
 
 Import-Module cowsay
@@ -59,9 +57,9 @@ Import-Module oh-my-posh
 #Import-Module posh-vs
 #Install-PoshVs
 
-##############################
-#         Variables          #
-##############################
+# }}}
+
+# Variables {{{1
 
 $TempDir = 'C:\Users\TiminsKy\AppData\Local\Temp';
 
@@ -78,9 +76,9 @@ $BillingSchemaDir = (Join-Path -Path $DailyDir -ChildPath 'System\Shared\Billing
 $CrumDir = 'L:';
 $CmdFixRefDir = "C:\Users\timinsky\bin";
 
-##############################
-#        Change Dirs         #
-##############################
+# }}}
+
+# Change Dirs {{{1
 
 Function Cd-Git {
    Push-Location $GitDir;
@@ -118,10 +116,9 @@ Function Cd-BillingSchema {
    Push-Location $BillingSchemaDir;
 }
 
+# }}}
 
-##############################
-#  Console Display settings  #
-##############################
+# Console Display settings {{{1
 
 $console = $host.UI.RawUI
 $console.BackgroundColor = "black"
@@ -147,9 +144,7 @@ $console.WindowSize = $size
 
 Set-Theme Darkblood
 
-  #########################
-  #      256 COLOR        #
-  #########################
+  # 256 COLOR {{{2
 
 Add-Type -MemberDefinition @"
 [DllImport("kernel32.dll", SetLastError=true)]
@@ -165,6 +160,11 @@ $m = 0
 $success = [win32.nativemethods]::getconsolemode($h, [ref]$m)
 $m = $m -bor 4 # undocumented flag to enable ansi/vt100
 $success = [win32.nativemethods]::setconsolemode($h, $m)
+   # }}}
+
+# }}}
+
+# Custom Functions {{{1
 
 Function Copy-Profile {
    Copy-Item -Path 'C:\Users\TiminsKY\Git\rc\Windows\Microsoft.Powershell_profile.ps1' -Destination $PROFILE -Force
@@ -220,9 +220,9 @@ Function Update-TfsFiles {
 }
 
 
-##############################
-#          Fortune           #
-##############################
+# }}}
+
+# Fortune {{{1
 #Function fortune {
    #param(
          #[switch]$hh
@@ -241,11 +241,9 @@ Function Update-TfsFiles {
    #}
 
 #}
+# }}}
 
-
-##############################
-# Start Up - Welcome Message #
-##############################
+# Start Up - Welcome Message {{{1
 Clear-Host
 $PSVers = "$($PSVersionTable.PSVersion.Major).$($PSVersionTable.PSVersion.Minor)"
 #$prngFortune = Get-Random -minimum 0 -maximum 6
@@ -265,8 +263,9 @@ if ($PSVers -gt 2) {
 } else {
    $wecome
 }
+# }}}
 
-
+# Needed Loadups {{{1
 
 # Chocolatey profile
 $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
@@ -279,3 +278,5 @@ if (Test-Path($ChocolateyProfile)) {
 # Load Posh-GitHub
 Import-Module 'C:\tools\poshgit\dahlbyk-posh-git-9bda399\src\posh-git.psd1'
 #. 'C:\Users\TiminsKY\Documents\WindowsPowerShell\Modules\Posh-GitHub\Posh-GitHub-Profile.ps1'
+
+# }}}

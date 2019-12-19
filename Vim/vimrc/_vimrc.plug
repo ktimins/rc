@@ -162,7 +162,6 @@
    " Source Control {{{2
       Plug 'mhinz/vim-signify'
       " Git {{{3
-         Plug 'tpope/vim-git'
          Plug 'tpope/vim-fugitive'
          Plug 'tpope/vim-rhubarb'
          Plug 'junegunn/gv.vim'

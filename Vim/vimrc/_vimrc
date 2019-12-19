@@ -755,7 +755,8 @@
 
 " GitGutter {{{1
 
-   let g:gitgutter_max_signs = 1000  " default value
+   "let g:gitgutter_max_signs = 1000  " default value
+   let g:gitgutter_max_signs = 7500  " default value
 
 " }}}
 
@@ -993,6 +994,66 @@
 
       nnoremap <leader>ff execute :Call FindAll()<cr>
 
+   " }}}
+
+   " Change GUI Font Size {{{2
+
+      let w:fontSizeNorm=1
+
+      function! IncreaseFontSize()
+         if has('gui_running')
+            try
+               " Prefer Anonymice Powerline. This is Anonymous Pro, but with Powerline hacks
+               set guifont=Anonymice_Powerline:h14
+               let w:fontSizeNorm=0
+            catch
+               try
+                  " Else, get normal Anonymous Pro
+                  set guifont=Anonymous_Pro:h14
+                  let w:fontSizeNorm=0
+               catch
+                  " Failback to good old Courier New
+                  set guitfont=Courier_New:h14
+                  let w:fontSizeNorm=0
+               endtry
+            endtry
+         endif
+      endfunction
+
+      function! DecreaseFontSize()
+         if has('gui_running')
+            try
+               " Prefer Anonymice Powerline. This is Anonymous Pro, but with Powerline hacks
+               set guifont=Anonymice_Powerline:h11
+               let w:fontSizeNorm=1
+            catch
+               try
+                  " Else, get normal Anonymous Pro
+                  set guifont=Anonymous_Pro:h11
+                  let w:fontSizeNorm=1
+               catch
+                  " Failback to good old Courier New
+                  set guitfont=Courier_New:h11
+                  let w:fontSizeNorm=1
+               endtry
+            endtry
+         endif
+      endfunction
+
+      function! ToggleFontSize()
+         if has('gui_running')
+            if w:fontSizeNorm
+               call IncreaseFontSize()
+            else
+               call DecreaseFontSize()
+            endif
+         endif
+      endfunction
+
+      command! IncreaseFontSize      :execute "call IncreaseFontSize()"
+      command! DecreaseFontSize      :execute "call DecreaseFontSize()"
+      command! ToggleFontSize        :execute "call ToggleFontSize()"
+   
    " }}}
 
 "}}}
