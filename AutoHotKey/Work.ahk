@@ -7,8 +7,8 @@ SetTitleMatchMode, slow
 
 
 ^!p::
-   ppmNumber := clipboard
-   if !(isValidPpmLog(Trim(ppmNumber))) {
+   ppmNumber := Trim(clipboard)
+   if !(isValidPpmLog(ppmNumber)) {
       InputBox, ppmNumber, Enter PPM Log Number, Please enter your seven digit PPM Log number.
       ppmNumber := Trim(ppmNumber)
    }
@@ -20,8 +20,8 @@ SetTitleMatchMode, slow
 Return
 
 +!p::
-   ppmNumber := clipboard
-   if !(isValidPpmLog(Trim(ppmNumber))) {
+   ppmNumber := Trim(clipboard)
+   if !(isValidPpmLog(ppmNumber)) {
       InputBox, ppmNumber, Enter PPM Log Number, Please enter your seven digit PPM Log number.
       ppmNumber := Trim(ppmNumber)
    }

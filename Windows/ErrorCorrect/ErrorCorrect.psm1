@@ -640,3 +640,5 @@ Function Invoke-ErrorCorrect {
 
    Update-CoPolicyPointer -DBInfo $wipInfo -TransactionInfo $transactionInfo
 }
+
+Set-Alias IEC Invoke-ErrorCorrect;
