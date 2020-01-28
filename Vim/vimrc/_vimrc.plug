@@ -49,6 +49,7 @@
       Plug 'XadillaX/json-formatter.vim'
       Plug 'Vimjas/vim-python-pep8-indent'
       Plug 'JayDoubleu/vim-pwsh-formatter'
+      Plug 's3rvac/AutoFenc'
    " }}}
 
    " Checkers {{{2
@@ -162,7 +163,6 @@
    " Source Control {{{2
       Plug 'mhinz/vim-signify'
       " Git {{{3
-         Plug 'tpope/vim-git'
          Plug 'tpope/vim-fugitive'
          Plug 'tpope/vim-rhubarb'
          Plug 'junegunn/gv.vim'

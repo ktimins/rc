@@ -1,5 +1,12 @@
 " vim:fdm=marker
 
+" Needed Stuff {{{1
+
+   set nossl
+   set encoding=utf-8
+
+" }}}
+
 " Location Stuff {{{1
 
    if $LOCATION ==? 'WORK'
@@ -748,7 +755,8 @@
 
 " GitGutter {{{1
 
-   let g:gitgutter_max_signs = 1000  " default value
+   "let g:gitgutter_max_signs = 1000  " default value
+   let g:gitgutter_max_signs = 7500  " default value
 
 " }}}
 
@@ -937,15 +945,116 @@
 
    "}}}
    
-   function! FindAll()
-      call inputsave()
-      let p = input('Enter pattern:')
-      call inputrestore()
-      execute 'vimgrep "'.p.'" % |copen'
-   endfunction
+   " Wrapping {{{2
 
-   nnoremap <leader>ff execute :Call FindAll()<cr>
+      function! ChooseWrap()
+         let l:choice=confirm("Toggle Wrapping?", "&yes\n&no", 0)
+         if l:choice==1
+            if &wrap
+               call DisableDisplayWrapping()
+            else
+               call EnableDisplayWrapping()
+            endif
+         endif
+      endfunction
 
+      function! EnableDisplayWrapping()
+         if !&wrap
+            setlocal wrap nolist linebreak
+            " don't skip wrapped lines
+            nnoremap <buffer> k gk
+            nnoremap <buffer> j gj
+            vnoremap <buffer> k gk
+            vnoremap <buffer> j gj
+         endif
+      endfunction
+
+      function! DisableDisplayWrapping()
+         if &wrap
+            setlocal nowrap list nolinebreak
+            nunmap <buffer> k
+            nunmap <buffer> j
+            vunmap <buffer> k
+            vunmap <buffer> j
+         endif
+      endfunction
+
+      nnoremap <leader>cw :call ChooseWrap()<CR>
+   
+   " }}}
+
+   " grepping {{{2
+
+      function! FindAll()
+         call inputsave()
+         let p = input('Enter pattern:')
+         call inputrestore()
+         execute 'vimgrep "'.p.'" % |copen'
+      endfunction
+
+      nnoremap <leader>ff execute :Call FindAll()<cr>
+
+   " }}}
+
+   " Change GUI Font Size {{{2
+
+      let w:fontSizeNorm=1
+
+      function! IncreaseFontSize()
+         if has('gui_running')
+            try
+               " Prefer Anonymice Powerline. This is Anonymous Pro, but with Powerline hacks
+               set guifont=Anonymice_Powerline:h14
+               let w:fontSizeNorm=0
+            catch
+               try
+                  " Else, get normal Anonymous Pro
+                  set guifont=Anonymous_Pro:h14
+                  let w:fontSizeNorm=0
+               catch
+                  " Failback to good old Courier New
+                  set guitfont=Courier_New:h14
+                  let w:fontSizeNorm=0
+               endtry
+            endtry
+         endif
+      endfunction
+
+      function! DecreaseFontSize()
+         if has('gui_running')
+            try
+               " Prefer Anonymice Powerline. This is Anonymous Pro, but with Powerline hacks
+               set guifont=Anonymice_Powerline:h11
+               let w:fontSizeNorm=1
+            catch
+               try
+                  " Else, get normal Anonymous Pro
+                  set guifont=Anonymous_Pro:h11
+                  let w:fontSizeNorm=1
+               catch
+                  " Failback to good old Courier New
+                  set guitfont=Courier_New:h11
+                  let w:fontSizeNorm=1
+               endtry
+            endtry
+         endif
+      endfunction
+
+      function! ToggleFontSize()
+         if has('gui_running')
+            if w:fontSizeNorm
+               call IncreaseFontSize()
+            else
+               call DecreaseFontSize()
+            endif
+         endif
+      endfunction
+
+      command! IncreaseFontSize      :execute "call IncreaseFontSize()"
+      command! DecreaseFontSize      :execute "call DecreaseFontSize()"
+      command! ToggleFontSize        :execute "call ToggleFontSize()"
+   
+   " }}}
 
 "}}}
 

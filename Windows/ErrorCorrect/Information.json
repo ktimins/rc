@@ -5,14 +5,14 @@
             "Databases":[
                 {
                     "Name":"WIP",
-                    "Server": "HFDWPINSQL16PV2\\DAILYBUILDS08",
+                    "Server": "HFDINSDEVSQL08\\DAILYBUILDS08",
                     "Table": "ID1000WIP",
                     "Username":"GARDEF",
                     "Password":"GARDEF"
                 },
                 {
                     "Name":"CDB",
-                    "Server": "HFDWPINSQL16PV1\\DailyBuilds07",
+                    "Server": "HFDINSDEVSQL07\\DailyBuilds07",
                     "Table": "ID1000CDB",
                     "Username":"GARDEF",
                     "Password":"GARDEF"
@@ -172,6 +172,6 @@
             ]
         }
     ],
-    "Me":"HFDKTIMINSW7D",
-    "Machine":"HFDKTIMINSW7D"
+    "Me":"HFDKTIMINW10D",
+    "Machine":"HFDKTIMINW10D"
 }

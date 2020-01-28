@@ -61,19 +61,18 @@ Set-Alias vb6 "C:\Program Files (x86)\Microsoft Visual Studio\VB98\VB6.EXE";
 Function Open-PPM {
    Param(
          [Parameter(Mandatory=$False,ValueFromPipeline=$true,Position=1)]
-         [ValidateScript({$_ -match "^\d{7}$"})]
+         [ValidateScript({$_.Trim() -match "^\d{7}$"})]
          [String]$Number
         );
 
-   $chrome = "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe";
-   $opera = "C:\Users\TiminsKY\AppData\Local\Programs\Opera\launcher.exe";
+   $opera = "C:\Program Files\Opera\launcher.exe";
    $ppmUrl = "https://portal.insurity.com/";
    $ppmRequestUrl = "https://portal.insurity.com/itg/web/knta/crt/RequestDetail.jsp?REQUEST_ID=";
 
    $url = "";
 
    If ([Bool]$Number) {
-      $url = "$ppmRequestUrl$Number";
+      $url = "$ppmRequestUrl$($Number.Trim())";
    } Else {
       $url = $ppmUrl;
    }
@@ -133,7 +132,9 @@ Function Get-BIComps {
    Function Invoke-FixRef {
       Param(
             [Parameter(Mandatory=$true,ValueFromPipeline=$true,Position=1)]
-            [String]$Path
+            [String]$Path,
+            [Parameter(Mandatory=$false)]
+            [Switch]$Copy
             );
       $fixRefPath = (Join-Path -Path 'C:\Users\TiminsKY' -ChildPath (Join-Path -Path "bin" -ChildPath "CmdFixRef.exe"));
       $paths = @();
@@ -141,6 +142,10 @@ Function Get-BIComps {
          $paths += (Resolve-Path $_);
       }
       Start-Process $fixRefPath -ArgumentList $paths -Wait;
+      
+      If ($Copy) {
+         (Resolve-Path -Path $Path).Path | Set-Clipboard;
+      }
    }
 
    Set-Alias IFix Invoke-FixRef;
@@ -295,6 +300,35 @@ Function Get-UpdateHelpVersion {
 ##############################
 #           Random           #
 ##############################
+
+Function Create-LogPpmDir {
+   Param(
+         [Parameter(Mandatory=$False,ValueFromPipeline=$true,Position=1)]
+         [ValidateScript({$_ -match "^\d{7}$"})]
+         [String]$Number,
+         [Switch]$Billing,
+         [Switch]$Explorer
+        );
+
+   $logsDir = 'C:\Users\timinsky\Git\ppm_logs';
+
+   $dirToCreate = $logsDir;
+
+   If ($Billing) {
+      $dirToCreate = Join-Path -Path $dirToCreate -ChildPath 'Billing';
+   }
+
+   $dirToCreate = Join-Path -Path $dirToCreate -ChildPath $Number;
+
+   New-Item -ItemType 'directory' -Path $dirToCreate;
+
+   If ($Explorer) {
+      & "explorer.exe" $dirToCreate;
+   }
+
+   Return $dirToCreate;
+
+}
 
 Function Create-Msgbox {
 Param (
@@ -465,6 +499,13 @@ Function Get-Config {
       Return $config
    }
 }
+
+Function Upgrade-VimViaChoco {
+   $proc = Start-Process -FilePath "choco.exe" -ArgumentList @('Upgrade','vim-tux', "--ia=`"'/InstallPopUP /RestartExplorer'`"", '--svc', '--force') -NoNewWindow -PassThru;
+   $proc | Wait-Process;
+}
+
+Set-Alias cupVim Upgrade-VimViaChoco;
 
 ##############################
 # Externally grabbed scripts #
@@ -1418,6 +1459,8 @@ Returns all ComObjects
         $ListofObjects
     }
 }
+
+Set-Alias SClip Set-Clipboard;
 
 ##############################
 #           Export           #
