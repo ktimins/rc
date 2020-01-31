@@ -59,6 +59,7 @@
       Plug 'w0rp/ale'
       Plug 'reedes/vim-wordy'
       Plug 'nvie/vim-flake8'
+      Plug 'reedes/vim-wordy'
    " }}}
 
    " Languages {{{2
@@ -104,25 +105,20 @@
       " }}}
 
       " Parantheses {{{3
-         "Plug 'luochen1990/rainbow' 
+         Plug 'luochen1990/rainbow' 
       " }}}
 
    " }}}
 
    " Completion {{{2
-      Plug 'OmniSharp/omnisharp-vim'
+      "Plug 'OmniSharp/omnisharp-vim'
       "Plug 'Valloric/YouCompleteMe'
-      Plug 'vim-scripts/aspnetide.vim'      
+      "Plug 'vim-scripts/aspnetide.vim'      
       "Plug 'neoclide/coc.nvim', {'branch': 'release'}
    " }}}
 
    " Movement {{{2
       Plug 'yuttie/comfortable-motion.vim'
-   " }}}
-
-   " ColorSchemes {{{2
-      Plug 'vim-scripts/fu'
-      Plug 'vim-scripts/Selenitic'
    " }}}
 
    " NerdTree {{{2
@@ -149,6 +145,12 @@
    " Coloring {{{2
       Plug 'ap/vim-css-color'
       Plug 'rafi/awesome-vim-colorschemes'
+
+      " ColorSchemes {{{3
+         Plug 'vim-scripts/fu'
+         Plug 'vim-scripts/Selenitic'
+      " }}}
+
    " }}}
 
    " Search {{{2
@@ -162,17 +164,24 @@
 
    " Source Control {{{2
       Plug 'mhinz/vim-signify'
+
       " Git {{{3
+         Plug 'rhysd/git-messenger.vim'
          Plug 'tpope/vim-fugitive'
          Plug 'tpope/vim-rhubarb'
          Plug 'junegunn/gv.vim'
          Plug 'idanarye/vim-merginal'
          Plug 'jreybert/vimagit'
-         Plug 'airblade/vim-gitgutter'
+         "Plug 'airblade/vim-gitgutter'
          Plug 'c9s/helper.vim'
          Plug 'c9s/treemenu.vim'
          Plug 'c9s/hypergit.vim'
       " }}}
+
+      " TFS {{{3
+         Plug 'ktimins/TFS'
+      " }}}
+
    " }}}
 
    " Status Line {{{2
@@ -183,6 +192,13 @@
    " Tags {{{2
       Plug 'majutsushi/tagbar'
       "Plug 'craigemery/vim-autotag'
+   "}}}
+
+   " Tools {{{2
+   
+      Plug 'vimwiki/vimwiki'
+      Plug 'rhysd/vim-healthcheck'
+
    "}}}
 
    " Close {{{2
