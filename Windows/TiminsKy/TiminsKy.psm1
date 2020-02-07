@@ -307,7 +307,9 @@ Function Create-LogPpmDir {
          [ValidateScript({$_ -match "^\d{7}$"})]
          [String]$Number,
          [Switch]$Billing,
-         [Switch]$Explorer
+         [Switch]$Explorer,
+         [Parameter(Mandatory=$False)]
+         [String]$UnitTestDocPath = 'C:\Users\timinsky\Git\ppm_logs\Unit Test and Impact Analysis Template.docx'
         );
 
    $logsDir = 'C:\Users\timinsky\Git\ppm_logs';
@@ -321,6 +323,9 @@ Function Create-LogPpmDir {
    $dirToCreate = Join-Path -Path $dirToCreate -ChildPath $Number;
 
    New-Item -ItemType 'directory' -Path $dirToCreate;
+   If (Test-Path -Path $UnitTestDocPath) {
+      Copy-Item -Path $UnitTestDocPath -Destination $dirToCreate;
+   }
 
    If ($Explorer) {
       & "explorer.exe" $dirToCreate;
