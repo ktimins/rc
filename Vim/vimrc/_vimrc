@@ -588,7 +588,7 @@
 " Indentline {{{1
 
    let g:indentLine_setColors = 0
-   let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+   "let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 
    let g:indentLine_bufNameExclude = ['Nerd_tree.*']
    let g:indentLine_bufTypeExclude = ['startify']

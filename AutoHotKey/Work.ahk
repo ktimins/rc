@@ -12,7 +12,8 @@ SetTitleMatchMode, slow
       InputBox, ppmNumber, Enter PPM Log Number, Please enter your seven digit PPM Log number.
       ppmNumber := Trim(ppmNumber)
    }
-   if (isValidPpmLog(ppmNumber)) {
+   if (StrLen(Trim(ppmNumber)) = 0) {
+   } else if (isValidPpmLog(ppmNumber)) {
       Run, "https://portal.insurity.com/itg/web/knta/crt/RequestDetail.jsp?REQUEST_ID=%ppmNumber%"
    } else {
       MsgBox, Bad input "%ppmNumber%"
@@ -25,7 +26,8 @@ Return
       InputBox, ppmNumber, Enter PPM Log Number, Please enter your seven digit PPM Log number.
       ppmNumber := Trim(ppmNumber)
    }
-   if (isValidPpmLog(ppmNumber)) {
+   if (StrLen(Trim(ppmNumber)) = 0) {
+   } else if (isValidPpmLog(ppmNumber)) {
       Run, "http://HFDKTIMINSW7D/PPMRequestAPI/api/RequestValues/%ppmNumber%"
    } else {
       MsgBox, Bad input "%ppmNumber%"
