@@ -1,5 +1,6 @@
 Param(
-      [Switch]$Resize
+      [Switch]$Resize,
+      [Switch]$Slow
      );
 
 (Get-Host).UI.RawUI.WindowTitle = "Stay Awake";
@@ -14,6 +15,11 @@ $shell = New-Object -ComObject WScript.Shell;
 $start_time = Get-Date -UFormat %s; 
 $current_time = $start_time;
 $elapsed_time = 0;
+
+$sleepSeconds = 5;
+If ($Slow) {
+   $sleepSeconds = 30;
+}
 
 Write-Host "I am awake!";
 
@@ -44,6 +50,6 @@ while($true) {
    $count ++;
 
    #Start-Sleep -Seconds 2.5;
-   Wait-Event -Timeout 2.5;
+   Wait-Event -Timeout $sleepSeconds;
 
 }

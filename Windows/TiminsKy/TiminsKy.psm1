@@ -1,6 +1,12 @@
 ##############################
 #            VIM             #
 ##############################
+
+function Run-Vim ([String]$Path) { Invoke-Expression "'$((Get-Command vim.exe).path)' $Path"; }
+New-Alias -Name vimR -Value Run-Vim;
+function Run-GVim ([String]$Path) { Invoke-Expression "'$((Get-Command gvim.exe).path)' $Path"; }
+New-Alias -Name gvimR -Value Run-GVim;
+
 function CD-ENF {Set-Location $ENFDir}
 New-Alias -name cdenf -value CD-ENF -Description "Change folder to ENF directory"
 
@@ -42,6 +48,26 @@ New-Alias -name AR7VM -value Remote-AR7VM -description "Create a remote session 
 
 Function Remote-HFDDEVTEST10VM2 { Enter-PSSession -ComputerName HFDDEVTEST10VM2 -Authentication Default }
 Function RDP-HFDDEVTEST10VM2 { mstsc 'C:\Users\TiminsKY\Desktop\HFDDEVTEST10VM2.RDP' }
+
+Function Pad-San {
+   Param(
+         [Parameter(Mandatory=$true,ValueFromPipeline=$true,Position=1)]
+         [ValidateScript({$_.Trim().Length -le 14})]
+         [String]$San,
+         [Switch]$AddK,
+         [Switch]$Copy
+         );
+   $baseSan = $San.Trim().TrimEnd("0");
+   If ($AddK) {
+      $baseSan += 'K';
+   }
+   $paddedSan = $baseSan.PadRight(14,'0');
+   If ($Copy) {
+      $paddedSan | Set-Clipboard;
+   }
+   Return $paddedSan;
+}
+New-Alias -Name SanPad -Value Pad-San;
 
 ##############################
 #            TFS             #

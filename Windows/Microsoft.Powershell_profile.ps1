@@ -272,9 +272,9 @@ if ($PSVers -gt 2) {
    $welcome += (Show-Calendar);
    cowsay $welcome
 } else {
-   $wecome;
-   Show-Calendar;
+   $wecome
 }
+Show-Calendar;
 # }}}
 
 # Needed Loadups {{{1

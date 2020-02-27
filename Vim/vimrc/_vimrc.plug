@@ -172,13 +172,13 @@
          Plug 'junegunn/gv.vim'
          Plug 'idanarye/vim-merginal'
          Plug 'jreybert/vimagit'
-         "Plug 'airblade/vim-gitgutter'
+         Plug 'airblade/vim-gitgutter'
          Plug 'c9s/helper.vim'
          Plug 'c9s/treemenu.vim'
          Plug 'c9s/hypergit.vim'
       " }}}
 
-      " TFS {{{3
+      "Y TFS {{{3
          Plug 'ktimins/TFS'
       " }}}
 
@@ -197,6 +197,8 @@
    " Tools {{{2
    
       Plug 'vimwiki/vimwiki'
+      Plug 'xolox/vim-misc'
+      Plug 'xolox/vim-notes'
       Plug 'rhysd/vim-healthcheck'
 
    "}}}
