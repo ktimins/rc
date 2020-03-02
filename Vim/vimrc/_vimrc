@@ -1022,19 +1022,19 @@
 
       " XML {{{3
       
-         function! XmlBeautify()
+         function XmlBeautify() " {{{4
            call XmlMinify()
            execute "%s/></>\r</e"
            normal! gg=G
-         endfunction
+         endfunction " }}}
            
-         function! XmlMinify()
+         function XmlMinify() " {{{4
            set filetype=xml
            filetype indent on
            normal! ggVGJ
            execute "%s/>\s\+</></e"
            execute "%s/> </></e"
-         endfunction
+         endfunction " }}}
 
          command! XmlBeautify    execute "call XmlBeautify()" | execute "call XmlBeautify()"
          command! XmlMinify      execute "call XmlMinify()"
@@ -1043,7 +1043,7 @@
       
       " Wrapping {{{3
 
-         function! ChooseWrap()
+         function ChooseWrap() " {{{4
             let l:choice=confirm("Toggle Wrapping?", "&yes\n&no", 0)
             if l:choice==1
                if &wrap
@@ -1052,9 +1052,9 @@
                   call EnableDisplayWrapping()
                endif
             endif
-         endfunction
+         endfunction " }}}
 
-         function! EnableDisplayWrapping()
+         function EnableDisplayWrapping() " {{{4
             if !&wrap
                setlocal wrap nolist linebreak
                " don't skip wrapped lines
@@ -1063,9 +1063,9 @@
                vnoremap <buffer> k gk
                vnoremap <buffer> j gj
             endif
-         endfunction
+         endfunction " }}}
 
-         function! DisableDisplayWrapping()
+         function DisableDisplayWrapping() " {{{4
             if &wrap
                setlocal nowrap list nolinebreak
                nunmap <buffer> k
@@ -1073,20 +1073,22 @@
                vunmap <buffer> k
                vunmap <buffer> j
             endif
-         endfunction
+         endfunction " }}}
 
          nnoremap <leader>cw :call ChooseWrap()<CR>
       
       " }}}
 
-      " grepping {{{
+      " grepping {{{3
 
-         function! FindAll()
+         function FindAll() " {{{4
             call inputsave()
             let p = input('Enter pattern:')
             call inputrestore()
             execute 'vimgrep "'.p.'" % |copen'
-         endfunction
+         endfunction " }}}
+
+         command! FindAll      execute "call FindAll()"
 
          nnoremap <leader>fa execute :Call FindAll()<cr>
 
@@ -1096,7 +1098,7 @@
 
          let w:fontSizeNorm=1
 
-         function! IncreaseFontSize()
+         function IncreaseFontSize() " {{{4 
             if has('gui_running')
                try
                   " Prefer Anonymice Powerline. This is Anonymous Pro, but with Powerline hacks
@@ -1114,9 +1116,9 @@
                   endtry
                endtry
             endif
-         endfunction
+         endfunction " }}}
 
-         function! DecreaseFontSize()
+         function DecreaseFontSize() " {{{4
             if has('gui_running')
                try
                   " Prefer Anonymice Powerline. This is Anonymous Pro, but with Powerline hacks
@@ -1134,9 +1136,9 @@
                   endtry
                endtry
             endif
-         endfunction
+         endfunction " }}}
 
-         function! ToggleFontSize()
+         function ToggleFontSize() " {{{4
             if has('gui_running')
                if w:fontSizeNorm
                   call IncreaseFontSize()
@@ -1144,7 +1146,7 @@
                   call DecreaseFontSize()
                endif
             endif
-         endfunction
+         endfunction " }}}
 
          command! IncreaseFontSize      :execute "call IncreaseFontSize()"
          command! DecreaseFontSize      :execute "call DecreaseFontSize()"
