@@ -31,6 +31,8 @@ if ($host.Name -eq 'ConsoleHost') {
 
 Import-Module TiminsKy -DisableNameChecking
 
+Import-Module PSCalendar;
+
 Import-Module ErrorCorrect -DisableNameChecking
 
 Import-Module EDI -DisableNameChecking
@@ -97,7 +99,14 @@ Function Cd-Pass2 {
 }
 
 Function Cd-Bill {
-   Push-Location (Join-Path -Path $Pass2Dir -ChildPath 'BillingDecisions')
+   Param(
+         [Parameter(Mandatory=$false)]
+         [Switch]$Explorer
+        );
+
+   $path = (Join-Path -Path $Pass2Dir -ChildPath 'BillingDecisions');
+   Push-Location -Path $path;
+   & explorer.exe $path;
 }
 
 Function Cd-App {
@@ -259,10 +268,13 @@ $PSVers = "$($PSVersionTable.PSVersion.Major).$($PSVersionTable.PSVersion.Minor)
 $welcome = $env:USERNAME + ": Welcome to Powershell v" + $PSVers + "."
 #$fort
 if ($PSVers -gt 2) {
+   $welcome += "`n`n";
+   $welcome += (Show-Calendar);
    cowsay $welcome
 } else {
    $wecome
 }
+Show-Calendar;
 # }}}
 
 # Needed Loadups {{{1
