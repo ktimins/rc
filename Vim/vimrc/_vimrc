@@ -5,7 +5,9 @@
    " Needed Stuff {{{2
 
       set nossl
-      set encoding=utf-8
+      set encoding=utf8
+      set fileencoding=utf8
+      set termencoding=utf8
 
    " }}}
 
@@ -48,9 +50,6 @@
 
       " Set to auto read when a file is changed from the outside
       "set autoread
-
-      " UTF-8 Encoding
-      set encoding=utf-8
 
       " Set undo stuff {{{3
          
@@ -188,7 +187,7 @@
          " Font
          try
             " Prefer Anonymice Powerline. This is Anonymous Pro, but with Powerline hacks
-            set guifont=Anonymice_Powerline:h11
+            set guifont=Source_Code_Variable:h10
          catch
             try
                " Else, get normal Anonymous Pro
@@ -217,9 +216,6 @@
          endtry
 
       endif
-
-      " Set utf8 as standard encoding and en_US as the standard language
-      set encoding=utf8
 
       " Use Unix as the standard file type
       set ffs=unix,dos,mac
@@ -359,7 +355,7 @@
 
          " }}}
 
-         "" Syntastic {{{{4
+         "" Syntastic {{{4
 
             "" Enable Syntastic integration
             "let g:airline#extensions#syntastic#enabled=1
@@ -378,18 +374,18 @@
 
          "" }}}
 
-         " Tagbar {{{4
+         "" Tagbar {{{4
 
-            " enable/disable tagbar integration 
-              let g:airline#extensions#tagbar#enabled = 1
+            "" enable/disable tagbar integration 
+              "let g:airline#extensions#tagbar#enabled = 0
 
-            " change how tags are displayed (:help tagbar-statusline) 
-              let g:airline#extensions#tagbar#flags = ''
-              let g:airline#extensions#tagbar#flags = 'f'
-              let g:airline#extensions#tagbar#flags = 's'
-              let g:airline#extensions#tagbar#flags = 'p'
+            "" change how tags are displayed (:help tagbar-statusline) 
+              "let g:airline#extensions#tagbar#flags = ''
+              "let g:airline#extensions#tagbar#flags = 'f'
+              "let g:airline#extensions#tagbar#flags = 's'
+              "let g:airline#extensions#tagbar#flags = 'p'
 
-         " }}} 
+         "" }}} 
 
          " Powerline {{{4
 
@@ -399,6 +395,22 @@
       
          " GitGutter {{{4
       
+         " }}}
+
+         " Vista {{{4
+      
+         function! NearestMethodOrFunction() abort
+            return get(b:, 'vista_nearest_method_or_function', '')
+         endfunction
+
+         set statusline+=%{NearestMethodOrFunction()}
+
+         " By default vista.vim never run if you don't call it explicitly.
+         "
+         " If you want to show the nearest function in your statusline automatically,
+         " you can add the following line to your vimrc 
+         autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+
          " }}}
 
       " }}}
@@ -480,155 +492,181 @@
 
    "" }}}
 
-   " TagBar {{{2
+   " Vista {{{2
 
-      " Map Tagbar 
-      noremap <silent> <F10> :TagbarToggle<CR>
+      let g:vista#renderer#enable_icon = 1
 
-      " Tell Tagbar where ctags is
-      if $LOCATION ==? 'WORK'
-         let g:tagbar_ctags_bin = 'C:\Users\TiminsKY\bin\ctags\ctags.exe'
-      elseif $LOCATION ==? 'THEIA'
-         let g:tagbar_ctags_bin = 'C:\ProgramData\chocolatey\bin\ctags.exe'
-      endif
+      " Map Vista 
+      noremap <silent> <F10> :Vista!!<CR>
 
-      " Setup custom ctags settings
-
-      " Powershell {{{3
-         
-         " PS1 {{{4
-         
-            let g:tagbar_type_ps1 = {
-               \ 'ctagstype' : 'powershell',
-               \ 'kinds'     : [
-                  \ 'f:function',
-                  \ 'c:class',
-                  \ 'd:class inherited',
-                  \ 'h:functionCall',
-                  \ 'i:filter',
-                  \ 'a:alias',
-                  \ 'r:region'
-               \ ]
-            \ }
-
-         " }}}
-
-         " PSM1 {{{4
-
-            let g:tagbar_type_psm1 = {
-               \ 'ctagstype' : 'powershell',
-               \ 'kinds'     : [
-                  \ 'f:function',
-                  \ 'h:functionCall',
-                  \ 'i:filter',
-                  \ 'a:alias',
-                  \ 'r:region'
-               \ ]
-            \ }
-
-         " }}}
-
-      " Visual Basic {{{3
-
-         let g:tagbar_type_vb = {
-            \ 'ctagstype' : 'vb',
-            \ 'kinds'     : [
-               \ 's:subroutine',
-               \ 'f:function',
-               \ 'm:module variable',
-               \ 'g:global variable',
-               \ 'c:const',
-               \ 'n:name',
-               \ 'e:enum',
-               \ 't:type',
-               \ 'l:label'
-            \ ]   
-         \ }
-
-         let g:tagbar_type_vbnet = {
-            \ 'ctagstype' : 'vb',
-            \ 'kinds'     : [
-               \ 's:subroutine',
-               \ 'f:function',
-               \ 'm:module variable',
-               \ 'g:global variable',
-               \ 'c:const',
-               \ 'n:name',
-               \ 'e:enum',
-               \ 't:type',
-               \ 'l:label'
-            \ ]   
-         \ }
-
-         let g:tagbar_type_cls = {
-            \ 'ctagstype' : 'vb',
-            \ 'kinds'     : [
-               \ 's:subroutine',
-               \ 'f:function',
-               \ 'm:module variable',
-               \ 'g:global variable',
-               \ 'c:const',
-               \ 'n:name',
-               \ 'e:enum',
-               \ 't:type',
-               \ 'l:label'
-            \ ]   
-         \ }
-
-         let g:tagbar_type_bas = {
-            \ 'ctagstype' : 'vb',
-            \ 'kinds'     : [
-               \ 's:subroutine',
-               \ 'f:function',
-               \ 'm:module variable',
-               \ 'g:global variable',
-               \ 'c:const',
-               \ 'n:name',
-               \ 'e:enum',
-               \ 't:type',
-               \ 'l:label'
-            \ ]   
-         \ }
-
-      " }}}
-
-      " XML {{{3
-
-         " XML {{{4
-
-            let g:tagbar_type_xml = {
-               \ 'ctagstype'  : 'XML',
-               \ 'kinds'      : [
-                  \ 'n:node set',
-                  \ 't:tagname'
-               \ ]
-            \ }
-
-         " }}}
-         
-         " XSD {{{4
-
-            let g:tagbar_type_xsd = {
-               \ 'ctagstype'  : 'XSD',
-               \ 'kinds'      : [
-                  \ 'c:ComplexType',
-                  \ 's:SimpleType',
-                  \ 'e:Element'
-               \ ]
-            \ }
-
-         " }}}
-
-      " }}}
+      "autocmd FileType vista,vista_kind nnoremap <buffer> <silent> \
+         "/ :<c-u>call vista#finder#fzf#Run()<CR>
 
    " }}}
+   
+   "" TagBar {{{2
+
+      "" Map Tagbar 
+      "noremap <silent> <F10> :TagbarToggle<CR>
+
+      "" Tell Tagbar where ctags is
+      "if $LOCATION ==? 'WORK' || $LOCATION ==? 'THEIA'
+         "let g:tagbar_ctags_bin = 'C:\Users\TiminsKY\bin\ctags\ctags.exe'
+      "endif
+
+      "" Setup custom ctags settings
+
+      "" vimrc {{{3
+   
+         "let g:tagbar_type_vim = {
+            "\ 'ctagstype'  : 'vim',
+            "\ 'kinds'      : [
+               "\ 'g:group',
+               "\ 'f:function definitions',
+               "\ 'c:user-defined commands',
+               "\ 'a:autocommand groups'
+            "\ ]
+         "\ }
+
+      "" }}}
+
+      "" Powershell {{{3
+         
+         "" PS1 {{{4
+         
+            "let g:tagbar_type_ps1 = {
+               "\ 'ctagstype' : 'powershell',
+               "\ 'kinds'     : [
+                  "\ 'f:function',
+                  "\ 'c:class',
+                  "\ 'd:class inherited',
+                  "\ 'h:functionCall',
+                  "\ 'i:filter',
+                  "\ 'a:alias',
+                  "\ 'r:region'
+               "\ ]
+            "\ }
+
+         "" }}}
+
+         "" PSM1 {{{4
+
+            "let g:tagbar_type_psm1 = {
+               "\ 'ctagstype' : 'powershell',
+               "\ 'kinds'     : [
+                  "\ 'f:function',
+                  "\ 'h:functionCall',
+                  "\ 'i:filter',
+                  "\ 'a:alias',
+                  "\ 'r:region'
+               "\ ]
+            "\ }
+
+         "" }}}
+
+      "" }}}
+
+      "" Visual Basic {{{3
+
+         "let g:tagbar_type_vb = {
+            "\ 'ctagstype' : 'vb',
+            "\ 'kinds'     : [
+               "\ 's:subroutine',
+               "\ 'f:function',
+               "\ 'm:module variable',
+               "\ 'g:global variable',
+               "\ 'c:const',
+               "\ 'n:name',
+               "\ 'e:enum',
+               "\ 't:type',
+               "\ 'l:label'
+            "\ ]   
+         "\ }
+
+         "let g:tagbar_type_vbnet = {
+            "\ 'ctagstype' : 'vb',
+            "\ 'kinds'     : [
+               "\ 's:subroutine',
+               "\ 'f:function',
+               "\ 'm:module variable',
+               "\ 'g:global variable',
+               "\ 'c:const',
+               "\ 'n:name',
+               "\ 'e:enum',
+               "\ 't:type',
+               "\ 'l:label'
+            "\ ]   
+         "\ }
+
+         "let g:tagbar_type_cls = {
+            "\ 'ctagstype' : 'vb',
+            "\ 'kinds'     : [
+               "\ 's:subroutine',
+               "\ 'f:function',
+               "\ 'm:module variable',
+               "\ 'g:global variable',
+               "\ 'c:const',
+               "\ 'n:name',
+               "\ 'e:enum',
+               "\ 't:type',
+               "\ 'l:label'
+            "\ ]   
+         "\ }
+
+         "let g:tagbar_type_bas = {
+            "\ 'ctagstype' : 'vb',
+            "\ 'kinds'     : [
+               "\ 's:subroutine',
+               "\ 'f:function',
+               "\ 'm:module variable',
+               "\ 'g:global variable',
+               "\ 'c:const',
+               "\ 'n:name',
+               "\ 'e:enum',
+               "\ 't:type',
+               "\ 'l:label'
+            "\ ]   
+         "\ }
+
+      "" }}}
+
+      "" XML {{{3
+
+         "" XML {{{4
+
+            "let g:tagbar_type_xml = {
+               "\ 'ctagstype'  : 'XML',
+               "\ 'kinds'      : [
+                  "\ 'n:node set',
+                  "\ 't:tagname'
+               "\ ]
+            "\ }
+
+         "" }}}
+         
+         "" XSD {{{4
+
+            "let g:tagbar_type_xsd = {
+               "\ 'ctagstype'  : 'XSD',
+               "\ 'kinds'      : [
+                  "\ 'c:ComplexType',
+                  "\ 's:SimpleType',
+                  "\ 'e:Element'
+               "\ ]
+            "\ }
+
+         "" }}}
+
+      "" }}}
+
+   "" }}}
 
    " Indentline {{{2
 
       let g:indentLine_setColors = 0
       let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 
-      let g:indentLine_bufNameExclude = ['Nerd_tree.*']
+      let g:indentLine_bufNameExclude = ['Nerd_tree.*', '__vista__']
       let g:indentLine_bufTypeExclude = ['startify']
 
    "}}}
@@ -786,7 +824,7 @@
 
    " Numbers {{{2
       
-      let g:numbers_exclude = ['tagbar', 'gundo', 'nerdtree', 'minimap']
+      let g:numbers_exclude = ['__vista__', 'gundo', 'nerdtree', 'minimap']
 
    " }}}
 

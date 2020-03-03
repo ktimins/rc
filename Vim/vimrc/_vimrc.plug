@@ -1,5 +1,4 @@
 " vim:fdm=marker
-
 " Vim-Plug {{{1
 
    " Preamble {{{2
@@ -140,6 +139,7 @@
       Plug 'othree/javascript-libraries-syntax.vim'
       Plug 'tacahiroy/vim-vb'
       Plug 'PProvost/vim-ps1'
+      Plug 'neoclide/coc.nvim', {'branch': 'release'}
    " }}}
 
    " Coloring {{{2
@@ -154,8 +154,8 @@
    " }}}
 
    " Search {{{2
-      Plug 'ctrlpvim/ctrlp.vim'
-      "Plug 'junegunn/fzf'
+      "Plug 'ctrlpvim/ctrlp.vim'
+      Plug 'junegunn/fzf'
    " }}}
 
    " Comments {{{2
@@ -190,7 +190,9 @@
    " }}}
 
    " Tags {{{2
-      Plug 'majutsushi/tagbar'
+      Plug 'universal-ctags/ctags'
+      Plug 'liuchengxu/vista.vim'
+      "Plug 'majutsushi/tagbar'
       "Plug 'craigemery/vim-autotag'
    "}}}
 

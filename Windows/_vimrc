@@ -421,21 +421,33 @@
    noremap <silent> <F10> :TagbarToggle<CR>
 
    " Tell Tagbar where ctags is
-   if $LOCATION ==? 'WORK'
-      let g:tagbar_ctags_bin = 'C:\Users\TiminsKY\bin\ctags\ctags.exe'
-   elseif $LOCATION ==? 'THEIA'
+   if $LOCATION ==? 'WORK' | $LOCATION ==? 'THEIA'
       let g:tagbar_ctags_bin = 'C:\ProgramData\chocolatey\bin\ctags.exe'
    endif
 
-   " Setup custom ctags settings
-   " Powershell {{{2
+   " Setup custom ctags settings {{{2
+
+      " vimrc {{{3
+   
+         let g:tagbar_type_vim = {
+            \ 'ctagstype'  : 'vim',
+            \ 'kinds'      : [
+               \ 'g:group',
+               \ 'm:function',
+               \ 'c:command'
+            \ ]
+         \ }
+
+      " }}}
+
+   " Powershell {{{3
       
-      " PS1 {{{3
+      " PS1 {{{4
       
          let g:tagbar_type_ps1 = {
             \ 'ctagstype' : 'powershell',
             \ 'kinds'     : [
-               \ 'f:function',
+               \ 'm:function',
                \ 'c:class',
                \ 'd:class inherited',
                \ 'h:functionCall',
@@ -447,12 +459,12 @@
 
       " }}}
 
-      " PSM1 {{{3
+      " PSM1 {{{4
 
          let g:tagbar_type_psm1 = {
             \ 'ctagstype' : 'powershell',
             \ 'kinds'     : [
-               \ 'f:function',
+               \ 'm:function',
                \ 'h:functionCall',
                \ 'i:filter',
                \ 'a:alias',
@@ -462,13 +474,15 @@
 
       " }}}
 
-   " Visual Basic {{{2
+   " }}}
+
+   " Visual Basic {{{3
 
       let g:tagbar_type_vb = {
          \ 'ctagstype' : 'vb',
          \ 'kinds'     : [
             \ 's:subroutine',
-            \ 'f:function',
+            \ 'u:function',
             \ 'm:module variable',
             \ 'g:global variable',
             \ 'c:const',
@@ -483,7 +497,7 @@
          \ 'ctagstype' : 'vb',
          \ 'kinds'     : [
             \ 's:subroutine',
-            \ 'f:function',
+            \ 'u:function',
             \ 'm:module variable',
             \ 'g:global variable',
             \ 'c:const',
@@ -498,7 +512,7 @@
          \ 'ctagstype' : 'vb',
          \ 'kinds'     : [
             \ 's:subroutine',
-            \ 'f:function',
+            \ 'u:function',
             \ 'm:module variable',
             \ 'g:global variable',
             \ 'c:const',
@@ -513,7 +527,7 @@
          \ 'ctagstype' : 'vb',
          \ 'kinds'     : [
             \ 's:subroutine',
-            \ 'f:function',
+            \ 'u:function',
             \ 'm:module variable',
             \ 'g:global variable',
             \ 'c:const',
@@ -526,9 +540,9 @@
 
    " }}}
 
-   " XML {{{2
+   " XML {{{3
 
-      " XML {{{3
+      " XML {{{4
 
          let g:tagbar_type_xml = {
             \ 'ctagstype'  : 'XML',
@@ -540,7 +554,7 @@
 
       " }}}
       
-      " XSD {{{3
+      " XSD {{{4
 
          let g:tagbar_type_xsd = {
             \ 'ctagstype'  : 'XSD',
