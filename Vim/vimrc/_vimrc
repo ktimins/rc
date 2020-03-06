@@ -499,6 +499,20 @@
       " Map Vista 
       noremap <silent> <F10> :Vista!!<CR>
 
+      let g:vista_default_executive = 'ctags'
+
+      let g:vista_executive_for = {
+               \ 'cls': 'ctags',
+               \ 'Basic': 'ctags',
+               \ 'vb': 'ctags',
+               \ }
+
+      let g:vista_ctags_cmd = {
+               \ 'cls':    'ctags --map-basic=+.cls',
+               \ 'Basic':  'ctags --map-basic=+.cls',
+               \ 'vb':     'ctags --map-basic=+.cls',
+               \ }
+
       "autocmd FileType vista,vista_kind nnoremap <buffer> <silent> \
          "/ :<c-u>call vista#finder#fzf#Run()<CR>
 
@@ -899,6 +913,25 @@
    " Vim-Notes {{{2
 
       let g:notes_directories = ['~/Documents/vim-notes']
+      let g:notes_suffix = '.notes'
+      let g:notes_word_boundaries = 1
+      let g:notes_unicode_enabled = 1
+      let g:notes_smart_quotes = 0
+      let g:notes_list_bulles = ['•', '◦', '▸', '▹', '▪', '▫']
+
+   " }}}
+
+   " LanguageTool {{{2
+
+      let g:languagetool_jar='C:/ProgramData/chocolatey/lib/languagetool/tools/LanguageTool-4.8/languagetool-commandline.jar'
+      let g:languagetool_lang='en-US'
+
+      " Vim-Grammarous {{{3
+
+         let g:grammarous#languagetool_cmd = 'languagetool'
+         let g:grammarous#enable_rules = {'*': ['PASSIVE_VOICE']}
+   
+      " }}}
 
    " }}}
 

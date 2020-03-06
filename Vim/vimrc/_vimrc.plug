@@ -78,10 +78,19 @@
       " XML / XPath {{{3
          Plug 'actionshrimp/vim-xpath'
       " }}}
+
+      Plug 'tpope/vim-sleuth'
    " }}}
 
    " Execution {{{2
       "Plug 'shougo/vimproc.vim'
+
+      " Testing {{{3
+
+         "Plug 'janko/vim-test'
+
+      " }}}
+
    " }}}
 
    " Undo {{{2
@@ -96,6 +105,12 @@
       Plug 'myusuf3/numbers.vim'
       Plug 'skywind3000/vim-preview'
       Plug 'vim-scripts/visSum.vim'
+      Plug 'dhruvasagar/vim-zoom'
+      Plug 'machakann/vim-highlightedyank'
+      Plug 'bpstahlman/txtfmt'
+      Plug 'vim-voom/VOoM'
+      Plug 'junegunn/goyo.vim'
+      "Plug 'junegunn/limelight.vim'
       "Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 
       " Indentation {{{3
@@ -202,6 +217,9 @@
       Plug 'xolox/vim-misc'
       Plug 'xolox/vim-notes'
       Plug 'rhysd/vim-healthcheck'
+      Plug 'vim-scripts/utl.vim'
+      Plug 'dpelle/vim-LanguageTool'
+      Plug 'rhysd/vim-grammarous'
 
    "}}}
 
