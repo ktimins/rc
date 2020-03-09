@@ -501,16 +501,9 @@
 
       let g:vista_default_executive = 'ctags'
 
-      let g:vista_executive_for = {
-               \ 'cls': 'ctags',
-               \ 'Basic': 'ctags',
-               \ 'vb': 'ctags',
-               \ }
-
-      let g:vista_ctags_cmd = {
-               \ 'cls':    'ctags --map-basic=+.cls',
-               \ 'Basic':  'ctags --map-basic=+.cls',
-               \ 'vb':     'ctags --map-basic=+.cls',
+      let g:vista#renderer#icons = {
+               \ "function": "\uf794",
+               \ "variable": "\uf71b",
                \ }
 
       "autocmd FileType vista,vista_kind nnoremap <buffer> <silent> \

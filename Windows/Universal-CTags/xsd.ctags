@@ -1,6 +1,0 @@
---langdef=XSD
---langmap=XSD:.xsd.wsdl
---regex-XSD=/^\s*<xs:[cC]omplex[tT]ype [a-zA-Z0-9="]*[ ]{0,1}name="([a-z_]+:){0,1}([a-zA-Z0-9_]+)"\s*>/\2/c/ComplexType/
---regex-XSD=/^\s*<xs:[sS]imple[tT]ype [a-zA-Z0-9="]*[ ]{0,1}name="([a-z_]+:){0,1}([a-zA-Z0-9_]+)"\s*>/\2/s/SimpleType/
---exclude=.git
---recurse=yes

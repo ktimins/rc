@@ -106,7 +106,9 @@ Function Cd-Bill {
 
    $path = (Join-Path -Path $Pass2Dir -ChildPath 'BillingDecisions');
    Push-Location -Path $path;
-   & explorer.exe $path;
+   If ($Explorer) {
+     & explorer.exe $path;
+   }
 }
 
 Function Cd-App {

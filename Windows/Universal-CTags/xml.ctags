@@ -1,5 +1,0 @@
---langdef=xml
---map-xml=+.xml
---regex-xml=/^\s*<([a-zA-Z0-9]+)>\s*$/\1/n/node set/
---regex-xml=/<([a-zA-Z0-9]+)[^\/]*>/\1/t/tagname/
---recurse=yes
