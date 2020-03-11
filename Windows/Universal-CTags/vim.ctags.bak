@@ -1,0 +1,10 @@
+--langdef=vim
+--map-vim=+[._]vimrc
+--map-vim=+[._]vimrc.plug
+
+--kinddef-vim=c,command,commands
+--kinddef-vim=g,group,fold marker groups
+
+--regex-vim=/^\s*command!?\s+(\S+)\s/\1/c/
+--regex-vim=/^\s*"\s*"?\s*(.*)\s*{{{(\d+)/\2 -- \1/g/
+
