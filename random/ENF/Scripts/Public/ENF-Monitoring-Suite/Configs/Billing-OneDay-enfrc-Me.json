@@ -1,0 +1,57 @@
+{
+   "Output" : {
+      "File" : {
+         "CSV" : true,
+         "Zips" : false,
+         "Suffix" : "--Allstate_Billing_ENFs",
+         "AppendDate" : true,
+         "Save" : false
+      },
+      "Email" : {
+         "Subject" : "A7 Prod/QA ENFs -- Billing -- \\date",
+         "Recipient" : [
+         ],
+         "CC" : [
+         ],
+         "Attachment" : true,
+         "Priority" : "Normal"
+      }
+   },
+   "BaseDir" : "F:\\ENF",
+   "ENFSets" : [
+      {
+         "Name" : "Billing ENFs",
+         "TimeSpan" : "1d",
+         "Email" : {
+            "Threshold" : "0",
+            "Details" : true,
+            "Stack" : true,
+            "OrderBy" : "count",
+            "IncludeNotes" : true,
+            "IncludeEmptyNotes" : true,
+            "IncludeLatestInfo" : true
+         },
+         "ExMsgs" : [
+            "%"
+         ]
+      }
+   ],
+   "ENFPortfolio" : [
+      "Billing"
+   ],
+   "ENFSkippedStatuses" : [
+      "Deferred",
+      "Environmental",
+      "In Progress",
+      "Resolved"
+   ],
+   "Envs" : [{
+         "Client" : "Allstate",
+         "Env" : "Prod"
+      }, {
+         "Client" : "Allstate",
+         "Env" : "QA"
+      }
+   ]
+}
+
