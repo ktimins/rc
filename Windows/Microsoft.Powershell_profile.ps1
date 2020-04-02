@@ -33,11 +33,11 @@ Import-Module TiminsKy -DisableNameChecking
 
 Import-Module PSCalendar;
 
-Import-Module ErrorCorrect -DisableNameChecking
+#Import-Module ErrorCorrect -DisableNameChecking
 
-Import-Module EDI -DisableNameChecking
+#Import-Module EDI -DisableNameChecking
 
-Import-Module adoLib
+#Import-Module adoLib
 
 #Import-Module GetSPOListModule
 
@@ -48,7 +48,7 @@ Import-Module AdvancedHistory
 
 Import-Module PowerShellGet
 
-Import-Module PSExcel
+#Import-Module PSExcel
 
 Import-Module oh-my-posh
 
@@ -63,20 +63,13 @@ Import-Module oh-my-posh
 
 # Variables {{{1
 
-$TempDir = 'C:\Users\TiminsKy\AppData\Local\Temp';
+$TempDir = 'C:\Users\rzite\AppData\Local\Temp';
 
-$HomeDir = 'C:\Users\TiminsKY\';
+$HomeDir = 'C:\Users\rzite\';
 $GitDir = (Join-Path -Path $HomeDir -ChildPath 'Git');
 $rcGitDir = (Join-Path -Path $GitDir -ChildPath 'rc');
 $ps1ScriptDir = (Join-Path -Path (Join-Path -Path $rcGitDir -ChildPath 'Windows') -ChildPath 'Scripts');
 
-$DailyDir = 'C:\Work\Products\DailyBuild'; 
-$AppDir = (Join-Path -Path $DailyDir -ChildPath 'App');
-$WebUiDir = (Join-Path -Path $DailyDir -ChildPath 'CommercialIntellisys\Web\UI')
-$Pass2Dir = (Join-Path -Path $AppDir -ChildPath 'core\Coding');
-$BillingSchemaDir = (Join-Path -Path $DailyDir -ChildPath 'System\Shared\BillingSchema');
-$CrumDir = 'L:';
-$CmdFixRefDir = "C:\Users\timinsky\bin";
 
 # }}}
 
@@ -94,36 +87,6 @@ Function Cd-ScriptsDir {
    Push-Location $ps1ScriptDir;
 }
 
-Function Cd-Pass2 {
-   Push-Location $Pass2Dir
-}
-
-Function Cd-Bill {
-   Param(
-         [Parameter(Mandatory=$false)]
-         [Switch]$Explorer
-        );
-
-   $path = (Join-Path -Path $Pass2Dir -ChildPath 'BillingDecisions');
-   Push-Location -Path $path;
-   & explorer.exe $path;
-}
-
-Function Cd-App {
-   Push-Location $AppDir
-}
-
-Function Cd-CmdFixRef {
-   Push-Location $CmdFixRefDir;
-}
-
-Function Cd-Crum {
-   Push-Location $CrumDir
-}
-
-Function Cd-BillingSchema {
-   Push-Location $BillingSchemaDir;
-}
 
 # }}}
 
