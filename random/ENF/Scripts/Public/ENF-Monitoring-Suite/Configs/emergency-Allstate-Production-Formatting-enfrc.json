@@ -1,0 +1,46 @@
+{
+	"Output": {
+		"File": {
+			"CSV": true,
+			"Zips": false,
+			"Suffix": "Allstate-Formatting",
+			"AppendDate": true,
+			"Save": false
+		},
+		"Email": {
+			"Subject": "Allstate Prod ENF - At least five Formatting ENFs have occurred in A7 Prod within two hours.",
+			"Recipient": [],
+			"CC": [],
+			"Attachment": true,
+			"Priority": "High"
+		}
+	},
+	"BaseDir": "F:\\ENF_Emergency",
+        "ENFSets" : [
+		{
+			"Name": "Formatting",
+			"TimeSpan": "2h",
+			"Zips": "5l",
+			"Email": {
+				"Threshold": "5",
+				"Details": true,
+				"Stack": false
+			},
+			"ExMsgs": [
+				"%An error occurred in the Remote Service Provider RSFORMAT%",
+				"%[[PsPdfCnvt.VPFileConvert].[Unexpected error in GarPrint [ActivePDF Server 2013 Error converting file%",
+				"%FormX Render Error: FormX input path does not exist%",
+				"%FormX Create PDF Error: PDF Conversion Job Failed. Max attempts (5) exceeded.%"
+			]
+		}
+	],
+   "ENFSkippedStatuses" : [
+      "Deferred",
+      "Environmental",
+      "Resolved"
+   ],
+	"Envs": [{
+		"Client": "Allstate",
+		"Env": "Prod"
+	}]
+}

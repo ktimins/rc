@@ -1,0 +1,47 @@
+{
+	"Output" : {
+		"File" : {
+			"CSV" : true,
+                        "JSON" : true,
+                        "XML" : true,
+			"Zips" : false,
+			"Suffix" : "Allstate-ForeignKey",
+			"AppendDate" : true,
+			"Save" : false
+		},
+		"Email" : {
+			"Subject" : "Allstate Prod ENF - At least one PrincipalInfo ENF has occurred.",
+			"Recipient" : [
+                           "Nathan.Wallack@Insurity.com"
+                        ],
+			"CC" : [],
+			"Attachment" : true,
+			"Priority" : "High"
+		}
+	},
+	"BaseDir" : "F:\\ENF_Emergency",
+	"ENFSets" : [
+		{
+			"Name" : "PrincipalInfo",
+			"TimeSpan" : "24h",
+			"Email" : {
+				"Threshold" : "1",
+				"Details" : true,
+				"Stack" : true
+			},
+			"ExMsgs" : [
+				"%PrincipalInfo%"
+			]
+		}
+	],
+   "ENFSkippedStatuses" : [
+      "Deferred",
+      "Environmental",
+      "Resolved",
+      "In Progress"
+   ],
+	"Envs" : [{
+		"Client" : "Allstate",
+		"Env" : "Prod"
+	}]
+}

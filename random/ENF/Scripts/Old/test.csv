@@ -1,0 +1,17 @@
+Exception Message,GUID,TotalCount,CSR,Status,LastOccurrenceDateTime
+Object reference not set to an instance of an object.,b5ccae29-97b6-480c-851e-242bf3a4b335,127,2797713,Status,18:27.3
+Application.RegisterServiceModule: 'WK' is not a valid LOB code or module code.,303dd954-7427-420c-977a-a2f0ccc22827,138,2881752,Status,15:06.3
+The path of the item '/Reporting Decisions/A7/Data Reports/' is not valid. The f,f0083d89-19b5-4f7f-b94c-925f4bcb1605,107,2860208,Status,56:22.3
+CoElement.setValue(InsCoCd): ID: 1018 Value: [068]CoElement.setValue(NeedToGenRa,ff3f5ce9-15e3-470b-a4af-2a149db4b60d,223,2760814,Status,36:36.4
+Object reference not set to an instance of an object.,43adc25a-a6fb-4078-9b8a-f220a4384f69,224,2765827,Status,56:39.2
+RSIssue Error. Line: 1 - Position: 48300 - The element 'CommlCoverage_Extend' in,ca6ab145-25c9-43ba-a0e2-80fa2b12fdc2,2,2888708,Status,30:27.0
+User is not defined in Commercial Intellisys.,996029e2-c3c5-4762-ac6a-d8d6eefbe05c,105,2836535,Status,36:26.1
+TransRequestHandler failed to re-issue the transaction. - Type: [Error]         ,3cdbd2aa-34bd-4de2-a935-2645bd3f68de,6,2807830,Status,09:48.5
+CoElement.setValue(LobCd): ID: 24003 Value: []LobCd.Value: Attempt to overwrite ,fac4a6ce-a781-4301-829c-8e208a663e4e,275,2614725,Status,13:31.5
+ServiceModule: A module code (LobCd) must be passed in when requesting module le,ee54f417-a3f1-44d8-a41d-7cd46c4c40d9,468,2764235,Status,51:42.6
+DataTable contains no rows.,4f754c59-cb47-4bec-a059-88a00432fd81,196,2653812,Status,09:05.3
+There is no row at position 0.,b4ec7767-2559-481d-946d-d3dd1e56c6ec,333,2510026,Status,51:15.3
+" Error Calling the Interface Submit ResponseResult:1-000, NONE, Payment Change R",a6c0d4b2-9296-42bf-8f6b-6802403632cd,560,2796618,Status,25:17.7
+TransRequestHandler failed to re-issue the transaction. - RSIssue Error. Line: 1,b2d89a98-d37c-471d-8535-3ad064b3b81b,1,2892093,Status,30:14.3
+There is no row at position 0.,b5891556-2db4-4df4-ae91-cd53be389148,184,2516198,Status,17:46.2
+CoElement.setValue(VehicleNo): ID: 201004 Value: []VehicleNo.Value: Attempt to o,00c69a9f-360a-468a-a6a9-8228d51115b3,124,2804745,Status,58:38.9

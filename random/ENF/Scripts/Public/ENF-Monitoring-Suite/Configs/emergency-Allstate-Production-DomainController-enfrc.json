@@ -1,0 +1,40 @@
+{
+	"Output": {
+		"File": {
+			"CSV": true,
+			"Zips": false,
+			"Suffix": "Allstate-Domain_Controller",
+			"AppendDate": true,
+			"Save": false
+		},
+		"Email": {
+			"Subject": "Allstate Prod ENF - The Domain Controller has created an ENF in Allstate Production.",
+			"Recipient": [],
+			"CC": [],
+			"Attachment": true,
+			"Priority": "High"
+		}
+	},
+	"BaseDir": "F:\\ENF_Emergency",
+	"ENFSets": [
+		{
+			"Name": "Domain Controller",
+			"TimeSpan": "1h",
+			"Zips": "5l",
+			"Email": {
+				"Threshold": "1",
+				"Details": true,
+				"Stack": true
+			},
+			"ExMsgs": [
+				"%The system cannot contact a domain controller to service the authentication request.%"
+			]
+		}
+   ],
+   "ENFSkippedStatuses" : [
+   ],
+	"Envs": [{
+		"Client": "Allstate",
+		"Env": "Prod"
+	}]
+}
