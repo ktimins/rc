@@ -795,6 +795,51 @@
 
    "}}}
 
+   " vim-lsp {{{2
+
+      if executable('pyls')
+         " pip install python-language-server
+         au User lsp_setup call lsp#register_server({
+                  \ 'name': 'pyls',
+                  \ 'cmd': {server_info->['pyls']},
+                  \ 'whitelist': ['python'],
+                  \ })
+      endif
+
+      function! s:on_lsp_buffer_enabled() abort
+         setlocal omnifunc=lsp#complete
+         setlocal signcolumn=yes
+         nmap <buffer> gd <plug>(lsp-definition)
+         nmap <buffer> <f2> <plug>(lsp-rename)
+         " refer to doc to add more commands
+      endfunction
+
+      augroup lsp_install
+         au!
+         " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+         autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+      augroup END
+
+   " }}}
+
+   " vim-lsp-settings {{{2
+
+      let g:lsp_settings_root_markers = [
+      \   '.git',
+      \   '.git/',
+      \   '.svn',
+      \   '.hg',
+      \   '.bzr'
+      \ ]
+
+   " }}}
+
+   " OmniSharp {{{2
+
+      let g:OmniSharp_server_stdio = 1
+
+   " }}}
+
    " vim-instant-markdown {{{2
 
      "Uncomment to override defaults:

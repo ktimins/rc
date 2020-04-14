@@ -1,4 +1,5 @@
 " vim:fdm=marker
+
 " Vim-Plug {{{1
 
    " Preamble {{{2
@@ -125,10 +126,18 @@
    " }}}
 
    " Completion {{{2
-      "Plug 'OmniSharp/omnisharp-vim'
-      "Plug 'Valloric/YouCompleteMe'
-      "Plug 'vim-scripts/aspnetide.vim'      
-      "Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+      Plug 'OmniSharp/omnisharp-vim'
+      Plug 'prabirshrestha/asyncomplete.vim'
+      Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+      " LSP {{{3
+
+         Plug 'prabirshrestha/async.vim'
+         Plug 'prabirshrestha/vim-lsp'
+         Plug 'mattn/vim-lsp-settings'
+   
+      " }}}
    " }}}
 
    " Movement {{{2
@@ -154,7 +163,6 @@
       Plug 'othree/javascript-libraries-syntax.vim'
       Plug 'tacahiroy/vim-vb'
       Plug 'PProvost/vim-ps1'
-      Plug 'neoclide/coc.nvim', {'branch': 'release'}
    " }}}
 
    " Coloring {{{2
