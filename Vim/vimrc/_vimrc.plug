@@ -178,7 +178,7 @@
 
    " Search {{{2
       "Plug 'ctrlpvim/ctrlp.vim'
-      Plug 'junegunn/fzf'
+      "Plug 'junegunn/fzf'
    " }}}
 
    " Comments {{{2
@@ -186,7 +186,7 @@
    " }}}
 
    " Source Control {{{2
-      Plug 'mhinz/vim-signify'
+      "Plug 'mhinz/vim-signify'
 
       " Git {{{3
          Plug 'rhysd/git-messenger.vim'
@@ -201,8 +201,7 @@
          Plug 'c9s/hypergit.vim'
       " }}}
 
-      "Y TFS {{{3
-         Plug 'ktimins/TFS'
+      " TFS {{{3
       " }}}
 
    " }}}
