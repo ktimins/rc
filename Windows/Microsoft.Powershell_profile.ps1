@@ -1,7 +1,9 @@
 # vim:fdm=marker
 
 # Basic {{{1
-Set-ExecutionPolicy Unrestricted
+Set-ExecutionPolicy Unrestricted;
+
+$username = $env:USERNAME;
 
 #$ProfileRoot = (Split-Path -Parent $MyInvocation.MyCommand.Path)
 #$env:path += ";$ProfileRoot"
@@ -29,22 +31,9 @@ if ($host.Name -eq 'ConsoleHost') {
    Import-Module PSReadline
 }
 
-Import-Module TiminsKy -DisableNameChecking
-
 Import-Module PSCalendar;
 
-Import-Module ErrorCorrect -DisableNameChecking
-
-Import-Module EDI -DisableNameChecking
-
-Import-Module adoLib
-
-#Import-Module GetSPOListModule
-
-#Import-Module PersistentHistory
 Import-Module AdvancedHistory
-
-#Import-Module ActiveDirectory
 
 Import-Module PowerShellGet
 
@@ -52,31 +41,16 @@ Import-Module PSExcel
 
 Import-Module oh-my-posh
 
-#Import-Module TfsCmdlets
-#Import-Module TFS       
-#Import-Module TFVC      
-#Import-Module posh-tex  
-#Import-Module posh-vs
-#Install-PoshVs
-
 # }}}
 
 # Variables {{{1
 
-$TempDir = 'C:\Users\TiminsKy\AppData\Local\Temp';
+$TempDir = "C:\Users\$username\AppData\Local\Temp";
 
-$HomeDir = 'C:\Users\TiminsKY\';
+$HomeDir = "C:\Users\$username\";
 $GitDir = (Join-Path -Path $HomeDir -ChildPath 'Git');
 $rcGitDir = (Join-Path -Path $GitDir -ChildPath 'rc');
 $ps1ScriptDir = (Join-Path -Path (Join-Path -Path $rcGitDir -ChildPath 'Windows') -ChildPath 'Scripts');
-
-$DailyDir = 'C:\Work\Products\DailyBuild'; 
-$AppDir = (Join-Path -Path $DailyDir -ChildPath 'App');
-$WebUiDir = (Join-Path -Path $DailyDir -ChildPath 'CommercialIntellisys\Web\UI')
-$Pass2Dir = (Join-Path -Path $AppDir -ChildPath 'core\Coding');
-$BillingSchemaDir = (Join-Path -Path $DailyDir -ChildPath 'System\Shared\BillingSchema');
-$CrumDir = 'L:';
-$CmdFixRefDir = "C:\Users\timinsky\bin";
 
 # }}}
 
@@ -92,37 +66,6 @@ Function Cd-RcGit {
 
 Function Cd-ScriptsDir {
    Push-Location $ps1ScriptDir;
-}
-
-Function Cd-Pass2 {
-   Push-Location $Pass2Dir
-}
-
-Function Cd-Bill {
-   Param(
-         [Parameter(Mandatory=$false)]
-         [Switch]$Explorer
-        );
-
-   $path = (Join-Path -Path $Pass2Dir -ChildPath 'BillingDecisions');
-   Push-Location -Path $path;
-   & explorer.exe $path;
-}
-
-Function Cd-App {
-   Push-Location $AppDir
-}
-
-Function Cd-CmdFixRef {
-   Push-Location $CmdFixRefDir;
-}
-
-Function Cd-Crum {
-   Push-Location $CrumDir
-}
-
-Function Cd-BillingSchema {
-   Push-Location $BillingSchemaDir;
 }
 
 # }}}
@@ -176,7 +119,7 @@ $success = [win32.nativemethods]::setconsolemode($h, $m)
 # Custom Functions {{{1
 
 Function Copy-Profile {
-   Copy-Item -Path 'C:\Users\TiminsKY\Git\rc\Windows\Microsoft.Powershell_profile.ps1' -Destination $PROFILE -Force
+   Copy-Item -Path "C:\Users\$username\Git\rc\Windows\Microsoft.Powershell_profile.ps1" -Destination $PROFILE -Force
 }
 
 Function Edit-Profile {
@@ -184,7 +127,7 @@ Function Edit-Profile {
          [Parameter(Mandatory=$false)]
          [Switch]$GVim
         )
-   $file = 'C:\Users\TiminsKY\Git\rc\Windows\Microsoft.Powershell_profile.ps1';
+   $file = "C:\Users\$username\Git\rc\Windows\Microsoft.Powershell_profile.ps1";
    If ($GVim) {
       gvim.bat $file;
    } Else {
@@ -195,8 +138,7 @@ Function Edit-Profile {
 }
 
 Function Copy-Vimrc {
-   Get-ChildItem -Path 'C:\Users\TiminsKy\Git\rc\Vim\vimrc' -Recurse | ForEach-Object {
-      Copy-Item -Path $_.FullName -Destination 'Z:\' -Recurse -Force -Container -Verbose;
+   Get-ChildItem -Path "C:\Users\$username\Git\rc\Vim\vimrc" -Recurse | ForEach-Object {
       Copy-Item -Path $_.FullName -Destination $HomeDir -Recurse -Force -Container -Verbose -ErrorAction SilentlyContinue;
    }
 }
@@ -206,7 +148,7 @@ Function Edit-Vimrc {
          [Parameter(Mandatory=$false)]
          [Switch]$GVim
         )
-   $file = 'C:\Users\TiminsKy\Git\rc\Vim\vimrc\_vimrc';
+   $file = "C:\Users\$username\Git\rc\Vim\vimrc\_vimrc";
    If ($GVim) {
       gvim $file;
    } Else {
@@ -215,41 +157,13 @@ Function Edit-Vimrc {
    Copy-Vimrc;
 }
 
-Function Update-BillingSchema {
-   Start-Process -FilePath (Get-Command tf).Definition -ArgumentList "vc get $BillingSchemaDir /recursive /overwrite /noprompt" -NoNewWindow -Wait;
+Function Upgrade-VimViaChoco {
+   $proc = Start-Process -FilePath "choco.exe" -ArgumentList @('Upgrade','vim-tux', "--ia=`"'/InstallPopUp /RestartExplorer'`"", '--svc', '--force') -NoNewWindow -PassThru;
+   $proc | Wait-Process;
 }
 
-Function Update-TfsFiles {
-   Param(
-         [Switch]$Recursive
-        )
-   $pwd = Get-Location;
-   $args = "vc get $pwd $(If ($Recursive) {"/recursive "})/noprompt";
-   Start-Process -FilePath (Get-Command tf).Definition -ArgumentList $args -NoNewWindow -Wait;
-}
+Set-Alias cupVim Upgrade-VimViaChoco;
 
-
-# }}}
-
-# Fortune {{{1
-#Function fortune {
-   #param(
-         #[switch]$hh
-        #)
-   #$dir = 'C:\Users\TiminsKY\Documents\WindowsPowerShell'
-   #If ($hh) {
-      #[System.IO.File]::ReadAllText((Split-Path $profile)+'\hitchhiker.txt') -replace "`r`n", "`n" -split "`n%`n" | Get-Random
-   #} ElseIf ($simpsons) {
-      #[System.IO.File]::ReadAllText((Split-Path $profile)+'\chalkboard.txt') -replace "`r`n", "`n" -split "`n%`n" | Get-Random
-   #} ElseIf ($gump) {
-      #[System.IO.File]::ReadAllText((Split-Path $profile)+'\fgump.txt') -replace "`r`n", "`n" -split "`n%`n" | Get-Random
-   #} ElseIf ($friends) {
-      #[System.IO.File]::ReadAllText((Split-Path $profile)+'\friends.txt') -replace "`r`n", "`n" -split "`n%`n" | Get-Random
-   #} Else {
-      #[System.IO.File]::ReadAllText((Split-Path $profile)+'\fortune.txt') -replace "`r`n", "`n" -split "`n%`n" | Get-Random
-   #}
-
-#}
 # }}}
 
 # Start Up - Welcome Message {{{1
@@ -268,12 +182,8 @@ $PSVers = "$($PSVersionTable.PSVersion.Major).$($PSVersionTable.PSVersion.Minor)
 $welcome = $env:USERNAME + ": Welcome to Powershell v" + $PSVers + "."
 #$fort
 if ($PSVers -gt 2) {
-   $welcome += "`n`n";
-   $welcome += (Show-Calendar);
-   cowsay $welcome
-} else {
-   $wecome;
    Show-Calendar;
+   cowsay $wecome;
 }
 # }}}
 
@@ -284,11 +194,5 @@ $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
 if (Test-Path($ChocolateyProfile)) {
   Import-Module "$ChocolateyProfile"
 }
-
-
-
-# Load Posh-GitHub
-Import-Module 'C:\tools\poshgit\dahlbyk-posh-git-9bda399\src\posh-git.psd1'
-#. 'C:\Users\TiminsKY\Documents\WindowsPowerShell\Modules\Posh-GitHub\Posh-GitHub-Profile.ps1'
 
 # }}}
