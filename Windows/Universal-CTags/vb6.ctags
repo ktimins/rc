@@ -1,0 +1,21 @@
+--langdef=vb6
+--map-vb6=+.cls
+--map-vb6=+.bas
+
+--kinddef-vb6=s,subroutine,Subroutines
+--kinddef-vb6=u,function,Functions
+--kinddef-vb6=m,modulevariable,Module Variable
+--kinddef-vb6=g,globalvariable,Global Variable
+--kinddef-vb6=c,const,Constants
+--kinddef-vb6=n,name,Property Names
+--kinddef-vb6=e,enum,Enums
+--kinddef-vb6=t,type,Types
+
+--regex-vb6=/^\s*(Public|Private|\b)[ \t]*Sub[ \t]+([a-zA-Z0-9_]+)/\2 - \1/s/
+--regex-vb6=/^\s*(Public|Private|\b)[ \t]*Function[ \t]+([a-zA-Z0-9_]+)/\2 - \1/u/
+--regex-vb6=/^\s*(Public|Private)[ \t]+(m_[a-zA-Z0-9_]+)[ \t]+As[ \t]+/\2 - \1/m/
+--regex-vb6=/^\s*(Public|Private)[ \t]+(g_[a-zA-Z0-9_]+)[ \t]+As[ \t]+/\2 - \1/g/
+--regex-vb6=/^\s*(Public|Private|\b)[ \t]*Const[ \t]+([a-zA-Z0-9_]+)[ \t]+(As|=)[ \t]+/\2 - \1/c/
+--regex-vb6=/^\s*(Public|\b)[ \t]*Property[ \t]*(Get|Let|Set)[ \t]+([a-zA-Z0-9_]+)/\3/n/
+--regex-vb6=/^\s*(Public|Private|\b)[ \t]*Enum[ \t]+([a-zA-Z0-9_]+)/\2 - \1/e/
+--regex-vb6=/^\s*(Public|Private|\b)[ \t]*Type[ \t]+([a-zA-Z0-9_]+)/\2 - \1/t/

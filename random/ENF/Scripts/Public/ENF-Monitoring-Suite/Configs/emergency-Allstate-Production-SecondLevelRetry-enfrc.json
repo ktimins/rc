@@ -1,0 +1,48 @@
+{
+	"Output": {
+		"File": {
+			"CSV": true,
+			"Zips": false,
+			"Suffix": "Allstate-Second_Level_Retry",
+			"AppendDate": true,
+			"Save": false
+		},
+		"Email": {
+			"Subject": "Allstate Prod ENF - A policy has failed Second Level Retries.",
+			"Recipient": [],
+			"CC": [],
+			"Attachment": true,
+			"Priority": "High"
+		}
+	},
+	"BaseDir": "F:\\ENF_Emergency",
+	"ENFSets": [
+		{
+			"Name": "Second Level Retry",
+			"TimeSpan": "12h",
+			"Zips": "5l",
+			"Email": {
+				"Threshold": "1",
+				"Details": true,
+				"Stack": true,
+                                "IncludeNotes" : true,
+                                "IncludeLatestInfo" : true
+			},
+			"ExMsgs": [
+				"%TransRequestHandler failed to re-issue the transaction.%"
+			],
+                        "NotExMsgs": [
+                               "%PrincipalInfo%"
+                        ]
+		}
+	],
+   "ENFSkippedStatuses" : [
+      "Deferred",
+      "Environmental",
+      "Resolved"
+   ],
+	"Envs": [{
+		"Client": "Allstate",
+		"Env": "Prod"
+	}]
+}

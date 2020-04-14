@@ -1,5 +1,4 @@
 " vim:fdm=marker
-
 " Vim-Plug {{{1
 
    " Preamble {{{2
@@ -79,10 +78,19 @@
       " XML / XPath {{{3
          Plug 'actionshrimp/vim-xpath'
       " }}}
+
+      Plug 'tpope/vim-sleuth'
    " }}}
 
    " Execution {{{2
       "Plug 'shougo/vimproc.vim'
+
+      " Testing {{{3
+
+         "Plug 'janko/vim-test'
+
+      " }}}
+
    " }}}
 
    " Undo {{{2
@@ -97,6 +105,12 @@
       Plug 'myusuf3/numbers.vim'
       Plug 'skywind3000/vim-preview'
       Plug 'vim-scripts/visSum.vim'
+      Plug 'dhruvasagar/vim-zoom'
+      Plug 'machakann/vim-highlightedyank'
+      Plug 'bpstahlman/txtfmt'
+      Plug 'vim-voom/VOoM'
+      Plug 'junegunn/goyo.vim'
+      "Plug 'junegunn/limelight.vim'
       "Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 
       " Indentation {{{3
@@ -140,6 +154,7 @@
       Plug 'othree/javascript-libraries-syntax.vim'
       Plug 'tacahiroy/vim-vb'
       Plug 'PProvost/vim-ps1'
+      Plug 'neoclide/coc.nvim', {'branch': 'release'}
    " }}}
 
    " Coloring {{{2
@@ -154,8 +169,8 @@
    " }}}
 
    " Search {{{2
-      Plug 'ctrlpvim/ctrlp.vim'
-      "Plug 'junegunn/fzf'
+      "Plug 'ctrlpvim/ctrlp.vim'
+      Plug 'junegunn/fzf'
    " }}}
 
    " Comments {{{2
@@ -172,13 +187,13 @@
          Plug 'junegunn/gv.vim'
          Plug 'idanarye/vim-merginal'
          Plug 'jreybert/vimagit'
-         "Plug 'airblade/vim-gitgutter'
+         Plug 'airblade/vim-gitgutter'
          Plug 'c9s/helper.vim'
          Plug 'c9s/treemenu.vim'
          Plug 'c9s/hypergit.vim'
       " }}}
 
-      " TFS {{{3
+      "Y TFS {{{3
          Plug 'ktimins/TFS'
       " }}}
 
@@ -190,14 +205,21 @@
    " }}}
 
    " Tags {{{2
-      Plug 'majutsushi/tagbar'
+      Plug 'universal-ctags/ctags'
+      Plug 'liuchengxu/vista.vim'
+      "Plug 'majutsushi/tagbar'
       "Plug 'craigemery/vim-autotag'
    "}}}
 
    " Tools {{{2
    
       Plug 'vimwiki/vimwiki'
+      Plug 'xolox/vim-misc'
+      Plug 'xolox/vim-notes'
       Plug 'rhysd/vim-healthcheck'
+      Plug 'vim-scripts/utl.vim'
+      Plug 'dpelle/vim-LanguageTool'
+      Plug 'rhysd/vim-grammarous'
 
    "}}}
 

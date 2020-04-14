@@ -1,0 +1,45 @@
+{
+	"Output": {
+		"File": {
+			"CSV": true,
+			"Zips": false,
+			"Suffix": "Allstate-Trans_In_Doubt",
+			"AppendDate": true,
+			"Save": false
+		},
+		"Email": {
+			"Subject": "Allstate Prod ENF - At least twenty Trans in Doubts have occurred in the last twelve hours.",
+			"Recipient": [],
+			"CC": [],
+			"Attachment": true,
+			"Priority": "High"
+		}
+	},
+	"BaseDir": "F:\\ENF_Emergency",
+	"ENFSets": [
+		{
+			"Name": "Trans in Doubt",
+			"TimeSpan": "12h",
+			"Zips": "5l",
+			"Email": {
+				"Threshold": "20",
+				"Details": true,
+				"Stack": false,
+                                "IncludeLatestInfo": true
+			},
+			"ExMsgs": [
+				"%The transaction is in doubt.%",
+				"%This SqlTransaction has completed; it is no longer usable.%"
+			]
+		}
+	],
+   "ENFSkippedStatuses" : [
+      "Deferred",
+      "Environmental",
+      "Resolved"
+   ],
+	"Envs": [{
+		"Client": "Allstate",
+		"Env": "Prod"
+	}]
+}

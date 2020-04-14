@@ -38,8 +38,9 @@
 --recurse=yes
 
 --langdef=vim
---langmap=vimrc:(_vimrc).vim.plug
---regex-vimrc=/^\s*"\s*(.*)\s*\{\{\{(\d*)/\2 -- \1/g,Group/
+--langmap=vim:(_vimrc)(_vim.plug)
+--regex-vim=/^\s*command!?\s+(\S+)\s/\1/c,command/
+--regex-vim=/^\s*"\s*"?\s*(.*)\s*{{{(\d+)/\2 -- \1/g,group/
 --recurse=yes
 
 --langdef=

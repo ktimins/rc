@@ -62,6 +62,8 @@ Function Get-SanFromPolicy {
    $query = @"
 SELECT [cpp].[SystemAssignId]
 	,[cpp].[CustomerID]
+   ,[cpp].[PolicyId]
+   ,[cpp].[PolicySeqNo]
 FROM [CoPolicyPointer] AS cpp
 WHERE [cpp].[PolicyId] LIKE @POLICY
 "@;
@@ -641,4 +643,6 @@ Function Invoke-ErrorCorrect {
    Update-CoPolicyPointer -DBInfo $wipInfo -TransactionInfo $transactionInfo
 }
 
-Set-Alias IEC Invoke-ErrorCorrect;
+Set-Alias -Name IEC -Value Invoke-ErrorCorrect;
+
+Set-Alias -Name WipInfo -Value Get-WipInfo;

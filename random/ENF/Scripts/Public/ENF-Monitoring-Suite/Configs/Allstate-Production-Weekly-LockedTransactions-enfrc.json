@@ -1,0 +1,43 @@
+{
+	"Output": {
+		"File": {
+			"CSV": true,
+			"Zips": false,
+			"Suffix": "Allstate-Weekly-Locked_Transaction",
+			"AppendDate": true,
+			"Save": false
+		},
+		"Email": {
+			"Subject": "Allstate Prod ENF - Locked transations this week",
+			"Recipient": [],
+			"CC": [],
+			"Attachment": true,
+			"Priority": "High"
+		}
+	},
+	"BaseDir": "F:\\ENF_Emergency",
+	"ENFSets": [
+		{
+			"name": "Locked Transaction",
+			"TimeSpan": "7d",
+			"Zips": "5l",
+			"Email": {
+				"Threshold": "1",
+				"Details": true,
+				"Stack": false
+			},
+			"ExMsgs": [
+				"%ProcessMgr.OpenX: Error Opening Policy: ProcessMgr.OpenX: Error Locking Policy:  Policy ______________ locked for TransactionCode%"
+			]
+		}
+	],
+   "ENFSkippedStatuses" : [
+      "Deferred",
+      "Environmental",
+      "Resolved"
+   ],
+	"Envs": [{
+		"Client": "Allstate",
+		"Env": "Prod"
+	}]
+}
