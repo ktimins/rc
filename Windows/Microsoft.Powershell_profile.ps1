@@ -73,16 +73,16 @@ Function Cd-ScriptsDir {
 # Console Display settings {{{1
 
 $console = $host.UI.RawUI
-$console.BackgroundColor = "black"
-$console.ForegroundColor = "green"
+#$console.BackgroundColor = "black"
+#$console.ForegroundColor = "green"
 
-$colors = $host.PrivateData
-$colors.VerboseForegroundColor = "white"
-$colors.VerboseBackgroundColor = "blue"
-$colors.WarningForegroundColor = "yellow"
-$colors.WarningBackgroundColor = "darkgreen"
-$colors.ErrorForegroundColor = "white"
-$colors.ErrorBackgroundColor = "red"
+#$colors = $host.PrivateData
+#$colors.VerboseForegroundColor = "white"
+#$colors.VerboseBackgroundColor = "blue"
+#$colors.WarningForegroundColor = "yellow"
+#$colors.WarningBackgroundColor = "darkgreen"
+#$colors.ErrorForegroundColor = "white"
+#$colors.ErrorBackgroundColor = "red"
 
 #$buffer = $console.BufferSize
 #$buffer.Width  = 130
@@ -94,7 +94,7 @@ $size.Width  = 130
 $size.Height = 35
 $console.WindowSize = $size
 
-Set-Theme Darkblood
+#Set-Theme Darkblood
 
   # 256 COLOR {{{2
 
@@ -158,7 +158,7 @@ Function Edit-Vimrc {
 }
 
 Function Upgrade-VimViaChoco {
-   $proc = Start-Process -FilePath "choco.exe" -ArgumentList @('Upgrade','vim-tux', "--ia=`"'/InstallPopUp /RestartExplorer'`"", '--svc', '--force') -NoNewWindow -PassThru;
+   $proc = Start-Process -FilePath "choco.exe" -ArgumentList @('Upgrade','vim-tux.install', "--params", "`"'/InstallPopUp /RestartExplorer'`"", '--svc', '--force') -NoNewWindow -PassThru;
    $proc | Wait-Process;
 }
 
