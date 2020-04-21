@@ -27,6 +27,8 @@ Import-Module cowsay
 
 Import-Module posh-git
 
+#Import-Module PowerSSH
+
 if ($host.Name -eq 'ConsoleHost') {
    Import-Module PSReadline
 }
@@ -196,3 +198,12 @@ if (Test-Path($ChocolateyProfile)) {
 }
 
 # }}}
+Set-Alias -Name ssh-keygen -Value Invoke-BashCommand
+Set-Alias -Name ssh-copy-id -Value Invoke-BashCommand
+Set-Alias -Name ssh-keyscan -Value Invoke-BashCommand
+Set-Alias -Name ssh -Value Invoke-PowerSshCommand
+Set-Alias -Name ssh-agent -Value Invoke-PowerSshCommand
+Set-Alias -Name ssh-add -Value Invoke-PowerSshCommand
+Set-Alias -Name scp -Value Invoke-PowerSshCommand
+Set-Alias -Name sftp -Value Invoke-PowerSshCommand
+Set-Alias -Name rsync -Value Invoke-PowerSshCommand

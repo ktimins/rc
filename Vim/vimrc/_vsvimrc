@@ -1,31 +1,10 @@
 " vim:fdm=marker
 
-" Location Stuff {{{1
-
-   if $LOCATION ==? 'WORK'
-      let homedir = 'C:\\Users\\TiminsKy'
-      let $home = 'C:\\Users\\Timinsky'
-      let $storage = 'F:\\vim'
-   elseif $LOCATION ==? 'THEIA'
-      let homedir = 'C:\\Users\\rzite'
-      let $home = 'C:\\Users\\rzite'
-      let $storage = 'C:\\Users\\rzite\\.vimstorage'
-   elseif $LOCATION ==? 'ARES'
-      let homedir = 'C:\Users\rzitex'
-      let $home = 'C:\Users\rzitex'
-      let $storage = 'C:\Users\rzitex\.vimstorage'
-      let $vimrc_plug = 'C:\Users\rzitex\_vimrc.plug'
-   else 
-      let $storage = ''
-   endif
-
-" }}}
-
 " General {{{1
 
    " Startup {{{2
 
-      let s:running_windows = has('win16') || has ('win32') || has ('win64')
+      "let s:running_windows = has('win16') || has ('win32') || has ('win64')
       let s:colorful_term = (&term =~? 'xterm') || (&term =~? 'screen')
 
    " }}}
@@ -43,14 +22,14 @@
    "set autoread
 
    " UTF-8 Encoding
-   set encoding=utf-8
+   "set encoding=utf-8
 
    " Set undo stuff {{{2
       
       " Persistent Undo
-      set undolevels=1000
+      "set undolevels=1000
       " To undo forced reload with :e!
-      set undoreload=10000
+      "set undoreload=10000
 
    " }}}
 
@@ -60,31 +39,31 @@
 
    " Avoid garbled characters in Chinese language windows OS
    let $LANG='en' 
-   set langmenu=en
+   "set langmenu=en
 
    " Turn on the Wild menu
-   set wildmenu
+   "set wildmenu
 
    " Ignore compiled files
-   set wildignore=*.pdf,*.pyo,*.pyc,*.zip,*.so,*.swp,*.dll,*.o,*.DS_Store,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png,*.a " ignore these
-   if s:running_windows
-      set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*,*\\bin\\*,*\\pkg\\*
-   else
-      set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/bin/*,*/pkg/*
-   endif
+   "set wildignore=*.pdf,*.pyo,*.pyc,*.zip,*.so,*.swp,*.dll,*.o,*.DS_Store,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png,*.a " ignore these
+   "if
+   "set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*,*\\bin\\*,*\\pkg\\*
+   "else
+      "set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/bin/*,*/pkg/*
+   "endif
 
    "Always show current position
-   set ruler
+   "set ruler
 
    " Height of the command bar
-   set cmdheight=2
+   "set cmdheight=2
 
    " A buffer becomes hidden when it is abandoned
-   set hid
+   "set hid
 
    " Configure backspace so it acts as it should act
    set backspace=indent,eol,start
-   set whichwrap+=<,>,h,l
+   "set whichwrap+=<,>,h,l
 
    " Ignore case when searching
    set ignorecase
@@ -99,20 +78,20 @@
    set incsearch 
 
    " Don't redraw while executing macros (good performance config)
-   set lazyredraw 
+   "set lazyredraw 
 
    " For regular expressions turn magic on
    set magic
 
    " Show matching brackets when text indicator is over them
-   set showmatch 
+   "set showmatch 
    " How many tenths of a second to blink when matching brackets
-   set mat=2
+   "set mat=2
 
    " No annoying sound on errors
-   set noerrorbells
+   "set noerrorbells
    set novisualbell
-   set t_vb=
+   "set t_vb=
    set tm=500
 
    " Add a bit extra margin to the left
@@ -123,29 +102,29 @@
 " Colors and Fonts {{{1
 
    " Enable syntax highlighting
-   syntax enable 
+   "syntax enable 
 
    " Set utf8 as standard encoding and en_US as the standard language
-   set encoding=utf8
+   "set encoding=utf8
 
    " Use Unix as the standard file type
-   set ffs=unix,dos,mac
+   "set ffs=unix,dos,mac
 
 " }}}
 
 " Files, Backups, and Undo {{{1
 
-   if s:running_windows && $storage !=? '' 
-      set backup
-      set undofile
-      set backupdir=$storage\\_backup
-      set undodir=$storage\\_undo
-      set directory=$storage\\_temp
-   else
-      set nobackup
-      set noundofile
-   endif
-   set noswapfile
+   "if s:running_windows && $storage !=? '' 
+      "set backup
+      "set undofile
+      "set backupdir=$storage\\_backup
+      "set undodir=$storage\\_undo
+      "set directory=$storage\\_temp
+   "else
+      "set nobackup
+      "set noundofile
+   "endif
+   "set noswapfile
 
 " }}}
 
@@ -161,24 +140,24 @@
    set shiftwidth=3
    set tabstop=3
 
-   if has('autocmd')
-      filetype plugin indent on
-      set shellslash
-      set grepprg=grep\ -nH\ $*
-      "let g:tex_flavor='latex'
+   "if has('autocmd')
+      "filetype plugin indent on
+      "set shellslash
+      "set grepprg=grep\ -nH\ $*
+      ""let g:tex_flavor='latex'
 
-      augroup vimrcEx
-         au!
-         autocmd BufReadPost *
-                  \ if line('"\"') >= 1 && line('"\"') <= line('$') |
-                  \  exe "normal! g`\"" |
-                  \ endif
-      augroup END
-   else
-      set autoindent
-   endif
+      "augroup vimrcEx
+         "au!
+         "autocmd BufReadPost *
+                  "\ if line('"\"') >= 1 && line('"\"') <= line('$') |
+                  "\  exe "normal! g`\"" |
+                  "\ endif
+      "augroup END
+   "else
+      "set autoindent
+   "endif
 
-   set si "Smart indent
+   "set si "Smart indent
 
 " }}}
 
@@ -212,16 +191,16 @@
    map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
    " Specify the behavior when switching between buffers 
-   try
-     set switchbuf=useopen,usetab,newtab
-     set stal=2
-   catch
-   endtry
+   "try
+     "set switchbuf=useopen,usetab,newtab
+     "set stal=2
+   "catch
+   "endtry
 
    " Return to last edit position when opening files (You want this!)
-   augroup restart
-      au BufReadPost * if line('"\"') > 1 && line('"\"') <= line('$') | exe 'normal! g'\'' | endif
-   augroup END
+   "augroup restart
+      "au BufReadPost * if line('"\"') > 1 && line('"\"') <= line('$') | exe 'normal! g'\'' | endif
+   "augroup END
 
 " }}}
 
@@ -240,100 +219,100 @@
 
 " Languages {{{1
 
-   " All Languages {{{2
+   "" All Languages {{{2
 
-      augroup all_autocmd
-         au FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-      augroup END
+      "augroup all_autocmd
+         "au FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+      "augroup END
    
-   " }}}
+   "" }}}
 
-   " JSON {{{2
+   "" JSON {{{2
 
-      augroup json
-        autocmd! 
-        au BufRead,BufNewFile json set filetype=json
-        au FileType json set autoindent 
-        au FileType json set formatoptions=tcq2l 
-        au FileType json set shiftwidth=4 
-        au FileType json set softtabstop=4 tabstop=4
-        au FileType json set expandtab 
-        au FileType json set foldmethod=syntax 
-        au BufNewFile,BufRead *.json nnoremap f== :%!python -m json.tool<CR>
-      augroup END
+      "augroup json
+        "autocmd! 
+        "au BufRead,BufNewFile json set filetype=json
+        "au FileType json set autoindent 
+        "au FileType json set formatoptions=tcq2l 
+        "au FileType json set shiftwidth=4 
+        "au FileType json set softtabstop=4 tabstop=4
+        "au FileType json set expandtab 
+        "au FileType json set foldmethod=syntax 
+        "au BufNewFile,BufRead *.json nnoremap f== :%!python -m json.tool<CR>
+      "augroup END
 
-   " }}}
+   "" }}}
 
-   " XML {{{2
+   "" XML {{{2
 
-      augroup xml_grouping
-         au!
-         au FileType xml,xsd,sln,xaml let g:xml_syntax_folding
-         au FileType xml,xsd,sln,xaml set cindent
-         au FileType xml,xsd,sln,xaml set formatoptions=tcq2l
-         au FileType xml,xsd,sln,xaml set shiftwidth=3 
-         au FileType xml,xsd,sln,xaml set softtabstop=3 tabstop=8 
-         au FileType xml,xsd,sln,xaml set expandtab 
-         au FileType xml,xsd,sln,xaml set foldmethod=indent 
-      augroup END
+      "augroup xml_grouping
+         "au!
+         "au FileType xml,xsd,sln,xaml let g:xml_syntax_folding
+         "au FileType xml,xsd,sln,xaml set cindent
+         "au FileType xml,xsd,sln,xaml set formatoptions=tcq2l
+         "au FileType xml,xsd,sln,xaml set shiftwidth=3 
+         "au FileType xml,xsd,sln,xaml set softtabstop=3 tabstop=8 
+         "au FileType xml,xsd,sln,xaml set expandtab 
+         "au FileType xml,xsd,sln,xaml set foldmethod=indent 
+      "augroup END
    
-      " SLN {{{3
-         augroup sln
-            au!
-            au BufRead, BufNewFile *.sln set filetype=sln
-         augroup END
-      " }}}
+      "" SLN {{{3
+         "augroup sln
+            "au!
+            "au BufRead, BufNewFile *.sln set filetype=sln
+         "augroup END
+      "" }}}
       
-      " XSD {{{3
+      "" XSD {{{3
 
-         augroup xml
-            au!
-            au BufRead, BufNewFile *.xsd set filetype=xsd
-         augroup END
+         "augroup xml
+            "au!
+            "au BufRead, BufNewFile *.xsd set filetype=xsd
+         "augroup END
 
-      " }}}
+      "" }}}
    
-      " XML {{{3
+      "" XML {{{3
       
-         augroup xml
-            au!
-            au BufRead, BufNewFile *.xml set filetype=xml
-         augroup END
+         "augroup xml
+            "au!
+            "au BufRead, BufNewFile *.xml set filetype=xml
+         "augroup END
 
-   " }}}
+   "" }}}
 
-      " XAML {{{3
-         augroup xaml
-            au!
-            au BufRead, BufNewFile *.xaml set filetype=xaml
-         augroup END
-      " }}}
+      "" XAML {{{3
+         "augroup xaml
+            "au!
+            "au BufRead, BufNewFile *.xaml set filetype=xaml
+         "augroup END
+      "" }}}
 
-   " }}}
+   "" }}}
 
-   " Powershell {{{2
+   "" Powershell {{{2
 
-      augroup ps1
-         au!
-         au BufRead, BufNewFile *.ps1 set filetype=ps1
-         au FileType ps1 set cindent
-         au FileType ps1 set formatoptions=tcq2l
-         au FileType ps1 set shiftwidth=3 
-         au FileType ps1 set softtabstop=3 tabstop=3
-         au FileType ps1 set expandtab 
-         au FileType ps1 set foldmethod=indent 
-      augroup END
+      "augroup ps1
+         "au!
+         "au BufRead, BufNewFile *.ps1 set filetype=ps1
+         "au FileType ps1 set cindent
+         "au FileType ps1 set formatoptions=tcq2l
+         "au FileType ps1 set shiftwidth=3 
+         "au FileType ps1 set softtabstop=3 tabstop=3
+         "au FileType ps1 set expandtab 
+         "au FileType ps1 set foldmethod=indent 
+      "augroup END
 
-   " }}}
+   "" }}}
 
-   " Visual Basic {{{2
+   "" Visual Basic {{{2
 
-      augroup vb
-         au!
-         au FileType vb,cls,bas set filetype=vb
-      augroup END
+      "augroup vb
+         "au!
+         "au FileType vb,cls,bas set filetype=vb
+      "augroup END
 
-   " }}}
+   "" }}}
 
 " }}}
 
@@ -353,7 +332,7 @@
 " BufTabLine {{{1
 
    " Keep buffers open without displaying them on the screen
-   set hidden
+   "set hidden
 
    nnoremap <leader>bn :bnext<CR>
    nnoremap <leader>bp :bprev<CR>

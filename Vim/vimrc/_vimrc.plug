@@ -127,7 +127,7 @@
 
    " Completion {{{2
 
-      Plug 'OmniSharp/omnisharp-vim'
+      "Plug 'OmniSharp/omnisharp-vim'
       Plug 'prabirshrestha/asyncomplete.vim'
       Plug 'prabirshrestha/asyncomplete-lsp.vim'
 

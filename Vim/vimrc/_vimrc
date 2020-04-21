@@ -450,38 +450,39 @@
 
    " Startify {{{2
 
-      if $LOCATION ==? 'WORK'
-         let g:startify_bookmarks = [ 
-                                    \ {'v': 'C:/Users/TiminsKy/Git/rc/Vim/vimrc/_vimrc'}, 
-                                    \ {'b': 'C:/Work/Products/DailyBuild/App/Core/Coding/BillingDecisions/BillingDecisions.cls'}, 
-                                    \ {'p': 'C:/Users/TiminsKy/Git/rc/Windows/Microsoft.Powershell_profile.ps1'} 
-                                  \ ]
-      elseif $LOCATION ==? 'THEIA'
-         let g:startify_bookmarks = [ {'v': 'C:/Users/rzite/Git/rc/Vim/vimrc/_vimrc'} ]
-		elseif $LOCATION ==? 'ARES'
-			let g:startify_bookmarks = [ 
-												\ {'v': 'C:/Users/rzitex/Git/rc/Vim/vimrc/_vimrc'}, 
-												\ {'p': 'C:/Users/rzitex/Git/rc/Windows/Microsoft.Powershell_profile.ps1'} 
-											 \ ]
-      endif
+   if $LOCATION ==? 'WORK'
+      let g:startify_bookmarks = [ 
+               \ {'v': 'C:/Users/TiminsKy/Git/rc/Vim/vimrc/_vimrc'}, 
+               \ {'b': 'C:/Work/Products/DailyBuild/App/Core/Coding/BillingDecisions/BillingDecisions.cls'}, 
+               \ {'p': 'C:/Users/TiminsKy/Git/rc/Windows/Microsoft.Powershell_profile.ps1'} 
+               \ ]
+   elseif $LOCATION ==? 'THEIA'
+      let g:startify_bookmarks = [ {'v': 'C:/Users/rzite/Git/rc/Vim/vimrc/_vimrc'} ]
+   elseif $LOCATION ==? 'ARES'
+      let g:startify_bookmarks = [ 
+               \ {'v': 'C:/Users/rzitex/Git/rc/Vim/vimrc/_vimrc'}, 
+               \ {'b': 'C:/Users/rzitex/Git/rc/Vim/vimrc/_vimrc.plug'}, 
+               \ {'p': 'C:/Users/rzitex/Git/rc/Windows/Microsoft.Powershell_profile.ps1'} 
+               \ ]
+   endif
 
    " }}}
 
    " ALE {{{2
 
       " Only run linters named in ale_linters settings.
-      let g:ale_linters_explicit = 1
+      "let g:ale_linters_explicit = 1
 
-      let g:ale_linters = {
-         \  'javascript': ['eslint'],
-         \  'json': ['jsonlint'],
-         \  'cs': ['OmniSharp'],
-         \  'python': ['frosted'],
-         \  'html': ['tidy'],
-         \  'xml': ['tidy', 'xmllint'],
-         \  'vim': ['vint'],
-         \  'powershell': ['powershell', 'psscriptanalyzer']
-      \}
+      "let g:ale_linters = {
+         "\  'javascript': ['eslint'],
+         "\  'json': ['jsonlint'],
+         "\  'cs': ['OmniSharp'],
+         "\  'python': ['frosted'],
+         "\  'html': ['tidy'],
+         "\  'xml': ['tidy', 'xmllint'],
+         "\  'vim': ['vint'],
+         "\  'powershell': ['powershell', 'psscriptanalyzer']
+      "\}
 
    " }}}
 
@@ -839,84 +840,87 @@
       " Use the stdio OmniSharp-roslyn server
       let g:OmniSharp_server_stdio = 1
 
-      " Set the executable path
-      let g:OmniSharp_server_path = 'C:\Users\rzitex\.omnisharp\artifacts\publish\OmniSharp.Stdio.Driver\win7-x64\OmniSharp.exe'
+      " Use cygwin
+      "let g:omniSharp_translate_cygwin_wsl = 1
 
-      " Set the type lookup function to use the preview window instead of echoing it
-      let g:OmniSharp_typeLookupInPreview = 1
+      "" Set the executable path
+      let g:OmniSharp_server_path = 'C:\Users\rzitex\.omnisharp\OmniSharp.exe'
 
-      " Timeout in seconds to wait for a response from the server
-      let g:OmniSharp_timeout = 5
+      "" Set the type lookup function to use the preview window instead of echoing it
+      "let g:OmniSharp_typeLookupInPreview = 1
 
-      " Highlight the completion documentation popup background/foreground the same as
-      " the completion menu itself, for better readability with highlighted
-      " documentation.
-      set completepopup=highlight:Pmenu,border:off
+      "" Timeout in seconds to wait for a response from the server
+      "let g:OmniSharp_timeout = 5
 
-      " Fetch full documentation during omnicomplete requests.
-      " By default, only Type/Method signatures are fetched. Full documentation can
-      " still be fetched when you need it with the :OmniSharpDocumentation command.
-      let g:omnicomplete_fetch_full_documentation = 1
+      "" Highlight the completion documentation popup background/foreground the same as
+      "" the completion menu itself, for better readability with highlighted
+      "" documentation.
+      "set completepopup=highlight:Pmenu,border:off
 
-      " Set desired preview window height for viewing documentation.
-      " You might also want to look at the echodoc plugin.
-      set previewheight=5
+      "" Fetch full documentation during omnicomplete requests.
+      "" By default, only Type/Method signatures are fetched. Full documentation can
+      "" still be fetched when you need it with the :OmniSharpDocumentation command.
+      "let g:omnicomplete_fetch_full_documentation = 1
 
-      " Update semantic highlighting after all text changes
-      let g:OmniSharp_highlight_types = 3
-      " Update semantic highlighting on BufEnter and InsertLeave
-      " let g:OmniSharp_highlight_types = 2
+      "" Set desired preview window height for viewing documentation.
+      "" You might also want to look at the echodoc plugin.
+      "set previewheight=5
 
-      augroup omnisharp_commands
-          autocmd!
+      "" Update semantic highlighting after all text changes
+      "let g:OmniSharp_highlight_types = 3
+      "" Update semantic highlighting on BufEnter and InsertLeave
+      "" let g:OmniSharp_highlight_types = 2
 
-          " Show type information automatically when the cursor stops moving.
-          " Note that the type is echoed to the Vim command line, and will overwrite
-          " any other messages in this space including e.g. ALE linting messages.
-          autocmd CursorHold *.cs OmniSharpTypeLookup
+      "augroup omnisharp_commands
+          "autocmd!
 
-          " The following commands are contextual, based on the cursor position.
-          autocmd FileType cs nnoremap <buffer> gd :OmniSharpGotoDefinition<CR>
-          autocmd FileType cs nnoremap <buffer> <Leader>fi :OmniSharpFindImplementations<CR>
-          autocmd FileType cs nnoremap <buffer> <Leader>fs :OmniSharpFindSymbol<CR>
-          autocmd FileType cs nnoremap <buffer> <Leader>fu :OmniSharpFindUsages<CR>
+          "" Show type information automatically when the cursor stops moving.
+          "" Note that the type is echoed to the Vim command line, and will overwrite
+          "" any other messages in this space including e.g. ALE linting messages.
+          "autocmd CursorHold *.cs OmniSharpTypeLookup
 
-          " Finds members in the current buffer
-          autocmd FileType cs nnoremap <buffer> <Leader>fm :OmniSharpFindMembers<CR>
+          "" The following commands are contextual, based on the cursor position.
+          "autocmd FileType cs nnoremap <buffer> gd :OmniSharpGotoDefinition<CR>
+          "autocmd FileType cs nnoremap <buffer> <Leader>fi :OmniSharpFindImplementations<CR>
+          "autocmd FileType cs nnoremap <buffer> <Leader>fs :OmniSharpFindSymbol<CR>
+          "autocmd FileType cs nnoremap <buffer> <Leader>fu :OmniSharpFindUsages<CR>
 
-          autocmd FileType cs nnoremap <buffer> <Leader>fx :OmniSharpFixUsings<CR>
-          autocmd FileType cs nnoremap <buffer> <Leader>tt :OmniSharpTypeLookup<CR>
-          autocmd FileType cs nnoremap <buffer> <Leader>dc :OmniSharpDocumentation<CR>
-          autocmd FileType cs nnoremap <buffer> <C-\> :OmniSharpSignatureHelp<CR>
-          autocmd FileType cs inoremap <buffer> <C-\> <C-o>:OmniSharpSignatureHelp<CR>
+          "" Finds members in the current buffer
+          "autocmd FileType cs nnoremap <buffer> <Leader>fm :OmniSharpFindMembers<CR>
 
-          " Navigate up and down by method/property/field
-          autocmd FileType cs nnoremap <buffer> <C-k> :OmniSharpNavigateUp<CR>
-          autocmd FileType cs nnoremap <buffer> <C-j> :OmniSharpNavigateDown<CR>
+          "autocmd FileType cs nnoremap <buffer> <Leader>fx :OmniSharpFixUsings<CR>
+          "autocmd FileType cs nnoremap <buffer> <Leader>tt :OmniSharpTypeLookup<CR>
+          "autocmd FileType cs nnoremap <buffer> <Leader>dc :OmniSharpDocumentation<CR>
+          "autocmd FileType cs nnoremap <buffer> <C-\> :OmniSharpSignatureHelp<CR>
+          "autocmd FileType cs inoremap <buffer> <C-\> <C-o>:OmniSharpSignatureHelp<CR>
 
-          " Find all code errors/warnings for the current solution and populate the quickfix window
-          autocmd FileType cs nnoremap <buffer> <Leader>cc :OmniSharpGlobalCodeCheck<CR>
-      augroup END
+          "" Navigate up and down by method/property/field
+          "autocmd FileType cs nnoremap <buffer> <C-k> :OmniSharpNavigateUp<CR>
+          "autocmd FileType cs nnoremap <buffer> <C-j> :OmniSharpNavigateDown<CR>
 
-      " Contextual code actions (uses fzf, CtrlP or unite.vim when available)
-      nnoremap <Leader><Space> :OmniSharpGetCodeActions<CR>
-      " Run code actions with text selected in visual mode to extract method
-      xnoremap <Leader><Space> :call OmniSharp#GetCodeActions('visual')<CR>
+          "" Find all code errors/warnings for the current solution and populate the quickfix window
+          "autocmd FileType cs nnoremap <buffer> <Leader>cc :OmniSharpGlobalCodeCheck<CR>
+      "augroup END
 
-      " Rename with dialog
-      nnoremap <Leader>nm :OmniSharpRename<CR>
-      nnoremap <F2> :OmniSharpRename<CR>
-      " Rename without dialog - with cursor on the symbol to rename: `:Rename newname`
-      command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
+      "" Contextual code actions (uses fzf, CtrlP or unite.vim when available)
+      "nnoremap <Leader><Space> :OmniSharpGetCodeActions<CR>
+      "" Run code actions with text selected in visual mode to extract method
+      "xnoremap <Leader><Space> :call OmniSharp#GetCodeActions('visual')<CR>
 
-      nnoremap <Leader>cf :OmniSharpCodeFormat<CR>
+      "" Rename with dialog
+      "nnoremap <Leader>nm :OmniSharpRename<CR>
+      "nnoremap <F2> :OmniSharpRename<CR>
+      "" Rename without dialog - with cursor on the symbol to rename: `:Rename newname`
+      "command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
 
-      " Start the omnisharp server for the current solution
-      nnoremap <Leader>ss :OmniSharpStartServer<CR>
-      nnoremap <Leader>sp :OmniSharpStopServer<CR>
+      "nnoremap <Leader>cf :OmniSharpCodeFormat<CR>
 
-      " Enable snippet completion
-      " let g:OmniSharp_want_snippet=1
+      "" Start the omnisharp server for the current solution
+      "nnoremap <Leader>ss :OmniSharpStartServer<CR>
+      "nnoremap <Leader>sp :OmniSharpStopServer<CR>
+
+      "" Enable snippet completion
+      "" let g:OmniSharp_want_snippet=1
 
    " }}}
 
