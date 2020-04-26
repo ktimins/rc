@@ -5,7 +5,7 @@
    " Startup {{{2
 
       "let s:running_windows = has('win16') || has ('win32') || has ('win64')
-      let s:colorful_term = (&term =~? 'xterm') || (&term =~? 'screen')
+      "let s:colorful_term = (&term =~? 'xterm') || (&term =~? 'screen')
 
    " }}}
 
@@ -95,7 +95,7 @@
    set tm=500
 
    " Add a bit extra margin to the left
-   set foldcolumn=1
+   "set foldcolumn=1
 
 " }}}
 
@@ -134,7 +134,7 @@
    set expandtab
 
    " Be smart when using tabs ;)
-   set smarttab
+   "set smarttab
 
    " 1 tab == 3 spaces
    set shiftwidth=3

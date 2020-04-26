@@ -139,6 +139,8 @@ Function Edit-Profile {
    . $PROFILE;
 }
 
+Function Reload-Profile { & $profile }
+
 Function Copy-Vimrc {
    Get-ChildItem -Path "C:\Users\$username\Git\rc\Vim\vimrc" -Recurse | ForEach-Object {
       Copy-Item -Path $_.FullName -Destination $HomeDir -Recurse -Force -Container -Verbose -ErrorAction SilentlyContinue;
@@ -160,11 +162,14 @@ Function Edit-Vimrc {
 }
 
 Function Upgrade-VimViaChoco {
-   $proc = Start-Process -FilePath "choco.exe" -ArgumentList @('Upgrade','vim-tux.install', "--params", "`"'/InstallPopUp /RestartExplorer'`"", '--svc', '--force') -NoNewWindow -PassThru;
+   $proc = Start-Process -FilePath "choco.exe" -ArgumentList @('Upgrade','vim-tux', "--params", "`"'/InstallPopUp /RestartExplorer'`"", '--svc', '--force') -NoNewWindow -PassThru;
    $proc | Wait-Process;
 }
 
-Set-Alias cupVim Upgrade-VimViaChoco;
+Function Upgrade-VimInstallViaChoco {
+   $proc = Start-Process -FilePath "choco.exe" -ArgumentList @('Upgrade','vim-tux.install', "--params", "`"'/InstallPopUp /RestartExplorer'`"", '--svc', '--force') -NoNewWindow -PassThru;
+   $proc | Wait-Process;
+}
 
 # }}}
 
@@ -198,12 +203,33 @@ if (Test-Path($ChocolateyProfile)) {
 }
 
 # }}}
-Set-Alias -Name ssh-keygen -Value Invoke-BashCommand
-Set-Alias -Name ssh-copy-id -Value Invoke-BashCommand
-Set-Alias -Name ssh-keyscan -Value Invoke-BashCommand
-Set-Alias -Name ssh -Value Invoke-PowerSshCommand
-Set-Alias -Name ssh-agent -Value Invoke-PowerSshCommand
-Set-Alias -Name ssh-add -Value Invoke-PowerSshCommand
-Set-Alias -Name scp -Value Invoke-PowerSshCommand
-Set-Alias -Name sftp -Value Invoke-PowerSshCommand
-Set-Alias -Name rsync -Value Invoke-PowerSshCommand
+
+# Aliases {{{1
+
+   # New-Alias {{{2
+
+      New-Alias -Name RePro -Value Reload-Profile -Description "Reload my profile";
+      New-Alias -Name Reg-Asm -Value "& C:\Windows\Microsoft.NET\Framework\v4.0.30319\regasm.exe";
+      New-Alias -Name pl -Value Push-Location -Description "Shorthand for Push-Location";
+      New-Alias -Name ppl -Value Pop-Location -Description "Shorthand for Pop-Location";
+
+   # }}}
+
+   # Set-Alias {{{2
+
+      Set-Alias -Name ssh-keygen -Value Invoke-BashCommand;
+      Set-Alias -Name ssh-copy-id -Value Invoke-BashCommand;
+      Set-Alias -Name ssh-keyscan -Value Invoke-BashCommand;
+      Set-Alias -Name ssh -Value Invoke-PowerSshCommand;
+      Set-Alias -Name ssh-agent -Value Invoke-PowerSshCommand;
+      Set-Alias -Name ssh-add -Value Invoke-PowerSshCommand;
+      Set-Alias -Name scp -Value Invoke-PowerSshCommand;
+      Set-Alias -Name sftp -Value Invoke-PowerSshCommand;
+      Set-Alias -Name rsync -Value Invoke-PowerSshCommand;
+      Set-Alias -Name cupVim -Value Upgrade-VimViaChoco;
+      Set-Alias -Name cupVimInstall -Value Upgrade-VimInstallViaChoco;
+  
+  # }}}
+
+# }}}
+
