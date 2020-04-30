@@ -27,9 +27,6 @@ printScreen    := false
 //       Run Scripts        //
 //////////////////////////////
 
-#If (A_ComputerName = "HFDKTIMINSW7D")
-//   Run work.ahk
-#If
 
 //////////////////////////////
 //          LEDs            //
@@ -468,8 +465,10 @@ Return
 
 #If
 
-#If (WinActive("ahk_exe vb6.exe"))
-   F7::+F8
+#If (WinActive("ahk_exe devenv.exe"))
+  +F8::
+      SendInput {Blind}{Ctrl down}{Shift down}{B}{Shift up}{Ctrl up}
+      Return
 #If
 
 //////////////////////////////

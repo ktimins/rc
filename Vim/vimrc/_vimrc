@@ -1007,7 +1007,7 @@
            au FileType json set softtabstop=4 tabstop=4
            au FileType json set expandtab 
            au FileType json set foldmethod=syntax 
-           au BufNewFile,BufRead *.json nnoremap f= :silent %!python -m json.tool<CR>
+           au FileType *.json nnoremap f= :silent %!python -m json.tool<CR>
          augroup END
 
       " }}}
