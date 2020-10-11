@@ -1,7 +1,9 @@
 # vim:fdm=marker
 
 # Basic {{{1
-Set-ExecutionPolicy Unrestricted
+Set-ExecutionPolicy Unrestricted;
+
+$username = $env:USERNAME;
 
 #$ProfileRoot = (Split-Path -Parent $MyInvocation.MyCommand.Path)
 #$env:path += ";$ProfileRoot"
@@ -25,26 +27,15 @@ Import-Module cowsay
 
 Import-Module posh-git
 
+#Import-Module PowerSSH
+
 if ($host.Name -eq 'ConsoleHost') {
    Import-Module PSReadline
 }
 
-Import-Module TiminsKy -DisableNameChecking
-
 Import-Module PSCalendar;
 
-#Import-Module ErrorCorrect -DisableNameChecking
-
-#Import-Module EDI -DisableNameChecking
-
-#Import-Module adoLib
-
-#Import-Module GetSPOListModule
-
-#Import-Module PersistentHistory
 Import-Module AdvancedHistory
-
-#Import-Module ActiveDirectory
 
 Import-Module PowerShellGet
 
@@ -52,24 +43,16 @@ Import-Module PowerShellGet
 
 Import-Module oh-my-posh
 
-#Import-Module TfsCmdlets
-#Import-Module TFS       
-#Import-Module TFVC      
-#Import-Module posh-tex  
-#Import-Module posh-vs
-#Install-PoshVs
-
 # }}}
 
 # Variables {{{1
 
-$TempDir = 'C:\Users\rzite\AppData\Local\Temp';
+$TempDir = "C:\Users\$username\AppData\Local\Temp";
 
-$HomeDir = 'C:\Users\rzite\';
+$HomeDir = "C:\Users\$username\";
 $GitDir = (Join-Path -Path $HomeDir -ChildPath 'Git');
 $rcGitDir = (Join-Path -Path $GitDir -ChildPath 'rc');
 $ps1ScriptDir = (Join-Path -Path (Join-Path -Path $rcGitDir -ChildPath 'Windows') -ChildPath 'Scripts');
-
 
 # }}}
 
@@ -87,22 +70,21 @@ Function Cd-ScriptsDir {
    Push-Location $ps1ScriptDir;
 }
 
-
 # }}}
 
 # Console Display settings {{{1
 
 $console = $host.UI.RawUI
-$console.BackgroundColor = "black"
-$console.ForegroundColor = "green"
+#$console.BackgroundColor = "black"
+#$console.ForegroundColor = "green"
 
-$colors = $host.PrivateData
-$colors.VerboseForegroundColor = "white"
-$colors.VerboseBackgroundColor = "blue"
-$colors.WarningForegroundColor = "yellow"
-$colors.WarningBackgroundColor = "darkgreen"
-$colors.ErrorForegroundColor = "white"
-$colors.ErrorBackgroundColor = "red"
+#$colors = $host.PrivateData
+#$colors.VerboseForegroundColor = "white"
+#$colors.VerboseBackgroundColor = "blue"
+#$colors.WarningForegroundColor = "yellow"
+#$colors.WarningBackgroundColor = "darkgreen"
+#$colors.ErrorForegroundColor = "white"
+#$colors.ErrorBackgroundColor = "red"
 
 #$buffer = $console.BufferSize
 #$buffer.Width  = 130
@@ -114,7 +96,7 @@ $size.Width  = 130
 $size.Height = 35
 $console.WindowSize = $size
 
-Set-Theme Darkblood
+#Set-Theme Darkblood
 
   # 256 COLOR {{{2
 
@@ -139,7 +121,7 @@ $success = [win32.nativemethods]::setconsolemode($h, $m)
 # Custom Functions {{{1
 
 Function Copy-Profile {
-   Copy-Item -Path 'C:\Users\TiminsKY\Git\rc\Windows\Microsoft.Powershell_profile.ps1' -Destination $PROFILE -Force
+   Copy-Item -Path "C:\Users\$username\Git\rc\Windows\Microsoft.Powershell_profile.ps1" -Destination $PROFILE -Force
 }
 
 Function Edit-Profile {
@@ -147,7 +129,7 @@ Function Edit-Profile {
          [Parameter(Mandatory=$false)]
          [Switch]$GVim
         )
-   $file = 'C:\Users\TiminsKY\Git\rc\Windows\Microsoft.Powershell_profile.ps1';
+   $file = "C:\Users\$username\Git\rc\Windows\Microsoft.Powershell_profile.ps1";
    If ($GVim) {
       gvim.bat $file;
    } Else {
@@ -157,9 +139,10 @@ Function Edit-Profile {
    . $PROFILE;
 }
 
+Function Reload-Profile { & $profile }
+
 Function Copy-Vimrc {
-   Get-ChildItem -Path 'C:\Users\TiminsKy\Git\rc\Vim\vimrc' -Recurse | ForEach-Object {
-      Copy-Item -Path $_.FullName -Destination 'Z:\' -Recurse -Force -Container -Verbose;
+   Get-ChildItem -Path "C:\Users\$username\Git\rc\Vim\vimrc" -Recurse | ForEach-Object {
       Copy-Item -Path $_.FullName -Destination $HomeDir -Recurse -Force -Container -Verbose -ErrorAction SilentlyContinue;
    }
 }
@@ -169,7 +152,7 @@ Function Edit-Vimrc {
          [Parameter(Mandatory=$false)]
          [Switch]$GVim
         )
-   $file = 'C:\Users\TiminsKy\Git\rc\Vim\vimrc\_vimrc';
+   $file = "C:\Users\$username\Git\rc\Vim\vimrc\_vimrc";
    If ($GVim) {
       gvim $file;
    } Else {
@@ -178,41 +161,7 @@ Function Edit-Vimrc {
    Copy-Vimrc;
 }
 
-Function Update-BillingSchema {
-   Start-Process -FilePath (Get-Command tf).Definition -ArgumentList "vc get $BillingSchemaDir /recursive /overwrite /noprompt" -NoNewWindow -Wait;
-}
 
-Function Update-TfsFiles {
-   Param(
-         [Switch]$Recursive
-        )
-   $pwd = Get-Location;
-   $args = "vc get $pwd $(If ($Recursive) {"/recursive "})/noprompt";
-   Start-Process -FilePath (Get-Command tf).Definition -ArgumentList $args -NoNewWindow -Wait;
-}
-
-
-# }}}
-
-# Fortune {{{1
-#Function fortune {
-   #param(
-         #[switch]$hh
-        #)
-   #$dir = 'C:\Users\TiminsKY\Documents\WindowsPowerShell'
-   #If ($hh) {
-      #[System.IO.File]::ReadAllText((Split-Path $profile)+'\hitchhiker.txt') -replace "`r`n", "`n" -split "`n%`n" | Get-Random
-   #} ElseIf ($simpsons) {
-      #[System.IO.File]::ReadAllText((Split-Path $profile)+'\chalkboard.txt') -replace "`r`n", "`n" -split "`n%`n" | Get-Random
-   #} ElseIf ($gump) {
-      #[System.IO.File]::ReadAllText((Split-Path $profile)+'\fgump.txt') -replace "`r`n", "`n" -split "`n%`n" | Get-Random
-   #} ElseIf ($friends) {
-      #[System.IO.File]::ReadAllText((Split-Path $profile)+'\friends.txt') -replace "`r`n", "`n" -split "`n%`n" | Get-Random
-   #} Else {
-      #[System.IO.File]::ReadAllText((Split-Path $profile)+'\fortune.txt') -replace "`r`n", "`n" -split "`n%`n" | Get-Random
-   #}
-
-#}
 # }}}
 
 # Start Up - Welcome Message {{{1
@@ -231,13 +180,9 @@ $PSVers = "$($PSVersionTable.PSVersion.Major).$($PSVersionTable.PSVersion.Minor)
 $welcome = $env:USERNAME + ": Welcome to Powershell v" + $PSVers + "."
 #$fort
 if ($PSVers -gt 2) {
-   $welcome += "`n`n";
-   $welcome += (Show-Calendar);
-   cowsay $welcome
-} else {
-   $wecome
+   Show-Calendar;
+   cowsay $wecome;
 }
-Show-Calendar;
 # }}}
 
 # Needed Loadups {{{1
@@ -248,10 +193,34 @@ if (Test-Path($ChocolateyProfile)) {
   Import-Module "$ChocolateyProfile"
 }
 
+# }}}
 
+# Aliases {{{1
 
-# Load Posh-GitHub
-Import-Module 'C:\tools\poshgit\dahlbyk-posh-git-9bda399\src\posh-git.psd1'
-#. 'C:\Users\TiminsKY\Documents\WindowsPowerShell\Modules\Posh-GitHub\Posh-GitHub-Profile.ps1'
+   # New-Alias {{{2
+
+      New-Alias -Name RePro -Value Reload-Profile -Description "Reload my profile";
+      New-Alias -Name Reg-Asm -Value "& C:\Windows\Microsoft.NET\Framework\v4.0.30319\regasm.exe";
+      New-Alias -Name pl -Value Push-Location -Description "Shorthand for Push-Location";
+      New-Alias -Name ppl -Value Pop-Location -Description "Shorthand for Pop-Location";
+
+   # }}}
+
+   # Set-Alias {{{2
+
+      Set-Alias -Name ssh-keygen -Value Invoke-BashCommand;
+      Set-Alias -Name ssh-copy-id -Value Invoke-BashCommand;
+      Set-Alias -Name ssh-keyscan -Value Invoke-BashCommand;
+      Set-Alias -Name ssh -Value Invoke-PowerSshCommand;
+      Set-Alias -Name ssh-agent -Value Invoke-PowerSshCommand;
+      Set-Alias -Name ssh-add -Value Invoke-PowerSshCommand;
+      Set-Alias -Name scp -Value Invoke-PowerSshCommand;
+      Set-Alias -Name sftp -Value Invoke-PowerSshCommand;
+      Set-Alias -Name rsync -Value Invoke-PowerSshCommand;
+      Set-Alias -Name cupVim -Value Upgrade-VimViaChoco;
+      Set-Alias -Name cupVimInstall -Value Upgrade-VimInstallViaChoco;
+  
+  # }}}
 
 # }}}
+
