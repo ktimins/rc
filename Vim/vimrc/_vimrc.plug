@@ -55,7 +55,7 @@
       Plug 'tpope/vim-dispatch'
       Plug 'Shougo/vimproc.vim'
       "Plug 'vim-syntastic/syntastic'
-      Plug 'w0rp/ale'
+      "Plug 'w0rp/ale'
       Plug 'reedes/vim-wordy'
       Plug 'nvie/vim-flake8'
       Plug 'reedes/vim-wordy'

@@ -13,20 +13,10 @@
 
    " Location Stuff {{{2
 
-      if $LOCATION ==? 'WORK'
-         let homedir = 'C:\Users\TiminsKy'
-         let $home = 'C:\Users\Timinsky'
-         let $storage = 'E:\vim'
-         let $vimrc_plug = 'C:\Users\TiminsKy\_vimrc.plug'
-      elseif $LOCATION ==? 'THEIA'
-         let homedir = 'C:\Users\rzite'
-         let $home = 'C:\Users\rzite'
-         let $storage = 'C:\Users\rzite\.vimstorage'
-         let $vimrc_plug = '~\_vimrc.plug'
-      else 
-         let $storage = ''
-         let $vimrc_plug = '~/.vimrc.plug'
-      endif
+      let homedir = 'C:\Users\KTimins'
+      let $home = 'C:\Users\KTimins'
+      let $storage = 'C:\Users\KTimins\.vim'
+      let $vimrc_plug = 'C:\Users\KTimins\_vimrc.plug'
 
    " }}}
 
@@ -181,7 +171,9 @@
             "colorscheme selenitic
             colorscheme anderson
          catch
-            colorscheme archery
+            try
+               colorscheme archery
+            endtry
          endtry
 
          " Font
@@ -191,10 +183,10 @@
          catch
             try
                " Else, get normal Anonymous Pro
-               set guifont=Anonymous_Pro:h11
+               set guifont=Courier_New:h11
             catch
                " Failback to good old Courier New
-               set guitfont=Courier_New:h11
+               set guifont=Courier_New:h11
             endtry
          endtry
 
@@ -225,9 +217,9 @@
    " Files, Backups, and Undo {{{2
 
       if s:running_windows && $storage !=? '' 
-         set backup
+         set nobackup
          set undofile
-         set backupdir=$storage\\_backup
+         "set backupdir=$storage\\_backup
          set undodir=$storage\\_undo
          set noswapfile
          "set directory=$storage\\_temp
@@ -409,7 +401,7 @@
          "
          " If you want to show the nearest function in your statusline automatically,
          " you can add the following line to your vimrc 
-         autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+         "autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
          " }}}
 
@@ -913,11 +905,11 @@
    " Vim-Notes {{{2
 
       let g:notes_directories = ['~/Documents/vim-notes']
-      let g:notes_suffix = '.notes'
+      let g:notes_suffix = '.vnotes'
       let g:notes_word_boundaries = 1
       let g:notes_unicode_enabled = 1
       let g:notes_smart_quotes = 0
-      let g:notes_list_bulles = ['•', '◦', '▸', '▹', '▪', '▫']
+      let g:notes_list_bulles = ['-', '*', '+']
 
    " }}}
 
@@ -1115,14 +1107,16 @@
       " Wrapping {{{3
 
          function ChooseWrap() " {{{4
-            let l:choice=confirm("Toggle Wrapping?", "&yes\n&no", 0)
-            if l:choice==1
-               if &wrap
-                  call DisableDisplayWrapping()
-               else
-                  call EnableDisplayWrapping()
-               endif
+            "let l:choice=confirm("Toggle Wrapping?", "&yes\n&no", 0)
+            "if l:choice==1
+            if &wrap
+               silent call DisableDisplayWrapping()
+               echom "Disabling Display Wrapping."
+            else
+               silent call EnableDisplayWrapping()
+               echom "Enabling Display Wrapping."
             endif
+            "endif
          endfunction " }}}
 
          function EnableDisplayWrapping() " {{{4
@@ -1146,8 +1140,31 @@
             endif
          endfunction " }}}
 
-         nnoremap <leader>cw :call ChooseWrap()<CR>
+         nnoremap <silent> <leader>cw :call ChooseWrap()<CR>
       
+      " }}}
+
+      " Tab Stops {{{3
+
+         function ChangeTabStops(...) " {{{4 
+            let l:stops=&tabstop
+            if a:0 == 0
+               let l:stops = inputdialog("Tabstop value")
+            else
+               let l:stops=a:1
+            endif
+            if l:stops != ""
+               let &tabstop=l:stops 
+               let &softtabstop=l:stops 
+               let &shiftwidth=l:stops
+            endif
+         endfunction " }}}
+
+         nnoremap <silent> <leader>ts :call ChangeTabStops()<CR>
+         nnoremap <silent> <leader>t2 :call ChangeTabStops(2)<CR>
+         nnoremap <silent> <leader>t3 :call ChangeTabStops(3)<CR>
+         nnoremap <silent> <leader>t4 :call ChangeTabStops(4)<CR>
+
       " }}}
 
       " grepping {{{3
