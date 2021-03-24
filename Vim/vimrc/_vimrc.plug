@@ -2,11 +2,7 @@
 " Vim-Plug {{{1
 
    " Preamble {{{2
-      if $LOCATION ==? 'WORK'
-         call plug#begin('E:/vimstorage/plugged')
-      else
-         call plug#begin('~/.vim/plugged')
-      endif
+      call plug#begin('~/.vim/plugged')
    " }}}
 
    " MISC {{{2

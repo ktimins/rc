@@ -177,12 +177,16 @@
 
          " ColorScheme
          try
-	       colorscheme darkblue
+	       colorscheme anderson
          catch
             try
-	       colorscheme anderson
-	       colorscheme selenitic
-               "colorscheme archery
+	            colorscheme selenitic
+            catch
+               try
+                  colorscheme archery
+               catch
+                  colorscheme darkblue
+               endtry
             endtry
          endtry
 
