@@ -12,11 +12,20 @@
    " }}}
 
    " Location Stuff {{{2
-
-      let homedir = 'C:\Users\KTimins'
-      let $home = 'C:\Users\KTimins'
-      let $storage = 'C:\Users\KTimins\.vim'
-      let $vimrc_plug = 'C:\Users\KTimins\_vimrc.plug'
+      if $LOCATION ==? 'WORK'
+         let homedir = 'C:\Users\KTimins'
+         let $home = 'C:\Users\KTimins'
+         let $storage = 'C:\Users\KTimins\.vim'
+         let $vimrc_plug = 'C:\Users\KTimins\_vimrc.plug'
+      elseif $LOCATION ==? 'THEIA'
+         let homedir = 'C:\Users\rzite'
+         let $home = 'C:\Users\rzite'
+         let $storage = 'C:\Users\rzite\.vimstorage'
+         let $vimrc_plug = '~\_vimrc.plug'
+      else 
+         let $storage = ''
+         let $vimrc_plug = '~/.vimrc.plug'
+      endif
 
    " }}}
 
@@ -168,11 +177,12 @@
 
          " ColorScheme
          try
-            "colorscheme selenitic
-            colorscheme anderson
+	       colorscheme darkblue
          catch
             try
-               colorscheme archery
+	       colorscheme anderson
+	       colorscheme selenitic
+               "colorscheme archery
             endtry
          endtry
 
@@ -183,7 +193,7 @@
          catch
             try
                " Else, get normal Anonymous Pro
-               set guifont=Courier_New:h11
+               set guifont=Anonymous_Pro:h11
             catch
                " Failback to good old Courier New
                set guifont=Courier_New:h11
@@ -217,9 +227,13 @@
    " Files, Backups, and Undo {{{2
 
       if s:running_windows && $storage !=? '' 
-         set nobackup
+         if $LOCATION ==? 'WORK'
+            set nobackup
+         else
+            set backup
+            set backupdir=$storage\\_backup
+         endif
          set undofile
-         "set backupdir=$storage\\_backup
          set undodir=$storage\\_undo
          set noswapfile
          "set directory=$storage\\_temp
