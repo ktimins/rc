@@ -1,0 +1,61 @@
+{
+   "Output" : {
+      "File" : {
+         "CSV" : true,
+         "Zips" : false,
+         "Suffix" : "--Allstate_Billing_ENFs",
+         "AppendDate" : true,
+         "Save" : false
+      },
+      "Email" : {
+         "Subject" : "A7 Prod/QA ENFs -- Billing -- \\date",
+         "Recipient" : [
+            "Kenneth.Tang@insurity.com"
+         ],
+         "CC" : [
+            "Kyle.Timins@insurity.com",
+            "Nathan.Wallack@insurity.com",
+            "Chi.Zhang@insurity.com",
+            "David.Lacroix@insurity.com",
+            "Adam.Laflamme@insurity.com"
+         ],
+         "Attachment" : true,
+         "Priority" : "Normal"
+      }
+   },
+   "BaseDir" : "F:\\ENF",
+   "ENFSets" : [
+      {
+         "Name" : "Billing ENFs",
+         "TimeSpan" : "1d",
+         "Email" : {
+            "Threshold" : "0",
+            "Details" : true,
+            "Stack" : true,
+            "IncludeNotes" : true,
+            "IncludeEmptyNotes" : true
+         },
+         "ExMsgs" : [
+            "%"
+         ]
+      }
+   ],
+   "ENFPortfolio" : [
+      "Billing"
+   ],
+   "ENFSkippedStatuses" : [
+      "Deferred",
+      "Environmental",
+      "In Progress",
+      "Resolved"
+   ],
+   "Envs" : [{
+         "Client" : "Allstate",
+         "Env" : "Prod"
+      }, {
+         "Client" : "Allstate",
+         "Env" : "QA"
+      }
+   ]
+}
+

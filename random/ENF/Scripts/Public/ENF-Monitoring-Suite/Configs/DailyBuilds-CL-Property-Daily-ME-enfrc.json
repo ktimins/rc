@@ -1,0 +1,58 @@
+{
+   "Output" : {
+      "File" : {
+         "CSV" : true,
+         "Zips" : false,
+         "Suffix" : "---Daily_Builds-CL_Property_ENFs",
+         "AppendDate" : true,
+         "Save" : false
+      },
+      "Email" : {
+         "Subject" : "Daily Builds ENFs - CL Property ENFs - For the last 24- Hours",
+         "Recipient" : [
+         ],
+         "CC" : [
+         ],
+         "Attachment" : true,
+         "Priority" : "Normal"
+      }
+   },
+   "BaseDir" : "F:\\ENF",
+   "ENFSets" : [
+      {
+         "Name" : "Property ENFs",
+         "TimeSpan" : "2d",
+         "MinCount" : 0,
+         "Email" : {
+            "Threshold" : "0",
+            "Details" : true,
+            "Stack" : true,
+            "IncludeNotes" : true,
+            "IncludeEmptyNotes" : true,
+            "IncludeLatestInfo" : true
+         },
+         "ExMsgs" : [
+            "%"
+         ]
+      }
+   ],
+   "ENFPortfolio" : [
+      "CL"
+   ],
+   "ENFLOBs" : [
+      "BM", "IA", "IB",
+      "IM", "OA", "OM",
+      "PF"
+   ],
+   "ENFSkippedStatuses" : [
+      "Deferred",
+      "Environmental",
+      "Resolved"
+   ],
+   "Envs" : [{
+      "Client" : "DailyBuilds",
+      "Env" : "Prod"
+   }
+   ]
+}
+

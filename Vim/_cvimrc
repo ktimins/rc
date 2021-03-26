@@ -1,5 +1,3 @@
-let blacklists = ["http://thetypingcat.com/*","http://games.sense-lang.org/*","http://www.sense-lang.org/*","http://sense-lang.org/*","http://eas.insurity.net/*","https://www.sense-lang.org/*"]
-
 " Settings
 set noautofocus " The opposite of autofocus; this setting stops
                 " sites from focusing on an input box when they load

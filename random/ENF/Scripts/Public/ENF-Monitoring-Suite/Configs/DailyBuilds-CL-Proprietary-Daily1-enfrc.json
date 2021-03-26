@@ -1,0 +1,168 @@
+{
+   "Output" : {
+      "File" : {
+         "CSV" : true,
+         "Zips" : false,
+         "Suffix" : "---Daily_Builds-CL_Proprietary_ENFs",
+         "AppendDate" : true,
+         "Save" : false
+      },
+      "Email" : {
+         "Subject" : "Daily Builds ENFs - CL Proprietary ENFs - For the last 24 Hours",
+         "Recipient" : [
+            "Courtney.Binek@Insurity.com"
+         ],
+         "RecipientsScheduled" : [
+            {
+               "Name": "Gary",
+               "Email": "gary.bilodeau@insurity.com",
+               "StartDate": "",
+               "EndDate": "",
+               "TimeSpan": "",
+               "ServicePack": "16.16"
+            },
+            {
+               "Name": "Nikheel",
+               "Email": "Nikheel.Neelay@Insurity.com",
+               "StartDate": "",
+               "EndDate": "",
+               "TimeSpan": "",
+               "ServicePack": "16.17"
+            },
+            {
+               "Name": "Tom",
+               "Email": "Thomas.Gworek@insurity.com",
+               "StartDate": "",
+               "EndDate": "",
+               "TimeSpan": "",
+               "ServicePack": "16.18"
+            },
+            {
+               "Name": "Courtney",
+               "Email": "Courtney.Binek@Insurity.com",
+               "StartDate": "",
+               "EndDate": "",
+               "TimeSpan": "",
+               "ServicePack": "16.19"
+            },
+            {
+               "Name": "Josh",
+               "Email": "Josh.Mathis@Insurity.com",
+               "StartDate": "",
+               "EndDate": "",
+               "TimeSpan": "",
+               "ServicePack": "16.20"
+            },
+            {
+               "Name": "Kristen",
+               "Email": "Kristen.Hammick@insurity.com",
+               "StartDate": "",
+               "EndDate": "",
+               "TimeSpan": "",
+               "ServicePack": "16.21"
+            },
+            {
+               "Name": "Sushil",
+               "Email": "Sushil.Singh@Insurity.com",
+               "StartDate": "",
+               "EndDate": "",
+               "TimeSpan": "",
+               "ServicePack": "16.22"
+            },
+            {
+               "Name": "Jennifer",
+               "Email": "Jennifer.DoVale@insurity.com",
+               "StartDate": "",
+               "EndDate": "",
+               "TimeSpan": "",
+               "ServicePack": "16.23"
+            },
+            {
+               "Name": "Gary",
+               "Email": "gary.bilodeau@insurity.com",
+               "StartDate": "",
+               "EndDate": "",
+               "TimeSpan": "",
+               "ServicePack": "16.24"
+            },
+            {
+               "Name": "Nikheel",
+               "Email": "Nikheel.Neelay@Insurity.com",
+               "StartDate": "",
+               "EndDate": "",
+               "TimeSpan": "",
+               "ServicePack": "16.25"
+            },
+            {
+               "Name": "Tom",
+               "Email": "Thomas.Gworek@insurity.com",
+               "StartDate": "",
+               "EndDate": "",
+               "TimeSpan": "",
+               "ServicePack": "16.26"
+            }
+            ],
+         "_CC" : [
+            "gary.bilodeau@insurity.com"
+         ],
+         "Attachment" : true,
+         "Priority" : "Normal"
+      }
+   },
+   "BaseDir" : "F:\\ENF",
+   "ENFSets" : [
+      {
+         "Name" : "Proprietary ENFs",
+         "TimeSpan" : "1d",
+         "Email" : {
+            "Threshold" : "0",
+            "Details" : true,
+            "Stack" : true,
+            "San" : true,
+            "IncludeNotes" : true,
+            "IncludeEmptyNotes" : false,
+            "IncludeLatestInfo" : true
+         },
+         "ExMsgs" : [
+            "%"
+         ]
+      }
+   ],
+   "ENFPortfolio" : [
+      "CL"
+   ],
+   "ENFLOBs" : [
+      "HU",
+      "CV",
+      "DO",
+      "ER",
+      "EV",
+      "GV",
+      "MV",
+      "PL",
+      "PV",
+      "UM",
+      "WA",
+      "HF",
+      "SN",
+      "UX",
+      "HR",
+      "CQ",
+      "P1",
+      "L2",
+      "ES",
+      "LM",
+      "LA"
+   ],
+   "ENFSkippedStatuses" : [
+      "Deferred",
+      "Environmental",
+      "Resolved"
+   ],
+   "Envs" : [{
+      "Client" : "DailyBuilds",
+      "Env" : "Prod"
+   }
+   ]
+}
+

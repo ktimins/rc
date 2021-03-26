@@ -1,7 +1,9 @@
 # vim:fdm=marker
 
 # Basic {{{1
-Set-ExecutionPolicy Unrestricted
+Set-ExecutionPolicy Unrestricted;
+
+$username = $env:USERNAME;
 
 #$ProfileRoot = (Split-Path -Parent $MyInvocation.MyCommand.Path)
 #$env:path += ";$ProfileRoot"
@@ -48,7 +50,7 @@ Import-Module AdvancedHistory
 
 #Import-Module PowerShellGet
 
-Import-Module PSExcel
+#Import-Module PSExcel
 
 Import-Module oh-my-posh
 

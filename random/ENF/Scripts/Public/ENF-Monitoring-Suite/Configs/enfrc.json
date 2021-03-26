@@ -1,0 +1,107 @@
+{
+   "Output" : {
+      "File" : {
+         "CSV" : true,
+         "Zips" : false,
+         "Suffix" : "Allstate-DailyBuilds",
+         "AppendDate" : true,
+         "Save" : true
+      },
+      "_Email" : "This is the config for the email settings.",
+      "Email" : {
+         "_Subject" : "This is the subject of the email that will be sent out.  This is static and has no escapes.",
+         "Subject" : "ENF Test Email",
+         "_Recipient" : "This is a hard coded list of recipients for the email.",
+         "Recipient" : [
+         ],
+         "_RecipientsScheduled" : "This is the way to dynamically add recipients to an email based on a start/end date pair or a service pack.",
+         "RecipientsScheduled" : [
+            {
+               "_Name" : "The name of the person.",
+               "Name" : "Kyle Timins",
+               "_Email" : "The email of the person.",
+               "Email" : "Kyle.Timins@insurity.com",
+               "ServicePack" : [
+                  "16.17"
+               ],
+               "_Dates" : "If not using the service pack, the dates array holds the start and end dates.",
+               "Dates" : [
+                  {
+                     "_StartDate" : "The start date of when the user should be added as a recipient.",
+                     "StartDate" : "",
+                     "_EndDate" : "The end date of when the user should be added as a recipient.",
+                     "EndDate" : "",
+                     "_TimeSpan" : "Timespan that the user should be added as a recipient. Use either this or end date. End date has priority.",
+                     "TimeSpan" : ""
+                  }
+               ]
+            }
+         ],
+         "_CC" : "This is a hard coded list of carbon copy recipients for the email.",
+         "CC" : [
+         ],
+         "_Attachment" : "Should the CSV files be attached to the email.",
+         "Attachment" : true,
+         "_Priority" : "What should the priority of the email be. High, Normal, or Low.",
+         "Priority" : "High"
+      }
+   },
+   "_BaseDir" : "This is where all the local files are created and store, if the setting says so.",
+   "BaseDir" : "C:\\ENF",
+   "_ENFSets" : "This is the list of ENFsets that the script should check against.",
+   "ENFSets" : {
+      "_ENFSet Name" : "This is completely arbitrary and is used for the config creators knowledge. It is going to be depricated in 1.8.0",
+      "All" : {
+         "_Name" : "This is the name of the set that will be used by the script.",
+         "Name" : "All",
+         "_TimeSpan" : "This is how long the script should look back for the ENFs in this set.",
+         "TimeSpan" : "2h",
+         "_Zips" : "This is how many zips should be downloaded for the set if the setting above says to download the zips. This may become depricated.",
+         "Zips" : "5l",
+         "_Email" : "These are the email settings for the ENF set. They determine how the ENF displays on the email.",
+         "Email" : {
+            "_Threshold" : "Threshold of how many occurrence need to occur in the set for it to be added to the email. '0' means always send an email.",
+            "Threshold" : "10",
+            "_Details" : "Should the details section be shown for the ENFs in this set. Contains useful information, but adds bulk to the email.  This controls the whether the rest of the settings in Email matter or not.",
+            "Details" : true,
+            "_Stack" : "Should the stack be shown in the email section. Can make the email very bulky.", 
+            "Stack" : true,
+            "_San" : "Should the SAN be shown in the details section.",
+            "San" : true,
+            "_IncludeNotes" : "Should the notes on the ENF be shown in the email. These are the notes that are added to the ENF in the ENF tool.",
+            "IncludeNotes" : true,
+            "_IncludeEmptyNotes" : "Should there be an empty section for the recipients to add their notes to. This may be depricated.",
+            "IncludeEmptyNotes" : false,
+            "_IncludeLatestInfo" : "Should there be information in the details section for the latest occurrence.",
+            "IncludeLatestInfo" : true
+         },
+         "_ExMsgs" : "List of exception messages that should be looked at by the script for this set.",
+         "ExMsgs" : [
+            "%"
+         ]
+      }
+   },
+   "ENFPortfolio" : "This is the portfolio that the script should narrow the search to. Used for Daily Builds LOB teams.",
+   "ENFPortfolio" : [
+   ],
+   "_ENFSkippedStatuses" : "This is the list of status of an ENF that should be skipped when getting the list of ENFs.",
+   "ENFSkippedStatuses" : [
+      "Deferred",
+      "Environmental",
+      "In Progress",
+      "Resolved"
+   ],
+   "_Envs" : "This is the environments that should be looked at for each ENFSet.",
+   "Envs" : [{
+      "Client" : "DailyBuilds",
+      "Env" : "Prod"
+   }, {
+   "Client" : "Allstate",
+   "Env" : "Prod"
+   }, {
+   "Client" : "Allstate",
+   "Env" : "QA"
+   }
+   ]
+}
+
