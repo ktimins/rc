@@ -1,7 +1,12 @@
 Param(
       [Switch]$Resize,
-      [Switch]$Slow
+      [Switch]$Slow,
+      [Switch]$Clear
      );
+
+If ($Clear) {
+   Clear-Host;
+}
 
 (Get-Host).UI.RawUI.WindowTitle = "Stay Awake";
 
