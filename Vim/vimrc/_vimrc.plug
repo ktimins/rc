@@ -67,6 +67,7 @@
       "}}}
       " MarkDown {{{3
          Plug 'gabrielelana/vim-markdown'
+         Plug 'JamshedVesuna/vim-markdown-preview'
       "}}}
       " Razor Syntax {{{3
          Plug 'adamclerk/vim-razor'

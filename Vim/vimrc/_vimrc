@@ -15,7 +15,7 @@
       if $LOCATION ==? 'WORK'
          let homedir = 'C:\Users\KTimins'
          let $home = 'C:\Users\KTimins'
-         let $storage = 'C:\Users\KTimins\.vim'
+         let $storage = 'C:\Users\KTimins\.vimstorage'
          let $vimrc_plug = 'C:\Users\KTimins\_vimrc.plug'
       elseif $LOCATION ==? 'THEIA'
          let homedir = 'C:\Users\rzite'
@@ -231,17 +231,12 @@
    " Files, Backups, and Undo {{{2
 
       if s:running_windows && $storage !=? '' 
-         if $LOCATION ==? 'WORK'
-            set nobackup
-         else
-            set backup
-            set backupdir=$storage\\_backup
-         endif
+         set backup
+         set backupdir=$storage\\_backup
          set undofile
          set undodir=$storage\\_undo
-         set noswapfile
-         "set directory=$storage\\_temp
-         "set swapfile
+         set swapfile
+         set directory=$storage\\_temp
       else
          set nobackup
          set noundofile
