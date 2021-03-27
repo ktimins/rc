@@ -3,11 +3,7 @@
 " Vim-Plug {{{1
 
    " Preamble {{{2
-      if $LOCATION ==? 'WORK'
-         call plug#begin('E:/vimstorage/plugged')
-      else
-         call plug#begin('~/.vim/plugged')
-      endif
+      call plug#begin('~/.vim/plugged')
    " }}}
 
    " MISC {{{2
@@ -56,7 +52,7 @@
       Plug 'tpope/vim-dispatch'
       Plug 'Shougo/vimproc.vim'
       "Plug 'vim-syntastic/syntastic'
-      Plug 'w0rp/ale'
+      "Plug 'w0rp/ale'
       Plug 'reedes/vim-wordy'
       Plug 'nvie/vim-flake8'
       Plug 'reedes/vim-wordy'
@@ -72,6 +68,7 @@
       "}}}
       " MarkDown {{{3
          Plug 'gabrielelana/vim-markdown'
+         Plug 'JamshedVesuna/vim-markdown-preview'
       "}}}
       " Razor Syntax {{{3
          Plug 'adamclerk/vim-razor'

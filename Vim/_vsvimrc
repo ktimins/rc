@@ -1,0 +1,171 @@
+" vim:fdm=marker
+
+" Location Stuff {{{1
+
+   let homedir = 'C:\Users\KTimins'
+   let $home = 'C:\Users\KTimins'
+   let $storage = 'C:\Users\KTimins\.vimstorage'
+
+" }}}
+
+" General {{{1
+
+   " Startup {{{2
+
+   " }}}
+
+   " Leader
+   let mapleader = ','
+
+   " Sets how many lines of history VIM has to remember
+   set history=9999
+
+   " Sets the timeout length
+   set timeoutlen=500
+
+   " Set to auto read when a file is changed from the outside
+   "set autoread
+
+" }}}
+
+" VIM User Interface {{{1
+
+   " Avoid garbled characters in Chinese language windows OS
+   let $LANG='en' 
+
+   " Configure backspace so it acts as it should act
+   set backspace=indent,eol,start
+
+   " Ignore case when searching
+   set ignorecase
+
+   " When searching try to be smart about cases 
+   set smartcase
+
+   " Highlight search results
+   set hlsearch
+
+   " Makes search act like search in modern browsers
+   set incsearch 
+
+   " For regular expressions turn magic on
+   set magic
+
+   set novisualbell
+   set tm=500
+
+" }}}
+
+
+" Text, Tab, and Indent related {{{1
+
+   " Use spaces instead of tabs
+   set expandtab
+
+" }}}
+
+" Visual Mode related {{{1
+
+   " Visual mode pressing * or # searches for the current selection
+   " Super useful! From an idea by Michael Naumann
+   vnoremap * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+   vnoremap # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+
+" }}}
+
+" Moving Around, Tabs, Windows, Buffers {{{1
+
+   " Disable highlight when <leader><cr> is pressed
+   map  <leader><cr> :noh<cr>
+
+   " Smart way to move between windows
+   map <C-j> <C-W>j
+   map <C-k> <C-W>k
+   map <C-h> <C-W>h
+   map <C-l> <C-W>l
+
+   " Close the current buffer
+   map <leader>bd :Bclose<cr>:tabclose<cr>gT
+
+   " Close all the buffers
+   map <leader>ba :bufdo bd<cr>
+
+   " Switch CWD to the directory of the open buffer
+   map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" }}}
+
+" Spell Checking {{{1
+
+   " Pressing ,ss will toggle and untoggle spell checking
+   map <leader>ss :setlocal spell!<cr>
+
+   " Shortcuts using <leader>
+   map <leader>sn ]s
+   map <leader>sp [s
+   map <leader>sa zg
+   map <leader>s? z=
+
+" }}}
+
+" Misc {{{1
+
+   " Remove the Windows ^M - when the encodings gets messed up
+   noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+   " Quickly open a buffer for scribble
+   map <leader>q :e ~/buffer<cr>
+
+   " Quickly open a markdown buffer for scribble
+   map <leader>x :e ~/buffer.md<cr>
+
+" }}}
+
+" BufTabLine {{{1
+
+   nnoremap <leader>bn :bnext<CR>
+   nnoremap <leader>bp :bprev<CR>
+
+" }}}
+
+" Colemak {{{1
+
+   " This hack allows me to type in insert mode and command 'bar' as colemak
+   " while keeping all commands as QWERTY
+   
+   noremap! e f
+   noremap! r p
+   noremap! t g
+   noremap! y j
+   noremap! u l
+   noremap! i u
+   noremap! o y
+   noremap! p ;
+   noremap! s r
+   noremap! d s
+   noremap! f t
+   noremap! g d
+   noremap! j n
+   noremap! k e
+   noremap! l i
+   noremap! ; o
+   noremap! n k
+   noremap! E F
+   noremap! R P
+   noremap! T G
+   noremap! Y J
+   noremap! U L
+   noremap! I U
+   noremap! O Y
+   noremap! P :
+   noremap! S R
+   noremap! D S
+   noremap! F T
+   noremap! G D
+   noremap! J N
+   noremap! K E
+   noremap! L I
+   noremap! : O
+   noremap! N K
+
+" }}}
