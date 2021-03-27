@@ -204,8 +204,8 @@
    " }}}
 
    " Status Line {{{2
-      Plug 'bling/vim-airline'
-      Plug 'vim-airline/vim-airline-themes'
+      "Plug 'bling/vim-airline'
+      "Plug 'vim-airline/vim-airline-themes'
    " }}}
 
    " Tags {{{2
