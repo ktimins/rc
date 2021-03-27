@@ -457,12 +457,15 @@
 
    if $LOCATION ==? 'WORK'
       let g:startify_bookmarks = [ 
-               \ {'v': 'C:/Users/TiminsKy/Git/rc/Vim/vimrc/_vimrc'}, 
-               \ {'b': 'C:/Work/Products/DailyBuild/App/Core/Coding/BillingDecisions/BillingDecisions.cls'}, 
-               \ {'p': 'C:/Users/TiminsKy/Git/rc/Windows/Microsoft.Powershell_profile.ps1'} 
+               \ {'v': 'C:/Users/KTimins/Git/rc/Vim/vimrc/_vimrc'}, 
+               \ {'p': 'C:/Users/KTimins/Git/rc/Windows/Microsoft.Powershell_profile.ps1'} 
                \ ]
    elseif $LOCATION ==? 'THEIA'
-      let g:startify_bookmarks = [ {'v': 'C:/Users/rzite/Git/rc/Vim/vimrc/_vimrc'} ]
+      let g:startify_bookmarks = [ 
+               \ {'v': 'C:/Users/rzite/Git/rc/Vim/vimrc/_vimrc'}, 
+               \ {'b': 'C:/Users/rzite/Git/rc/Vim/vimrc/_vimrc.plug'}, 
+               \ {'p': 'C:/Users/rzite/Git/rc/Windows/Microsoft.Powershell_profile.ps1'} 
+               \ ]
    elseif $LOCATION ==? 'ARES'
       let g:startify_bookmarks = [ 
                \ {'v': 'C:/Users/rzitex/Git/rc/Vim/vimrc/_vimrc'}, 
