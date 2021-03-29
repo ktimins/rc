@@ -458,6 +458,7 @@
    if $LOCATION ==? 'WORK'
       let g:startify_bookmarks = [ 
                \ {'v': 'C:/Users/KTimins/Git/rc/Vim/vimrc/_vimrc'}, 
+               \ {'b': 'C:/Users/KTimins/Git/rc/Vim/vimrc/_vimrc.plug'}, 
                \ {'p': 'C:/Users/KTimins/Git/rc/Windows/Microsoft.Powershell_profile.ps1'} 
                \ ]
    elseif $LOCATION ==? 'THEIA'
@@ -1153,8 +1154,6 @@
       " Wrapping {{{3
 
          function ChooseWrap() " {{{4
-            "let l:choice=confirm("Toggle Wrapping?", "&yes\n&no", 0)
-            "if l:choice==1
             if &wrap
                silent call DisableDisplayWrapping()
                echom "Disabling Display Wrapping."
@@ -1162,7 +1161,6 @@
                silent call EnableDisplayWrapping()
                echom "Enabling Display Wrapping."
             endif
-            "endif
          endfunction " }}}
 
          function EnableDisplayWrapping() " {{{4
