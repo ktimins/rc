@@ -711,6 +711,12 @@
 
    " }}}
 
+   " Gundo {{{2
+
+      noremap <F9> :GundoToggle<CR>
+
+   " }}}
+
    " Nerd Tree {{{2
 
       augroup nerd_tree
