@@ -98,7 +98,7 @@
       $proc | Wait-Process;
    }
 
-   Function Start-CountdownTimer{
+   Function Start-CountdownTimer {
       <#
 
          .SYNOPSIS
@@ -159,19 +159,23 @@
       Write-Host " Countdown finished";
    }
 
-   function Start-EndOfWorkCountdownTimer {
+   Function Start-EndOfWorkCountdownTimer {
       param (
             [int]$Hour = 8,
             [int]$Minute = 45,
             [int]$Second = 0,
             [int]$Millisecond = 0,
-            [int]$Length = 8
+            [int]$Length = 8,
+            [Switch]$Toast
             );
       Clear-Host; 
       $endTime = ((Get-Date -Hour $Hour -Minute $Minute -Second $Second -Millisecond $Millisecond) + (New-TimeSpan -Hours $Length));
       $ts =(New-TimeSpan -End ($endTime)); 
       Write-Host (" {0}{1} " -f $(" " * 46), $endTime);
       Start-CountdownTimer -Hours $ts.Hours -Minutes $ts.Minutes -Seconds $ts.Seconds;
+      If ($Toast) {
+         New-BurntToastNotification -Text "TIME TO LEAVE!";
+      }
    }
 
 # }}}
@@ -210,7 +214,7 @@
 
 # Aliases {{{1
 
-   New-Alias which Get-Command;
+   Set-Alias which Get-Command;
    Set-Alias cupVim Upgrade-VimViaChoco;
 
 # }}}

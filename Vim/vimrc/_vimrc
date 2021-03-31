@@ -966,7 +966,7 @@
       let g:notes_unicode_enabled = 1
       let g:notes_smart_quotes = 0
       let g:notes_list_bulles = ['-', '*', '+']
-      let g:notes_conceal_code = 0
+      let g:notes_conceal_code = 1
 
    " }}}
 
