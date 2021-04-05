@@ -17,6 +17,9 @@
       Plug 'sukima/xmledit'
       Plug 'jiangmiao/auto-pairs'
       Plug 'vim-scripts/a.vim'
+      " Games {{{3
+         Plug 'mmisono/viminesweeper'
+      " }}}
    " }}}
 
    " Diff {{{2
