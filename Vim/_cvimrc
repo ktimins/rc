@@ -26,9 +26,9 @@ map D scrollToBottom
 unmap K R J E
 
 map dt nextTab
-map E nextTab
+map N nextTab
 map dT previousTab
-map N previousTab
+map K previousTab
 
 unmap L
 
