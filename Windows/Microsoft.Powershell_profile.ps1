@@ -10,15 +10,15 @@
 
    Import-Module AdvancedHistory;
    Import-Module BurntToast;
-   Import-Module cowsay
-      Import-Module oh-my-posh;
-   Import-Module posh-git
-      Import-Module PowerShellGet
-      Import-Module PSCalendar;
-   Import-Module PSExcel
-      if ($host.Name -eq 'ConsoleHost') {
-         Import-Module PSReadline
-      }
+   Import-Module cowsay;
+   Import-Module oh-my-posh;
+   Import-Module posh-git;
+   Import-Module PowerShellGet;
+   Import-Module PSCalendar;
+   Import-Module PSExcel;
+   if ($host.Name -eq 'ConsoleHost') {
+      Import-Module PSReadline;
+   }
 
 # }}}
 
@@ -47,6 +47,13 @@
    Function Cd-ScriptsDir {
       Push-Location $ps1ScriptDir;
    }
+
+   # Aliases {{{2
+
+      Set-Alias pl Push-Location;
+      Set-Alias ppl Pop-Location;
+
+   # }}}
 
 # }}}
 
