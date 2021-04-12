@@ -16,6 +16,7 @@
    Import-Module PowerShellGet;
    Import-Module PSCalendar;
    Import-Module PSExcel;
+   Import-Module WriteAscii;
    if ($host.Name -eq 'ConsoleHost') {
       Import-Module PSReadline;
    }
