@@ -15,6 +15,7 @@
    Import-Module posh-git;
    Import-Module PowerShellGet;
    Import-Module PSCalendar;
+   Import-Module Pscx;
    Import-Module PSExcel;
    Import-Module WriteAscii;
    if ($host.Name -eq 'ConsoleHost') {
