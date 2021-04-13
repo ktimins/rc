@@ -8,7 +8,6 @@
 
 # Modules {{{1
 
-   Import-Module AdvancedHistory;
    Import-Module BurntToast;
    Import-Module cowsay;
    Import-Module oh-my-posh;
@@ -21,6 +20,13 @@
    if ($host.Name -eq 'ConsoleHost') {
       Import-Module PSReadline;
    }
+
+   # AdvancedHistory {{{2
+
+      Import-Module AdvancedHistory;
+      Enable-AdvancedHistory;
+
+   # }}}
 
 # }}}
 
