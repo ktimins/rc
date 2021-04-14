@@ -168,6 +168,7 @@
    " Coloring {{{2
       Plug 'ap/vim-css-color'
       Plug 'rafi/awesome-vim-colorschemes'
+      Plug 'vim-scripts/Son-of-Obisidian'
 
       " ColorSchemes {{{3
          Plug 'vim-scripts/fu'
