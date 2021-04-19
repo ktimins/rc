@@ -113,6 +113,11 @@
       $proc | Wait-Process;
    }
 
+   Function Get-ChocolateyOutdatedPrograms {
+      $proc = Start-Process -FilePath "choco.exe" -ArgumentList @('Outdated') -NoNewWindow -PassThru;
+      $proc | Wait-Process;
+   }
+
    Function Start-CountdownTimer {
       <#
 
@@ -231,6 +236,7 @@
 
    Set-Alias which Get-Command;
    Set-Alias cupVim Upgrade-VimViaChoco;
+   Set-Alias cout Get-ChocolateyOutdatedPrograms;
 
 # }}}
 

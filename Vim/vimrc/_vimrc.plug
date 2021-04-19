@@ -8,9 +8,9 @@
 
    " MISC {{{2
       Plug 'godlygeek/tabular'
-      Plug 'vim-scripts/PatternsOnText'
-      Plug 'vim-scripts/marvim'
-      Plug 'scrooloose/vim-slumlord'
+      "Plug 'vim-scripts/PatternsOnText'
+      "Plug 'vim-scripts/marvim'
+      "Plug 'scrooloose/vim-slumlord'
       Plug 'andymass/vim-matchup'
       Plug 'maxbrunsfeld/vim-yankstack'
       Plug 'devjoe/vim-codequery'
