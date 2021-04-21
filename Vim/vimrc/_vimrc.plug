@@ -127,9 +127,14 @@
 
    " Completion {{{2
 
-      "Plug 'OmniSharp/omnisharp-vim'
       Plug 'prabirshrestha/asyncomplete.vim'
       Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+      " C# {{{3
+
+         "Plug 'OmniSharp/omnisharp-vim'
+
+      " }}}
 
       " LSP {{{3
 
@@ -138,6 +143,7 @@
          Plug 'mattn/vim-lsp-settings'
    
       " }}}
+
    " }}}
 
    " Movement {{{2
