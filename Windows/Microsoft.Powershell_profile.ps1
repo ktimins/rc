@@ -198,6 +198,21 @@
       }
    }
 
+   Function Execute-Shutdown {
+      param (
+            [Switch]$Full
+            );
+
+      $command = "";
+      if ($Full) {
+         $command = "cmd.exe /C $($env:windir)\System32\shutdown.exe /s /f /t 00";
+      } else {
+         $command = "cmd.exe /C $($env:windir)\System32\shutdown.exe /s /hybrid /f /t 00";
+      }
+
+      Invoke-Expression -Command:$command;
+   }
+
 # }}}
 
 # Console Display settings {{{1
