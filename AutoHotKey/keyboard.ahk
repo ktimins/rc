@@ -261,7 +261,7 @@ Return
 //           Plex           //
 //////////////////////////////
 
-IfWinActive, Plex
+#IfWinActive Plex
 {
 
    ^Left::^B
