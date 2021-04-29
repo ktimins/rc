@@ -41,7 +41,8 @@
          let s:running_windows = has('win16') || has ('win32') || has ('win64')
          let s:colorful_term = (&term =~? 'xterm') || (&term =~? 'screen')
 
-      " 
+      " Nocompatible - Make vim not compatible with old vi
+      set nocompatible
 
       " Leader
       let mapleader = ','
@@ -133,6 +134,12 @@
 
       " Set NOWRAP
       set nowrap
+
+   " }}}
+
+   " Vim-Polyglot {{{2
+
+   let g:polyglot_disabled = ['markdown']
 
    " }}}
 
