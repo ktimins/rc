@@ -70,8 +70,10 @@
          Plug 'elzr/vim-json'
       "}}}
       " MarkDown {{{3
+
          Plug 'gabrielelana/vim-markdown'
-         "Plug 'JamshedVesuna/vim-markdown-preview'
+         Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+
       "}}}
       " Razor Syntax {{{3
          Plug 'adamclerk/vim-razor'
