@@ -108,6 +108,14 @@
 
 # Custom Functions {{{1
 
+   Function New-File {
+      Param(
+            [Parameter(Mandatory=$True,Position=0,ValueFromPipeline=$True)]
+            [String]$Name
+           );
+      New-Item -ItemType File -Name $Name;
+   }
+
    Function Upgrade-VimViaChoco {
       $proc = Start-Process -FilePath "choco.exe" -ArgumentList @('Upgrade','vim-tux', "--ia=`"'/InstallPopUp /RestartExplorer'`"", '--svc', '--force') -NoNewWindow -PassThru;
       $proc | Wait-Process;
@@ -249,6 +257,13 @@
 
 # Aliases {{{1
 
+   # Remove System Aliases {{{2
+
+      Remove-Item alias:touch -Force;
+
+   #}}}
+
+   Set-Alias touch New-File;
    Set-Alias which Get-Command;
    Set-Alias cupVim Upgrade-VimViaChoco;
    Set-Alias cout Get-ChocolateyOutdatedPrograms;
