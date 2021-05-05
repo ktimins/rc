@@ -1,10 +1,13 @@
 Param(
       [Switch]$Resize,
       [Switch]$Slow,
-      [Switch]$Clear
+      [Switch]$Clear,
+      [int]$SleepTime = 5
      );
 
-$elapsed_time = 0;
+$elapsed_time = New-TimeSpan;
+$stopwatch = [System.Diagnostics.Stopwatch]::new();
+$formatTime = "{0:hh}h:{0:mm}m:{0:ss}s";
 
 Try {
 
@@ -23,14 +26,15 @@ Try {
 
    $start_time = Get-Date -UFormat %s; 
    $current_time = $start_time;
-   $elapsed_time = 0;
 
    $sleepSeconds = 5;
    If ($Slow) {
       $sleepSeconds = 30;
    }
 
-   Write-Host "I am awake!";
+   $stopwatch.Start();
+
+   Write-Host "Must stay awake!";
 
    Start-Sleep -Seconds 5;
 
@@ -50,21 +54,22 @@ Try {
       if ($count -eq 0) {
 
          $current_time = Get-Date -UFormat %s;
-         $elapsed_time = $current_time - $start_time;
+         $elapsed_time = $stopwatch.Elapsed;
 
-         Write-Host "I've been awake for "([System.Math]::Round(($elapsed_time / 60), 2))" minutes!";
+         Write-Host "I've been awake for $($formatTime -f $elapsed_time)!";
 
       } else { Write-Host "Must stay awake..." };
 
       $count ++;
 
-#Start-Sleep -Seconds 2.5;
       Wait-Event -Timeout $sleepSeconds;
 
    }
 
 } Finally {
 
-   Write-Host "I was awake for "([System.Math]::Round(($elapsed_time / 60), 2))" minutes!";
+   $stopwatch.Stop();
+   $elapsed_time = $stopwatch.Elapsed;
+   Write-Host "I've was awake for $($formatTime -f $elapsed_time)!";
 
 }
