@@ -105,6 +105,7 @@
       Plug 'wellle/visual-split.vim'
       Plug 'mhinz/vim-startify'
       Plug 'chrisbra/csv.vim'
+      Plug 'chrisbra/unicode.vim'
       Plug 'severin-lemaignan/vim-minimap'
       Plug 'myusuf3/numbers.vim'
       Plug 'skywind3000/vim-preview'
@@ -136,6 +137,12 @@
       " C# {{{3
 
          "Plug 'OmniSharp/omnisharp-vim'
+
+      " }}}
+
+      " COC.NVIM {{{3
+
+         Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
       " }}}
 
