@@ -1,0 +1,156 @@
+{
+  "id": "9fb79861-dcf1-4722-8cf4-a7e2590641df",
+  "name": "My Visual Studio extensions",
+  "description": "A collection of my Visual Studio extensions",
+  "version": "1.0",
+  "extensions": [
+    {
+      "name": "Align Assignments",
+      "vsixId": "AlignAssignments.41858b2d-ff0b-4a43-80b0-f1b2d6084935"
+    },
+    {
+      "name": "Azure Data Lake and Stream Analytics Tools",
+      "vsixId": "1e906ff5-9da8-4091-a299-5c253c55fdc9"
+    },
+    {
+      "name": "Cloud Explorer for VS 2019 Preview",
+      "vsixId": "Microsoft.VisualStudio.CloudExplorer.16.0"
+    },
+    {
+      "name": "CodeNav",
+      "vsixId": "CodeNav.Samir Boulema.19687465-dc94-413d-ad72-6141e90c94d4"
+    },
+    {
+      "name": "Color Theme Editor for Visual Studio 2019",
+      "vsixId": "VSColorThemeEditor.A8079E6E-373A-4C61-8A97-C8B72107906A"
+    },
+    {
+      "name": "Color Themes for Visual Studio",
+      "vsixId": "VSColorThemes.8643b166-c815-4f07-b9ec-64be1f7b8a59"
+    },
+    {
+      "name": "EntityFramework Reverse POCO Generator",
+      "vsixId": "EntityFramework_Reverse_POCO_Generator..d542a934-8bd6-4136-b490-5f0049d62033"
+    },
+    {
+      "name": "Extension Manager 2019",
+      "vsixId": "4a196712-2c3f-4730-ad1d-e7cda4185eb2"
+    },
+    {
+      "name": "Find in Solution Explorer",
+      "vsixId": "Tvl.VisualStudio.FindInSolutionExplorer.E528F3A5-318E-4F77-BC25-888236886F93"
+    },
+    {
+      "name": "Fix Mixed Tabs",
+      "vsixId": "FixMixedTabs.9f1d3050-b986-4b10-ae36-97c6efc5e968"
+    },
+    {
+      "name": "Git Diff Margin",
+      "vsixId": "GitDiffMargin..5ef9f816-d9ce-45cd-a8fa-cd67a807df0e"
+    },
+    {
+      "name": "Indent Guides",
+      "vsixId": "IndentGuide.SteveDower.0a67eb97-becd-451f-aa29-851d9fe5dd2b"
+    },
+    {
+      "name": "Live Share",
+      "vsixId": "Microsoft.VisualStudio.LiveShare"
+    },
+    {
+      "name": "Match Margin",
+      "vsixId": "MatchMargin.d85a25b5-f7b3-46a9-997e-a2d669dc2c93"
+    },
+    {
+      "name": "Middle Click Scroll",
+      "vsixId": "MiddleClickScroll.263a3239-a004-40e6-b790-4fd371832c85"
+    },
+    {
+      "name": "ML.NET Model Builder (Preview)",
+      "vsixId": "FE96D051-645F-4309-AE99-107A776B0DA2"
+    },
+    {
+      "name": "Monokai-night",
+      "vsixId": "monokai_night.e1e706e2-05d3-4da9-8754-652cd8ab65f4"
+    },
+    {
+      "name": "MonokaiVS",
+      "vsixId": "MonokaiVS.e1e706e2-05d3-4da9-8754-652cd8ab65f4"
+    },
+    {
+      "name": "Open In GVim",
+      "vsixId": "a69e33af-f9d6-4fce-b3b8-5e973a040a2b"
+    },
+    {
+      "name": "Peek Help",
+      "vsixId": "PeekHelp.51f43c96-8220-43bf-a922-390a361e7640"
+    },
+    {
+      "name": "Poor Man's T-Sql Formatter VS Extension 2019",
+      "vsixId": "5e84b709-1e60-4116-a702-4cdb1a282d6e"
+    },
+    {
+      "name": "Power Commands for Visual Studio",
+      "vsixId": "PowerCommands.3ecdd89b-f985-483d-8c94-be37de4dc083"
+    },
+    {
+      "name": "Productivity Power Tools 2017/2019",
+      "vsixId": "ProductivityPowerPack.0d5b9d71-e118-46de-a20c-555176e53900"
+    },
+    {
+      "name": "Quick Launch Tasks",
+      "vsixId": "QuickLaunchTasks"
+    },
+    {
+      "name": "Razor Generator",
+      "vsixId": "2FD58EB3-29A2-40A3-BE17-C024CA9A17A2"
+    },
+    {
+      "name": "Regex Tester",
+      "vsixId": "dcad2d98-1e91-4090-81a0-ec0641347bf8"
+    },
+    {
+      "name": "Relative Number",
+      "vsixId": "RelativeNumber.Microsoft.b75ccaea-70c1-475c-9cb7-ddb84ea9d43c"
+    },
+    {
+      "name": "Shrink Empty Lines",
+      "vsixId": "SyntacticLineCompression.4452fb8f-b348-49eb-9499-76669d3f9c75"
+    },
+    {
+      "name": "Smart Command Line Arguments",
+      "vsixId": "SmartCmdArgs.Markus B.9fb78f2a-71cb-4437-b32f-d875e376bacf"
+    },
+    {
+      "name": "Solution Error Visualizer",
+      "vsixId": "SolutionErrorVisualizer.a392f96b-6b33-4b53-b4bb-3376a05f986c"
+    },
+    {
+      "name": "Time Stamp Margin",
+      "vsixId": "TimeStampMargin.255e8b14-4a53-4eb7-89a7-7ab741c1f612"
+    },
+    {
+      "name": "TortoiseGit Toolbar",
+      "vsixId": "f388ee16-eef2-4ae1-85bd-4cb19151beb0"
+    },
+    {
+      "name": "Visual Studio Rich Navigation",
+      "vsixId": "Microsoft.VisualStudio.Navigation.RichCodeNav"
+    },
+    {
+      "name": "VSColorOutput",
+      "vsixId": "CD56B219-38CB-482A-9B2D-7582DF4AAF1E"
+    },
+    {
+      "name": "VsConsoleOutput",
+      "vsixId": "VsConsoleOutput.753a2975-4e4c-4067-9e9d-d2d5b867ec23"
+    },
+    {
+      "name": "VsVim",
+      "vsixId": "VsVim.Microsoft.e214908b-0458-4ae2-a583-4310f29687c3"
+    },
+    {
+      "name": "Web Live Preview (Preview)",
+      "vsixId": "Microsoft.WebTools.BrowserLink.WebLivePreview"
+    }
+  ]
+}
