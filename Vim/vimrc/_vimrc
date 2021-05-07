@@ -135,6 +135,11 @@
       " Set NOWRAP
       set nowrap
 
+      " Set rendering 
+      if s:running_windows
+         set renderoptions=type:directx
+      endif
+
    " }}}
 
    " Vim-Polyglot {{{2
@@ -204,15 +209,19 @@
 
          " Font
          try
-            " Prefer Anonymice Powerline. This is Anonymous Pro, but with Powerline hacks
-            set guifont=Source_Code_Pro:h11
+            set guifont=HackGenNerd_Console:h11:cANSI:qDRAFT
          catch
             try
-               " Else, get normal Anonymous Pro
-               set guifont=Anonymous_Pro:h11
+               " Prefer Anonymice Powerline. This is Anonymous Pro, but with Powerline hacks
+               set guifont=Source_Code_Pro:h11
             catch
-               " Failback to good old Courier New
-               set guifont=Courier_New:h11
+               try
+                  " Else, get normal Anonymous Pro
+                  set guifont=Anonymous_Pro:h11
+               catch
+                  " Failback to good old Courier New
+                  set guifont=Courier_New:h11
+               endtry
             endtry
          endtry
 

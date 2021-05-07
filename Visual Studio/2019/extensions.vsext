@@ -1,5 +1,5 @@
 {
-  "id": "9fb79861-dcf1-4722-8cf4-a7e2590641df",
+  "id": "ff5ca683-7fb4-4c92-b313-eade85fea756",
   "name": "My Visual Studio extensions",
   "description": "A collection of my Visual Studio extensions",
   "version": "1.0",
@@ -27,6 +27,14 @@
     {
       "name": "Color Themes for Visual Studio",
       "vsixId": "VSColorThemes.8643b166-c815-4f07-b9ec-64be1f7b8a59"
+    },
+    {
+      "name": "Copy As Html",
+      "vsixId": "CopyAsHtml.42374550-426a-400e-96f9-237682e8dea6"
+    },
+    {
+      "name": "Double-Click Maximize",
+      "vsixId": "DoubleClickMaximize.050825c2-33a4-4b7d-b3af-bd46bd99a265"
     },
     {
       "name": "EntityFramework Reverse POCO Generator",
@@ -85,10 +93,6 @@
       "vsixId": "PeekHelp.51f43c96-8220-43bf-a922-390a361e7640"
     },
     {
-      "name": "Poor Man's T-Sql Formatter VS Extension 2019",
-      "vsixId": "5e84b709-1e60-4116-a702-4cdb1a282d6e"
-    },
-    {
       "name": "Power Commands for Visual Studio",
       "vsixId": "PowerCommands.3ecdd89b-f985-483d-8c94-be37de4dc083"
     },
@@ -141,16 +145,16 @@
       "vsixId": "CD56B219-38CB-482A-9B2D-7582DF4AAF1E"
     },
     {
-      "name": "VsConsoleOutput",
-      "vsixId": "VsConsoleOutput.753a2975-4e4c-4067-9e9d-d2d5b867ec23"
-    },
-    {
       "name": "VsVim",
       "vsixId": "VsVim.Microsoft.e214908b-0458-4ae2-a583-4310f29687c3"
     },
     {
       "name": "Web Live Preview (Preview)",
       "vsixId": "Microsoft.WebTools.BrowserLink.WebLivePreview"
+    },
+    {
+      "name": "XML Comments",
+      "vsixId": "XMLCommentsVSIX.Philipps.36346776-0406-4368-9518-4fb7d48781fe"
     }
   ]
 }
