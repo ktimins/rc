@@ -12,7 +12,6 @@ $vimDir = New-Item -ItemType Directory -Name .vim;
 $vimstorageDir = New-Item -ItemType Directory -Name .vimstorage;
 $vimfilesDir = New-Item -ItemType Directory -Name vimfiles;
 $binDir = New-Item -ItemType Directory -Name bin;
-$gitDir = New-Item -ItemType Directory -Name Git;
 
 
 ###################
