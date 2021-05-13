@@ -1,9 +1,13 @@
 {
-  "id": "ff5ca683-7fb4-4c92-b313-eade85fea756",
+  "id": "25805b05-256f-4a7f-b9ed-5d10f813d277",
   "name": "My Visual Studio extensions",
   "description": "A collection of my Visual Studio extensions",
   "version": "1.0",
   "extensions": [
+    {
+      "name": ".ignore",
+      "vsixId": "7ac24965-ea21-4108-9cac-6e46394aaaef"
+    },
     {
       "name": "Align Assignments",
       "vsixId": "AlignAssignments.41858b2d-ff0b-4a43-80b0-f1b2d6084935"
@@ -31,6 +35,14 @@
     {
       "name": "Copy As Html",
       "vsixId": "CopyAsHtml.42374550-426a-400e-96f9-237682e8dea6"
+    },
+    {
+      "name": "Debug Time Search",
+      "vsixId": "5AA02891-7F8E-433D-9281-EF92F0934D45"
+    },
+    {
+      "name": "Diff All Files for VS2019",
+      "vsixId": "B4202C10-5715-1294-9DBA-15A319FF9EBF"
     },
     {
       "name": "Double-Click Maximize",
@@ -151,10 +163,6 @@
     {
       "name": "Web Live Preview (Preview)",
       "vsixId": "Microsoft.WebTools.BrowserLink.WebLivePreview"
-    },
-    {
-      "name": "XML Comments",
-      "vsixId": "XMLCommentsVSIX.Philipps.36346776-0406-4368-9518-4fb7d48781fe"
     }
   ]
 }
