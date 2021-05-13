@@ -226,14 +226,14 @@
    " }}}
 
    " Status Line {{{2
-      "Plug 'bling/vim-airline'
-      "Plug 'vim-airline/vim-airline-themes'
+      Plug 'bling/vim-airline'
+      Plug 'vim-airline/vim-airline-themes'
    " }}}
 
    " Tags {{{2
       Plug 'universal-ctags/ctags'
       Plug 'liuchengxu/vista.vim'
-      "Plug 'majutsushi/tagbar'
+      Plug 'majutsushi/tagbar'
       "Plug 'craigemery/vim-autotag'
    "}}}
 
