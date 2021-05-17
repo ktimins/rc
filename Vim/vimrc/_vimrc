@@ -65,6 +65,9 @@
 
       " }}}
 
+      " Auto Change directory to current buffer
+      autocmd BufEnter * silent! lcd %:p:h<cr>
+
    " }}}
 
    " VIM User Interface {{{2
@@ -234,10 +237,9 @@
          set guitablabel=%M\ %t
       else
          try
-            "colorscheme selenitic
-            colorscheme anderson
+            colorscheme zenburn
          catch
-            colorscheme archery
+            colorscheme molokai_dark
          endtry
 
       endif
@@ -728,6 +730,7 @@
    " Gundo {{{2
 
       noremap <F9> :GundoToggle<CR>
+      noremap <F8> :NERDTreeToggle<CR>
 
    " }}}
 
@@ -739,11 +742,10 @@
       augroup END
 
       noremap <C-n> :NERDTreeToggle<CR>
-      noremap <C-z> :UndotreeToggle<CR>
 
       " NerdTree-Git-Plugin {{{3
 
-         let g:NERDTreeIndicatorMapCustom = {
+         let g:NERDTreeGitStatusIndicatorMapCustom = {
             \ "Modified"  : "✹",
             \ "Staged"    : "✚",
             \ "Untracked" : "✭",
@@ -979,7 +981,8 @@
       let g:notes_word_boundaries = 1
       let g:notes_unicode_enabled = 1
       let g:notes_smart_quotes = 0
-      let g:notes_list_bulles = ['-', '*', '+']
+      "let g:notes_list_bulles = ['-', '*', '+']
+      let g:notes_list_bulles = ['•', '◦', '▸', '▹', '▪', '▫']
       let g:notes_conceal_code = 1
 
    " }}}

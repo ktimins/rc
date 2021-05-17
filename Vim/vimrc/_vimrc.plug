@@ -117,8 +117,6 @@
       Plug 'junegunn/goyo.vim'
       "Plug 'junegunn/limelight.vim'
       "Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
-      Plug 'psmay/vim-colors-palofobsidian'
-      Plug 'tlhr/anderson.vim'
 
       " Indentation {{{3
          "Plug 'nathanaelkane/vim-indent-guides'
@@ -185,12 +183,15 @@
 
    " Coloring {{{2
       Plug 'ap/vim-css-color'
-      Plug 'rafi/awesome-vim-colorschemes'
-      Plug 'vim-scripts/Son-of-Obisidian'
 
       " ColorSchemes {{{3
          Plug 'vim-scripts/fu'
          Plug 'vim-scripts/Selenitic'
+         "Plug 'rafi/awesome-vim-colorschemes'
+         Plug 'flazz/vim-colorschemes'
+         Plug 'vim-scripts/Son-of-Obisidian'
+         Plug 'psmay/vim-colors-palofobsidian'
+         Plug 'tlhr/anderson.vim'
       " }}}
 
    " }}}
@@ -233,7 +234,7 @@
    " Tags {{{2
       Plug 'universal-ctags/ctags'
       Plug 'liuchengxu/vista.vim'
-      Plug 'majutsushi/tagbar'
+      "Plug 'majutsushi/tagbar'
       "Plug 'craigemery/vim-autotag'
    "}}}
 
