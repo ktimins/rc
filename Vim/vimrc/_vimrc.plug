@@ -240,7 +240,7 @@
 
    " Tools {{{2
    
-      Plug 'vimwiki/vimwiki'
+   Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
       Plug 'xolox/vim-misc'
       Plug 'xolox/vim-notes'
       Plug 'rhysd/vim-healthcheck'

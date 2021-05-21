@@ -9,7 +9,7 @@ Begin {
 
    $elapsed_time = New-TimeSpan;
    $stopwatch = [System.Diagnostics.Stopwatch]::new();
-   $formatTime = "{0:hh}h:{0:mm}m:{0:ss}s";
+   $formatTime = "{0:dd}d {0:hh}h:{0:mm}m:{0:ss}s";
 
    If ($Clear) {
       Clear-Host;
