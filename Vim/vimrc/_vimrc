@@ -229,9 +229,19 @@
          " Hide the mouse cursor when typing
          set mousehide
 
+         " Bottom Scroll Bar
          set guioptions=b
-         set guioptions-=T
+
+         " Toolbar
+         set guioptions+=T
+
+         " System Menu
+         set guioptions+=m
+
+         " No Tab Pages by default
          set guioptions-=e
+
+         " Right Hand Scroll Bar
          set guioptions+=r
          set t_Co=256
          set guitablabel=%M\ %t
