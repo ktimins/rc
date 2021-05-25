@@ -52,7 +52,7 @@ Process {
 
       while($true) {
 
-         $shell.sendkeys("{NUMLOCK}{NUMLOCK}");
+         $shell.sendkeys("{SCROLLLOCK}{SCROLLLOCK}");
 
          if ($count -eq 8) {
 
