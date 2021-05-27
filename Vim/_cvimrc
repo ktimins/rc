@@ -28,7 +28,7 @@ unmap K R J E
 map dt nextTab
 map N nextTab
 map dT previousTab
-map K previousTab
+map E previousTab
 
 unmap L
 
