@@ -18,6 +18,7 @@
       Plug 'jiangmiao/auto-pairs'
       Plug 'vim-scripts/a.vim'
       " Games {{{3
+         Plug 'johngrib/vim-game-snake'
          Plug 'mmisono/viminesweeper'
       " }}}
    " }}}
@@ -183,6 +184,7 @@
 
    " Coloring {{{2
       Plug 'ap/vim-css-color'
+      Plug 'uguu-org/vim-matrix-screensaver'
 
       " ColorSchemes {{{3
          Plug 'vim-scripts/fu'
@@ -240,13 +242,14 @@
 
    " Tools {{{2
    
-   Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+      Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
       Plug 'xolox/vim-misc'
       Plug 'xolox/vim-notes'
       Plug 'rhysd/vim-healthcheck'
       Plug 'vim-scripts/utl.vim'
       Plug 'dpelle/vim-LanguageTool'
       Plug 'rhysd/vim-grammarous'
+      "Plug 'fmoralesc/vim-pad'
 
    "}}}
 

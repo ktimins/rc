@@ -233,10 +233,12 @@
          set guioptions=b
 
          " Toolbar
-         set guioptions+=T
+         "set guioptions+=T
+         set guioptions-=T
 
          " System Menu
-         set guioptions+=m
+         "set guioptions+=m
+         set guioptions-=m
 
          " No Tab Pages by default
          set guioptions-=e
