@@ -3,7 +3,11 @@
 " Vim-Plug {{{1
 
    " Preamble {{{2
+   if has("win32unix")
       call plug#begin('~/.vim/plugged')
+   else
+      call plug#begin('~/.vim/plugged')
+   endif
    " }}}
 
    " MISC {{{2

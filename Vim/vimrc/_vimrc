@@ -13,10 +13,17 @@
 
    " Location Stuff {{{2
       if $LOCATION ==? 'WORK'
-         let homedir = 'C:\Users\KTimins'
-         let $home = 'C:\Users\KTimins'
-         let $storage = 'C:\Users\KTimins\.vimstorage'
-         let $vimrc_plug = 'C:\Users\KTimins\_vimrc.plug'
+         if has("win32unix")
+            let homedir = '~'
+            let $home = '~'
+            let $storage = '~/.vimstorage'
+            let $vimrc_plug = '~/.vimrc.plug'
+         else
+            let homedir = 'C:\Users\KTimins'
+            let $home = 'C:\Users\KTimins'
+            let $storage = 'C:\Users\KTimins\.vimstorage'
+            let $vimrc_plug = 'C:\Users\KTimins\_vimrc.plug'
+         endif
       elseif $LOCATION ==? 'THEIA'
          let homedir = 'C:\Users\rzite'
          let $home = 'C:\Users\rzite'
@@ -251,13 +258,17 @@
          try
             colorscheme zenburn
          catch
-            colorscheme molokai_dark
+            try
+               colorscheme molokai_dark
+            catch 
+               colorscheme default
+            endtry
          endtry
 
       endif
 
       " Use Unix as the standard file type
-      set ffs=unix,dos,mac
+      set ffs=unix,dos
 
    " }}}
 
