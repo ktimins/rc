@@ -126,6 +126,34 @@
       $proc | Wait-Process;
    }
 
+   Function Remove-GitBranch {
+      Param(
+            [Parameter(Mandatory=$True,Position=0,ValueFromPipeline=$True)]
+            [String]$Branch,
+            [Parameter(Mandatory=$False,Position=1)]
+            [String]$Remote = "origin",
+            [Switch]$LocalOnly
+           );
+      $currentBranch = (git branch --show-current);
+      if ($currentBranch -imatch $Branch) {
+         Write-Error "Unable to continue. Current branch is the selected to delete branch `"$currentBranch`".";
+      } else {
+         $title = "Remove Git Branch `"$Branch`"";
+         $question = "Are you sure you want to remove git branch `"$Branch`"?";
+         $choices = '&Yes', '&No';
+
+         $decision = $Host.Ui.PromptForChoice($title, $question, $choices, 1);
+         if ($decision -eq 0) {
+            Write-Host "`nDeleting branch `"$Branch`" from local.`n";
+            git branch -D $Branch;
+            if (!$LocalOnly) {
+               Write-Host "`nDeleting branch `"$Branch`" from remote `"$Remote`".`n";
+               git push $Remote --delete $Branch;
+            }
+         }
+      }
+   }
+
    Function Start-CountdownTimer {
       <#
 
