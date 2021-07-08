@@ -94,6 +94,10 @@
          set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/bin/*,*/pkg/*,*/.vs/*,*/.localhistory/*
       endif
 
+      " Set Numbers
+      set number
+      "set relativenumber
+
       "Always show current position
       set ruler
 
@@ -797,7 +801,9 @@
 
    " Numbers {{{2
       
-      let g:numbers_exclude = ['__vista__', 'gundo', 'nerdtree', 'minimap']
+      let g:numbers_exclude = ['unite', 'tagbar', 'startify', 'gundo', 'vimshell', 'v3m', '__vista__', 'nerdtree', 'minimap']
+      nnoremap <leader>jf :NumbersToggle<CR>
+      nnoremap <leader>fj :NumbersOnOff<CR>
 
    " }}}
 
