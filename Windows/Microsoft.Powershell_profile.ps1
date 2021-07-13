@@ -16,6 +16,7 @@
    Import-Module PSCalendar;
    Import-Module Pscx;
    Import-Module PSExcel;
+   Import-Module PSFolderSize;
    Import-Module WriteAscii;
    if ($host.Name -eq 'ConsoleHost') {
       Import-Module PSReadline;
