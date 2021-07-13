@@ -132,17 +132,23 @@
             [String]$Branch,
             [Parameter(Mandatory=$False,Position=1)]
             [String]$Remote = "origin",
-            [Switch]$LocalOnly
+            [Switch]$LocalOnly,
+            [Switch]$Y
            );
       $currentBranch = (git branch --show-current);
       if ($currentBranch -imatch $Branch) {
          Write-Error "Unable to continue. Current branch is the selected to delete branch `"$currentBranch`".";
       } else {
-         $title = "Remove Git Branch `"$Branch`"";
-         $question = "Are you sure you want to remove git branch `"$Branch`"?";
-         $choices = '&Yes', '&No';
+         $decision = 1;
+         if ($Y) {
+            $decision = 0;
+         } else {
+            $title = "Remove Git Branch `"$Branch`"";
+            $question = "Are you sure you want to remove git branch `"$Branch`"?";
+            $choices = '&Yes', '&No';
 
-         $decision = $Host.Ui.PromptForChoice($title, $question, $choices, 1);
+            $decision = $Host.Ui.PromptForChoice($title, $question, $choices, 1);
+         }
          if ($decision -eq 0) {
             Write-Host "`nDeleting branch `"$Branch`" from local.`n";
             git branch -D $Branch;
