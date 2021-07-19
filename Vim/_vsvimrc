@@ -56,7 +56,6 @@
 
 " }}}
 
-
 " Text, Tab, and Indent related {{{1
 
    " Use spaces instead of tabs
@@ -118,6 +117,9 @@
 
    " Quickly open a markdown buffer for scribble
    map <leader>x :e ~/buffer.md<cr>
+
+   " nohl
+   nnoremap <Leader>n :nohl<cr>
 
 " }}}
 

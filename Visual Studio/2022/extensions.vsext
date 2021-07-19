@@ -1,0 +1,56 @@
+{
+  "id": "8ab16dbd-29bf-44ff-8d21-f6e065164432",
+  "name": "My Visual Studio extensions",
+  "description": "A collection of my Visual Studio extensions",
+  "version": "1.0",
+  "extensions": [
+    {
+      "name": "Collapse Level",
+      "vsixId": "CollapseLevel.Michał Wilski.9739fb10-2beb-4d62-b127-ab7b7646a060"
+    },
+    {
+      "name": "EF Core Power Tools",
+      "vsixId": "f4c4712c-ceae-4803-8e52-0e2049d5de9f"
+    },
+    {
+      "name": "ErrorHelper",
+      "vsixId": "ErrorHelper.e90a7159-7bf3-45f6-b3d5-e80fd5978133"
+    },
+    {
+      "name": "Extension Manager 2022",
+      "vsixId": "4a196712-2c3f-4730-ad1d-e7cda4185eb3"
+    },
+    {
+      "name": "File Icons",
+      "vsixId": "3a7b4930-a5fb-46ec-a9b8-9610c8f953b8"
+    },
+    {
+      "name": "Git Diff Margin",
+      "vsixId": "GitDiffMargin..5ef9f816-d9ce-45cd-a8fa-cd67a807df0e"
+    },
+    {
+      "name": "Goodnight Theme",
+      "vsixId": "Goodnight.e1e706e2-05d3-4da9-8754-652cd8ab65f4"
+    },
+    {
+      "name": "IndentRainbow",
+      "vsixId": "IndentRainbow.f05146ed-8025-4668-b7b1-8a74bd22b241"
+    },
+    {
+      "name": "Midnight Deep",
+      "vsixId": "MidnightDeep.e1e706e2-05d3-4da9-8754-652cd8ab65f4"
+    },
+    {
+      "name": "VS Theme Colors 2022",
+      "vsixId": "6ad27930-f7a1-4888-a172-c6fa4440e7a1"
+    },
+    {
+      "name": "VSColorOutput64",
+      "vsixId": "65dd734b-180a-4c67-b245-56de889637e1"
+    },
+    {
+      "name": "VsVim 2022 Preview",
+      "vsixId": "VsVim.Microsoft.e97cd707-324b-4e35-a669-eef8dae4b8cf"
+    }
+  ]
+}

@@ -198,6 +198,7 @@
          Plug 'vim-scripts/Son-of-Obisidian'
          Plug 'psmay/vim-colors-palofobsidian'
          Plug 'tlhr/anderson.vim'
+         Plug 'rakr/vim-one'
       " }}}
 
    " }}}
