@@ -1,4 +1,4 @@
 *PowerShell -new_console:t:"PowerShell":d:C:\Users\KTimins
 *PowerShell -new_console:t:"Countdown":d:C:\Users\KTimins -NoExit -Command "Start-EndOfWorkCountdownTimer -Minute ((Get-Date).Minute) -Toast;"
-*PowerShell -new_console:t:"Keep Awake":d:C:\Users\KTimins -NoExit -Command "Keep-Awake.ps1 -Clear -SleepTime 180;"
+*PowerShell -new_console:t:"Keep Awake":d:C:\Users\KTimins -NoExit -Command "Keep-Awake.ps1 -Clear -SleepTime 300;"
 *PowerShell -new_console:t:"PowerShell":d:C:\Users\KTimins -NoExit -Command "vim;"
