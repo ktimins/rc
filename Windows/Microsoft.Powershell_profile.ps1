@@ -4,6 +4,14 @@
    Set-ExecutionPolicy Unrestricted;
    $username = $env:USERNAME;
 
+   # {{{2
+      # Include variables
+      $varFile = (Join-Path -Path (Split-Path -Path $PROFILE -Parent) -ChildPath "Powershell_Variables.ps1");
+      if (Test-Path -Path $varFile) {
+      . $varFile;
+      }
+   # }}}
+
 # }}}
 
 # Modules {{{1
@@ -108,6 +116,10 @@
 # }}}
 
 # Custom Functions {{{1
+
+   Function Copy-DevEnvPasswd {
+      $DevEnvPasswd | Set-Clipboard;
+   }
 
    Function New-File {
       Param(
@@ -337,6 +349,7 @@ function Get-NTPDateTime
    Set-Alias which Get-Command;
    Set-Alias cupVim Upgrade-VimViaChoco;
    Set-Alias cout Get-ChocolateyOutdatedPrograms;
+   Set-Alias devPasswd Copy-DevEnvPasswd;
 
 # }}}
 
