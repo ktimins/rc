@@ -1064,6 +1064,13 @@
       
       " }}}
 
+      " SQL {{{3
+         augroup sql
+            au FileType sql vnoremap <Leader>rp :s/\<update\>\\|\<select\>\\|\<from\>\\|\<where\>\\|\<join\>\\|\<on\>\\|\<as\>\\|\<left join\>\\|\<inner join\>\\|\<group by\>\\|\<order by\>\\|\<distinct\>\\|\<top\>\\|\<like\>\\|\<begin\>\\|\<trans\>\\|\<transaction\>\\|\<commit\>\\|\<rollback\>\\|\<declare\>\\|\<set\>/\U&/ge<cr><esc>
+         augroup END
+
+      " }}}
+
       " Python {{{3
 
          augroup python

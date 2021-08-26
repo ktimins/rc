@@ -54,7 +54,11 @@
       Plug 'Vimjas/vim-python-pep8-indent'
       Plug 'JayDoubleu/vim-pwsh-formatter'
       Plug 's3rvac/AutoFenc'
-      Plug 'vim-scripts/SQLUtilities'
+
+      " SQL {{{3
+         Plug 'vim-scripts/SQLUtilities'
+         "Plug 'jsborjesson/vim-uppercase-sql'
+      " }}}
    " }}}
 
    " Checkers {{{2
@@ -93,7 +97,6 @@
    " }}}
 
    " Execution {{{2
-      "Plug 'shougo/vimproc.vim'
 
       " Testing {{{3
 
