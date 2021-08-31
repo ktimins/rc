@@ -254,6 +254,7 @@
       Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
       Plug 'xolox/vim-misc'
       Plug 'xolox/vim-notes'
+      Plug 'aserebryakov/vim-todo-lists'
       Plug 'rhysd/vim-healthcheck'
       Plug 'vim-scripts/utl.vim'
       Plug 'dpelle/vim-LanguageTool'
