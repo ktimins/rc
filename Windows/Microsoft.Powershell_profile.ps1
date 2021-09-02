@@ -18,14 +18,13 @@
 
    Import-Module BurntToast;
    Import-Module cowsay;
-   Import-Module oh-my-posh;
    Import-Module posh-git;
    Import-Module PowerShellGet;
    Import-Module PSCalendar;
    Import-Module Pscx;
    Import-Module PSExcel;
    Import-Module PSFolderSize;
-   Import-Module Teminal-Icons;
+   Import-Module Terminal-Icons;
    Import-Module WriteAscii;
    if ($host.Name -eq 'ConsoleHost') {
       Import-Module PSReadline;
@@ -35,6 +34,14 @@
 
       Import-Module AdvancedHistory;
       Enable-AdvancedHistory;
+
+   # }}}
+
+   # Oh-My-Posh {{{2
+
+      Import-Module oh-my-posh;
+      #Set-PoshPrompt -Theme C:\Users\KTimins\powerline_custom.omp.json
+      Set-PoshPrompt -Theme slimfat
 
    # }}}
 
