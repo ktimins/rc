@@ -25,6 +25,7 @@
    Import-Module Pscx;
    Import-Module PSExcel;
    Import-Module PSFolderSize;
+   Import-Module Teminal-Icons;
    Import-Module WriteAscii;
    if ($host.Name -eq 'ConsoleHost') {
       Import-Module PSReadline;
@@ -119,6 +120,18 @@
 
    Function Copy-DevEnvPasswd {
       $DevEnvPasswd | Set-Clipboard;
+   }
+
+   Function Kill-Process {
+      Param(
+            [string]$Name
+           );
+      try {
+         $proc = Get-Process -Name $Name -ErrorAction Stop;
+         $proc | Stop-Process -ErrorAction Stop;
+      } catch {
+         Write-Host "Failed to kill '$Name'" -ForegroundColor Red;
+      }
    }
 
    Function New-File {

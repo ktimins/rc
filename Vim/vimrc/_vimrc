@@ -221,18 +221,22 @@
 
          " Font
          try
-            set guifont=HackGenNerd_Console:h11:cANSI:qDRAFT
+            set guifont=Caskaydia_Nerd_Font_Mono:h10:cANSI:qDRAFT
          catch
             try
                " Prefer Anonymice Powerline. This is Anonymous Pro, but with Powerline hacks
-               set guifont=Source_Code_Pro:h11
+               set guifont=HackGenNerd_Console:h11:cANSI:qDRAFT
             catch
                try
                   " Else, get normal Anonymous Pro
-                  set guifont=Anonymous_Pro:h11
+                  set guifont=Source_Code_Pro:h11
                catch
-                  " Failback to good old Courier New
-                  set guifont=Courier_New:h11
+                  try
+                     " Failback to good old Courier New
+                     set guifont=Anonymous_Pro:h11
+                  catch
+                     set guifont=Courier_New:h11
+                  endtry
                endtry
             endtry
          endtry
