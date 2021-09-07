@@ -1,7 +1,7 @@
 # vim:fdm=marker
 
 # Basic {{{1
-   Set-ExecutionPolicy Unrestricted;
+   Set-ExecutionPolicy Bypass;
    $username = $env:USERNAME;
 
    # {{{2
@@ -17,7 +17,7 @@
 # Modules {{{1
 
    Import-Module BurntToast;
-   Import-Module cowsay;
+   Import-Module CowsaySharp;
    Import-Module posh-git;
    Import-Module PowerShellGet;
    Import-Module PSCalendar;
@@ -40,8 +40,8 @@
    # Oh-My-Posh {{{2
 
       Import-Module oh-my-posh;
-      #Set-PoshPrompt -Theme C:\Users\KTimins\powerline_custom.omp.json
-      Set-PoshPrompt -Theme slimfat
+      Set-PoshPrompt -Theme C:\Users\KTimins\oh_my_posh_theme-custom.omp.json
+      #Set-PoshPrompt -Theme slimfat
 
    # }}}
 
@@ -353,7 +353,7 @@ function Get-NTPDateTime
    Clear-Host;
    $PSVers = "$($PSVersionTable.PSVersion.Major).$($PSVersionTable.PSVersion.Minor)";
    $welcome = $env:USERNAME + ": Welcome to Powershell v" + $PSVers + ".";
-   cowsay $welcome;
+   cowthink -r $welcome | lolcat;
 
 # }}}
 
