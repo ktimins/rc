@@ -18,12 +18,14 @@
 
    Import-Module BurntToast;
    Import-Module CowsaySharp;
-   Import-Module posh-git;
    Import-Module PowerShellGet;
+   Import-Module posh-git;
+   Import-Module PoshRSJob;
    Import-Module PSCalendar;
    Import-Module Pscx;
    Import-Module PSExcel;
    Import-Module PSFolderSize;
+   Import-Module PSWriteHTML;
    Import-Module Terminal-Icons;
    Import-Module WriteAscii;
    if ($host.Name -eq 'ConsoleHost') {
