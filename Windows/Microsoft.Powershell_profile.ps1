@@ -354,7 +354,7 @@ function Get-NTPDateTime
 
    Clear-Host;
    $PSVers = "$($PSVersionTable.PSVersion.Major).$($PSVersionTable.PSVersion.Minor)";
-   $welcome = $env:USERNAME + ": Welcome to Powershell v" + $PSVers + ".";
+   $welcome = "$env:USERNAME: Welcome to Powershell $($PSVersionTable.PSEdition) v$PSVers.";
    cowthink -r $welcome | lolcat;
 
 # }}}

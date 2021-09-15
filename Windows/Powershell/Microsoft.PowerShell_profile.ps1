@@ -354,8 +354,8 @@
 # Start Up - Welcome Message {{{1
 
    Clear-Host;
-   $PSVers = "$($PSVersionTable.PSVersion.Major).$($PSVersionTable.PSVersion.Minor).$($PSVersionTable.PSVersion.Patch) - $($PSVersionTable.PSEdition)";
-   $welcome = "$env:USERNAME: Welcome to Powershell v$PSVers.`n";
+   $PSVers = "$($PSVersionTable.PSVersion.Major).$($PSVersionTable.PSVersion.Minor).$($PSVersionTable.PSVersion.Patch)";
+   $welcome = "$env:USERNAME: Welcome to Powershell $($PSVersionTable.PSEdition) v$PSVers.";
    cowthink -r $welcome | lolcat;
 
 # }}}
