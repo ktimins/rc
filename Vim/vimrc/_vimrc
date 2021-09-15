@@ -507,7 +507,8 @@
       let g:startify_bookmarks = [ 
                \ {'v': 'C:/Users/KTimins/Git/rc/Vim/vimrc/_vimrc'}, 
                \ {'b': 'C:/Users/KTimins/Git/rc/Vim/vimrc/_vimrc.plug'}, 
-               \ {'p': 'C:/Users/KTimins/Git/rc/Windows/Microsoft.Powershell_profile.ps1'} 
+               / {'p': 'C:/Users/KTimins/OneDrive - lazparking.com/Documents/PowerShell/Microsoft.PowerShell_profile.ps1'}
+               \ {'m': 'C:/Users/KTimins/Git/rc/Windows/Microsoft.Powershell_profile.ps1'} 
                \ ]
    elseif $LOCATION ==? 'THEIA'
       let g:startify_bookmarks = [ 

@@ -152,7 +152,7 @@
    }
 
    Function Upgrade-VimViaChoco {
-      $proc = Start-Process -FilePath "choco.exe" -ArgumentList @('Upgrade','vim-tux', "--ia=`"'/InstallPopUp /RestartExplorer'`"", '--svc', '--force') -NoNewWindow -PassThru;
+      $proc = Start-Process -FilePath "choco.exe" -ArgumentList @('Upgrade','vim', "--params=`"'/NoDesktopShortcuts /RestartExplorer'`"", '--svc') -NoNewWindow -PassThru;
       $proc | Wait-Process;
    }
 
