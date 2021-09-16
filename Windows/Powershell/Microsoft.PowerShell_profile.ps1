@@ -269,7 +269,7 @@
       Clear-Host; 
       $endTime = ((Get-Date -Hour $Hour -Minute $Minute -Second $Second -Millisecond $Millisecond) + (New-TimeSpan -Hours $Length));
       $ts =(New-TimeSpan -End ($endTime)); 
-      Write-Host (" {0}{1} " -f $(" " * 46), $endTime.ToString("yyyy-MM-dd hh:mm:ss"));
+      Write-Host (" {0}{1} " -f $(" " * 46), $endTime.ToString("yyyy-MM-dd HH:mm:ss"));
       Start-CountdownTimer -Hours $ts.Hours -Minutes $ts.Minutes -Seconds $ts.Seconds;
       If ($Toast) {
          New-BurntToastNotification -Text "TIME TO LEAVE!";
