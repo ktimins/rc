@@ -87,7 +87,7 @@
       "}}}
       " Razor Syntax {{{3
          "Plug 'adamclerk/vim-razor'
-         Plug 'jlcrochet/vim-razor'
+         "Plug 'jlcrochet/vim-razor'
       "}}}
       " XML / XPath {{{3
          Plug 'actionshrimp/vim-xpath'
