@@ -1100,8 +1100,8 @@
            au FileType json set softtabstop=4 tabstop=4
            au FileType json set expandtab 
            au FileType json set foldmethod=syntax 
-           au FileType json nnoremap <leader> jq :%! jq --indent 4 .<CR>
-           au FileType json com! FormatJson %! jq --indent 4 .<CR>
+           au FileType json nnoremap <leader> jq :%! jq .<CR>
+           au FileType json com! FormatJson %! jq  .<CR>
          augroup END
 
       " }}}
