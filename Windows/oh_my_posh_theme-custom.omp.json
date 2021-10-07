@@ -5,7 +5,7 @@
       "alignment": "left",
       "segments": [
         {
-          "background": "#2f2f2f",
+          "background": "#101010",
           "foreground": "#26C6DA",
           "leading_diamond": "▓",
           "properties": {
@@ -32,7 +32,7 @@
           "type": "os"
         },
         {
-          "background": "#2f2f2f",
+          "background": "#101010",
           "foreground": "#fafafa",
           "properties": {
             "display_default": false,
@@ -46,7 +46,7 @@
           "type": "session"
         },
         {
-          "background": "#2f2f2f",
+          "background": "#101010",
           "foreground": "#ffff66",
           "properties": {
             "postfix": "<#7a7a7a> </>",
@@ -56,7 +56,7 @@
           "type": "root"
         },
         {
-          "background": "#2f2f2f",
+          "background": "#101010",
           "foreground": "#fafafa",
           "properties": {
             "enable_hyperlink": false,
@@ -68,7 +68,7 @@
           "type": "path"
         },
         {
-          "background": "#2f2f2f",
+          "background": "#101010",
           "foreground": "#ffeb3b",
           "properties": {
             "ahead_color": "#2EC4B6",
@@ -87,7 +87,7 @@
           "type": "git"
         },
         {
-          "background": "#2f2f2f",
+          "background": "#101010",
           "foreground": "#fafafa",
           "properties": {
             "postfix": "",
@@ -105,7 +105,7 @@
       "alignment": "right",
       "segments": [
         {
-          "background": "#2f2f2f",
+          "background": "#101010",
           "foreground": "#fafafa",
           "leading_diamond": "",
           "properties": {
@@ -117,7 +117,7 @@
           "type": "text"
         },
         {
-          "background": "#2f2f2f",
+          "background": "#101010",
           "foreground": "#6CA35E",
           "properties": {
             "postfix": "<#7a7a7a> </>",
@@ -127,7 +127,7 @@
           "type": "node"
         },
         {
-          "background": "#2f2f2f",
+          "background": "#101010",
           "foreground": "#96E072",
           "properties": {
             "postfix": "<#7a7a7a> </>",
@@ -137,7 +137,7 @@
           "type": "python"
         },
         {
-          "background": "#2f2f2f",
+          "background": "#101010",
           "foreground": "#3891A6",
           "properties": {
             "postfix": "<#7a7a7a> </>",
@@ -147,7 +147,7 @@
           "type": "dotnet"
         },
         {
-          "background": "#2f2f2f",
+          "background": "#101010",
           "foreground": "#fafafa",
           "properties": {
             "postfix": "<#007ACC>  </>",
