@@ -38,7 +38,7 @@ Process {
 
       $stopwatch.Start();
 
-      "Sleep Time: $($SleepTime) seconds" | Write-Output;
+      #"Sleep Time: $($SleepTime) seconds" | Write-Output;
 
       $firstSleepTime = 5;
 
@@ -46,7 +46,7 @@ Process {
          $firstSleepTime = $SleepTime;
       }
 
-      Start-Sleep -Seconds $firstSleepTime;
+      #Start-Sleep -Seconds $firstSleepTime;
 
       $count = 0;
 
@@ -66,6 +66,7 @@ Process {
             $current_time = Get-Date -UFormat %s;
             $elapsed_time = $stopwatch.Elapsed;
 
+            "Sleep Time: $($SleepTime) seconds" | Write-Output;
             Write-Host "I've been awake for $($formatTime -f $elapsed_time)!";
 
          } else { Write-Host "Must stay awake..." };
