@@ -128,6 +128,10 @@
 
 # Custom Functions {{{1
 
+   Function Open-ExplorerHere {
+      & explorer.exe .;
+   }
+
    Function Copy-DevEnvPasswd {
       $DevEnvPasswd | Set-Clipboard;
    }
@@ -153,7 +157,7 @@
    }
 
    Function Upgrade-VimViaChoco {
-      $proc = Start-Process -FilePath "choco.exe" -ArgumentList @('Upgrade','vim', "--params=`"'/NoDesktopShortcuts /RestartExplorer'`"", '--svc') -NoNewWindow -PassThru;
+      $proc = Start-Process -FilePath "choco.exe" -ArgumentList @('Upgrade','vim', "--params=`"'/NoDesktopShortcuts'`"", '--svc') -NoNewWindow -PassThru;
       $proc | Wait-Process;
    }
 
@@ -638,6 +642,7 @@
    Set-Alias cupVim Upgrade-VimViaChoco;
    Set-Alias cout Get-ChocolateyOutdatedPrograms;
    Set-Alias devPasswd Copy-DevEnvPasswd;
+   Set-Alias exp Open-ExplorerHere;
 
 # }}}
 
