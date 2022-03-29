@@ -82,7 +82,7 @@
       " MarkDown {{{3
 
          Plug 'gabrielelana/vim-markdown'
-         Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+         "Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 
       "}}}
       " Razor Syntax {{{3

@@ -1,7 +1,7 @@
 " Settings
 set noautofocus " The opposite of autofocus; this setting stops
                 " sites from focusing on an input box when they load
-let blacklists = ["*://youtube.com/*"]
+let blacklists = ["*://youtube.com/*","https://localhost/*","https://my.adp.com/*","*://lazparking0-my.sharepoint.com/*"]
 set typelinkhints
 " alias ':g' to ':tabnew google'
 command g tabnew google

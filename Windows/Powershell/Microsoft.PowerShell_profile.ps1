@@ -136,6 +136,10 @@
       $DevEnvPasswd | Set-Clipboard;
    }
 
+   Function Get-PrintPassCode {
+      "Your Print Pass Code is: $PrintPassCode" | Write-Output;
+   }
+
    Function Kill-Process {
       Param(
             [string]$Name
@@ -595,6 +599,12 @@
        $result;
    }
 
+   Function Set-SsmsDarkMode {
+      Invoke-Expression (Get-Content 'C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\ssms.pkgundef') 
+         -replace '\[\`$RootKey\`$\\Themes\\{1ded0138-47ce-435e-84ef-9ec1f439b749}\]', '//[`$RootKey`$\Themes\{1ded0138-47ce-435e-84ef-9ec1f439b749}]' | 
+      Out-File 'C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\ssms.pkgundef';
+   }
+
 # }}}
 
 # Console Display settings {{{1
@@ -642,6 +652,7 @@
    Set-Alias cupVim Upgrade-VimViaChoco;
    Set-Alias cout Get-ChocolateyOutdatedPrograms;
    Set-Alias devPasswd Copy-DevEnvPasswd;
+   Set-Alias printCode Get-PrintPassCode;
    Set-Alias exp Open-ExplorerHere;
 
 # }}}
