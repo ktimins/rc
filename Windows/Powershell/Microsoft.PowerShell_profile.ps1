@@ -272,7 +272,7 @@
    Function Start-EndOfWorkCountdownTimer {
       param (
             [int]$Hour = 8,
-            [int]$Minute = 45,
+            [int]$Minute = 0,
             [int]$Second = 0,
             [int]$Millisecond = 0,
             [int]$Length = 8,
