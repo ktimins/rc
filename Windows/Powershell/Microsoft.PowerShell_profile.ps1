@@ -128,6 +128,10 @@
 
 # Custom Functions {{{1
 
+   Function Update-PythonPackages {
+      pip freeze | %{$_.split('==')[0]} | %{pip install --upgrade $_}
+   }
+
    Function Open-ExplorerHere {
       & explorer.exe .;
    }
