@@ -1057,6 +1057,13 @@
 
    " }}}
 
+   " auto-pairs {{{2
+
+      " Set the values to autopair.
+      let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '```':'```', '"""':'"""', "'''":"'''"}
+
+   " }}}
+
    " Languages {{{2
 
       " All Languages {{{3

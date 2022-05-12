@@ -128,6 +128,18 @@
 
 # Custom Functions {{{1
 
+   Function Get-BCUserauthStatus {
+      &  sc \\bccode query "MicrosoftDynamicsNavServer`$BC_userauth";
+   }
+
+   Function Start-BCUserauth {
+      & sc \\bccode start "MicrosoftDynamicsNavServer`$BC_userauth";
+   }
+
+   Function Stop-BCUserauth {
+      & sc \\bccode stop "MicrosoftDynamicsNavServer`$BC_userauth"
+   }
+
    Function Update-PythonPackages {
       pip freeze | %{$_.split('==')[0]} | %{pip install --upgrade $_}
    }
@@ -138,6 +150,10 @@
 
    Function Copy-DevEnvPasswd {
       $DevEnvPasswd | Set-Clipboard;
+   }
+
+   Function Get-ct100ssql3 {
+      $ct100ssqlInfo;
    }
 
    Function Get-PrintPassCode {
@@ -205,6 +221,30 @@
                git push $Remote --delete $Branch;
             }
          }
+      }
+   }
+
+   Function Set-GitUpstreamBranch {
+      Param(
+            [Parameter(Mandatory=$False)]
+            [String]$Branch = (git branch --show-current),
+            [Switch]$Y
+           );
+
+      $decision = 1;
+      if ($Y) {
+         $decision = 0;
+      } else {
+         $title = "Set Upstream branch to `"$Branch`"";
+         $question = "You want to set the upstream branch to `"$Branch`"?";
+         $choices = '&Yes', '&No';
+
+         $decision = $Host.Ui.PromptForChoice($title, $question, $choices, 1);
+      }
+
+      if ($decision -eq 0) {
+          Write-Host "`nSetting Upstream branch to `"$Branch`"`n";
+          git push --set-upstream origin $Branch;
       }
    }
 
