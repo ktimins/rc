@@ -160,6 +160,17 @@
       "Your Print Pass Code is: $PrintPassCode" | Write-Output;
    }
 
+   Function Get-Utc {
+      Param(
+            [switch]$String
+           );
+      if ($String) {
+         Get-Date -AsUTC -Format "yyyy-MM-ddTHH:mm:ss.ffffffZ";
+      } else {
+         Get-Date -AsUTC;
+      }
+   }
+
    Function Kill-Process {
       Param(
             [string]$Name

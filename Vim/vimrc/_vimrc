@@ -499,6 +499,9 @@
       " Quickly open a markdown buffer for scribble
       map <leader>x :e ~/buffer.md<cr>
 
+      " nohl
+      nnoremap <leader>n :nohl<cr>
+
    " }}}
 
    " Startify {{{2
@@ -740,10 +743,14 @@
    " Indentline {{{2
 
       let g:indentLine_setColors = 0
-      let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-
       let g:indentLine_bufNameExclude = ['Nerd_tree.*', '__vista__']
       let g:indentLine_bufTypeExclude = ['startify']
+
+      if has("gui_running")
+         let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+      else
+         let g:indentLine_char_list = ['|']
+      endif
 
    "}}}
 
@@ -1009,13 +1016,17 @@
    " Vim-Notes {{{2
 
       let g:notes_directories = ['~/Documents/vim-notes']
-      let g:notes_suffix = '.vnotes'
+      let g:notes_suffix = '.md'
       let g:notes_word_boundaries = 1
       let g:notes_unicode_enabled = 1
       let g:notes_smart_quotes = 0
-      "let g:notes_list_bulles = ['-', '*', '+']
-      let g:notes_list_bulles = ['•', '◦', '▸', '▹', '▪', '▫']
       let g:notes_conceal_code = 1
+
+      if has("gui_running")
+         let g:notes_list_bullets = ['•', '◦', '▸', '▹', '▪', '▫']
+      else
+         let g:notes_list_bullets = ['-', '*', '+']
+      endif
 
    " }}}
 

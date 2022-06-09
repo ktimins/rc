@@ -120,7 +120,7 @@
       Plug 'skywind3000/vim-preview'
       Plug 'vim-scripts/visSum.vim'
       Plug 'dhruvasagar/vim-zoom'
-      Plug 'thinca/vim-fontzoom'
+      "Plug 'thinca/vim-fontzoom'
       Plug 'machakann/vim-highlightedyank'
       Plug 'bpstahlman/txtfmt'
       Plug 'vim-voom/VOoM'

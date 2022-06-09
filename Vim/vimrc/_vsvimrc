@@ -103,6 +103,8 @@
    nnoremap <leader>sa zg
    nnoremap <leader>s? z=
 
+" }}}
+
 " Misc {{{1
 
    " Remove the Windows ^M - when the encodings gets messed up
