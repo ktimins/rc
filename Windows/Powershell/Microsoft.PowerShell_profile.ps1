@@ -143,7 +143,9 @@
          $fileName = "Migration";
       }
 
-      "Region, Total, Admin, Lease, Managed, Insurance" > "$fileName.csv";
+      $filePath = (Join-Path -Path $TempPath -ChildPath "$fileName.csv");
+
+      "Region, Total, Admin, Lease, Managed, Insurance" > $filePath;
       $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]";
       $headers.Add("Authorization", "Basic $BcPasswd")
          $headers.Add("Content-Type", "application/json");
@@ -157,7 +159,7 @@
          $l = ($response.value | Where-Object { Select-String -Pattern "^[lL]$regStr\d{3}$"  -InputObject $_.code.ToUpper() }).count;
          $m = ($response.value | Where-Object { Select-String -Pattern "^[mM]$regStr\d{3}$"  -InputObject $_.code.ToUpper() }).count;
          $i = ($response.value | Where-Object { Select-String -Pattern "^[iI]$regStr\d{3}$"  -InputObject $_.code.ToUpper() }).count;
-         "$regStr, $val, $a, $l, $m, $i" >> "$fileName.csv";
+         "$regStr, $val, $a, $l, $m, $i" >> $filePath;
       }
    }
 
