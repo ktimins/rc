@@ -128,6 +128,39 @@
 
 # Custom Functions {{{1
 
+   Function Get-BcLocationCounts {
+      Param(
+            [switch]$Migration
+           );
+
+      $mig = 'f598f114-2e76-ec11-83a8-005056a922d8';
+      $sandbox1 = '323a17e1-ddb9-ec11-83b1-005056a922d8';
+
+      $company = $sandbox1;
+      $fileName = "Sandbox1";
+      if ($Migration) {
+         $company = $mig;
+         $fileName = "Migration";
+      }
+
+      "Region, Total, Admin, Lease, Managed, Insurance" > "$fileName.csv";
+      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]";
+      $headers.Add("Authorization", "Basic $BcPasswd")
+         $headers.Add("Content-Type", "application/json");
+      $response = Invoke-RestMethod "https://10.0.1.64:7248/BC_userauth/api/lazparking/e2/v1.0/companies($company)/parkings" -Method 'GET' -Headers $headers -SkipCertificateCheck;
+      foreach ($reg in 0..50) {
+         $regStr = $reg.ToString().PadLeft(2, '0');
+         $regStr | Write-Host;
+
+         $val = ($response.value | Where-Object { Select-String -Pattern "^[aAlLmMiI]$regStr\d{3}$"  -InputObject $_.code.ToUpper() }).count;
+         $a = ($response.value | Where-Object { Select-String -Pattern "^[aA]$regStr\d{3}$"  -InputObject $_.code.ToUpper() }).count;
+         $l = ($response.value | Where-Object { Select-String -Pattern "^[lL]$regStr\d{3}$"  -InputObject $_.code.ToUpper() }).count;
+         $m = ($response.value | Where-Object { Select-String -Pattern "^[mM]$regStr\d{3}$"  -InputObject $_.code.ToUpper() }).count;
+         $i = ($response.value | Where-Object { Select-String -Pattern "^[iI]$regStr\d{3}$"  -InputObject $_.code.ToUpper() }).count;
+         "$regStr, $val, $a, $l, $m, $i" >> "$fileName.csv";
+      }
+   }
+
    Function Get-BCUserauthStatus {
       &  sc \\bccode query "MicrosoftDynamicsNavServer`$BC_userauth";
    }
