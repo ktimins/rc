@@ -1015,7 +1015,7 @@
 
    " Vim-Notes {{{2
 
-      let g:notes_directories = ['~/Documents/vim-notes']
+      let g:notes_directories = ['~/vim-notes']
       let g:notes_suffix = '.md'
       let g:notes_word_boundaries = 1
       let g:notes_unicode_enabled = 1
