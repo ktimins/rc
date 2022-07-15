@@ -766,8 +766,7 @@
 
    " Gundo {{{2
 
-      noremap <F9> :GundoToggle<CR>
-      noremap <F8> :NERDTreeToggle<CR>
+      "noremap <F9> :GundoToggle<CR>
 
    " }}}
 
@@ -778,6 +777,7 @@
          au StdinReadPre * let s:std_in=1
       augroup END
 
+      noremap <F8> :NERDTreeToggle<CR>
       noremap <C-n> :NERDTreeToggle<CR>
 
       " NerdTree-Git-Plugin {{{3
@@ -1015,18 +1015,18 @@
 
    " Vim-Notes {{{2
 
-      let g:notes_directories = ['~/vim-notes']
-      let g:notes_suffix = '.md'
-      let g:notes_word_boundaries = 1
-      let g:notes_unicode_enabled = 1
-      let g:notes_smart_quotes = 0
-      let g:notes_conceal_code = 1
+      "let g:notes_directories = ['~/vim-notes']
+      "let g:notes_suffix = '.md'
+      "let g:notes_word_boundaries = 1
+      "let g:notes_unicode_enabled = 1
+      "let g:notes_smart_quotes = 0
+      "let g:notes_conceal_code = 1
 
-      if has("gui_running")
-         let g:notes_list_bullets = ['•', '◦', '▸', '▹', '▪', '▫']
-      else
-         let g:notes_list_bullets = ['-', '*', '+']
-      endif
+      "if has("gui_running")
+         "let g:notes_list_bullets = ['•', '◦', '▸', '▹', '▪', '▫']
+      "else
+         "let g:notes_list_bullets = ['-', '*', '+']
+      "endif
 
    " }}}
 

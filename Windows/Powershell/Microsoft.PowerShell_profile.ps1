@@ -128,6 +128,24 @@
 
 # Custom Functions {{{1
 
+   Function Get-WebsiteStatusCode {
+      Param(
+            [Parameter(Mandatory=$True,Position=0,ValueFromPipeline=$True)]
+            [string]$Url
+           );
+
+      try{
+         $req = Invoke-WebRequest -URI $Url;
+         Write-output    "Status Code -- $($req.StatusCode)";
+      } catch{
+         Write-Output "Status Code --- $($_.Exception.Response.StatusCode.Value__)";
+      }
+   }
+
+   Function Get-E2ProdStatusCode {
+      Get-WebsiteStatusCode -Url $E2_URL;
+   }
+
    Function Get-BcLocationCounts {
       Param(
             [switch]$Migration
@@ -744,6 +762,7 @@
    Set-Alias devPasswd Copy-DevEnvPasswd;
    Set-Alias printCode Get-PrintPassCode;
    Set-Alias exp Open-ExplorerHere;
+   Set-Alias Test-E2Prod Get-E2ProdStatusCode;
 
 # }}}
 
