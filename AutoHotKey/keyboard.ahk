@@ -151,7 +151,6 @@ Return
    <+Space::SendInput {PrintScreen}
 #If
 
-
 >!Scrolllock::
    normKeyboard:=not normKeyboard
 Return
@@ -176,7 +175,6 @@ Return
 
 //<!j::AltTab
 //<!k::ShiftAltTab
-
 
 //////////////////////////////
 //          Scoll           //
