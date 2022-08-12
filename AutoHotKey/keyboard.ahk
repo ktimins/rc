@@ -86,14 +86,14 @@ dictColemak    := {"q":"q"
 //Suspend
 //Pause,,1
 
-+Pause::
-   Suspend
+//+Pause::
+   //Suspend
    //Pause,,1
-Return
+//Return
 
-<!Pause::
-   Reload
-Return
+//<!Pause::
+   //Reload
+//Return
 
 !/::
    colemak:=not colemak
@@ -194,7 +194,16 @@ Return
 //        Mulitmedia        //
 //////////////////////////////
 
-^Volume_Mute::Send {Media_Play_Pause}
+^Volume_Mute::
+   Send {Media_Play_Pause}
+Return
+
+^Volume_Down::
+   Send {Media_Prev}
+Return
+
+^Volume_Up::
+   Send {Media_Next}
 Return
 
 //////////////////////////////

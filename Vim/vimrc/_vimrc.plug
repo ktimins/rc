@@ -68,7 +68,6 @@
       "Plug 'w0rp/ale'
       Plug 'reedes/vim-wordy'
       Plug 'nvie/vim-flake8'
-      Plug 'reedes/vim-wordy'
    " }}}
 
    " Languages {{{2
