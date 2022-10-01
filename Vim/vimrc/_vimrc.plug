@@ -3,7 +3,11 @@
 " Vim-Plug {{{1
 
    " Preamble {{{2
+   if has("win32unix")
       call plug#begin('~/.vim/plugged')
+   else
+      call plug#begin('~/.vim/plugged')
+   endif
    " }}}
 
    " MISC {{{2
@@ -18,6 +22,7 @@
       Plug 'jiangmiao/auto-pairs'
       Plug 'vim-scripts/a.vim'
       " Games {{{3
+         Plug 'johngrib/vim-game-snake'
          Plug 'mmisono/viminesweeper'
       " }}}
    " }}}
@@ -49,7 +54,11 @@
       Plug 'Vimjas/vim-python-pep8-indent'
       Plug 'JayDoubleu/vim-pwsh-formatter'
       Plug 's3rvac/AutoFenc'
-      Plug 'vim-scripts/SQLUtilities'
+
+      " SQL {{{3
+         Plug 'vim-scripts/SQLUtilities'
+         "Plug 'jsborjesson/vim-uppercase-sql'
+      " }}}
    " }}}
 
    " Checkers {{{2
@@ -59,7 +68,6 @@
       "Plug 'w0rp/ale'
       Plug 'reedes/vim-wordy'
       Plug 'nvie/vim-flake8'
-      Plug 'reedes/vim-wordy'
    " }}}
 
    " Languages {{{2
@@ -73,11 +81,12 @@
       " MarkDown {{{3
 
          Plug 'gabrielelana/vim-markdown'
-         Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+         "Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 
       "}}}
       " Razor Syntax {{{3
-         Plug 'adamclerk/vim-razor'
+         "Plug 'adamclerk/vim-razor'
+         "Plug 'jlcrochet/vim-razor'
       "}}}
       " XML / XPath {{{3
          Plug 'actionshrimp/vim-xpath'
@@ -87,7 +96,6 @@
    " }}}
 
    " Execution {{{2
-      "Plug 'shougo/vimproc.vim'
 
       " Testing {{{3
 
@@ -111,14 +119,13 @@
       Plug 'skywind3000/vim-preview'
       Plug 'vim-scripts/visSum.vim'
       Plug 'dhruvasagar/vim-zoom'
+      "Plug 'thinca/vim-fontzoom'
       Plug 'machakann/vim-highlightedyank'
       Plug 'bpstahlman/txtfmt'
       Plug 'vim-voom/VOoM'
       Plug 'junegunn/goyo.vim'
       "Plug 'junegunn/limelight.vim'
       "Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
-      Plug 'psmay/vim-colors-palofobsidian'
-      Plug 'tlhr/anderson.vim'
 
       " Indentation {{{3
          "Plug 'nathanaelkane/vim-indent-guides'
@@ -144,7 +151,7 @@
 
       " COC.NVIM {{{3
 
-         Plug 'neoclide/coc.nvim', {'branch': 'release'}
+         "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
       " }}}
 
@@ -185,12 +192,17 @@
 
    " Coloring {{{2
       Plug 'ap/vim-css-color'
-      Plug 'rafi/awesome-vim-colorschemes'
-      Plug 'vim-scripts/Son-of-Obisidian'
+      Plug 'uguu-org/vim-matrix-screensaver'
 
       " ColorSchemes {{{3
          Plug 'vim-scripts/fu'
          Plug 'vim-scripts/Selenitic'
+         "Plug 'rafi/awesome-vim-colorschemes'
+         Plug 'flazz/vim-colorschemes'
+         Plug 'vim-scripts/Son-of-Obisidian'
+         Plug 'psmay/vim-colors-palofobsidian'
+         Plug 'tlhr/anderson.vim'
+         Plug 'rakr/vim-one'
       " }}}
 
    " }}}
@@ -208,7 +220,7 @@
       "Plug 'mhinz/vim-signify'
 
       " Git {{{3
-         Plug 'rhysd/git-messenger.vim'
+         "Plug 'rhysd/git-messenger.vim'
          Plug 'tpope/vim-fugitive'
          Plug 'tpope/vim-rhubarb'
          Plug 'junegunn/gv.vim'
@@ -233,19 +245,21 @@
    " Tags {{{2
       Plug 'universal-ctags/ctags'
       Plug 'liuchengxu/vista.vim'
-      Plug 'majutsushi/tagbar'
+      "Plug 'majutsushi/tagbar'
       "Plug 'craigemery/vim-autotag'
    "}}}
 
    " Tools {{{2
    
-      Plug 'vimwiki/vimwiki'
+      Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
       Plug 'xolox/vim-misc'
-      Plug 'xolox/vim-notes'
+      "Plug 'xolox/vim-notes'
+      Plug 'aserebryakov/vim-todo-lists'
       Plug 'rhysd/vim-healthcheck'
       Plug 'vim-scripts/utl.vim'
       Plug 'dpelle/vim-LanguageTool'
       Plug 'rhysd/vim-grammarous'
+      "Plug 'fmoralesc/vim-pad'
 
    "}}}
 

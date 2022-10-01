@@ -1,21 +1,32 @@
 # vim:fdm=marker
 
 # Basic {{{1
-   Set-ExecutionPolicy Unrestricted;
+   Set-ExecutionPolicy Bypass;
    $username = $env:USERNAME;
+
+   # {{{2
+      # Include variables
+      $varFile = (Join-Path -Path (Split-Path -Path $PROFILE -Parent) -ChildPath "Powershell_Variables.ps1");
+      if (Test-Path -Path $varFile) {
+      . $varFile;
+      }
+   # }}}
 
 # }}}
 
 # Modules {{{1
 
    Import-Module BurntToast;
-   Import-Module cowsay;
-   Import-Module oh-my-posh;
-   Import-Module posh-git;
+   Import-Module CowsaySharp;
    Import-Module PowerShellGet;
+   Import-Module posh-git;
+   Import-Module PoshRSJob;
    Import-Module PSCalendar;
    Import-Module Pscx;
    Import-Module PSExcel;
+   Import-Module PSFolderSize;
+   Import-Module PSWriteHTML;
+   Import-Module Terminal-Icons;
    Import-Module WriteAscii;
    if ($host.Name -eq 'ConsoleHost') {
       Import-Module PSReadline;
@@ -25,6 +36,14 @@
 
       Import-Module AdvancedHistory;
       Enable-AdvancedHistory;
+
+   # }}}
+
+   # Oh-My-Posh {{{2
+
+      Import-Module oh-my-posh;
+      Set-PoshPrompt -Theme C:\Users\KTimins\oh_my_posh_theme-custom.omp.json
+      #Set-PoshPrompt -Theme slimfat
 
    # }}}
 
@@ -108,6 +127,22 @@
 
 # Custom Functions {{{1
 
+   Function Copy-DevEnvPasswd {
+      $DevEnvPasswd | Set-Clipboard;
+   }
+
+   Function Kill-Process {
+      Param(
+            [string]$Name
+           );
+      try {
+         $proc = Get-Process -Name $Name -ErrorAction Stop;
+         $proc | Stop-Process -ErrorAction Stop;
+      } catch {
+         Write-Host "Failed to kill '$Name'" -ForegroundColor Red;
+      }
+   }
+
    Function New-File {
       Param(
             [Parameter(Mandatory=$True,Position=0,ValueFromPipeline=$True)]
@@ -117,13 +152,47 @@
    }
 
    Function Upgrade-VimViaChoco {
-      $proc = Start-Process -FilePath "choco.exe" -ArgumentList @('Upgrade','vim-tux', "--ia=`"'/InstallPopUp /RestartExplorer'`"", '--svc', '--force') -NoNewWindow -PassThru;
+      $proc = Start-Process -FilePath "choco.exe" -ArgumentList @('Upgrade','vim', "--params=`"'/NoDesktopShortcuts /RestartExplorer'`"", '--svc') -NoNewWindow -PassThru;
       $proc | Wait-Process;
    }
 
    Function Get-ChocolateyOutdatedPrograms {
       $proc = Start-Process -FilePath "choco.exe" -ArgumentList @('Outdated') -NoNewWindow -PassThru;
       $proc | Wait-Process;
+   }
+
+   Function Remove-GitBranch {
+      Param(
+            [Parameter(Mandatory=$True,Position=0,ValueFromPipeline=$True)]
+            [String]$Branch,
+            [Parameter(Mandatory=$False,Position=1)]
+            [String]$Remote = "origin",
+            [Switch]$LocalOnly,
+            [Switch]$Y
+           );
+      $currentBranch = (git branch --show-current);
+      if ($currentBranch -imatch $Branch) {
+         Write-Error "Unable to continue. Current branch is the selected to delete branch `"$currentBranch`".";
+      } else {
+         $decision = 1;
+         if ($Y) {
+            $decision = 0;
+         } else {
+            $title = "Remove Git Branch `"$Branch`"";
+            $question = "Are you sure you want to remove git branch `"$Branch`"?";
+            $choices = '&Yes', '&No';
+
+            $decision = $Host.Ui.PromptForChoice($title, $question, $choices, 1);
+         }
+         if ($decision -eq 0) {
+            Write-Host "`nDeleting branch `"$Branch`" from local.`n";
+            git branch -D $Branch;
+            if (!$LocalOnly) {
+               Write-Host "`nDeleting branch `"$Branch`" from remote `"$Remote`".`n";
+               git push $Remote --delete $Branch;
+            }
+         }
+      }
    }
 
    Function Start-CountdownTimer {
@@ -199,7 +268,7 @@
       Clear-Host; 
       $endTime = ((Get-Date -Hour $Hour -Minute $Minute -Second $Second -Millisecond $Millisecond) + (New-TimeSpan -Hours $Length));
       $ts =(New-TimeSpan -End ($endTime)); 
-      Write-Host (" {0}{1} " -f $(" " * 46), $endTime);
+      Write-Host (" {0}{1} " -f $(" " * 46), $endTime.ToString("yyyy-MM-dd hh:mm:ss"));
       Start-CountdownTimer -Hours $ts.Hours -Minutes $ts.Minutes -Seconds $ts.Seconds;
       If ($Toast) {
          New-BurntToastNotification -Text "TIME TO LEAVE!";
@@ -220,6 +289,41 @@
 
       Invoke-Expression -Command:$command;
    }
+
+function Get-NTPDateTime 
+{
+   param (
+         [string] $sNTPServer = 'pool.ntp.org'
+         );
+    $StartOfEpoch=New-Object DateTime(1900,1,1,0,0,0,[DateTimeKind]::Utc);
+    [Byte[]]$NtpData = ,0 * 48;
+    $NtpData[0] = 0x1B;    # NTP Request header in first byte
+    $Socket = New-Object Net.Sockets.Socket([Net.Sockets.AddressFamily]::InterNetwork, [Net.Sockets.SocketType]::Dgram, [Net.Sockets.ProtocolType]::Udp);
+    $Socket.Connect($sNTPServer,123);
+     
+    $t1 = Get-Date;    # Start of transaction... the clock is ticking...
+    [Void]$Socket.Send($NtpData);
+    [Void]$Socket.Receive($NtpData);
+    $t4 = Get-Date;    # End of transaction time
+    $Socket.Close();
+ 
+    $IntPart = [BitConverter]::ToUInt32($NtpData[43..40],0);   # t3
+    $FracPart = [BitConverter]::ToUInt32($NtpData[47..44],0);
+    $t3ms = $IntPart * 1000 + ($FracPart * 1000 / 0x100000000);
+ 
+    $IntPart = [BitConverter]::ToUInt32($NtpData[35..32],0);   # t2
+    $FracPart = [BitConverter]::ToUInt32($NtpData[39..36],0);
+    $t2ms = $IntPart * 1000 + ($FracPart * 1000 / 0x100000000);
+ 
+    $t1ms = ([TimeZoneInfo]::ConvertTimeToUtc($t1) - $StartOfEpoch).TotalMilliseconds;
+    $t4ms = ([TimeZoneInfo]::ConvertTimeToUtc($t4) - $StartOfEpoch).TotalMilliseconds;
+  
+    $Offset = (($t2ms - $t1ms) + ($t3ms-$t4ms))/2;
+     
+    [String]$NTPDateTime = $StartOfEpoch.AddMilliseconds($t4ms + $Offset).ToLocalTime();
+ 
+    return (Get-Date $NTPDateTime);
+}
 
 # }}}
 
@@ -250,8 +354,8 @@
 
    Clear-Host;
    $PSVers = "$($PSVersionTable.PSVersion.Major).$($PSVersionTable.PSVersion.Minor)";
-   $welcome = $env:USERNAME + ": Welcome to Powershell v" + $PSVers + ".";
-   cowsay $welcome;
+   $welcome = "$env:USERNAME: Welcome to Powershell $($PSVersionTable.PSEdition) v$PSVers.";
+   cowthink -r $welcome | lolcat;
 
 # }}}
 
@@ -267,6 +371,7 @@
    Set-Alias which Get-Command;
    Set-Alias cupVim Upgrade-VimViaChoco;
    Set-Alias cout Get-ChocolateyOutdatedPrograms;
+   Set-Alias devPasswd Copy-DevEnvPasswd;
 
 # }}}
 

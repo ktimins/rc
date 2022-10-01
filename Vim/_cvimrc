@@ -1,45 +1,33 @@
 " Settings
 set noautofocus " The opposite of autofocus; this setting stops
                 " sites from focusing on an input box when they load
+let blacklists = ["*://youtube.com/*","https://localhost/*","https://my.adp.com/*","*://lazparking0-my.sharepoint.com/*"]
 set typelinkhints
-
 " alias ':g' to ':tabnew google'
 command g tabnew google
-
 let completionengines = ["google", "amazon", "imdb"]
-
 let mapleader = ","
-
 " Mappings
-
 map <Leader>r reloadTabUncached
 map <Leader>x :restore<Space>
-
-unmap n e i k d
-
+unmap n e i k d m u
 map n scrollDown
 map e scrollUp
 map i scrollRight
-map dd scrollToTop
-map D scrollToBottom
-
+map u scrollToTop
+map m scrollToBottom
 unmap K R J E
-
 map dt nextTab
+map dd scrollToTop
 map N nextTab
 map dT previousTab
-map K previousTab
-
+map E previousTab
 unmap L
-
 map I goForward
-
 map ll scrollPageDown
 map yy scrollPageUp
-
 map k nextSearchResult
 map K previousSearchResult
-
 " Code blocks (see below for more info)
 getIP() -> {{
 httpRequest({url: 'http://api.ipify.org/?format=json', json: true},

@@ -1,0 +1,260 @@
+{
+  "id": "7ff33fe3-9d33-4587-a0ba-0595242a3cef",
+  "name": "My Visual Studio extensions",
+  "description": "A collection of my Visual Studio extensions",
+  "version": "1.0",
+  "extensions": [
+    {
+      "name": ".ignore",
+      "vsixId": "7ac24965-ea21-4108-9cac-6e46394aaaef"
+    },
+    {
+      "name": "24hr Owl - Theme",
+      "vsixId": "24hrOwl-definedrisk.311F490C-A14E-4012-905C-DB1B1E75C874"
+    },
+    {
+      "name": "Align Assignments",
+      "vsixId": "AlignAssignments.41858b2d-ff0b-4a43-80b0-f1b2d6084935"
+    },
+    {
+      "name": "Azure Data Lake and Stream Analytics Tools",
+      "vsixId": "1e906ff5-9da8-4091-a299-5c253c55fdc9"
+    },
+    {
+      "name": "Bael Dark",
+      "vsixId": "Bael_Dark.e1e706e2-05d3-4da9-8754-652cd8ab65f4"
+    },
+    {
+      "name": "Better Html/Razor Css Class Intellisense",
+      "vsixId": "HtmlCssClassCompletion.3d0d76e1-7922-4a19-8ad5-8ec046f68783"
+    },
+    {
+      "name": "Blazor Pro Code Snippets",
+      "vsixId": "BlazorProCodeSnippets.c9c41d67-f97e-4f93-9637-78621dd8a65e"
+    },
+    {
+      "name": "Cloud Explorer for VS 2019 Preview",
+      "vsixId": "Microsoft.VisualStudio.CloudExplorer.16.0"
+    },
+    {
+      "name": "Code Connections",
+      "vsixId": "CodeConnections.4af0cec0-ea71-4add-b06a-975b18ba7aed"
+    },
+    {
+      "name": "CodeMaid",
+      "vsixId": "4c82e17d-927e-42d2-8460-b473ac7df316"
+    },
+    {
+      "name": "CodeNav 2019",
+      "vsixId": "CodeNav.Samir Boulema.19687465-dc94-413d-ad72-6141e90c94d4"
+    },
+    {
+      "name": "Collapse Level",
+      "vsixId": "CollapseLevel.Michał Wilski.9739fb10-2beb-4d62-b127-ab7b7646a060"
+    },
+    {
+      "name": "Color Theme Editor for Visual Studio 2019",
+      "vsixId": "VSColorThemeEditor.A8079E6E-373A-4C61-8A97-C8B72107906A"
+    },
+    {
+      "name": "Color Themes for Visual Studio",
+      "vsixId": "VSColorThemes.8643b166-c815-4f07-b9ec-64be1f7b8a59"
+    },
+    {
+      "name": "Copy As Html",
+      "vsixId": "CopyAsHtml.42374550-426a-400e-96f9-237682e8dea6"
+    },
+    {
+      "name": "Debug Time Search",
+      "vsixId": "5AA02891-7F8E-433D-9281-EF92F0934D45"
+    },
+    {
+      "name": "Diff All Files for VS2019",
+      "vsixId": "B4202C10-5715-1294-9DBA-15A319FF9EBF"
+    },
+    {
+      "name": "Double-Click Maximize",
+      "vsixId": "DoubleClickMaximize.050825c2-33a4-4b7d-b3af-bd46bd99a265"
+    },
+    {
+      "name": "Entity Framework 6 Power Tools Community Edition",
+      "vsixId": "F0A7D01D-4834-44C3-99B2-5907A0701906"
+    },
+    {
+      "name": "Extension Manager 2019",
+      "vsixId": "4a196712-2c3f-4730-ad1d-e7cda4185eb2"
+    },
+    {
+      "name": "File Icons",
+      "vsixId": "3a7b4930-a5fb-46ec-a9b8-9610c8f953b8"
+    },
+    {
+      "name": "Find in Solution Explorer",
+      "vsixId": "Tvl.VisualStudio.FindInSolutionExplorer.E528F3A5-318E-4F77-BC25-888236886F93"
+    },
+    {
+      "name": "Find Razor Source File - Browser Link Extension",
+      "vsixId": "d8ff5192-e5b9-4799-85c9-5956594a276d"
+    },
+    {
+      "name": "Fix Mixed Tabs",
+      "vsixId": "FixMixedTabs.9f1d3050-b986-4b10-ae36-97c6efc5e968"
+    },
+    {
+      "name": "Focus Dimmer",
+      "vsixId": "Focus_Dimmer.132c788c-68db-4464-af9b-d91dec100e8d"
+    },
+    {
+      "name": "Git Branch Differ",
+      "vsixId": "GitBranchDiffer.53f34d66-fcfb-4b1b-a864-c542da222902"
+    },
+    {
+      "name": "Git Diff Margin",
+      "vsixId": "GitDiffMargin..5ef9f816-d9ce-45cd-a8fa-cd67a807df0e"
+    },
+    {
+      "name": "Goodnight Theme",
+      "vsixId": "Goodnight.e1e706e2-05d3-4da9-8754-652cd8ab65f4"
+    },
+    {
+      "name": "ILSpy",
+      "vsixId": "a9120dbe-164a-4891-842f-fb7829273838"
+    },
+    {
+      "name": "Indent Guides",
+      "vsixId": "IndentGuide.SteveDower.0a67eb97-becd-451f-aa29-851d9fe5dd2b"
+    },
+    {
+      "name": "IndentRainbow",
+      "vsixId": "IndentRainbow.f05146ed-8025-4668-b7b1-8a74bd22b241"
+    },
+    {
+      "name": "Markdown Editor",
+      "vsixId": "9ca64947-e9ca-4543-bfb8-6cce9be19fd6"
+    },
+    {
+      "name": "Match Margin",
+      "vsixId": "MatchMargin.d85a25b5-f7b3-46a9-997e-a2d669dc2c93"
+    },
+    {
+      "name": "Middle Click Scroll",
+      "vsixId": "MiddleClickScroll.263a3239-a004-40e6-b790-4fd371832c85"
+    },
+    {
+      "name": "Midnight Deep",
+      "vsixId": "MidnightDeep.e1e706e2-05d3-4da9-8754-652cd8ab65f4"
+    },
+    {
+      "name": "ML.NET Model Builder 2019",
+      "vsixId": "FE96D051-645F-4309-AE99-107A776B0DA2"
+    },
+    {
+      "name": "Monokai-night",
+      "vsixId": "monokai_night.e1e706e2-05d3-4da9-8754-652cd8ab65f4"
+    },
+    {
+      "name": "MonokaiVS",
+      "vsixId": "MonokaiVS.e1e706e2-05d3-4da9-8754-652cd8ab65f4"
+    },
+    {
+      "name": "One Dark Pro",
+      "vsixId": "OneDarkPro.e1e706e2-05d3-4da9-8754-652cd8ab65f4"
+    },
+    {
+      "name": "Open In GVim",
+      "vsixId": "a69e33af-f9d6-4fce-b3b8-5e973a040a2b"
+    },
+    {
+      "name": "Peek Help",
+      "vsixId": "PeekHelp.51f43c96-8220-43bf-a922-390a361e7640"
+    },
+    {
+      "name": "Pine Gap Dark",
+      "vsixId": "PineGapDark.e1e706e2-05d3-4da9-8754-652cd8ab65f4"
+    },
+    {
+      "name": "Power Commands for Visual Studio",
+      "vsixId": "PowerCommands.3ecdd89b-f985-483d-8c94-be37de4dc083"
+    },
+    {
+      "name": "Preview-CS",
+      "vsixId": "PREVIEW-CS.EC198F83-B43E-48F7-A346-3BA545D132DE"
+    },
+    {
+      "name": "Productivity Power Tools 2017/2019",
+      "vsixId": "ProductivityPowerPack.0d5b9d71-e118-46de-a20c-555176e53900"
+    },
+    {
+      "name": "Quick Launch Tasks",
+      "vsixId": "QuickLaunchTasks"
+    },
+    {
+      "name": "Razor Component Code Behind",
+      "vsixId": "RazorComponentCodeBehind.c5e48f45-f4d9-4ec7-8e58-5065a9d8f9e8"
+    },
+    {
+      "name": "Razor Generator",
+      "vsixId": "2FD58EB3-29A2-40A3-BE17-C024CA9A17A2"
+    },
+    {
+      "name": "Regex Tester",
+      "vsixId": "dcad2d98-1e91-4090-81a0-ec0641347bf8"
+    },
+    {
+      "name": "Relative Number",
+      "vsixId": "RelativeNumber.Microsoft.b75ccaea-70c1-475c-9cb7-ddb84ea9d43c"
+    },
+    {
+      "name": "Rider Dark Theme For Visual Studio",
+      "vsixId": "Rider Dark Theme For Visual Studio"
+    },
+    {
+      "name": "Selection and TODO Highlighter",
+      "vsixId": "SelectionTodoHighlighter.a8364b11-2b36-416a-8e18-18c97507b332"
+    },
+    {
+      "name": "Shrink Empty Lines",
+      "vsixId": "SyntacticLineCompression.4452fb8f-b348-49eb-9499-76669d3f9c75"
+    },
+    {
+      "name": "Smart Command Line Arguments",
+      "vsixId": "SmartCmdArgs.Markus B.9fb78f2a-71cb-4437-b32f-d875e376bacf"
+    },
+    {
+      "name": "Solution Error Visualizer",
+      "vsixId": "SolutionErrorVisualizer.a392f96b-6b33-4b53-b4bb-3376a05f986c"
+    },
+    {
+      "name": "Time Stamp Margin",
+      "vsixId": "TimeStampMargin.255e8b14-4a53-4eb7-89a7-7ab741c1f612"
+    },
+    {
+      "name": "TortoiseGit Toolbar",
+      "vsixId": "f388ee16-eef2-4ae1-85bd-4cb19151beb0"
+    },
+    {
+      "name": "Tweaks 2019",
+      "vsixId": "0c8bd9fa-77d5-4563-ab57-9e01608c3d04"
+    },
+    {
+      "name": "Unit Test Boilerplate Generator",
+      "vsixId": "UnitTestBoilerplate.RandomEngy.ca0bb824-eb5a-41a8-ab39-3b81f03ba3fe"
+    },
+    {
+      "name": "Visual Studio Color Theme Designer",
+      "vsixId": "VisualStudioColorThemeDesigner.3287F970-A416-4025-BAFC-CCC004723F57"
+    },
+    {
+      "name": "VSColorOutput",
+      "vsixId": "CD56B219-38CB-482A-9B2D-7582DF4AAF1E"
+    },
+    {
+      "name": "VsVim",
+      "vsixId": "VsVim.Microsoft.e214908b-0458-4ae2-a583-4310f29687c3"
+    },
+    {
+      "name": "Web Live Preview (Preview)",
+      "vsixId": "Microsoft.WebTools.BrowserLink.WebLivePreview"
+    }
+  ]
+}

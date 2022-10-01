@@ -1,6 +1,7 @@
 #CommentFlag //
 #InstallKeybdHook
 #NoEnv 
+#MaxHotkeysPerInterval 1000
 SendMode Input 
 SetTitleMatchMode, 2
 SetTitleMatchMode, slow
@@ -15,6 +16,7 @@ SetTitleMatchMode, slow
 
 colemak        := false
 colemakAllTime := false
+scrollDir      := true
 wasdKeyboard   := false
 confKeyboard   := false
 normKeyboard   := false
@@ -84,14 +86,14 @@ dictColemak    := {"q":"q"
 //Suspend
 //Pause,,1
 
-+Pause::
-   Suspend
+//+Pause::
+   //Suspend
    //Pause,,1
-Return
+//Return
 
-<!Pause::
-   Reload
-Return
+//<!Pause::
+   //Reload
+//Return
 
 !/::
    colemak:=not colemak
@@ -149,7 +151,6 @@ Return
    <+Space::SendInput {PrintScreen}
 #If
 
-
 >!Scrolllock::
    normKeyboard:=not normKeyboard
 Return
@@ -174,6 +175,36 @@ Return
 
 //<!j::AltTab
 //<!k::ShiftAltTab
+
+//////////////////////////////
+//          Scoll           //
+//    Horizontal -> Vert    //
+//////////////////////////////
+
+#If (scrollDir)
+   WheelLeft::Send {WheelUp}
+   Return
+
+   WheelRight::Send {WheelDown}
+   Return
+#If
+
+
+//////////////////////////////
+//        Mulitmedia        //
+//////////////////////////////
+
+^Volume_Mute::
+   Send {Media_Play_Pause}
+Return
+
+^Volume_Down::
+   Send {Media_Prev}
+Return
+
+^Volume_Up::
+   Send {Media_Next}
+Return
 
 //////////////////////////////
 //    Swap LCtrl & LWin     //

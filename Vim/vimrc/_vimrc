@@ -1,5 +1,6 @@
 " vim:fdm=marker
 
+
 " .vimrc {{{1
 
    " Needed Stuff {{{2
@@ -13,10 +14,17 @@
 
    " Location Stuff {{{2
       if $LOCATION ==? 'WORK'
-         let homedir = 'C:\Users\KTimins'
-         let $home = 'C:\Users\KTimins'
-         let $storage = 'C:\Users\KTimins\.vimstorage'
-         let $vimrc_plug = 'C:\Users\KTimins\_vimrc.plug'
+         if has("win32unix")
+            let homedir = '~'
+            let $home = '~'
+            let $storage = '~/.vimstorage'
+            let $vimrc_plug = '~/.vimrc.plug'
+         else
+            let homedir = 'C:\Users\KTimins'
+            let $home = 'C:\Users\KTimins'
+            let $storage = 'C:\Users\KTimins\.vimstorage'
+            let $vimrc_plug = 'C:\Users\KTimins\_vimrc.plug'
+         endif
       elseif $LOCATION ==? 'THEIA'
          let homedir = 'C:\Users\rzite'
          let $home = 'C:\Users\rzite'
@@ -65,6 +73,9 @@
 
       " }}}
 
+      " Auto Change directory to current buffer
+      autocmd BufEnter,BufRead,BufNewFile * silent! lcd %:p:h<cr>
+
    " }}}
 
    " VIM User Interface {{{2
@@ -83,6 +94,10 @@
       else
          set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/bin/*,*/pkg/*,*/.vs/*,*/.localhistory/*
       endif
+
+      " Set Numbers
+      set number
+      "set relativenumber
 
       "Always show current position
       set ruler
@@ -207,18 +222,19 @@
 
          " Font
          try
-            set guifont=HackGenNerd_Console:h11:cANSI:qDRAFT
+            set guifont=CaskaydiaCove_Nerd_Font_Mono:h10
          catch
             try
-               " Prefer Anonymice Powerline. This is Anonymous Pro, but with Powerline hacks
-               set guifont=Source_Code_Pro:h11
+               set guifont=HackGenNerd_Console:h11
             catch
                try
-                  " Else, get normal Anonymous Pro
-                  set guifont=Anonymous_Pro:h11
+                  set guifont=Source_Code_Pro:h11
                catch
-                  " Failback to good old Courier New
-                  set guifont=Courier_New:h11
+                  try
+                     set guifont=Anonymous_Pro:h11
+                  catch
+                     set guifont=Courier_New:h11
+                  endtry
                endtry
             endtry
          endtry
@@ -226,24 +242,39 @@
          " Hide the mouse cursor when typing
          set mousehide
 
+         " Bottom Scroll Bar
          set guioptions=b
+
+         " Toolbar
+         "set guioptions+=T
          set guioptions-=T
+
+         " System Menu
+         "set guioptions+=m
+         set guioptions-=m
+
+         " No Tab Pages by default
          set guioptions-=e
+
+         " Right Hand Scroll Bar
          set guioptions+=r
          set t_Co=256
          set guitablabel=%M\ %t
       else
          try
-            "colorscheme selenitic
-            colorscheme anderson
+            colorscheme zenburn
          catch
-            colorscheme archery
+            try
+               colorscheme molokai_dark
+            catch 
+               colorscheme default
+            endtry
          endtry
 
       endif
 
       " Use Unix as the standard file type
-      set ffs=unix,dos,mac
+      set ffs=unix,dos
 
    " }}}
 
@@ -468,6 +499,9 @@
       " Quickly open a markdown buffer for scribble
       map <leader>x :e ~/buffer.md<cr>
 
+      " nohl
+      nnoremap <leader>n :nohl<cr>
+
    " }}}
 
    " Startify {{{2
@@ -476,7 +510,8 @@
       let g:startify_bookmarks = [ 
                \ {'v': 'C:/Users/KTimins/Git/rc/Vim/vimrc/_vimrc'}, 
                \ {'b': 'C:/Users/KTimins/Git/rc/Vim/vimrc/_vimrc.plug'}, 
-               \ {'p': 'C:/Users/KTimins/Git/rc/Windows/Microsoft.Powershell_profile.ps1'} 
+               \ {'p': 'C:/Users/KTimins/OneDrive - lazparking.com/Documents/PowerShell/Microsoft.PowerShell_profile.ps1'},
+               \ {'m': 'C:/Users/KTimins/Git/rc/Windows/Microsoft.Powershell_profile.ps1'} 
                \ ]
    elseif $LOCATION ==? 'THEIA'
       let g:startify_bookmarks = [ 
@@ -708,10 +743,14 @@
    " Indentline {{{2
 
       let g:indentLine_setColors = 0
-      let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-
       let g:indentLine_bufNameExclude = ['Nerd_tree.*', '__vista__']
       let g:indentLine_bufTypeExclude = ['startify']
+
+      if has("gui_running")
+         let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+      else
+         let g:indentLine_char_list = ['|']
+      endif
 
    "}}}
 
@@ -727,7 +766,7 @@
 
    " Gundo {{{2
 
-      noremap <F9> :GundoToggle<CR>
+      "noremap <F9> :GundoToggle<CR>
 
    " }}}
 
@@ -738,12 +777,12 @@
          au StdinReadPre * let s:std_in=1
       augroup END
 
+      noremap <F8> :NERDTreeToggle<CR>
       noremap <C-n> :NERDTreeToggle<CR>
-      noremap <C-z> :UndotreeToggle<CR>
 
       " NerdTree-Git-Plugin {{{3
 
-         let g:NERDTreeIndicatorMapCustom = {
+         let g:NERDTreeGitStatusIndicatorMapCustom = {
             \ "Modified"  : "✹",
             \ "Staged"    : "✚",
             \ "Untracked" : "✭",
@@ -772,7 +811,9 @@
 
    " Numbers {{{2
       
-      let g:numbers_exclude = ['__vista__', 'gundo', 'nerdtree', 'minimap']
+      let g:numbers_exclude = ['unite', 'tagbar', 'startify', 'gundo', 'vimshell', 'v3m', '__vista__', 'nerdtree', 'minimap']
+      nnoremap <leader>jf :NumbersToggle<CR>
+      nnoremap <leader>fj :NumbersOnOff<CR>
 
    " }}}
 
@@ -974,13 +1015,24 @@
 
    " Vim-Notes {{{2
 
-      let g:notes_directories = ['~/Documents/vim-notes']
-      let g:notes_suffix = '.vnotes'
-      let g:notes_word_boundaries = 1
-      let g:notes_unicode_enabled = 1
-      let g:notes_smart_quotes = 0
-      let g:notes_list_bulles = ['-', '*', '+']
-      let g:notes_conceal_code = 1
+      "let g:notes_directories = ['~/vim-notes']
+      "let g:notes_suffix = '.md'
+      "let g:notes_word_boundaries = 1
+      "let g:notes_unicode_enabled = 1
+      "let g:notes_smart_quotes = 0
+      "let g:notes_conceal_code = 1
+
+      "if has("gui_running")
+         "let g:notes_list_bullets = ['•', '◦', '▸', '▹', '▪', '▫']
+      "else
+         "let g:notes_list_bullets = ['-', '*', '+']
+      "endif
+
+   " }}}
+
+   " VimWiki {{{2
+      
+   let g:vimwiki_list = [{'path': '~/vimwiki/'}]
 
    " }}}
 
@@ -1016,6 +1068,13 @@
 
    " }}}
 
+   " auto-pairs {{{2
+
+      " Set the values to autopair.
+      let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '```':'```', '"""':'"""', "'''":"'''"}
+
+   " }}}
+
    " Languages {{{2
 
       " All Languages {{{3
@@ -1024,6 +1083,13 @@
             au FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
          augroup END
       
+      " }}}
+
+      " SQL {{{3
+         augroup sql
+            au FileType sql vnoremap <Leader>rp :s/\<update\>\\|\<select\>\\|\<from\>\\|\<where\>\\|\<join\>\\|\<on\>\\|\<as\>\\|\<left join\>\\|\<inner join\>\\|\<group by\>\\|\<order by\>\\|\<distinct\>\\|\<top\>\\|\<like\>\\|\<begin\>\\|\<trans\>\\|\<transaction\>\\|\<commit\>\\|\<rollback\>\\|\<declare\>\\|\<set\>/\U&/ge<cr><esc>
+         augroup END
+
       " }}}
 
       " Python {{{3
@@ -1052,7 +1118,8 @@
            au FileType json set softtabstop=4 tabstop=4
            au FileType json set expandtab 
            au FileType json set foldmethod=syntax 
-           au FileType json nnoremap <leader> f= :silent %!python -m json.tool<CR>
+           au FileType json nnoremap <leader>= :%! jq .<CR>
+           au FileType json com! FormatJson %! jq .<CR>
          augroup END
 
       " }}}
@@ -1068,7 +1135,7 @@
             au FileType html,xml,xsd,xaml set softtabstop=2 tabstop=2 
             au FileType html,xml,xsd,xaml set expandtab 
             au FileType html,xml,xsd,xaml set foldmethod=indent 
-            au FileType xml exe ":silent %!xmllint.exe --format --recover - 2>NUL:"
+            "au FileType xml exe ":silent %!xmllint.exe --format --recover - 2>NUL:"
             au FileType html,xml,xsd,xaml Autoformat
             au FileType xml,xsd,xaml nnoremap ,= :silent %!xmllint.exe --format --recover - 2>NUL:<CR>
          augroup END
@@ -1264,61 +1331,44 @@
 
       " Change GUI Font Size {{{3
 
-         let w:fontSizeNorm=1
+         "if has("unix")
+            "function! FontSizePlus ()
+               "let l:gf_size_whole = matchstr(&guifont, '\( \)\@<=\d\+$')
+               "let l:gf_size_whole = l:gf_size_whole + 1
+               "let l:new_font_size = ' '.l:gf_size_whole
+               "let &guifont = substitute(&guifont, ' \d\+$', l:new_font_size, '')
+            "endfunction
 
-         function IncreaseFontSize() " {{{4 
-            if has('gui_running')
-               try
-                  " Prefer Anonymice Powerline. This is Anonymous Pro, but with Powerline hacks
-                  set guifont=Anonymice_Powerline:h14
-                  let w:fontSizeNorm=0
-               catch
-                  try
-                     " Else, get normal Anonymous Pro
-                     set guifont=Anonymous_Pro:h14
-                     let w:fontSizeNorm=0
-                  catch
-                     " Failback to good old Courier New
-                     set guitfont=Courier_New:h14
-                     let w:fontSizeNorm=0
-                  endtry
-               endtry
-            endif
-         endfunction " }}}
+            "function! FontSizeMinus ()
+               "let l:gf_size_whole = matchstr(&guifont, '\( \)\@<=\d\+$')
+               "let l:gf_size_whole = l:gf_size_whole - 1
+               "let l:new_font_size = ' '.l:gf_size_whole
+               "let &guifont = substitute(&guifont, ' \d\+$', l:new_font_size, '')
+            "endfunction
+         "else
+            "function! FontSizePlus ()
+               "let l:gf_size_whole = matchstr(&guifont, '\(:h\)\@<=\d\+$')
+               "let l:gf_size_whole = l:gf_size_whole + 1
+               "let l:new_font_size = ':h'.l:gf_size_whole
+               "let &guifont = substitute(&guifont, ':h\d\+$', l:new_font_size, '')
+            "endfunction
 
-         function DecreaseFontSize() " {{{4
-            if has('gui_running')
-               try
-                  " Prefer Anonymice Powerline. This is Anonymous Pro, but with Powerline hacks
-                  set guifont=Anonymice_Powerline:h11
-                  let w:fontSizeNorm=1
-               catch
-                  try
-                     " Else, get normal Anonymous Pro
-                     set guifont=Anonymous_Pro:h11
-                     let w:fontSizeNorm=1
-                  catch
-                     " Failback to good old Courier New
-                     set guitfont=Courier_New:h11
-                     let w:fontSizeNorm=1
-                  endtry
-               endtry
-            endif
-         endfunction " }}}
+            "function! FontSizeMinus ()
+               "let l:gf_size_whole = matchstr(&guifont, '\(:h\)\@<=\d\+$')
+               "let l:gf_size_whole = l:gf_size_whole - 1
+               "let l:new_font_size = ':h'.l:gf_size_whole
+               "let &guifont = substitute(&guifont, ':h\d\+$', l:new_font_size, '')
+            "endfunction
+         "endif
 
-         function ToggleFontSize() " {{{4
-            if has('gui_running')
-               if w:fontSizeNorm
-                  call IncreaseFontSize()
-               else
-                  call DecreaseFontSize()
-               endif
-            endif
-         endfunction " }}}
 
-         command! IncreaseFontSize      :execute "call IncreaseFontSize()"
-         command! DecreaseFontSize      :execute "call DecreaseFontSize()"
-         command! ToggleFontSize        :execute "call ToggleFontSize()"
+         "if has("gui_running")
+            "noremap <S-F12> :call FontSizeMinus()<CR>
+            "noremap <F12> :call FontSizePlus()<CR>
+            "command! IncreaseFontSize      :execute "call FontSizePlus()"
+            "command! DecreaseFontSize      :execute "call FontSizeMinus()"
+         "endif
+
       
       " }}}
 
