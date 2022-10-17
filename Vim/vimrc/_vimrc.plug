@@ -260,6 +260,7 @@
       Plug 'dpelle/vim-LanguageTool'
       Plug 'rhysd/vim-grammarous'
       "Plug 'fmoralesc/vim-pad'
+      Plug 'inkarkat/vim-PatternsOnText'
 
    "}}}
 
