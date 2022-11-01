@@ -193,6 +193,30 @@
       & sc \\bccode stop "MicrosoftDynamicsNavServer`$BC_userauth"
    }
 
+   Function Get-BC200Status {
+      &  sc \\bccode query "MicrosoftDynamicsNavServer`$BC_userauth";
+   }
+
+   Function Start-BC200 {
+      & sc \\bccode start "MicrosoftDynamicsNavServer`$BC_userauth";
+   }
+
+   Function Stop-BC200 {
+      & sc \\bccode stop "MicrosoftDynamicsNavServer`$BC_userauth"
+   }
+
+   Function Get-BC200_AAStatus {
+      &  sc \\bccode query "MicrosoftDynamicsNavServer`$BC_userauth";
+   }
+
+   Function Start-BC200_AA {
+      & sc \\bccode start "MicrosoftDynamicsNavServer`$BC_userauth";
+   }
+
+   Function Stop-BC200_AA {
+      & sc \\bccode stop "MicrosoftDynamicsNavServer`$BC_userauth"
+   }
+
    Function Update-PythonPackages {
       pip freeze | %{$_.split('==')[0]} | %{pip install --upgrade $_}
    }
