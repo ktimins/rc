@@ -161,6 +161,25 @@
       $proc | Wait-Process;
    }
 
+   Function Get-UnixEpoch{
+      Param(
+            [Parameter(Mandatory=$False,Position=0,ValueFromPipeline=$True)]
+            [Int]$Epoch = 0,
+            [Switch]$String
+           );
+
+      if ($Epoch -gt 0) {
+         $date = (Get-Date "1970-01-01").AddSeconds($Epoch);
+         if ($String) {
+            return (Get-Date $date -Format "yyyy-MM-ddTHH:mm:ss")
+         } else {
+            return $date;
+         }
+      } else {
+         return (Get-Date -UFormat %s);
+      }
+   }
+
    Function Remove-GitBranch {
       Param(
             [Parameter(Mandatory=$True,Position=0,ValueFromPipeline=$True)]

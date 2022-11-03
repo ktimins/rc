@@ -237,12 +237,31 @@
       "Your Print Pass Code is: $PrintPassCode" | Write-Output;
    }
 
+   Function Get-UnixEpoch{
+      Param(
+            [Parameter(Mandatory=$False,Position=0,ValueFromPipeline=$True)]
+            [Int]$Epoch = 0,
+            [Switch]$String
+           );
+
+      if ($Epoch -gt 0) {
+         $date = (Get-Date "1970-01-01").AddSeconds($Epoch);
+         if ($String) {
+            return (Get-Date $date -Format "yyyy-MM-ddTHH:mm:ss")
+         } else {
+            return $date;
+         }
+      } else {
+         return (Get-Date -UFormat %s);
+      }
+   }
+
    Function Get-Utc {
       Param(
             [switch]$String
            );
       if ($String) {
-         Get-Date -AsUTC -Format "yyyy-MM-ddTHH:mm:ss.ffffffZ";
+         Get-Date -AsUTC -Format "yyyy-MM-ddTHH:mm:ss.fffZ";
       } else {
          Get-Date -AsUTC;
       }
