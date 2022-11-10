@@ -33,6 +33,10 @@
       Import-Module PSReadline;
    }
 
+   if ((Get-InstalledModule).Name -icontains 'sqlserver') {
+      Import-Module SqlServer;
+   }
+
    # AdvancedHistory {{{2
 
       Import-Module AdvancedHistory;
@@ -231,6 +235,22 @@
 
    Function Get-ct100ssql3 {
       $ct100ssqlInfo;
+   }
+
+   Function Get-sqlDevInfo {
+      $sqlDevInfo;
+   }
+
+   Function Get-DevonE2SqlCsv {
+      Param(
+            [Parameter(Mandatory=$False,Position=0,ValueFromPipeline=$True)]
+            [String]$Path = 'C:\Users\KTimins\Temp\DevonE2Sql.csv'
+           );
+
+      $sqlInfo = Get-sqlDevInfo;
+      $query = "select Aid, LocationNumber, BcLocationNumber, ModifiedTime, SyncTime from BC_Audit where [Action] = 'CreateLocationNumber'";
+      $output = Invoke-Sqlcmd -ServerInstance $sqlDev.Server -Database $sqlDev.InitialCatalog -Query $query -Username $sqlDev.UserID -Password $sqlDev.Password;
+      $output | Select-Object | Export-Csv -Path $Path -NoTypeInformation;
    }
 
    Function Get-PrintPassCode {
