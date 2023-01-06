@@ -766,9 +766,9 @@
 
    " }}}
 
-   " Gundo {{{2
+   " UndoTree {{{2
 
-      "noremap <F9> :GundoToggle<CR>
+      nnoremap <F9> :UndotreeToggle<CR>
 
    " }}}
 
@@ -808,6 +808,27 @@
 
       nnoremap <leader>bn :bnext<CR>
       nnoremap <leader>bp :bprev<CR>
+
+   " }}}
+
+   " Vim-Session {{{2
+
+      " Don't save hidden and unloaded buffers in sessions.
+      "set sessionoptions-=buffers
+
+      " Don't persist options and mappings because it can corrupt sessions.
+      "set sessionoptions-=options
+
+      " Alias commands to be starting with 'Session'
+      let g:session_command_aliases = 1
+
+      " Set the directory of the session files and their accompanying lock files
+      let g:session_directory = 'C:/Users/KTimins/.vimstorage/_sessions'
+      let g:session_lock_directory = 'C:/Users/KTimins/.vimstorage/_sessions_lock'
+
+      " Don't auto save and load the sessions. (Set both load/save to act like notepad++. Default is 'Prompt')
+      let g:session_autoload = 'no'
+      let g:session_autosave = 'no'
 
    " }}}
 

@@ -198,31 +198,35 @@
    }
 
    Function Get-BC200Status {
-      &  sc \\bccode query "MicrosoftDynamicsNavServer`$BC_userauth";
+      &  sc \\bccode query "MicrosoftDynamicsNavServer`$BC200";
    }
 
    Function Start-BC200 {
-      & sc \\bccode start "MicrosoftDynamicsNavServer`$BC_userauth";
+      & sc \\bccode start "MicrosoftDynamicsNavServer`$BC200";
    }
 
    Function Stop-BC200 {
-      & sc \\bccode stop "MicrosoftDynamicsNavServer`$BC_userauth"
+      & sc \\bccode stop "MicrosoftDynamicsNavServer`$BC200"
    }
 
    Function Get-BC200_AAStatus {
-      &  sc \\bccode query "MicrosoftDynamicsNavServer`$BC_userauth";
+      &  sc \\bccode query "MicrosoftDynamicsNavServer`$BC200_AA";
    }
 
    Function Start-BC200_AA {
-      & sc \\bccode start "MicrosoftDynamicsNavServer`$BC_userauth";
+      & sc \\bccode start "MicrosoftDynamicsNavServer`$BC200_AA";
    }
 
    Function Stop-BC200_AA {
-      & sc \\bccode stop "MicrosoftDynamicsNavServer`$BC_userauth"
+      & sc \\bccode stop "MicrosoftDynamicsNavServer`$BC200_AA"
    }
 
    Function Update-PythonPackages {
       pip freeze | %{$_.split('==')[0]} | %{pip install --upgrade $_}
+   }
+
+   Function Start-Teams {
+      & 'C:\Users\KTimins\AppData\Local\Microsoft\Teams\Update.exe' --processStart "Teams.exe"
    }
 
    Function Open-ExplorerHere {

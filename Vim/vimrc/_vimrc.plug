@@ -20,10 +20,10 @@
       Plug 'devjoe/vim-codequery'
       Plug 'sukima/xmledit'
       Plug 'jiangmiao/auto-pairs'
-      Plug 'vim-scripts/a.vim'
+      "Plug 'vim-scripts/a.vim'
       " Games {{{3
-         Plug 'johngrib/vim-game-snake'
-         Plug 'mmisono/viminesweeper'
+         "Plug 'johngrib/vim-game-snake'
+         "Plug 'mmisono/viminesweeper'
       " }}}
    " }}}
 
@@ -33,12 +33,12 @@
    " }}}
 
    " Configuration {{{2
-      Plug 'editorconfig/editorconfig-vim'
+      "Plug 'editorconfig/editorconfig-vim'
    " }}}
 
    " Database {{{2
-      Plug 'tpope/vim-dadbod'
-   "}}}
+      "Plug 'tpope/vim-dadbod'
+   " }}}
 
    " Insert {{{2
       Plug 'scrooloose/nerdcommenter'
@@ -51,7 +51,7 @@
    " Formatting {{{2
       Plug 'chiel92/vim-autoformat'
       Plug 'XadillaX/json-formatter.vim'
-      Plug 'Vimjas/vim-python-pep8-indent'
+      "Plug 'Vimjas/vim-python-pep8-indent'
       Plug 'JayDoubleu/vim-pwsh-formatter'
       Plug 's3rvac/AutoFenc'
 
@@ -59,6 +59,7 @@
          Plug 'vim-scripts/SQLUtilities'
          "Plug 'jsborjesson/vim-uppercase-sql'
       " }}}
+		
    " }}}
 
    " Checkers {{{2
@@ -71,47 +72,48 @@
    " }}}
 
    " Languages {{{2
+	
       " VB {{{3
          Plug 'tacahiroy/vim-vb'
       "}}}
+		
       " JSON {{{3
          Plug 'tpope/vim-jdaddy'
          Plug 'elzr/vim-json'
       "}}}
+		
       " MarkDown {{{3
-
          Plug 'gabrielelana/vim-markdown'
          "Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
-
       "}}}
+		
       " Razor Syntax {{{3
          "Plug 'adamclerk/vim-razor'
          "Plug 'jlcrochet/vim-razor'
       "}}}
+		
       " XML / XPath {{{3
          Plug 'actionshrimp/vim-xpath'
       " }}}
 
       Plug 'tpope/vim-sleuth'
+		
    " }}}
 
    " Execution {{{2
-
+	
       " Testing {{{3
-
          "Plug 'janko/vim-test'
-
       " }}}
 
    " }}}
 
    " Undo {{{2
-      Plug 'sjl/gundo.vim'
+      Plug 'mbbill/undotree'
    " }}}
 
    " Visual {{{2
       Plug 'wellle/visual-split.vim'
-      Plug 'mhinz/vim-startify'
       Plug 'chrisbra/csv.vim'
       Plug 'chrisbra/unicode.vim'
       Plug 'severin-lemaignan/vim-minimap'
@@ -135,6 +137,10 @@
       " Parantheses {{{3
          Plug 'luochen1990/rainbow' 
       " }}}
+		
+		"if $LOCATION !=? 'WORK'
+		   Plug 'mhinz/vim-startify'
+		"endif
 
    " }}}
 
@@ -177,6 +183,10 @@
    " Tabs / Buffers {{{2
       Plug 'ap/vim-buftabline'
       Plug 'jlanzarotta/bufexplorer'
+   " }}}
+
+   " Sessions {{{2
+      Plug 'xolox/vim-session'
    " }}}
 
    " Syntax {{{2
@@ -250,7 +260,6 @@
    "}}}
 
    " Tools {{{2
-   
       Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
       Plug 'xolox/vim-misc'
       "Plug 'xolox/vim-notes'
@@ -261,7 +270,6 @@
       Plug 'rhysd/vim-grammarous'
       "Plug 'fmoralesc/vim-pad'
       Plug 'inkarkat/vim-PatternsOnText'
-
    "}}}
 
    " Close {{{2
