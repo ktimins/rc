@@ -1158,8 +1158,6 @@
             au FileType html,xml,xsd,xaml set softtabstop=2 tabstop=2 
             au FileType html,xml,xsd,xaml set expandtab 
             au FileType html,xml,xsd,xaml set foldmethod=indent 
-            "au FileType xml exe ":silent %!xmllint.exe --format --recover - 2>NUL:"
-            au FileType html,xml,xsd,xaml Autoformat
             au FileType xml,xsd,xaml nnoremap ,= :silent %!xmllint.exe --format --recover - 2>NUL:<CR>
          augroup END
 
