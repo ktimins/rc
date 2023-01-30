@@ -1,4 +1,5 @@
-#CommentFlag //
+#CommentFlag // 
+
 #InstallKeybdHook
 #NoEnv 
 #MaxHotkeysPerInterval 1000

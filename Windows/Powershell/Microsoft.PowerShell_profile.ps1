@@ -69,11 +69,11 @@
 # Change Dirs {{{1
 
    Function Cd-Git {
-      Push-Location $GitDir;
+      Set-LocationEx -Path $GitDir;
    }
 
    Function Cd-RcGit {
-      Push-Location $rcGitDir;
+      Set-LocationEx -Path $rcGitDir;
    }
 
    Function Cd-ScriptsDir {
