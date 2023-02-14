@@ -21,6 +21,7 @@
       Plug 'sukima/xmledit'
       Plug 'jiangmiao/auto-pairs'
       "Plug 'vim-scripts/a.vim'
+
       " Games {{{3
          "Plug 'johngrib/vim-game-snake'
          "Plug 'mmisono/viminesweeper'
@@ -116,7 +117,7 @@
       Plug 'wellle/visual-split.vim'
       Plug 'chrisbra/csv.vim'
       Plug 'chrisbra/unicode.vim'
-      Plug 'severin-lemaignan/vim-minimap'
+      "Plug 'severin-lemaignan/vim-minimap'
       Plug 'myusuf3/numbers.vim'
       Plug 'skywind3000/vim-preview'
       Plug 'vim-scripts/visSum.vim'

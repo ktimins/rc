@@ -17,7 +17,6 @@ SetTitleMatchMode, slow
 
 colemak        := false
 colemakAllTime := false
-scrollDir      := true
 wasdKeyboard   := false
 confKeyboard   := false
 normKeyboard   := false
@@ -176,19 +175,6 @@ Return
 
 //<!j::AltTab
 //<!k::ShiftAltTab
-
-//////////////////////////////
-//          Scoll           //
-//    Horizontal -> Vert    //
-//////////////////////////////
-
-#If (scrollDir)
-   WheelLeft::Send {WheelUp}
-   Return
-
-   WheelRight::Send {WheelDown}
-   Return
-#If
 
 
 //////////////////////////////
