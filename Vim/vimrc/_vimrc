@@ -766,6 +766,12 @@
 
    " }}}
 
+   " BufExplorer {{{2
+
+      nnoremap <F7> :BufExplorer<CR>
+
+   " }}}
+
    " UndoTree {{{2
 
       nnoremap <F9> :UndotreeToggle<CR>
@@ -916,6 +922,11 @@
          " call s:on_lsp_buffer_enabled only for languages that has the server registered.
          autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
       augroup END
+
+      let g:markdown_fenced_languages = ["PowerShell=$FILETYPE"]
+
+      " Don't auto start VIM-LSP
+      let g:lsp_auto_enable = 0
 
    " }}}
 

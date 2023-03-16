@@ -20,11 +20,11 @@
    Import-Module BurntToast;
    Import-Module CowsaySharp;
    Import-Module PowerShellGet;
+   Import-Module ImportExcel;
    Import-Module posh-git;
    Import-Module PoshRSJob;
    Import-Module PSCalendar;
    Import-Module Pscx;
-   Import-Module PSExcel;
    Import-Module PSFolderSize;
    Import-Module PSWriteHTML;
    Import-Module Terminal-Icons;
