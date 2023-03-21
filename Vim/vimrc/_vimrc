@@ -517,14 +517,14 @@
       let g:startify_bookmarks = [ 
                \ {'v': 'C:/Users/rzite/Git/rc/Vim/vimrc/_vimrc'}, 
                \ {'b': 'C:/Users/rzite/Git/rc/Vim/vimrc/_vimrc.plug'}, 
-               \ {'p': 'C:/Users/rzite/Git/rc/Windows/Powershell/Microsoft.Powershell_profile.ps1'} 
+               \ {'p': 'C:/Users/rzite/Git/rc/Windows/Powershell/Microsoft.Powershell_profile.ps1'}, 
                \ {'m': 'C:/Users/rzite/Git/rc/Windows/Microsoft.Powershell_profile.ps1'} 
                \ ]
    elseif $LOCATION ==? 'ARES'
       let g:startify_bookmarks = [ 
                \ {'v': 'C:/Users/rzitex/Git/rc/Vim/vimrc/_vimrc'}, 
                \ {'b': 'C:/Users/rzitex/Git/rc/Vim/vimrc/_vimrc.plug'}, 
-               \ {'p': 'C:/Users/rzitex/Git/rc/Windows/Powershell/Microsoft.Powershell_profile.ps1'} 
+               \ {'p': 'C:/Users/rzitex/Git/rc/Windows/Powershell/Microsoft.Powershell_profile.ps1'}, 
                \ {'m': 'C:/Users/rzitex/Git/rc/Windows/Microsoft.Powershell_profile.ps1'} 
                \ ]
    endif
