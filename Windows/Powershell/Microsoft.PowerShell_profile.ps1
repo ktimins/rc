@@ -26,6 +26,7 @@
    Import-Module PSCalendar;
    Import-Module Pscx;
    Import-Module PSFolderSize;
+   Import-Module PSLogging;
    Import-Module PSWriteHTML;
    Import-Module Terminal-Icons;
    Import-Module WriteAscii;

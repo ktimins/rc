@@ -24,6 +24,7 @@ pok3r          := false
 pok3rcolemak   := false
 ModifierStates := ""
 printScreen    := false
+changeCapslock := false
 
 //////////////////////////////
 //       Run Scripts        //
@@ -215,6 +216,7 @@ Return
 //        Capslock          //
 //////////////////////////////
 
+#If  (changeCapslock)
    Capslock::
       SendInput {Blind}{Backspace DownTemp}
       SendInput {Blind}{Backspace Up}
@@ -233,6 +235,7 @@ Return
    #^!Capslock::
    #+Capslock::
       Return
+#If
 
    
 
