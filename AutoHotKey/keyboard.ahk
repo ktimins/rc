@@ -25,6 +25,7 @@ pok3rcolemak   := false
 ModifierStates := ""
 printScreen    := false
 changeCapslock := false
+montsinger     := true
 
 //////////////////////////////
 //       Run Scripts        //
@@ -193,6 +194,15 @@ Return
 ^Volume_Up::
    Send {Media_Next}
 Return
+
+
+//////////////////////////////
+//    Montsinger Rebound    //
+//////////////////////////////
+#If (montsinger)
+   !Esc::
+      Return
+#If
 
 //////////////////////////////
 //    Swap LCtrl & LWin     //
