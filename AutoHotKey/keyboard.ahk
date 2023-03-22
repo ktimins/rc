@@ -25,7 +25,7 @@ pok3rcolemak   := false
 ModifierStates := ""
 printScreen    := false
 changeCapslock := false
-montsinger     := true
+montsinger     := false
 
 //////////////////////////////
 //       Run Scripts        //
@@ -199,9 +199,22 @@ Return
 //////////////////////////////
 //    Montsinger Rebound    //
 //////////////////////////////
+
+^!F24::
+   montsinger:=not montsinger
+Return
+
 #If (montsinger)
    !Esc::
       Return
+
+   F14::
+      Send {Volume_Down}
+   Return
+
+   F15::
+      Send {Volume_Up}
+   Return
 #If
 
 //////////////////////////////
