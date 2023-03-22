@@ -239,11 +239,15 @@ Return
 //        Capslock          //
 //////////////////////////////
 
+^!+F12::
+   changeCapslock := not changeCapslock
+Return
+
 #If  (changeCapslock)
    Capslock::
       SendInput {Blind}{Backspace DownTemp}
       SendInput {Blind}{Backspace Up}
-      Return
+   Return
 
    ^Capslock::
    ^!Capslock::
