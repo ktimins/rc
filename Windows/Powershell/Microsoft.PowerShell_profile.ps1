@@ -230,6 +230,18 @@
       & 'C:\Users\KTimins\AppData\Local\Microsoft\Teams\Update.exe' --processStart "Teams.exe"
    }
 
+   Function Kill-Chrome {
+      Get-Process -Name 'chrome' | Stop-Process;
+   }
+
+   Function Start-Chrome {
+      & chrome;
+   }
+
+   Function Restart-Chorme {
+      Kill-Chrome; Start-Chrome;
+   }
+
    Function Open-ExplorerHere {
       & explorer.exe .;
    }
