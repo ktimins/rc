@@ -26,6 +26,7 @@ ModifierStates := ""
 printScreen    := false
 changeCapslock := false
 montsinger     := false
+montsingerVol  := false
 
 //////////////////////////////
 //       Run Scripts        //
@@ -204,17 +205,23 @@ Return
    montsinger:=not montsinger
 Return
 
++!F24::
+   montsingerVol:=not montsingerVol
+Return
+
 #If (montsinger)
    !Esc::
       Return
 
-   F14::
-      Send {Volume_Down}
-   Return
+   #If (montsingerVol)
+      F14::
+         Send {Volume_Down}
+      Return
 
-   F15::
-      Send {Volume_Up}
-   Return
+      F15::
+         Send {Volume_Up}
+      Return
+   #If
 #If
 
 //////////////////////////////
