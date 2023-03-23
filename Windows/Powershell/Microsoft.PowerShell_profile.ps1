@@ -235,15 +235,37 @@
    }
 
    Function Start-Chrome {
-      & chrome;
+      Param(
+            [switch]$NoRestore
+           );
+      
+      if ($NoRestore) {
+         Start-Process -FilePath (Get-Command chrome).Source;
+      } else {
+         Start-Process -FilePath (Get-Command chrome).Source -ArgumentList "--restore-last-sessions";
+      }
    }
 
-   Function Restart-Chorme {
-      Kill-Chrome; Start-Chrome;
+   Function Restart-Chrome {
+      Param(
+            [switch]$NoRestore
+           );
+
+      Kill-Chrome; 
+      if ($NoRestore) {
+         Start-Chrome -NoRestore;
+      } else {
+         Start-Chrome;
+      }
    }
 
    Function Open-ExplorerHere {
       & explorer.exe .;
+   }
+
+   Function Restart-Explorer {
+      Get-Process -Name 'explorer' | Stop-Process;
+      & explorer.exe;
    }
 
    Function Copy-DevEnvPasswd {
@@ -843,6 +865,7 @@
    Set-Alias printCode Get-PrintPassCode;
    Set-Alias exp Open-ExplorerHere;
    Set-Alias Test-E2Prod Get-E2ProdStatusCode;
+   Set-Alias rechrome Restart-Chrome;
 
 # }}}
 
