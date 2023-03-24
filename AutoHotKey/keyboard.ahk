@@ -27,6 +27,7 @@ printScreen    := false
 changeCapslock := false
 montsinger     := false
 montsingerVol  := false
+useF24MouseSim := false
 
 //////////////////////////////
 //       Run Scripts        //
@@ -201,13 +202,19 @@ Return
 //      Mouse Simulate      //
 //////////////////////////////
 
-F24::
-   MouseClick, Left
+>^F24::
+   useF24MouseSim:=not useF24MouseSim
 Return
 
->+F24::
-   MouseClick, Right
-Return
+#If (useF24MouseSim)
+   F24::
+      MouseClick, Left
+   Return
+
+   >+F24::
+      MouseClick, Right
+   Return
+#If
 
 
 //////////////////////////////
