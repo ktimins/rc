@@ -198,14 +198,27 @@ Return
 
 
 //////////////////////////////
+//      Mouse Simulate      //
+//////////////////////////////
+
+F24::
+   MouseClick, Left
+Return
+
+>+F24::
+   MouseClick, Right
+Return
+
+
+//////////////////////////////
 //    Montsinger Rebound    //
 //////////////////////////////
 
-^!F24::
+<^<!F24::
    montsinger:=not montsinger
 Return
 
-+!F24::
+<+<!F24::
    montsingerVol:=not montsingerVol
 Return
 
