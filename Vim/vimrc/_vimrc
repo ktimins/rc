@@ -1086,7 +1086,7 @@
 
    " Rainbow {{{2
 
-      let g:rainbow_active = 0 "1
+      let g:rainbow_active = 1
 
    "}}}
 
