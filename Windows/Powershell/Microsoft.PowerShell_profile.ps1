@@ -268,6 +268,27 @@
       & explorer.exe;
    }
 
+   Function Get-Path {
+      Param(
+            [switch]$Copy
+           );
+      $path = (Get-Location).Path;
+      if ($Copy) {
+         $path | Set-Clipboard;
+      }
+      return $path;
+   }
+
+   Function Copy-Path {
+      Param(
+            [switch]$Return
+           )
+      $path = Get-Path -Copy;
+      if ($Return) {
+         return $path;
+      }
+   }
+
    Function Copy-DevEnvPasswd {
       $DevEnvPasswd | Set-Clipboard;
    }
@@ -354,6 +375,10 @@
    Function Get-ChocolateyOutdatedPrograms {
       $proc = Start-Process -FilePath "choco.exe" -ArgumentList @('Outdated') -NoNewWindow -PassThru;
       $proc | Wait-Process;
+   }
+
+   Function Show-TortoiseGitLog {
+      Start-Process -FilePath 'TortoiseGitProc.exe' -ArgumentList @('/command:log') -NoNewWindow;
    }
 
    Function Remove-GitBranch {

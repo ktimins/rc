@@ -199,23 +199,34 @@ Return
 
 
 //////////////////////////////
-//      Mouse Simulate      //
+//           F24            //
 //////////////////////////////
 
->^F24::
-   useF24MouseSim:=not useF24MouseSim
-Return
-
-#If (useF24MouseSim)
+#If (WinExist("ahk_exe ccsa.exe")) 
    F24::
-      MouseClick, Left
+      Send {Alt down}{Down}{Alt up}
    Return
 
-   >+F24::
-      MouseClick, Right
+   +F24::
+      Send {Alt down}{Up}{Alt up}
    Return
 #If
 
+#If (not WinExist("ahk_exe ccsa.exe"))
+   >^F24::
+      useF24MouseSim:=not useF24MouseSim
+   Return
+
+   #If (useF24MouseSim)
+      F24::
+         MouseClick, Left
+      Return
+
+      >+F24::
+         MouseClick, Right
+      Return
+   #If
+#If
 
 //////////////////////////////
 //    Montsinger Rebound    //

@@ -925,6 +925,8 @@
 
       let g:markdown_fenced_languages = ["PowerShell=$FILETYPE"]
 
+      let g:lsp_diagnostics_virtual_text_enabled = 0
+
       " Don't auto start VIM-LSP
       "let g:lsp_auto_enable = 0
 
