@@ -222,6 +222,29 @@
       & sc \\bccode stop "MicrosoftDynamicsNavServer`$BC200_AA"
    }
 
+   Function Get-AwsServicesState {
+      Param(
+            [Parameter(Mandatory=$false)]
+            [ValidateSet("PRD","STG")]
+            [String]$Target = "PRD"
+           );
+
+      $prof = "";
+      $services = "";
+      $cluster = "";
+      if ($Target -imatch "STG") {
+         $prof = "stg-laz";
+         $services = "stg-grswebui2-thx-3000-SVC";
+         $cluster = "STG-THX-ECS-CLS";
+      } else {
+         $prof = "prd-laz";
+         $services = "prd-grswebui2-laz-3000-SVC";
+         $cluster = "prd-ECS-CLS";
+      }
+
+      (aws ecs describe-services --profile $prof --services $services --cluster $cluster | ConvertFrom-Json).services.deployments
+   }
+
    Function Update-PythonPackages {
       pip freeze | %{$_.split('==')[0]} | %{pip install --upgrade $_}
    }
