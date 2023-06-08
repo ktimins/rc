@@ -249,8 +249,20 @@
       pip freeze | %{$_.split('==')[0]} | %{pip install --upgrade $_}
    }
 
+   Function Kill-Teams {
+      Get-Process -Name 'teams' | Stop-Process;
+   }
+
    Function Start-Teams {
       & 'C:\Users\KTimins\AppData\Local\Microsoft\Teams\Update.exe' --processStart "Teams.exe"
+   }
+
+   Function Restart-Teams {
+      Param(
+           );
+
+      Kill-Teams;
+      Start-Teams;
    }
 
    Function Kill-Chrome {
