@@ -412,6 +412,11 @@
       $proc | Wait-Process;
    }
 
+   Function Update-ChocolateyPrograms {
+      $proc = Start-Process -FilePath "choco.exe" -ArgumentList @('upgrade', 'all', '--except="vim"') -NoNewWindow -PassThru;
+      $proc | Wait-Process;
+   }
+
    Function Show-TortoiseGitLog {
       Start-Process -FilePath 'TortoiseGitProc.exe' -ArgumentList @('/command:log') -NoNewWindow;
    }
@@ -921,6 +926,7 @@
    Set-Alias which Get-Command;
    Set-Alias cupVim Upgrade-VimViaChoco;
    Set-Alias cout Get-ChocolateyOutdatedPrograms;
+   Set-Alias cupAll Update-ChocolateyPrograms;
    Set-Alias devPasswd Copy-DevEnvPasswd;
    Set-Alias printCode Get-PrintPassCode;
    Set-Alias exp Open-ExplorerHere;
