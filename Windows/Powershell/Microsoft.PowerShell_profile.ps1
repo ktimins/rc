@@ -421,6 +421,10 @@
       Start-Process -FilePath 'TortoiseGitProc.exe' -ArgumentList @('/command:log') -NoNewWindow;
    }
 
+   Function Show-TortoiseGitCommit {
+      Start-Process -FilePath 'TortoiseGitProc.exe' -ArgumentList @('/command:commit') -NoNewWindow;
+   }
+
    Function Remove-GitBranch {
       Param(
             [Parameter(Mandatory=$True,Position=0,ValueFromPipeline=$True)]
@@ -932,6 +936,8 @@
    Set-Alias exp Open-ExplorerHere;
    Set-Alias Test-E2Prod Get-E2ProdStatusCode;
    Set-Alias rechrome Restart-Chrome;
+   Set-Alias torCommit Show-TortoiseGitCommit;
+   Set-Alias torLog Show-TortoiseGitLog;
 
 # }}}
 
