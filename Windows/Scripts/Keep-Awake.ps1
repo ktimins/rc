@@ -2,12 +2,14 @@ Param(
       [Switch]$Resize,
       [Switch]$Slow,
       [Switch]$Clear,
-      [int]$SleepTime = 5
+      [int]$SleepTime = 5,
+      [int]$AdjustmentInMinutes = 0
      );
 
 Begin {
 
    $elapsed_time = New-TimeSpan;
+   $offset_time = New-TimeSpan -Minutes $AdjustmentInMinutes;
    $stopwatch = [System.Diagnostics.Stopwatch]::new();
    $formatTime = "{0:dd}d {0:hh}h:{0:mm}m:{0:ss}s";
 
@@ -24,7 +26,7 @@ Begin {
 
    $shell = New-Object -ComObject WScript.Shell;
 
-   $start_time = Get-Date -UFormat %s; 
+   $start_time = (Get-Date -UFormat %s);
    $current_time = $start_time;
 
    If ($Slow) {
@@ -64,7 +66,7 @@ Process {
          if ($count -eq 0) {
 
             $current_time = Get-Date -UFormat %s;
-            $elapsed_time = $stopwatch.Elapsed;
+            $elapsed_time = $stopwatch.Elapsed + $offset_time;
 
             "Sleep Time: $($SleepTime) seconds" | Write-Output;
             Write-Host "I've been awake for $($formatTime -f $elapsed_time)!";
@@ -80,7 +82,7 @@ Process {
    } Finally {
 
       $stopwatch.Stop();
-      Write-Host "I've was awake for $($formatTime -f ($stopwatch.Elapsed))!";
+      Write-Host "I've was awake for $($formatTime -f ($stopwatch.Elapsed + $offset_time))!";
 
    }
 }
