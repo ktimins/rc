@@ -1,3 +1,4 @@
+#Requires AutoHotKey v1.1.36.2
 #CommentFlag // 
 
 #InstallKeybdHook
@@ -210,6 +211,22 @@ Return
    +F24::
       Send {Alt down}{Up}{Alt up}
    Return
+#If
+
+#If (WinExist("ahk_exe devenv.exe"))
+   #If (not useF24MouseSim)
+      #If GetKeyState("F24", "P") 
+         Left::
+            Send {XButton1}
+         Return
+      #If
+
+      #If GetKeyState("F24", "P")
+         Right::
+            Send {XButton2}
+         Return
+      #If
+   #If
 #If
 
 #If (not WinExist("ahk_exe ccsa.exe"))

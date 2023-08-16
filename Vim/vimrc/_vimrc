@@ -928,7 +928,7 @@
       let g:lsp_diagnostics_virtual_text_enabled = 0
 
       " Don't auto start VIM-LSP
-      let g:lsp_auto_enable = 0
+      "let g:lsp_auto_enable = 0
 
    " }}}
 
