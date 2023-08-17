@@ -250,7 +250,7 @@
    }
 
    Function Kill-Teams {
-      Get-Process -Name 'teams' | Stop-Process;
+      Get-Process -Name 'teams' -ErrorAction Stop | Stop-Process -ErrorAction Stop;
    }
 
    Function Start-Teams {
@@ -266,7 +266,7 @@
    }
 
    Function Kill-Chrome {
-      Get-Process -Name 'chrome' | Stop-Process;
+      Get-Process -Name 'chrome' -ErrorAction Stop | Stop-Process -ErrorAction Stop;
    }
 
    Function Start-Chrome {

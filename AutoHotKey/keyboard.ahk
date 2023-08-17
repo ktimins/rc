@@ -29,6 +29,7 @@ changeCapslock := false
 montsinger     := false
 montsingerVol  := false
 useF24MouseSim := false
+F24Paste       := false
 
 //////////////////////////////
 //       Run Scripts        //
@@ -241,6 +242,20 @@ Return
 
       >+F24::
          MouseClick, Right
+      Return
+   #If
+
+   <!F24::
+      F24Paste:=not F24Paste
+   Return
+
+   #If (F24Paste and WinExist("ahk_exe chrome.exe"))
+      <^F24::
+         Send Updating Hierarchy
+         Send {Tab}{Space}
+         Send {Tab}{Space}
+         Send {Tab}{Tab}
+         Send {Space}
       Return
    #If
 #If
