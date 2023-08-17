@@ -249,15 +249,9 @@ Return
       F24Paste:=not F24Paste
    Return
 
-   #If (F24Paste and WinExist("ahk_exe chrome.exe"))
-      <^F24::
-         Send Updating Hierarchy
-         Send {Tab}{Space}
-         Send {Tab}{Space}
-         Send {Tab}{Tab}
-         Send {Space}
-      Return
+   #If (F24Paste)
    #If
+
 #If
 
 //////////////////////////////
