@@ -2,7 +2,7 @@
 # vim:fdm=marker
 
 # Basic {{{1
-   Set-ExecutionPolicy Bypass;
+   Set-ExecutionPolicy Unrestricted;
    $username = $env:USERNAME;
 
    # {{{2
@@ -250,7 +250,7 @@
    }
 
    Function Kill-Teams {
-      Get-Process -Name 'teams' -ErrorAction Stop | Stop-Process -ErrorAction Stop;
+      Get-Process -Name 'teams' -ErrorAction Ignore | Stop-Process -ErrorAction SilentlyContinue;
    }
 
    Function Start-Teams {
@@ -266,7 +266,7 @@
    }
 
    Function Kill-Chrome {
-      Get-Process -Name 'chrome' -ErrorAction Stop | Stop-Process -ErrorAction Stop;
+      Get-Process -Name 'chrome' -ErrorAction Ignore | Stop-Process -ErrorAction SilentlyContinue;
    }
 
    Function Start-Chrome {

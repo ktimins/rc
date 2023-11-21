@@ -67,16 +67,16 @@
 
    " Visual mode pressing * or # searches for the current selection
    " Super useful! From an idea by Michael Naumann
-   vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
-   vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+   vnoremap * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+   vnoremap # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
 " }}}
 
 " Moving Around, Tabs, Windows, Buffers {{{1
 
    " Disable highlight when <leader><cr> is pressed
-   nnoremap <silent> <leader><cr> :nohl<cr>
-   nnoremap <silent> <leader>n :nohl<cr>
+   nnoremap <leader><cr> :nohl<cr>
+   nnoremap <leader>n :nohl<cr>
 
    " Smart way to move between windows
    nnoremap <C-j> <C-W>j

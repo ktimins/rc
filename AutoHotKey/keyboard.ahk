@@ -30,11 +30,11 @@ montsinger     := false
 montsingerVol  := false
 useF24MouseSim := false
 F24Paste       := false
+enableCapsLock := true
 
 //////////////////////////////
 //       Run Scripts        //
 //////////////////////////////
-
 
 //////////////////////////////
 //          LEDs            //
@@ -201,6 +201,19 @@ Return
 
 
 //////////////////////////////
+//     Enable CapsLock      //
+//////////////////////////////
+
+>+CapsLock::
+   enableCapsLock:=not enableCapsLock
+Return
+
+#If (not enableCapsLock)
+   CapsLock::
+   Return
+#If
+
+//////////////////////////////
 //           F24            //
 //////////////////////////////
 
@@ -302,6 +315,9 @@ Return
 //////////////////////////////
 //        Capslock          //
 //////////////////////////////
+
+Capslock::
+   Return
 
 ^!+F12::
    changeCapslock := not changeCapslock
