@@ -262,9 +262,20 @@ Return
       F24Paste:=not F24Paste
    Return
 
-   #If (F24Paste)
-   #If
+#If
 
+#If (WinExist("ahk_exe EXCEL.EXE"))
+   #If (!useF24MouseSim)
+      #If GetKeyState("F24", "P")
+         Up::
+            Send {WheelUp}
+         Return
+         
+         Down::
+            Send {WheelDown}
+         Return
+      #If
+   #If
 #If
 
 //////////////////////////////
