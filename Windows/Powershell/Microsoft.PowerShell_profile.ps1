@@ -33,6 +33,8 @@
    if ($host.Name -eq 'ConsoleHost') {
       Import-Module PSReadline;
    }
+   Import-Module Microsoft.WinGet.Client;
+   Import-Module "C:\Program Files\PowerToys\WinUI3Apps\..\WinGetCommandNotFound.psd1";
 
    if ((Get-InstalledModule).Name -icontains 'sqlserver') {
       Import-Module SqlServer;
