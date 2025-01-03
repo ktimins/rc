@@ -1,4 +1,4 @@
 *pwsh -new_console:t:"PWSH":d:C:\Users\Ktimins
-*pwsh -new_console:t:"Countdown":d:C:\Users\KTimins -NoExit -Command "Start-EndOfWorkCountdownTimer -Hour 7 -Minute 55 -Toast; Start-EndOfWorkCountdownTimer -Hour 8 -Minute 0 -Toast;"
+*pwsh -new_console:t:"Countdown":d:C:\Users\KTimins -NoExit -Command "Start-EndOfWorkCountdownTimer -Hour 7 -Minute 30 -Toast; Start-EndOfWorkCountdownTimer -Hour 7 -Minute 45 -Toast;"
 *pwsh -new_console:t:"Keep Awake":d:C:\Users\KTimins -NoExit -Command "Keep-Awake.ps1 -Clear -SleepTime 300 -AdjustmentInMinutes ((Get-Date)-(Get-Date '07:35:00')).TotalMinutes;"
-*pwsh -new_console:t:"Code":d:C:\Users\Ktimins -Command "Cd-Git"
+*pwsh -new_console:t:"Code":d:C:\Users\Ktimins -NoExit -Command "cd-git;"

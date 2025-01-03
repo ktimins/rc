@@ -217,7 +217,7 @@ Return
 //           F24            //
 //////////////////////////////
 
-#If (WinExist("ahk_exe ccsa.exe")) 
+#If (WinActive("ahk_exe ccsa.exe")) 
    F24::
       Send {Alt down}{Down}{Alt up}
    Return
@@ -227,23 +227,37 @@ Return
    Return
 #If
 
-#If (WinExist("ahk_exe devenv.exe"))
-   #If (not useF24MouseSim)
-      #If GetKeyState("F24", "P") 
-         Left::
-            Send {XButton1}
-         Return
-      #If
+#If (WinActive("ahk_exe devenv.exe"))
+   F24::
+      Send {Ctrl down}{F8}{Ctrl Up}
+   Return
+   +F24::
+      Send {Shift down}{Ctrl down}{F8}{Ctrl Up}{Shift Up}
+   Return
+//   #If (not useF24MouseSim)
+//      #If GetKeyState("F24", "P") 
+//         Left::
+//            Send {XButton1}
+//         Return
+//      #If
+//
+//      #If GetKeyState("F24", "P")
+//         Right::
+//            Send {XButton2}
+//         Return
+//      #If
+//   #If
+#If
 
-      #If GetKeyState("F24", "P")
-         Right::
-            Send {XButton2}
-         Return
-      #If
+#If (WinActive("ahk_exe Postman.exe"))
+   #If (not useF24MouseSim)
+      ^F24::
+         Send {Ctrl down}{Enter}{Ctrl up}
+      Return
    #If
 #If
 
-#If (not WinExist("ahk_exe ccsa.exe"))
+#If (not WinActive("ahk_exe ccsa.exe"))
    >^F24::
       useF24MouseSim:=not useF24MouseSim
    Return
@@ -264,7 +278,7 @@ Return
 
 #If
 
-#If (WinExist("ahk_exe EXCEL.EXE"))
+#If (WinActive("ahk_exe EXCEL.EXE"))
    #If (!useF24MouseSim)
       #If GetKeyState("F24", "P")
          Up::

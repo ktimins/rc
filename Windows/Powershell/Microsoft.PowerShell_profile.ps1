@@ -34,7 +34,6 @@
       Import-Module PSReadline;
    }
    Import-Module Microsoft.WinGet.Client;
-   Import-Module "C:\Program Files\PowerToys\WinUI3Apps\..\WinGetCommandNotFound.psd1";
 
    if ((Get-InstalledModule).Name -icontains 'sqlserver') {
       Import-Module SqlServer;
@@ -153,29 +152,53 @@
       Get-WebsiteStatusCode -Url $E2_URL;
    }
 
+   Function Get-BcToken {
+      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]";
+      $headers.Add("Authorization", "Basic YWRjZGY3ODItMTRmNy00ZTZiLTlkZTQtZTBkZmFiYWE1M2Q3Ok9MTThRfmgteXVVdzJLM3pTb1ozTzFndXlNOFVNQU1pd0F+VkxjZFM=");
+      $headers.Add("Cookie", "fpc=AgELLfRsAT5Dixn9Ju8n6cRU9fQIAQAAAKvc3t0OAAAA; stsservicecookie=estsfd; x-ms-gateway-slice=estsfd");
+
+      $multipartContent = [System.Net.Http.MultipartFormDataContent]::new();
+      $stringHeader = [System.Net.Http.Headers.ContentDispositionHeaderValue]::new("form-data");
+      $stringHeader.Name = "grant_type";
+      $stringContent = [System.Net.Http.StringContent]::new("client_Credentials");
+      $stringContent.Headers.ContentDisposition = $stringHeader;
+      $multipartContent.Add($stringContent);
+
+      $stringHeader = [System.Net.Http.Headers.ContentDispositionHeaderValue]::new("form-data");
+      $stringHeader.Name = "scope";
+      $stringContent = [System.Net.Http.StringContent]::new("https://bccode.lazparking.com/BCUAT/.default");
+      $stringContent.Headers.ContentDisposition = $stringHeader;
+      $multipartContent.Add($stringContent);
+
+      $stringHeader = [System.Net.Http.Headers.ContentDispositionHeaderValue]::new("form-data");
+      $stringHeader.Name = "resource";
+      $stringContent = [System.Net.Http.StringContent]::new("fd8edb45-473d-4996-843a-a10049902e9d");
+      $stringContent.Headers.ContentDisposition = $stringHeader;
+      $multipartContent.Add($stringContent);
+
+      $body = $multipartContent;
+
+      $response = Invoke-RestMethod 'https://login.microsoftonline.com/d4dc10e1-b64e-47d0-b8b9-ab14cb97932b/oauth2/token' -Method 'POST' -Headers $headers -Body $body;
+
+      return $response.access_token;
+   }
+
    Function Get-BcLocationCounts {
-      Param(
-            [switch]$Migration
-           );
+      Param();
 
-      $mig = 'f598f114-2e76-ec11-83a8-005056a922d8';
-      $sandbox1 = '323a17e1-ddb9-ec11-83b1-005056a922d8';
+      $company = "b6065385-d5f8-ed11-83c7-005056a922d8";
+      $fileName = "Production";
 
-      $company = $sandbox1;
-      $fileName = "Sandbox1";
-      if ($Migration) {
-         $company = $mig;
-         $fileName = "Migration";
-      }
+      $token = Get-BcToken;
 
       $filePath = (Join-Path -Path $TempPath -ChildPath "$fileName.csv");
 
       "Region, Total, Admin, Lease, Managed, Insurance" > $filePath;
       $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]";
-      $headers.Add("Authorization", "Basic $BcPasswd")
+      $headers.Add("Authorization", "Bearer $token")
          $headers.Add("Content-Type", "application/json");
-      $response = Invoke-RestMethod "https://10.0.1.64:7248/BC_userauth/api/lazparking/e2/v1.0/companies($company)/parkings" -Method 'GET' -Headers $headers -SkipCertificateCheck;
-      foreach ($reg in 0..50) {
+      $response = Invoke-RestMethod "https://bcapp02.lazparking.com:8048/BCPRODINT_OAUTH/api/lazparking/e2/v1.0/companies($company)/parkings" -Method 'GET' -Headers $headers -SkipCertificateCheck;
+      foreach ($reg in 0..49) {
          $regStr = $reg.ToString().PadLeft(2, '0');
          $regStr | Write-Host;
 
@@ -886,6 +909,55 @@
       Out-File 'C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\ssms.pkgundef';
    }
 
+   Function Get-Weather {
+      <#
+         .Synopsis
+         Modified 05182019
+         Taylor Lee
+         Made Using api from http://wttr.in/
+
+         .Description
+         Shows weather for a location or the moon phase
+
+         .Parameter Location
+         Specify a location to get weather for
+
+         .Notes
+         For help modifying the function
+
+         http://wttr.in/:help
+
+         https://winaero.com/blog/get-weather-forecast-powershell/
+
+         .Example
+         Multiple Location Options Available
+
+         Get-Weather -Location houston+texas
+
+         paris # city name
+         Eiffel+tower # any location
+         muc # airport code (3 letters)
+         94107 # area codes
+         moon # Moon phase (add ,+US or ,+France for these cities)
+         moon@2016-10-25 # Moon phase for the date (@2016-10-25)
+
+         .Link
+         Connect-SSH
+         Enable-PSRemoting
+         Enable-Remoting
+
+         .Link
+         https://github.com/TheTaylorLee/AdminToolbox
+      #>
+
+      [Cmdletbinding()]
+      Param(
+            [Parameter(Mandatory = $true)]$Location
+           );
+
+      (Invoke-WebRequest http://wttr.in/"$Location"?QF -UserAgent "curl" ).Content;
+   }
+
 # }}}
 
 # Console Display settings {{{1
@@ -940,6 +1012,8 @@
    Set-Alias rechrome Restart-Chrome;
    Set-Alias torCommit Show-TortoiseGitCommit;
    Set-Alias torLog Show-TortoiseGitLog;
+   Set-Alias scb Set-Clipboard;
+   Set-Alias gcb Get-Clipboard;
 
 # }}}
 
@@ -955,3 +1029,8 @@
    # }}}
 
 # }}}
+
+#f45873b3-b655-43a6-b217-97c00aa0db58 PowerToys CommandNotFound module
+
+Import-Module -Name Microsoft.WinGet.CommandNotFound
+#f45873b3-b655-43a6-b217-97c00aa0db58
