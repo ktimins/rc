@@ -48,8 +48,8 @@
 
    # Oh-My-Posh {{{2
 
-      Import-Module oh-my-posh;
-      Set-PoshPrompt -Theme C:\Users\KTimins\oh_my_posh_theme-custom.omp.json
+      #Import-Module oh-my-posh;
+      #Set-PoshPrompt -Theme C:\Users\KTimins\oh_my_posh_theme-custom.omp.json
       #Set-PoshPrompt -Theme slimfat
 
    # }}}
@@ -985,7 +985,7 @@
 
 # Start Up - Welcome Message {{{1
 
-   Clear-Host;
+   #Clear-Host;
    $PSVers = "$($PSVersionTable.PSVersion.Major).$($PSVersionTable.PSVersion.Minor).$($PSVersionTable.PSVersion.Patch)";
    $welcome = "$env:USERNAME: Welcome to Powershell $($PSVersionTable.PSEdition) v$PSVers.";
    cowthink -r $welcome | lolcat;
@@ -1025,6 +1025,15 @@
       if (Test-Path($ChocolateyProfile)) {
          Import-Module "$ChocolateyProfile";
       }
+
+   # }}}
+   
+   # Oh-My-Posh {{{2
+      #oh-my-posh init pwsh --config 'C:\Users\KTimins\oh_my_posh_theme-custom.omp.json' | Invoke-Expression;
+      oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\thecyberden.omp.json" | Invoke-Expression;
+      #Import-Module oh-my-posh;
+      #Set-PoshPrompt -Theme C:\Users\KTimins\oh_my_posh_theme-custom.omp.json
+      #Set-PoshPrompt -Theme slimfat
 
    # }}}
 
