@@ -159,7 +159,7 @@
 
    " Vim-Polyglot {{{2
 
-   let g:polyglot_disabled = ['markdown']
+   let g:polyglot_disabled = ['markdown', 'sln']
 
    " }}}
 
@@ -371,6 +371,8 @@
       noremap <C-k> <C-W>k
       noremap <C-h> <C-W>h
       noremap <C-l> <C-W>l
+
+      nnoremap <C-E> <C-E>
 
       " Close the current buffer
       noremap <leader>bc :Bclose<cr>:tabclose<cr>gT
@@ -921,6 +923,11 @@
          au!
          " call s:on_lsp_buffer_enabled only for languages that has the server registered.
          autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+
+         " Disable LSP completely for sln files
+         autocmd FileType sln let g:lsp_diagnostics_enabled = 0
+         autocmd FileType sln let g:lsp_diagnostics_signs_enabled = 0
+         autocmd FileType sln setlocal signcolumn=no
       augroup END
 
       let g:markdown_fenced_languages = ["PowerShell=$FILETYPE"]
@@ -943,6 +950,18 @@
       \ ]
 
    " }}}
+
+   " vim-csharp {{{2
+
+      " Override vim-csharp plugin detection for SLN files
+      augroup override_csharp_plugin
+         au!
+         au BufRead,BufNewFile *.sln set filetype=sln
+         au BufEnter *.sln set filetype=sln | setlocal signcolumn=no
+      augroup END
+
+   " }}}
+
 
    " OmniSharp {{{2
 
@@ -1191,7 +1210,7 @@
          " SLN {{{4
             augroup sln
                au!
-               au BufRead, BufNewFile sln set filetype=sln
+               au BufRead,BufNewFile *.sln set filetype=sln
             augroup END
          " }}}
          
@@ -1199,7 +1218,7 @@
 
             augroup xsd
                au!
-               au BufRead, BufNewFile xsd set filetype=xsd
+               au BufRead,BufNewFile *.xsd set filetype=xsd
             augroup END
 
          " }}}
@@ -1208,7 +1227,7 @@
          
             augroup xml
                au!
-               au BufRead, BufNewFile xml set filetype=xml
+               au BufRead,BufNewFile *.xml set filetype=xml
                au FileType *.Billing.XML foldlevelstart=5
             augroup END
 
