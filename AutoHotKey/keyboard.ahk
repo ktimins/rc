@@ -217,6 +217,8 @@ Return
 //           F24            //
 //////////////////////////////
 
+F24::Enter
+
 #If (WinExist("ahk_exe ccsa.exe")) 
    F24::
       Send {Alt down}{Down}{Alt up}

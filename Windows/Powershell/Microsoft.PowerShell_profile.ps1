@@ -50,7 +50,7 @@
    # Oh-My-Posh {{{2
 
       Import-Module oh-my-posh;
-      Set-PoshPrompt -Theme C:\Users\KTimins\oh_my_posh_theme-custom.omp.json
+      Set-PoshPrompt -Theme C:\Users\rzite\oh_my_posh_theme-custom.omp.json
       #Set-PoshPrompt -Theme slimfat
 
    # }}}
@@ -916,7 +916,7 @@
    Clear-Host;
    $PSVers = "$($PSVersionTable.PSVersion.Major).$($PSVersionTable.PSVersion.Minor).$($PSVersionTable.PSVersion.Patch)";
    $welcome = "$env:USERNAME: Welcome to Powershell $($PSVersionTable.PSEdition) v$PSVers.";
-   cowthink -r $welcome | lolcat;
+   cowthink -r $welcome | lolcatjs;
 
 # }}}
 

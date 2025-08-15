@@ -41,8 +41,8 @@
 
    # Oh-My-Posh {{{2
 
-      Import-Module oh-my-posh;
-      Set-PoshPrompt -Theme C:\Users\KTimins\oh_my_posh_theme-custom.omp.json
+      #Import-Module oh-my-posh;
+      Set-PoshPrompt -Theme C:\Users\rzite\oh_my_posh_theme-custom.omp.json
       #Set-PoshPrompt -Theme slimfat
 
    # }}}
@@ -374,7 +374,7 @@ function Get-NTPDateTime
    Clear-Host;
    $PSVers = "$($PSVersionTable.PSVersion.Major).$($PSVersionTable.PSVersion.Minor)";
    $welcome = "$env:USERNAME: Welcome to Powershell $($PSVersionTable.PSEdition) v$PSVers.";
-   cowthink -r $welcome | lolcat;
+   cowthink -r $welcome | lolcatjs;
 
 # }}}
 
@@ -402,6 +402,12 @@ function Get-NTPDateTime
       if (Test-Path($ChocolateyProfile)) {
          Import-Module "$ChocolateyProfile";
       }
+
+   # }}}
+
+   # OH-MY-POSH {{{2
+
+      oh-my-posh init pwsh | Invoke-Expression;
 
    # }}}
 

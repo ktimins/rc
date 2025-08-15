@@ -31,10 +31,10 @@
          let $storage = 'C:\Users\rzite\.vimstorage'
          let $vimrc_plug = '~\_vimrc.plug'
       elseif $LOCATION ==? 'ARES'
-         let homedir = 'C:\Users\rzitex'
-         let $home = 'C:\Users\rzitex'
-         let $storage = 'C:\Users\rzitex\.vim\storage'
-         let $vimrc_plug = 'C:\Users\rzitex\_vimrc.plug'
+         let homedir = 'C:\Users\rzite'
+         let $home = 'C:\Users\rzite'
+         let $storage = 'C:\Users\rzite\.vim\storage'
+         let $vimrc_plug = 'C:\Users\rzite\_vimrc.plug'
       else 
          let $storage = ''
          let $vimrc_plug = '~/.vimrc.plug'
@@ -222,7 +222,8 @@
 
          " Font
          try
-            set guifont=CaskaydiaCove_Nerd_Font_Mono:h10
+            set guifont=CaskaydiaCove_NFM:h9:cANSI:qDRAFT
+            "set guifont=CaskaydiaCove_Nerd_Font_Mono:h10
          catch
             try
                set guifont=HackGenNerd_Console:h11
@@ -829,8 +830,8 @@
       let g:session_command_aliases = 1
 
       " Set the directory of the session files and their accompanying lock files
-      let g:session_directory = 'C:/Users/KTimins/.vimstorage/_sessions'
-      let g:session_lock_directory = 'C:/Users/KTimins/.vimstorage/_sessions_lock'
+      let g:session_directory = $storage . '/_sessions'
+      let g:session_lock_directory = $storage . '/_sessions_lock'
 
       " Don't auto save and load the sessions. (Set both load/save to act like notepad++. Default is 'Prompt')
       let g:session_autoload = 'no'
