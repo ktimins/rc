@@ -10,7 +10,6 @@
           "properties": {
             "alpine": "\uf300",
             "arch": "\uf303",
-            "cache_duration": "none",
             "centos": "\uf304",
             "debian": "\uf306",
             "elementary": "\uf309",
@@ -21,6 +20,7 @@
             "manjaro": "\uf312",
             "mint": "\uf30f",
             "opensuse": "\uf314",
+            "postfix": "<#7a7a7a> \ue0b1</>",
             "raspbian": "\uf315",
             "ubuntu": "\uf31c",
             "windows": "\ue70f",
@@ -28,7 +28,6 @@
             "wsl_separator": " on "
           },
           "leading_diamond": "\ue0c7\u2593",
-          "template": " {{ if .WSL }}WSL at {{ end }}{{.Icon}}<#7a7a7a> \ue0b1</>",
           "foreground": "#26C6DA",
           "background": "#101010",
           "type": "os",
@@ -38,9 +37,12 @@
           "properties": {
             "cache_duration": "none",
             "display_default": false,
-            "display_host": false
+            "display_host": false,
+            "host_color": "#2EEFBF",
+            "postfix": "<#7a7a7a> \ue0b1</>",
+            "user_color": "#77f5d6",
+            "user_info_separator": ""
           },
-          "template": " {{ if .SSHSession }}\ueba9 {{ end }}<#77f5d6>{{ .UserName }}</><#7a7a7a> \ue0b1</>",
           "foreground": "#fafafa",
           "background": "#101010",
           "type": "session",
@@ -48,10 +50,9 @@
         },
         {
           "properties": {
-            "cache_duration": "none",
+            "postfix": "<#7a7a7a> \ue0b1</>",
             "root_icon": "\uf0e7"
           },
-          "template": " \uf0e7<#7a7a7a> \ue0b1</>",
           "foreground": "#ffff66",
           "background": "#101010",
           "type": "root",
@@ -59,11 +60,11 @@
         },
         {
           "properties": {
-            "cache_duration": "none",
+            "enable_hyperlink": false,
             "folder_icon": "<#B5B2C2>\ue5fe </>",
+            "prefix": "<#f2f200> \ue5ff </>",
             "style": "full"
           },
-          "template": "<#f2f200> \ue5ff </>{{ .Path }} ",
           "foreground": "#fafafa",
           "background": "#101010",
           "type": "path",
@@ -71,21 +72,22 @@
         },
         {
           "properties": {
-            "cache_duration": "none",
-            "fetch_stash_count": true,
-            "fetch_status": true,
-            "fetch_upstream_icon": true
+            "ahead_color": "#2EC4B6",
+            "behind_color": "#8A4FFF",
+            "color_background": false,
+            "display_stash_count": true,
+            "display_status": true,
+            "display_upstream_icon": true,
+            "local_changes_color": "#ffeb3b",
+            "prefix": "<#7a7a7a>\ue0b1 </>",
+            "staging_color": "#2FDA4E",
+            "status_colors_enabled": true,
+            "working_color": "#E84855"
           },
-          "template": "<#7a7a7a>\ue0b1 </>{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 <#E84855>{{ .Working.String }}</>{{ end }}{{ if and (.Staging.Changed) (.Working.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 <#2FDA4E>{{ .Staging.String }}</>{{ end }} ",
           "foreground": "#ffeb3b",
           "background": "#101010",
           "type": "git",
-          "style": "diamond",
-          "foreground_templates": [
-            "{{ if or (.Working.Changed) (.Staging.Changed) }}#ffeb3b{{ end }}",
-            "{{ if gt .Ahead 0 }}#8A4FFF{{ end }}",
-            "{{ if gt .Behind 0 }}#2EC4B6{{ end }}"
-          ]
+          "style": "diamond"
         },
         {
           "properties": {
@@ -105,7 +107,6 @@
       "segments": [
         {
           "properties": {
-            "cache_duration": "none"
           },
           "leading_diamond": "\ue0b2",
           "foreground": "#fafafa",
@@ -115,9 +116,9 @@
         },
         {
           "properties": {
-            "cache_duration": "none"
+            "postfix": "<#7a7a7a> \ue0b3</>",
+            "prefix": " \ue718 "
           },
-          "template": " \ue718 {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }}<#7a7a7a> \ue0b3</>",
           "foreground": "#6CA35E",
           "background": "#101010",
           "type": "node",
@@ -125,9 +126,9 @@
         },
         {
           "properties": {
-            "cache_duration": "none"
+            "postfix": "<#7a7a7a> \ue0b3</>",
+            "prefix": " \ue235 "
           },
-          "template": " \ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }}{{ end }}<#7a7a7a> \ue0b3</>",
           "foreground": "#96E072",
           "background": "#101010",
           "type": "python",
@@ -135,9 +136,9 @@
         },
         {
           "properties": {
-            "cache_duration": "none"
+            "postfix": "<#7a7a7a> \ue0b3</>",
+            "prefix": " \ue77f "
           },
-          "template": " \ue77f {{ if .Unsupported }}\uf071{{ else }}{{ .Full }}{{ end }}<#7a7a7a> \ue0b3</>",
           "foreground": "#3891A6",
           "background": "#101010",
           "type": "dotnet",
@@ -145,11 +146,10 @@
         },
         {
           "properties": {
-            "cache_duration": "none",
+            "postfix": "<#007ACC> \uf64f </>",
             "time_format": "15:04:05"
           },
           "trailing_diamond": "\u2593\ue0c6",
-          "template": " {{ .CurrentDate | date .Format }}<#007ACC> \uf64f </>",
           "foreground": "#fafafa",
           "background": "#101010",
           "type": "time",
@@ -165,7 +165,6 @@
           "properties": {
             "cache_duration": "none"
           },
-          "template": " ~#@> ",
           "foreground": "#7a7a7a",
           "type": "text",
           "style": "plain"
@@ -181,18 +180,16 @@
           "properties": {
             "cache_duration": "none"
           },
-          "template": " < ",
           "foreground": "#7a7a7a",
           "type": "text",
           "style": "plain"
         },
         {
           "properties": {
-            "cache_duration": "none",
+            "postfix": "<#fafafa> \uf252 </>",
             "style": "roundrock",
             "threshold": 500
           },
-          "template": " {{ .FormattedMs }}<#fafafa> \uf252 </>",
           "foreground": "#FFCE5C",
           "type": "executiontime",
           "style": "plain"
@@ -200,16 +197,15 @@
         {
           "properties": {
             "always_enabled": true,
-            "cache_duration": "none",
-            "display_exit_code": true
+            "always_numeric": true,
+            "color_background": false,
+            "display_exit_code": true,
+            "error_color": "#E84855",
+            "prefix": " \uf705 "
           },
-          "template": " \uf705 {{ if gt .Code 0 }}\uf00d {{ .Code }}{{ else }}\uf42e{{ end }} ",
           "foreground": "#9FD356",
           "type": "exit",
-          "style": "plain",
-          "foreground_templates": [
-            "{{ if gt .Code 0 }}#E84855{{ end }}"
-          ]
+          "style": "plain"
         }
       ]
     }
