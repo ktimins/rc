@@ -1382,6 +1382,26 @@
 
       " }}}
 
+      " numbers {{{3
+
+         " Function to sum numbers line by line
+         function! SumNumbers() range
+           let l:sum = 0
+           " Go through each line in the given range
+           for lnum in range(a:firstline, a:lastline)
+             let l:val = str2float(getline(lnum))
+             let l:sum += l:val
+           endfor
+           echo "Sum = " . l:sum
+         endfunction
+
+         " Map it for easy use in visual mode
+         xnoremap <leader>s :call SumNumbers()<CR>
+         " Map it for whole buffer if nothing is selected
+         nnoremap <leader>s :%call SumNumbers()<CR>
+
+      " }}}
+
       " Change GUI Font Size {{{3
 
          "if has("unix")
