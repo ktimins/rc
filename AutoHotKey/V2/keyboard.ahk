@@ -77,26 +77,33 @@ global Colemap := Map(
  "m","m"
 )
 
-; Create hotkeys for all letters a-z to remap when Colemak is active.
-; Use '*' to catch with modifiers; we'll preserve Shift specifically.
+; --- Register Colemak remaps (letters only) ---
 _forEachColeKey := StrSplit("abcdefghijklmnopqrstuvwxyz")
-for k in _forEachColeKey {
-    HotIf(ColemakActive)
-    Hotkey("*" k, ColeRemap.Bind(k))
-    Hotkey("*+" k, ColeRemap.Bind(k)) ; shifted letter
-}
-HotIf() ; reset
 
-ColeRemap(origKey, thisHotkey?) {
-    ; If not active, pass through
+; Give HotIf a callable (lambda) instead of a bare name:
+#HotIf ColemakActive()
+
+for k in _forEachColeKey {
+    ; One wildcard hotkey per letter is enough; it fires with Shift/Ctrl/Alt/Win.
+    Hotkey("*" k, ColeRemap.Bind(k))
+}
+
+#HotIf  ; reset context
+
+; --- Remapper preserving case (Shift/CapsLock) and avoiding recursion ---
+ColeRemap(origKey) {
     if !ColemakActive() {
         Send "{" origKey "}"
         return
     }
+
     out := Colemap.Has(origKey) ? Colemap[origKey] : origKey
-    ; preserve Shift: if Shift down OR the hotkey variant was shifted, send uppercase
-    upper := GetKeyState("Shift","P") || InStr(thisHotkey ?? "", "+")
-    if upper
+
+    ; Uppercase if Shift XOR CapsLock is active.
+    up := (GetKeyState("Shift","P") ? 1 : 0) ^ (GetKeyState("CapsLock","T") ? 1 : 0)
+
+    ; SendText avoids re-triggering our hotkeys (no recursion).
+    if up
         SendText StrUpper(out)
     else
         SendText out
@@ -195,17 +202,17 @@ ColeRemap(origKey, thisHotkey?) {
 }
 
 ; --- Mouse Simulator bindings (active only when useF24MouseSim = true)
-HotIf(() => useF24MouseSim)
+#HotIf useF24MouseSim
 F24:: {
     Click "Left"
 }
 >+F24:: { ; Right Shift + F24
     Click "Right"
 }
-HotIf()
+#HotIf
 
 ; --- App Shortcut defaults (only when NOT in mouse-sim)
-HotIf(() => !useF24MouseSim)
+#HotIf !useF24MouseSim
 ; Global default
 F24:: {
     Send "^{" "F8" "}"
@@ -213,26 +220,27 @@ F24:: {
 +F24:: {
     Send "+^{" "F8" "}"
 }
+#HotIf
 
 ; -------- App-specific: ccsa.exe --------
-HotIf(() => !useF24MouseSim && WinActive("ahk_exe ccsa.exe"))
+#HotIf !useF24MouseSim && WinActive("ahk_exe ccsa.exe")
 F24:: {
     Send "!{" "Down" "}"
 }
 +F24:: {
     Send "!{" "Up" "}"
 }
-HotIf()
+#HotIf
 
 ; -------- App-specific: devenv.exe (Visual Studio) --------
-HotIf(() => !useF24MouseSim && WinActive("ahk_exe devenv.exe"))
+#HotIf !useF24MouseSim && WinActive("ahk_exe devenv.exe")
 F24:: {
     Send "^{" "F8" "}"
 }
 +F24:: {
     Send "+^{" "F8" "}"
 }
-HotIf()
+#HotIf
 
 ; (Placeholders exist IRL for Postman.exe / EXCEL.EXE; not mapped here per brief)
 
