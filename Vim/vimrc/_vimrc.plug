@@ -84,7 +84,7 @@
       "}}}
 		
       " MarkDown {{{3
-         Plug 'gabrielelana/vim-markdown'
+         "Plug 'gabrielelana/vim-markdown'
          "Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
       "}}}
 		

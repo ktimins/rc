@@ -5,6 +5,8 @@
 
    " Needed Stuff {{{2
 
+      set maxmempattern=2000000
+
       set nossl
       set encoding=utf8
       set fileencoding=utf8
@@ -159,7 +161,7 @@
 
    " Vim-Polyglot {{{2
 
-   let g:polyglot_disabled = ['markdown', 'sln']
+   let g:polyglot_disabled = ['sln']
 
    " }}}
 
