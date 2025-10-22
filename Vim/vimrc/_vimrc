@@ -16,17 +16,10 @@
 
    " Location Stuff {{{2
       if $LOCATION ==? 'WORK'
-         if has("win32unix")
-            let homedir = '~'
-            let $home = '~'
-            let $storage = '~/.vimstorage'
-            let $vimrc_plug = '~/.vimrc.plug'
-         else
-            let homedir = 'C:\Users\KTimins'
-            let $home = 'C:\Users\KTimins'
-            let $storage = 'C:\Users\KTimins\.vimstorage'
-            let $vimrc_plug = 'C:\Users\KTimins\_vimrc.plug'
-         endif
+         let homedir = 'C:\Users\ktimins'
+         let $home = 'C:\Users\ktimins'
+         let $storage = 'C:\Users\ktimins\.vimstorage'
+         let $vimrc_plug = 'C:\Users\ktimins\_vimrc.plug'
       elseif $LOCATION ==? 'THEIA'
          let homedir = 'C:\Users\rzite'
          let $home = 'C:\Users\rzite'
@@ -166,7 +159,6 @@
    " }}}
 
    " Vim-Plug {{{2
-
       " Call the [\._]vimrc.plug file
       if filereadable(expand($vimrc_plug))
          execute "source " . $vimrc_plug
@@ -512,10 +504,10 @@
 
    if $LOCATION ==? 'WORK'
       let g:startify_bookmarks = [ 
-               \ {'v': 'C:/Users/KTimins/Git/rc/Vim/vimrc/_vimrc'}, 
-               \ {'b': 'C:/Users/KTimins/Git/rc/Vim/vimrc/_vimrc.plug'}, 
-               \ {'p': 'C:/Users/KTimins/Git/rc/Windows/Powershell/Microsoft.Powershell_profile.ps1'},
-               \ {'m': 'C:/Users/KTimins/Git/rc/Windows/Microsoft.Powershell_profile.ps1'} 
+               \ {'v': 'C:/Users/ktimins/Git/rc/Vim/vimrc/_vimrc'}, 
+               \ {'b': 'C:/Users/ktimins/Git/rc/Vim/vimrc/_vimrc.plug'}, 
+               \ {'p': 'C:/Users/ktimins/Git/rc/Windows/Powershell/Microsoft.Powershell_profile.ps1'},
+               \ {'m': 'C:/Users/ktimins/Git/rc/Windows/Microsoft.Powershell_profile.ps1'} 
                \ ]
    elseif $LOCATION ==? 'THEIA'
       let g:startify_bookmarks = [ 
@@ -833,8 +825,8 @@
       let g:session_command_aliases = 1
 
       " Set the directory of the session files and their accompanying lock files
-      let g:session_directory = 'C:/Users/KTimins/.vimstorage/_sessions'
-      let g:session_lock_directory = 'C:/Users/KTimins/.vimstorage/_sessions_lock'
+      let g:session_directory = 'C:/Users/ktimins/.vimstorage/_sessions'
+      let g:session_lock_directory = 'C:/Users/ktimins/.vimstorage/_sessions_lock'
 
       " Don't auto save and load the sessions. (Set both load/save to act like notepad++. Default is 'Prompt')
       let g:session_autoload = 'no'
