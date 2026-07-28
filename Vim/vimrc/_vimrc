@@ -956,7 +956,6 @@
 
    " }}}
 
-
    " OmniSharp {{{2
 
       " Use the stdio OmniSharp-roslyn server
@@ -1062,6 +1061,13 @@
 
    " }}}
 
+   " glowing-vim-markdown-preview {{{2
+
+     nnoremap <Leader>mp :MarkdownPreviewToggle<CR>
+
+   " }}}
+
+
    " Vim-Notes {{{2
 
       "let g:notes_directories = ['~/vim-notes']
@@ -1121,6 +1127,17 @@
 
       " Set the values to autopair.
       let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '```':'```', '"""':'"""', "'''":"'''"}
+
+   " }}}
+
+   " JsonPath {{{2
+
+      " Optionally copy path to a named register (* in this case) when calling :JsonPath
+      let g:jsonpath_register = '*'
+      
+      " Define mappings for json buffers
+      au FileType json noremap <buffer> <silent> <leader>d :call jsonpath#echo()<CR>
+      au FileType json noremap <buffer> <silent> <leader>g :call jsonpath#goto()<CR>
 
    " }}}
 
