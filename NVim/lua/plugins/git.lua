@@ -5,6 +5,24 @@ return {
    { "tpope/vim-rhubarb", dependencies = { "tpope/vim-fugitive" } },
    { "junegunn/gv.vim", cmd = "GV", dependencies = { "tpope/vim-fugitive" } },
 
+   -- Side-by-side diffs for any revision, a file history browser, and a
+   -- three-pane merge tool. The strongest git upgrade beyond gitsigns and
+   -- fugitive for someone used to Visual Studio's diff viewer.
+   --
+   -- <leader>v for "view"; <leader>d and <leader>g are taken buffer-locally by
+   -- vim-jsonpath in json files, and <leader>D is the debugger.
+   {
+      "sindrets/diffview.nvim",
+      cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewFileHistory", "DiffviewToggleFiles" },
+      opts = {},
+      keys = {
+         { "<leader>vo", "<cmd>DiffviewOpen<cr>", desc = "Open diff view" },
+         { "<leader>vc", "<cmd>DiffviewClose<cr>", desc = "Close diff view" },
+         { "<leader>vh", "<cmd>DiffviewFileHistory<cr>", desc = "Repo file history" },
+         { "<leader>vf", "<cmd>DiffviewFileHistory %<cr>", desc = "This file's history" },
+      },
+   },
+
    -- Replaces vim-gitgutter, which was wired in a degraded state: the old
    -- config set gitgutter_map_keys=0, disabling every hunk mapping without
    -- providing replacements, so only the gutter signs were ever reachable.

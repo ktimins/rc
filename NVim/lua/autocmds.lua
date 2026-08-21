@@ -147,6 +147,28 @@ on_ft("ps1", function()
    vim.wo.foldmethod = "indent"
 end)
 
+-- Build straight to the quickfix list, with no plugin involved: `:make` runs
+-- dotnet build and the errorformat turns MSBuild diagnostics into jumpable
+-- entries. vim-unimpaired's ]q / [q then walks them, and :Cfilter narrows them.
+--
+-- This exists alongside overseer's task templates deliberately. overseer gives
+-- the nicer task UI, but this path depends on nothing and is verified: it
+-- produces valid quickfix entries from real dotnet build output.
+--
+-- MSBuild reports each diagnostic once per build pass, so a project referenced
+-- by another appears twice. Visual Studio dedupes in its Error List; quickfix
+-- does not.
+on_ft("cs", function()
+   vim.bo.makeprg = "dotnet build --nologo"
+   vim.bo.errorformat = table.concat({
+      -- Foo.cs(12,5): error CS1002: ; expected [C:\path\Proj.csproj]
+      [[%f(%l\,%c): %trror %m]],
+      [[%f(%l\,%c): %tarning %m]],
+      [[%f(%l): %trror %m]],
+      [[%f(%l): %tarning %m]],
+   }, ",")
+end)
+
 on_ft("sql", function()
    -- uppercase SQL keywords across the selection (verbatim port)
    vim.keymap.set("x", "<leader>rp",

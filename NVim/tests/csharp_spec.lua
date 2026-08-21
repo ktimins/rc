@@ -63,6 +63,38 @@ T.check("<F9> still belongs to undotree",
 T.check("<F10> still belongs to aerial",
    vim.fn.maparg("<F10>", "n", false, true).desc, "Symbol outline (was vista)")
 
+T.section("build to quickfix")
+local dir = H.tempdir()
+local cs = dir .. "/Probe.cs"
+vim.fn.writefile({ "class Probe {}" }, cs)
+vim.cmd("edit! " .. vim.fn.fnameescape(cs))
+T.check("makeprg builds the solution", vim.bo.makeprg, "dotnet build --nologo")
+T.truthy("errorformat handles MSBuild diagnostics", vim.bo.errorformat:find("%%trror"))
+
+-- Parse a real MSBuild diagnostic rather than trusting the pattern by eye. A
+-- wrong errorformat yields an empty quickfix, which is indistinguishable from
+-- a clean build.
+vim.fn.setqflist({}, " ", {
+   -- [==[ ]==] because the sample lines end in "]", which would close a plain
+   -- [[ ]] bracket early
+   lines = {
+      [==[C:\proj\Foo.cs(12,5): error CS1002: ; expected [C:\proj\Proj.csproj]]==],
+      [==[C:\proj\Bar.cs(3,1): warning CS0168: unused variable [C:\proj\Proj.csproj]]==],
+   },
+   efm = vim.bo.errorformat,
+})
+local qf = vim.fn.getqflist()
+local valid, kinds = 0, {}
+for _, e in ipairs(qf) do
+   if e.valid == 1 then
+      valid = valid + 1
+      kinds[#kinds + 1] = e.type
+   end
+end
+T.check("both diagnostics parse", valid, 2)
+T.check("severities are error and warning", kinds, { "e", "w" })
+T.check("line and column survive", { qf[1].lnum, qf[1].col }, { 12, 5 })
+
 T.section("formatting")
 require("lazy").load({ plugins = { "conform.nvim" } })
 local conform_ok, conform = pcall(require, "conform")

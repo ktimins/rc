@@ -27,11 +27,19 @@ for _, spec in ipairs(specs) do
       :wait()
 
    -- headless Neovim writes messages to stderr, so both streams matter
-   io.stdout:write(res.stdout or "")
-   io.stdout:write(res.stderr or "")
+   local out = (res.stdout or "") .. (res.stderr or "")
+   io.stdout:write(out)
    io.stdout:write("\n")
 
+   -- A spec that fails to PARSE exits 0 and prints a Lua error, so a non-zero
+   -- exit code alone is not enough: that combination silently reported a
+   -- broken spec as passing. Require the summary line that finish() emits.
+   local reported = out:match("%d+ passed, %d+ failed") ~= nil
+
    if res.code ~= 0 then
+      table.insert(failed, name)
+   elseif not reported then
+      io.stdout:write(("!! %s produced no result summary (did it fail to load?)\n\n"):format(name))
       table.insert(failed, name)
    end
 end
