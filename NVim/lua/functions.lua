@@ -109,10 +109,14 @@ local function sum_lines(first, last)
    vim.notify("Sum = " .. sum)
 end
 
-vim.keymap.set("x", "<leader>s", function()
+-- <leader>S, not <leader>s. _vimrc had this on <leader>s alongside the five
+-- spell mappings (<leader>ss/sn/sp/sa/s?), so bare <leader>s always sat waiting
+-- 'timeoutlen' to see whether another key was coming. The spell prefix keeps
+-- its keys (five mappings against one) and summing moves up a case.
+vim.keymap.set("x", "<leader>S", function()
    vim.cmd([[execute "normal! \<Esc>"]])
    sum_lines(vim.fn.line("'<"), vim.fn.line("'>"))
 end, { desc = "Sum numbers in selection" })
-vim.keymap.set("n", "<leader>s", function()
+vim.keymap.set("n", "<leader>S", function()
    sum_lines(1, vim.fn.line("$"))
 end, { desc = "Sum numbers in buffer" })

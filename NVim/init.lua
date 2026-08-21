@@ -22,5 +22,6 @@ require("options")   -- sets mapleader, so it must precede anything using it
 require("keymaps")
 require("autocmds")
 require("functions")
+require("gui")       -- no-op outside Neovide
 
 require("config.lazy") -- plugins last: everything above must hold without them

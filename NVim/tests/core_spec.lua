@@ -46,8 +46,8 @@ for _, spec in ipairs({
    { "n", ",ss" }, { "n", ",sn" }, { "n", ",sp" }, { "n", ",sa" }, { "n", ",s?" },
    { "n", ",m" }, { "n", ",q" }, { "n", ",x" },
    { "n", ",cw" }, { "n", ",ts" }, { "n", ",t2" }, { "n", ",t3" }, { "n", ",t4" },
-   { "n", ",fa" }, { "n", ",jf" }, { "n", ",fj" }, { "n", ",s" },
-   { "x", "*" }, { "x", "#" }, { "x", ",s" },
+   { "n", ",fa" }, { "n", ",jf" }, { "n", ",fj" }, { "n", ",S" },
+   { "x", "*" }, { "x", "#" }, { "x", ",S" },
 }) do
    T.check(string.format("%s map %q", spec[1], spec[2]), H.has_map(spec[1], spec[2]), true)
 end
