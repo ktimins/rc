@@ -135,6 +135,18 @@ return {
 
    { "catgoose/nvim-colorizer.lua", event = "VeryLazy", opts = {} },
 
+   -- Many more text objects: `ci,` between commas, `cia` a function argument,
+   -- `ci'` from anywhere on the line, next/last variants (`cin)`). For C#
+   -- method calls with long argument lists this is a daily workhorse;
+   -- 03-plugins.md section 8 rates it the highest value-per-byte addition.
+   { "wellle/targets.vim", event = "VeryLazy" },
+
+   -- Paired bracket mappings: ]q/[q walk the quickfix list (build errors),
+   -- ]b/[b buffers, ]e exchange lines, yon toggle numbers, yow toggle wrap.
+   -- Turns the build-errors-to-quickfix workflow into two keystrokes.
+   -- Note ]c/[c stay with gitsigns (hunk navigation), which is set per buffer.
+   { "tpope/vim-unimpaired", event = "VeryLazy" },
+
    -- Carried over from _vimrc.plug, still worth their RAM.
    { "tpope/vim-surround" },
    { "tpope/vim-repeat" },

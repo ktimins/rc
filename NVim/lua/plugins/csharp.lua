@@ -100,7 +100,13 @@ return {
    -- binds it buffer-locally in json files.
    {
       "mfussenegger/nvim-dap",
-      dependencies = { "rcarriga/nvim-dap-ui", "nvim-neotest/nvim-nio" },
+      dependencies = {
+         "rcarriga/nvim-dap-ui",
+         "nvim-neotest/nvim-nio",
+         -- variable values inline next to the code while stopped at a
+         -- breakpoint, the way Visual Studio shows them
+         { "theHamsta/nvim-dap-virtual-text", opts = {} },
+      },
       keys = {
          { "<leader>Dc", function() require("dap").continue() end, desc = "Debug: continue / start" },
          { "<leader>Db", function() require("dap").toggle_breakpoint() end, desc = "Debug: toggle breakpoint" },

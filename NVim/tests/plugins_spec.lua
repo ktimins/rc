@@ -106,6 +106,39 @@ end
 T.check("vim-LanguageTool is not installed",
    lazycfg and lazycfg.plugins["vim-LanguageTool"] == nil, true)
 
+T.section("additional tooling (03-plugins.md section 8)")
+for _, name in ipairs({
+   "trouble.nvim", "fidget.nvim", "targets.vim", "vim-unimpaired",
+   "vim-dadbod", "vim-dadbod-ui", "vim-dadbod-completion",
+   "nvim-dap-virtual-text", "SchemaStore.nvim",
+}) do
+   T.check(name, lazycfg.plugins[name] ~= nil, true)
+end
+
+if ok_reg then
+   for _, pkg in ipairs({ "lemminx", "json-lsp" }) do
+      local ok_pkg, p = pcall(reg.get_package, pkg)
+      T.check(pkg .. " installed", ok_pkg and p:is_installed(), true)
+   end
+end
+
+for _, server in ipairs({ "ltex_plus", "lemminx", "jsonls" }) do
+   T.check(server .. " LSP config registered", vim.lsp.config[server] ~= nil, true)
+end
+
+T.section("no key was stolen by the new plugins")
+-- trouble conventionally binds <leader>x, which is already the ~/buffer.md
+-- scribble mapping ported from _vimrc; it lives on <leader>l here instead
+for _, k in ipairs({ ",ld", ",lb", ",ls", ",lr", ",lq", ",ll" }) do
+   T.check("trouble " .. k, H.has_map("n", k), true)
+end
+T.check("<leader>x is still the scribble buffer",
+   vim.fn.maparg(",x", "n"):lower():find("buffer%.md") ~= nil, true)
+-- assert on desc: lazy installs callback stubs for `keys` specs, so rhs is nil
+-- until the plugin loads
+T.check("<leader>u opens the database UI",
+   vim.fn.maparg(",u", "n", false, true).desc, "Database UI")
+
 T.section("xsd and xaml resolve to the xml parser")
 for _, ext in ipairs({ "xsd", "xaml" }) do
    local f = string.format("%s/probe.%s", dir, ext)
