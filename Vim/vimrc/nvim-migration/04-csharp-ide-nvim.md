@@ -140,6 +140,12 @@ return {
 }
 ```
 
+> **Correction (implemented 2026-08-21).** easy-dotnet now ships its own Roslyn LSP layer, `lsp = { enabled = true }` by default, which this doc predates. Left on, it attaches a SECOND Roslyn client alongside roslyn.nvim and both answer `textDocument/completion` with identical results, so every C# completion appears twice. Measured on a two-project solution: `roslyn` returned 5 items, `easy_dotnet` returned the same 5.
+>
+> The as-built config sets `lsp = { enabled = false }` so roslyn.nvim owns the language server, and keeps `projx_lsp = { enabled = true }`, which is a different feature serving `.csproj`/`.sln` files. The alternative is to flip it and let easy-dotnet own Roslyn, which additionally brings roslynator analyzers, Razor support and codelens refresh; pick one, never both.
+>
+> Two smaller notes. The **official Mason registry now carries `roslyn-language-server`**, so the community registry is optional, but roslyn.nvim's own README still recommends `github:Crashdummyy/mason-registry` because the nuget-sourced package lags the VS Code build; the as-built config lists both registries. And **`c_sharp` has no treesitter `indents.scm`**, which matters because doc 03's treesitter setup must not hand C# its `indentexpr`; doing so leaves C# with no auto-indent at all. Neovim's bundled `GetCSIndent` handles it correctly.
+
 Note on `<F9>/<F10>`: these collide with the undotree/aerial toggles from doc 03. Decide one owner; the recommendation is to keep `<F9>/<F10>` for undotree/aerial (existing muscle memory) and move DAP stepping to `<leader>d...` mappings instead. The spec above shows the VS-style function keys because that is what VS muscle memory expects; the implementer must pick one and delete the other, not keep both.
 
 LSP keymaps: Neovim has global defaults (`grn` rename, `gra` code action, `grr` references, `gri` implementation, `gO` document symbols, `K` hover, `<C-]>` definition via tagfunc). `gd` is NOT an LSP mapping by default (it stays the lexical "goto local declaration"). Add VS-style extras on LspAttach: `gd` → `vim.lsp.buf.definition`, `<F2>` → `vim.lsp.buf.rename` (matches the old vim-lsp `<f2>` mapping), `<F12>` → definition, `<C-F12>` → implementation.

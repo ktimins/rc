@@ -4,8 +4,10 @@ Scope: everything in `_vimrc` that is not the Colemak block (doc 01), not plugin
 
 ## 1. Target layout
 
+As built, the repo side is `NVim/` at the repo root rather than `Vim/nvim/`, and a `gui.lua` (Neovide settings, doc 03 section 5) and a `tests/` directory were added. Otherwise this layout is what was implemented.
+
 ```
-%LOCALAPPDATA%\nvim\            (junction to Vim/nvim/ in the rc repo, see README)
+%LOCALAPPDATA%\nvim\            (junction to NVim/ in the rc repo, see README)
   init.lua
   lua\
     colemak.lua                 (doc 01)

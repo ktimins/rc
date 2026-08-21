@@ -33,11 +33,31 @@ Neovim runs both. The entry point is either `init.lua` or `init.vim` (never both
 - OS: Windows 11. Shell contexts are cmd/PowerShell; the repo is worked on through Git Bash sometimes.
 - Machine selection is done via the `$LOCATION` environment variable: `WORK` (user `ktimins`), `THEIA` (user `rzite`), `ARES` (user `rzitex`). The current machine is WORK.
 - Neovim config location on Windows: `%LOCALAPPDATA%\nvim\init.lua` (this is `vim.fn.stdpath("config")`). Data/plugins go to `%LOCALAPPDATA%\nvim-data` (`stdpath("data")`), state (undo/swap/backup by default) to `stdpath("state")`.
-- To keep the config in this git repo, create the config as `Vim/nvim/` in the repo and junction it: `cmd /c mklink /J "%LOCALAPPDATA%\nvim" "C:\Users\ktimins\Git\rc\Vim\nvim"` (adjust user per `$LOCATION`).
-- Version assumption: Neovim 0.11+ for everything in docs 01 through 03; Neovim 0.12+ is required for the recommended C# LSP plugin (seblyng/roslyn.nvim) in doc 04. Install the latest stable (`choco install neovim` or `winget install Neovim.Neovim`).
+- To keep the config in this git repo, create the config as `Vim/nvim/` in the repo and junction it: `cmd /c mklink /J "%LOCALAPPDATA%\nvim" "C:\Users\ktimins\Git\rc\Vim\nvim"` (adjust user per `$LOCATION`). **As built this is `NVim/` at the repo root instead**, because Neovim and gVim are treated as two separate systems that share no files; the junction command is otherwise identical. See `NVim/README.md`.
+- Version assumption: Neovim 0.11+ for everything in docs 01 through 03; Neovim 0.12+ is required for the recommended C# LSP plugin (seblyng/roslyn.nvim) in doc 04. Install the latest stable (`choco install neovim` or `winget install Neovim.Neovim`). **In practice 0.12+ is required throughout**, because nvim-treesitter's current `main` branch requires it (see the correction in doc 03).
 - Neovim runs legacy Vimscript natively (it never adopted vim9script), so any block from `_vimrc` can be kept verbatim during transition via `vim.cmd.source(...)`. The target state is Lua, but nothing forces a big-bang rewrite.
 - Existing gVim, `_vimrc`, and `_vsvimrc` (VsVim in Visual Studio) must keep working untouched. Neovim's config is fully separate, so the two coexist with zero risk. `_vsvimrc` is out of scope for all of these docs.
 
 ## Status
 
-Design complete, researched July 2026. Nothing implemented yet.
+Design complete, researched July 2026. **Implemented on WORK 2026-08-21** against Neovim 0.12.4; the config lives in `NVim/` at the repo root (top level, not `Vim/nvim/` as section "Environment facts" below suggests) and is junctioned to `%LOCALAPPDATA%\nvim`.
+
+Docs 01 through 04 are implemented. Doc 05 (gVim as a C# IDE) and doc 06 (the Vimscript track) were not pursued: gVim stays as it is, and the Lua track was chosen.
+
+### Corrections found during implementation
+
+Each of these is a place where following the doc as written produces a broken or silently degraded setup. They are marked inline in the relevant doc as `> **Correction**` blocks; this is the index.
+
+| Doc | What the doc says | What is actually true |
+|---|---|---|
+| 01 §2 | `CTRL-^` toggles `iminsert` per buffer | It moves the global value too, so toggling off in one buffer disables translation in every buffer opened afterwards |
+| 03 §3 | Pin nvim-treesitter to `branch = "master"` | `main` requires Neovim 0.12 and is correct here; `master` is feature-frozen. `main` also needs the tree-sitter CLI, whose npm shim is unspawnable on Windows |
+| 03 §3 | `rainbow-delimiters.nvim` with no options | Needs `submodules = false`; its gitlab-hosted submodule 403s and the failed clone repeats on every startup |
+| 03 §3 | vimwiki with `vimwiki_list` only | Claims every `.md` on the machine as `filetype=vimwiki`, silently disabling markdown treesitter, markdown-preview, conform and grammar checking |
+| 03 §2 | Keep `dpelle/vim-LanguageTool` | Cannot work with LanguageTool 6.x, which removed the `--api` flag it depends on. Replaced by the ltex-ls-plus server |
+| 03 | (implied) XML keeps its built-in indent | `XmlIndentGet` is a no-op here; `gg=G` leaves XML flat. Treesitter indents it correctly |
+| 04 §3 | easy-dotnet is IDE glue only | It now ships its own Roslyn LSP, on by default, which duplicates every C# completion alongside roslyn.nvim |
+| 04 §3 | (implied) treesitter indent is safe everywhere | `c_sharp` has no `indents.scm`; setting `indentexpr` leaves C# with no auto-indent |
+| 03 §5 | Neovide scale keybinds multiply `neovide_scale_factor` | That variable is unset until first assigned, so the snippet errors on first use |
+
+A headless regression suite covering all of this lives in `NVim/tests/`. The Colemak acceptance checklist from doc 01 section 5 is automated there and should be re-run after any plugin change.

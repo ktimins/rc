@@ -37,6 +37,12 @@ In the evolution framing from the design discussion: `noremap!` was a trait that
 That is precisely the set "characters that are text, not command grammar". Whether the lmaps are active is governed by two buffer-local options:
 
 - `iminsert` = 1 → lmaps active in Insert mode and for the `f`/`t`/`r` arguments. Toggleable per buffer with `CTRL-^` in Insert mode; the state is remembered.
+
+> **Correction (implemented 2026-08-21).** `CTRL-^` is NOT purely per-buffer. Measured across three distinct buffers on Neovim 0.12.4: `i_CTRL-^` moves the GLOBAL `iminsert` as well as the buffer-local one. Because new buffers inherit the global default, toggling translation off in one buffer silently disables it in every buffer opened afterwards, and the symptom ("Colemak stopped working") is far removed from the cause. The option itself is genuinely buffer-local when set directly (two buffers held different values), so this is specifically about what `CTRL-^` does.
+>
+> The implemented fix repairs the global rather than replacing the toggle: an `InsertLeave` autocmd resets the global `iminsert` to 1, leaving the buffer-local value alone. Setting global scope explicitly does not disturb the buffer-local value. `OptionSet` does NOT fire for `i_CTRL-^` (verified), which is why `InsertLeave` is the repair point.
+>
+> Remapping `CTRL-^` to a Lua callback was tried and rejected: the built-in toggles synchronously within the input stream and a callback does not, risking translation of the first characters typed after the toggle.
 - `imsearch` = -1 → search patterns (`/`, `?`) follow whatever `iminsert` says. (A value of 1 would make search state independent; we use -1 so one switch controls everything.)
 
 ### The one documented catch, and its fix

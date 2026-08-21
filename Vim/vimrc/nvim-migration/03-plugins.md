@@ -163,6 +163,7 @@ return {
     end },
 
   { "windwp/nvim-autopairs", event = "InsertEnter", opts = {} },
+  -- CORRECTION: needs `submodules = false`, see the note after this block
   { "HiPhish/rainbow-delimiters.nvim" },
   { "gbprod/yanky.nvim", opts = {},
     keys = {
@@ -199,6 +200,8 @@ return {
   { "reedes/vim-wordy", cmd = { "Wordy", "WordyWordy" } },
   { "aserebryakov/vim-todo-lists" },
   { "vimwiki/vimwiki", branch = "dev",
+    -- CORRECTION: this spec makes vimwiki claim EVERY .md file on the machine.
+    -- See the vimwiki note after this block.
     init = function() vim.g.vimwiki_list = { { path = "~/vimwiki/" } } end },
   { "mogelbrod/vim-jsonpath", ft = "json",
     init = function() vim.g.jsonpath_register = "*" end,
@@ -222,7 +225,23 @@ return {
 }
 ```
 
+> **Corrections to the block above (implemented 2026-08-21).**
+>
+> **rainbow-delimiters needs `submodules = false`.** The repo declares a `test/bin` submodule hosted on gitlab.com. On the work network that URL answers HTTP 403, the submodule clone fails, which fails the whole clone, so lazy.nvim never clears its `<plugin>.cloning` marker and re-clones the plugin on EVERY startup. The submodules are test fixtures and LuaCATS type stubs with no runtime role. Symptom to recognise: clone output scrolling past on every launch.
+>
+> **vimwiki needs `vim.g.vimwiki_global_ext = 0`.** As specced, vimwiki's `ext2syntax` claims every `.md` file on the machine as `filetype=vimwiki` rather than `markdown`. That silently disables markdown treesitter highlighting, markdown-preview (which lazy-loads on `ft = "markdown"`), conform, and any grammar server keyed to markdown. Nothing errors; the features simply never attach. The as-built spec also sets `syntax = "markdown", ext = ".md"` on the wiki entry. Files under `~/vimwiki` still resolve to `vimwiki`.
+>
+> **vim-LanguageTool does not work and was dropped.** It drives the LanguageTool CLI with `--api` and parses XML; LanguageTool 6.x removed `--api` (it offers `--json`) and answers "Unknown parameter: --api". The plugin is unmaintained and targets the 4.x CLI, which is what the `LanguageTool-4.8` path in its spec implies. Replaced by the **ltex-ls-plus** language server via Mason, which this doc's section 7 already names as the upgrade path. It bundles its own JDK 21, so it needs no system Java, and its findings arrive as ordinary diagnostics. Note the original `valentjn/ltex-ls` is abandoned; `ltex-ls-plus` is the maintained fork.
+>
+> **XML indentation.** Neovim's built-in `XmlIndentGet` is a no-op on this setup: `gg=G` leaves an XML file completely flat. Treesitter's xml indent query works correctly, so xml/xsd/xaml are handed to treesitter in the as-built config. `html` is left on `HtmlIndent`, which produces byte-identical output to treesitter and has years of embedded `<script>`/`<style>` handling behind it.
+
 Windows note for treesitter: parser compilation needs a C compiler on PATH. Easiest: `choco install zig` (treesitter uses it automatically) or `choco install llvm`. Run `:TSUpdate` after install and confirm `:checkhealth nvim-treesitter` is green.
+
+> **Correction (implemented 2026-08-21).** The `branch = "master"` pin above is WRONG for Neovim 0.12. nvim-treesitter's `main` branch now REQUIRES Neovim 0.12.0 or later, and the implementation machine runs 0.12.4, so `main` is both usable and the correct choice; `master` is feature-frozen and stops receiving parsers. The as-built config uses `branch = "main"` with the rewritten API this note anticipates below.
+>
+> Two things `main` adds that are not mentioned here: it requires the **tree-sitter CLI** as a new system dependency (plus `tar` and `curl`), and on Windows `npm install -g tree-sitter-cli` installs an extension-less shell script that libuv cannot spawn, so every parser build fails with `ENOENT` *after downloading successfully*. The npm package ships a real `tree-sitter.exe` that must be copied next to the shims.
+>
+> Also: treesitter indentation must be gated on the language actually shipping an `indents.scm`. `c_sharp` has none, and `indentexpr` overrules both `cindent` and `smartindent`, so enabling it unconditionally leaves C# with no auto-indent at all and flattens files on `gg=G`.
 
 Branch note for treesitter (important): nvim-treesitter's default branch is now `main`, a full incompatible rewrite in which the `nvim-treesitter.configs` module used above does not exist; without `branch = "master"` the spec errors at startup. `master` is feature-frozen and officially guaranteed against Neovim 0.11 (it runs on current stable, but will not receive new parsers forever). When adopting the `main` rewrite later, the config becomes `require("nvim-treesitter").install({ ... })` plus a `FileType` autocmd calling `vim.treesitter.start()`, and the `matchup = { enable = true }` key moves out (configure vim-matchup's treesitter integration per its own docs at that point).
 
