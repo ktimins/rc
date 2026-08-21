@@ -1,0 +1,66 @@
+-- Options ported from _vimrc.
+--
+-- Only lines that Neovim does NOT already do by default survive here. The full
+-- per-line disposition (port / delete / replace, and why) is the table in
+-- Vim/vimrc/nvim-migration/02-core-config.md section 3. Anything absent from
+-- this file was deliberately dropped, not overlooked.
+
+vim.g.mapleader = ","
+
+local o, opt = vim.o, vim.opt
+
+o.maxmempattern = 2000000
+
+-- Must stay OFF. The old _vimrc set 'nossl' at the top and then contradicted
+-- itself further down; shellslash=on makes Neovim hand forward-slash paths to
+-- netcoredbg, which silently rejects the breakpoints. Set exactly once, here.
+o.shellslash = false
+
+o.timeoutlen = 500
+o.number = true
+o.cmdheight = 2
+o.hidden = true
+o.ignorecase = true
+o.smartcase = true
+o.lazyredraw = true
+o.showmatch = true
+o.matchtime = 2
+o.foldcolumn = "1" -- a string in Neovim, unlike Vim
+o.foldlevelstart = 3
+o.wrap = false
+o.expandtab = true
+o.shiftwidth = 3
+o.tabstop = 3
+o.softtabstop = 3 -- added so the ChangeTabStops port behaves identically
+o.smartindent = true
+o.showtabline = 2
+
+-- Persistent undo and backups go to Neovim's own state directory. Deliberately
+-- NOT pointed at the .vimstorage tree gVim uses: the two editors disagree on
+-- undofile format and would contend over swap files.
+o.undofile = true
+o.backup = true
+
+opt.whichwrap:append("<,>,h,l")
+opt.switchbuf = { "useopen", "usetab", "newtab" }
+opt.fileformats = { "unix", "dos" }
+
+-- patience carries over from _vimrc unconditionally (Neovim always has the
+-- internal diff, so the has("patch-...") guards are gone). linematch adds the
+-- word-level alignment that the dropped diffchar.vim was approximating.
+opt.diffopt:append({ "internal", "algorithm:patience", "linematch:60" })
+
+opt.wildignore = {
+   "*.pdf", "*.pyo", "*.pyc", "*.zip", "*.so", "*.swp", "*.dll", "*.o",
+   "*.DS_Store", "*.obj", "*.bak", "*.exe", "*.jpg", "*.gif", "*.png", "*.a",
+   "*\\.git\\*", "*\\.hg\\*", "*\\.svn\\*", "*\\bin\\*", "*\\pkg\\*",
+   "*\\.vs\\*", "*\\.localhistory\\*",
+}
+
+-- ripgrep when present, the old grep invocation otherwise
+if vim.fn.executable("rg") == 1 then
+   o.grepprg = "rg --vimgrep --smart-case"
+   o.grepformat = "%f:%l:%c:%m"
+else
+   o.grepprg = "grep -nH $*"
+end
