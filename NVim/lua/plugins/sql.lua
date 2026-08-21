@@ -27,6 +27,11 @@ return {
       keys = {
          { "<leader>u", "<cmd>DBUIToggle<cr>", desc = "Database UI" },
       },
+      -- NOTE: dadbod-ui installs its own buffer-local mappings in sql buffers:
+      -- <leader>S executes the query, <leader>W saves it, <leader>E edits bind
+      -- parameters. <leader>S therefore SHADOWS the global sum-numbers mapping
+      -- inside sql buffers. That is the plugin's convention and worth keeping;
+      -- summing numbers in a query buffer is not a thing anyone needs.
    },
 
    -- Table and column completion inside SQL buffers, fed by the live
