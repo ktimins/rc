@@ -43,6 +43,22 @@ Separate from grammar, and complementary.
 
 Style opinions rather than errors. Useful for documentation you want read.
 
+## Rendering markdown in the buffer
+
+Markdown is rendered **in place** while staying fully editable: headings get styled and given icons, tables align themselves, checkboxes become symbols, link syntax is concealed down to the text, code blocks get a background and a language label, block quotes and callouts get a marker.
+
+The line the cursor is on reverts to raw syntax so you can edit it, then re-renders when you move away. That is the whole trick: you see the formatted document while writing it, without a preview window and without losing access to the markup.
+
+| Command | Does |
+|---|---|
+| `:RenderMarkdown toggle` | Turn rendering on or off |
+| `:RenderMarkdown expand` | Reveal more raw syntax around the cursor |
+| `:RenderMarkdown contract` | Reveal less |
+
+This works in the wiki too. Wiki pages are filetype `vimwiki` rather than `markdown`, which the plugin does not pick up on its own, so both the filetype and a markdown parser registration are configured for it.
+
+Rendering and the browser preview are complements, not alternatives: this one is for writing, the preview is for checking the final output.
+
 ## Markdown preview
 
 | Command | Does |

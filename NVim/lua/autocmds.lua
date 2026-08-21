@@ -63,6 +63,23 @@ au("FileType", {
    callback = function() vim.opt_local.formatoptions:remove({ "c", "r", "o" }) end,
 })
 
+-- gd goes to the definition wherever a language server is attached.
+--
+-- Neovim 0.11+ ships gr-prefixed LSP defaults (grn rename, gra code action,
+-- grr references, gri implementation) but deliberately leaves gd alone: it
+-- stays Vim's lexical "go to local declaration", which is a much dumber thing
+-- that only searches the current function. Every LSP user expects gd to mean
+-- definition, so override it, buffer-locally and only where a server can
+-- actually answer. <C-]> keeps working via tagfunc.
+au("LspAttach", {
+   group = aug,
+   desc = "gd -> LSP definition",
+   callback = function(ev)
+      vim.keymap.set("n", "gd", vim.lsp.buf.definition,
+         { buffer = ev.buf, desc = "Go to definition (LSP)" })
+   end,
+})
+
 -- Relative line numbers in Normal mode, absolute in Insert or when the window
 -- is unfocused. Replaces numbers.vim, keeping its two toggle mappings.
 local numgrp = vim.api.nvim_create_augroup("rc_numbers", { clear = true })

@@ -205,6 +205,29 @@ return {
    -- server. dpelle/vim-LanguageTool (a "keep" in 03-plugins.md) was removed:
    -- it drives the LanguageTool CLI with `--api`, which LanguageTool 6.x no
    -- longer accepts.
+   -- Renders markdown IN the buffer while it stays fully editable: styled
+   -- headings, aligned tables, checkboxes, concealed link syntax, highlighted
+   -- code blocks. Complements markdown-preview (browser) rather than replacing
+   -- it; this is for writing, that is for reviewing the final output.
+   {
+      "MeanderingProgrammer/render-markdown.nvim",
+      dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+      ft = { "markdown", "vimwiki" },
+      opts = {
+         -- vimwiki pages are filetype=vimwiki, not markdown, so they need
+         -- listing explicitly or the wiki renders as plain text
+         file_types = { "markdown", "vimwiki" },
+      },
+      config = function(_, opts)
+         -- vimwiki overrides the markdown filetype, so the parser has to be
+         -- registered against it or the plugin finds none for wiki pages.
+         -- This does NOT hand vimwiki's highlighting to treesitter; that still
+         -- comes from vimwiki's own syntax, which knows about wiki links.
+         pcall(vim.treesitter.language.register, "markdown", "vimwiki")
+         require("render-markdown").setup(opts)
+      end,
+   },
+
    {
       "iamcco/markdown-preview.nvim",
       build = "cd app && npm install",

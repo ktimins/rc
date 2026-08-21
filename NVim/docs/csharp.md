@@ -29,7 +29,8 @@ If your projects are not children of the `.sln` directory, Roslyn will not find 
 
 | Key | Does |
 |---|---|
-| `<C-]>` | Go to definition, across project boundaries |
+| `gd` | Go to definition, across project boundaries |
+| `<C-]>` | Go to definition (via tagfunc) |
 | `grr` | Find references, solution-wide |
 | `gri` | Go to implementation |
 | `grt` | Go to type definition |
@@ -43,7 +44,7 @@ If your projects are not children of the `.sln` directory, Roslyn will not find 
 
 The statusline breadcrumb shows where the cursor is in the class and member tree, which is the equivalent of the context line Visual Studio puts above the editor.
 
-`gd` is **not** LSP go-to-definition here; it is Vim's lexical local declaration. Use `<C-]>`.
+`gd` and `<C-]>` both go to the definition. `gd` is mapped to the language server wherever one is attached, overriding Vim's lexical "local declaration" default.
 
 ## Building
 

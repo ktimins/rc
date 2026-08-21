@@ -67,6 +67,7 @@ Neovim's built-in LSP mappings, available in any buffer with a server attached.
 | Key | Does |
 |---|---|
 | `K` | Hover documentation |
+| `gd` | Go to definition |
 | `grn` | Rename symbol across the project |
 | `gra` | Code action |
 | `grr` | Find references |
@@ -80,7 +81,7 @@ Neovim's built-in LSP mappings, available in any buffer with a server attached.
 | `]D` / `[D` | Last / first diagnostic in the buffer |
 | `<C-x><C-o>` | Omni-completion (completion is otherwise automatic) |
 
-Note `gd` is NOT an LSP mapping. It remains Vim's lexical "go to local declaration". Use `<C-]>` or `grr` for real navigation. See [troubleshooting.md](troubleshooting.md).
+`gd` is mapped to LSP definition on attach, overriding Vim's lexical "go to local declaration". It only exists in buffers with a server attached; elsewhere the Vim default applies.
 
 ## Diagnostics and lists
 
@@ -161,6 +162,14 @@ Hunk mappings only exist in a file git is tracking.
 | `,ke` | Select the HTTP environment |
 | `,z` | Zen mode |
 | `,?` | Show buffer-local mappings |
+
+## Markdown rendering
+
+| Command | Does |
+|---|---|
+| `:RenderMarkdown toggle` | Toggle in-buffer rendering |
+| `:RenderMarkdown expand` | Show more of the raw syntax around the cursor |
+| `:RenderMarkdown contract` | Show less |
 
 ## Spelling and prose
 

@@ -126,6 +126,18 @@ for _, server in ipairs({ "ltex_plus", "lemminx", "jsonls" }) do
    T.check(server .. " LSP config registered", vim.lsp.config[server] ~= nil, true)
 end
 
+T.section("markdown rendering")
+T.check("render-markdown.nvim", lazycfg.plugins["render-markdown.nvim"] ~= nil, true)
+
+T.section("gd is wired to LSP definition")
+-- Asserting the autocmd rather than the mapping: the mapping is buffer-local
+-- and only created on LspAttach, which needs a live server and 20+ seconds.
+local gd_hook = false
+for _, au in ipairs(vim.api.nvim_get_autocmds({ event = "LspAttach" })) do
+   if (au.desc or ""):find("gd") then gd_hook = true end
+end
+T.check("an LspAttach autocmd maps gd", gd_hook, true)
+
 T.section("no key was stolen by the new plugins")
 -- trouble conventionally binds <leader>x, which is already the ~/buffer.md
 -- scribble mapping ported from _vimrc; it lives on <leader>l here instead

@@ -24,7 +24,7 @@ See [colemak.md](colemak.md), which has the full decision tree. Quickly: check t
 
 ## C# navigation is wrong or missing
 
-**`gd` does not go to the definition.** It is not supposed to. `gd` is Vim's lexical local declaration; use `<C-]>`, or `grr` for references. See the gap noted at the bottom of this page.
+**`gd` does not go to the definition.** It is only mapped where a language server is attached, so check `:LspInfo`. Without one it falls back to Vim's lexical "local declaration", which only searches the current function.
 
 **`grr` finds too few references.** Roslyn has not finished loading. Watch the progress indicator; on a large solution this takes a while. Nothing errors, it just under-reports until it is ready.
 
@@ -90,7 +90,7 @@ Things that are missing or unverified, recorded so they are not rediscovered:
 
 | Gap | Detail |
 |---|---|
-| `gd` is not LSP definition | Doc 04 specced mapping `gd`, `<F2>` and `<F12>` to LSP actions; not implemented. `<C-]>` and `grn` work |
+| `<F2>` / `<F12>` not mapped | Doc 04 specced these as VS-style LSP shortcuts. Entangled with the F-key decision, so not done. `gd`, `grn` and `gra` cover the same ground |
 | Overseer quickfix unverified | The task runs; whether its output reaches the quickfix was never proven. `:make` is the verified path |
 | Debug keys provisional | On `<leader>D` pending the F5/F9/F10 decision against undotree and aerial |
 | PowerShell `param()` indent | The treesitter query does not indent `param` blocks |

@@ -18,7 +18,8 @@ Neovim's built-in LSP mappings. They work in any buffer with a server attached.
 | Key | Does |
 |---|---|
 | `K` | Hover: signature and documentation |
-| `<C-]>` | Go to definition |
+| `gd` | Go to definition |
+| `<C-]>` | Go to definition (via tagfunc) |
 | `grr` | Find references |
 | `gri` | Go to implementation |
 | `grt` | Go to type definition |
@@ -28,7 +29,7 @@ Neovim's built-in LSP mappings. They work in any buffer with a server attached.
 | `gO` | Document symbols |
 | `<C-x><C-o>` | Omni-completion, when you want it explicitly |
 
-`gd` is **not** an LSP mapping. It is Vim's lexical "go to local declaration", which is a different and much dumber thing. Use `<C-]>`.
+`gd` is mapped to the language server on attach. Neovim leaves it alone by default, where it means Vim's lexical "go to local declaration", a much dumber thing that only searches the current function. This config overrides it buffer-locally wherever a server can actually answer, so `gd` behaves the way every other LSP setup has trained you to expect. `<C-]>` still works too, via tagfunc.
 
 The `gr` prefix is a Neovim 0.11 default and reads as "go, reference-ish". They are worth learning as a group.
 
