@@ -37,6 +37,17 @@ T.section("state lives in Neovim's own dirs, not .vimstorage")
 T.truthy("undodir under nvim-data", vim.o.undodir:lower():find("nvim%-data"))
 T.check("undodir avoids vimstorage", vim.o.undodir:lower():find("vimstorage") == nil, true)
 
+-- No state file may be written beside the edited file. Neovim's default
+-- 'backupdir' begins with ".", meaning the file's own directory, which
+-- scatters Program.cs~ through source trees. Easy to miss when testing,
+-- because 'backupskip' excludes the temp directory.
+for _, opt in ipairs({ "backupdir", "directory", "undodir", "viewdir" }) do
+   local value = vim.o[opt]
+   local has_dot = value:find("^%.[,\\/]") ~= nil or value:find(",%.[,\\/]?") ~= nil or value == "."
+   T.check(opt .. " never writes beside the file", has_dot, false)
+   T.truthy(opt .. " points into nvim-data", value:lower():find("nvim%-data"))
+end
+
 T.section("mappings")
 for _, spec in ipairs({
    { "n", ",<CR>" }, { "n", ",n" },

@@ -2,3 +2,10 @@ logs
 /Keyboards/Planck/keymap.c
 ssh
 /Windows/Powershell_Variables.ps1
+
+# Editor state. Vim and Neovim write these beside the file by default;
+# the Neovim config redirects them, but gVim and other machines may not.
+*~
+*.swp
+*.swo
+*.un~

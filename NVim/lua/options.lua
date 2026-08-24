@@ -41,6 +41,24 @@ o.showtabline = 2
 o.undofile = true
 o.backup = true
 
+-- Keep backups OUT of the edited file's directory.
+--
+-- Neovim's default 'backupdir' is ".,<state>/backup//" and that leading "."
+-- means the file's own folder, so `backup` scatters Program.cs~ next to the
+-- source. 'directory' (swap), 'undodir' and 'viewdir' have no such entry and
+-- were already contained; this is the only one that leaked.
+--
+-- Easy to miss when testing: 'backupskip' excludes the temp directory, so a
+-- scratch file under AppData\Local\Temp never produces a backup and the
+-- problem looks absent.
+--
+-- The trailing "//" is load-bearing. It encodes the file's full path into the
+-- backup's name, so src/Foo/Program.cs and src/Bar/Program.cs do not overwrite
+-- each other's backup.
+local backupdir = vim.fn.stdpath("state") .. "/backup//"
+vim.fn.mkdir(vim.fn.stdpath("state") .. "/backup", "p")
+opt.backupdir = { backupdir }
+
 opt.whichwrap:append("<,>,h,l")
 opt.switchbuf = { "useopen", "usetab", "newtab" }
 opt.fileformats = { "unix", "dos" }

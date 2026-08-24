@@ -22,6 +22,27 @@ Starting `nvim` with no file gives a start screen. The bookmark keys are carried
 
 Saved automatically per working directory, so opening the editor in a project and pressing `,qs` puts back the buffers and layout you left. No lock files, unlike the old vim-session setup, so a crash never leaves a stale session you have to clear by hand.
 
+## Where state files are kept
+
+Nothing is written beside the file you are editing. Everything lives under `%LOCALAPPDATA%\nvim-data\`:
+
+| What | Where |
+|---|---|
+| Undo history | `nvim-data\undo\` |
+| Swap files | `nvim-data\swap\` |
+| Backups (`file~`) | `nvim-data\backup\` |
+| Saved views | `nvim-data\view\` |
+| Sessions | `nvim-data\sessions\` |
+| Plugins, servers, parsers | `nvim-data\lazy\`, `nvim-data\mason\`, `nvim-data\site\parser\` |
+
+Filenames encode the full original path, so `src/Foo/Program.cs` and `src/Bar/Program.cs` never collide.
+
+Neovim's default `backupdir` actually **starts with `.`**, which means the edited file's own directory, so out of the box `set backup` scatters `Program.cs~` through source trees. This config removes that entry. Worth knowing if you ever compare against a stock setup, and worth knowing that `backupskip` excludes the temp directory, so the problem is invisible when you test it on a scratch file.
+
+None of this points at the `.vimstorage` directories gVim uses. The two editors disagree on undofile format and would contend over swap files, so they are kept apart deliberately.
+
+Undo persists across sessions, so `<F9>` can reach yesterday's history.
+
 ## Display toggles
 
 | Key | Does |
