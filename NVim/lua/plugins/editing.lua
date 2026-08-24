@@ -152,9 +152,19 @@ return {
    { "tpope/vim-repeat" },
    { "godlygeek/tabular", cmd = "Tabularize" },
    { "tpope/vim-sleuth" },
+   -- Loaded eagerly, NOT on VeryLazy. Neovim ships matchit, which claims % at
+   -- startup; matchup only takes it over once it loads. On VeryLazy that
+   -- happens after the UI comes up, so the first buffer opened gets matchit's
+   -- weaker matching and none of matchup's buffer-local setup. gVim never had
+   -- this because vim-plug loads at startup.
+   --
+   -- % is core editing muscle memory and this is a small Vimscript plugin, so
+   -- there is nothing to gain by deferring it.
+   --
    -- vim-matchup's treesitter integration used the old module system, which the
-   -- main branch removed. It works fine standalone.
-   { "andymass/vim-matchup", event = "VeryLazy" },
+   -- nvim-treesitter main branch removed. It works fine standalone, off
+   -- matchit's b:match_words.
+   { "andymass/vim-matchup", lazy = false },
    { "sukima/xmledit", ft = { "xml", "xsd", "xaml", "html" } },
    { "tpope/vim-jdaddy", ft = "json" },
    { "chrisbra/csv.vim", ft = "csv" },

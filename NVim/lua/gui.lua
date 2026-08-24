@@ -20,6 +20,7 @@ vim.o.guifont = table.concat({
    "Consolas:h11",
 }, ",")
 
+
 vim.g.neovide_cursor_animation_length = 0.05
 vim.g.neovide_scroll_animation_length = 0.2
 vim.g.neovide_remember_window_size = true

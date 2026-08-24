@@ -59,6 +59,38 @@ See [colemak.md](colemak.md), which has the full decision tree. Quickly: check t
 
 **No highlighting, no preview, no grammar checking.** Check `:set filetype?`. If it says `vimwiki` for a file outside `~/vimwiki`, the wiki plugin has reclaimed it and `vim.g.vimwiki_global_ext = 0` is not taking effect. Files under `~/vimwiki` being `vimwiki` is correct.
 
+## Indentation is wrong for a filetype
+
+Three things set indentation, in this order of precedence:
+
+1. **EditorConfig**, built into Neovim and on by default
+2. **vim-sleuth**, which guesses from file content
+3. The **FileType autocmds** in `lua/autocmds.lua`
+
+`verbose set shiftwidth?` names whichever one won, and is the fastest way to end the argument.
+
+The trap: an `.editorconfig` containing `root = true` but **no indent properties** still changes behavior. It stops the upward search, after which vim-sleuth supplies its own values and overrides the per-filetype defaults this config sets. Symptom seen in practice, from a `~/.editorconfig` holding only `csharp_*` style rules:
+
+| Filetype | Config wants | Got instead |
+|---|---|---|
+| `xml` | 2 | 4 |
+| `ps1` | 3 | 4 |
+| `json` | 4 | 2 |
+
+Nothing errors. Indentation is simply not what the config says.
+
+If you keep an `.editorconfig`, **state the indent properties explicitly** rather than relying on the fallback, so it is the single source of truth:
+
+```ini
+root = true
+
+[*.xml]
+indent_style = space
+indent_size = 2
+```
+
+Note that `csharp_*` and `dotnet_*` entries are Roslyn analyzer rules, not EditorConfig core properties. Neovim handles ten core properties and none of those; Roslyn reads them itself for diagnostics and its own formatting. csharpier, which `,cf` uses for C#, ignores them entirely.
+
 ## Treesitter
 
 **A language has no highlighting.** `:checkhealth nvim-treesitter`, then `:TSInstall <language>`.

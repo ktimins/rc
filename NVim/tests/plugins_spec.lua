@@ -126,6 +126,14 @@ for _, server in ipairs({ "ltex_plus", "lemminx", "jsonls" }) do
    T.check(server .. " LSP config registered", vim.lsp.config[server] ~= nil, true)
 end
 
+T.section("% belongs to matchup, not matchit")
+-- Neovim ships matchit, which claims % at startup. vim-matchup only takes it
+-- over when it loads, so deferring that plugin leaves % on the weaker built-in
+-- for the first buffer opened. This asserts the handover has already happened
+-- by the time any buffer exists.
+T.truthy("% is mapped to matchup",
+   vim.fn.maparg("%", "n"):lower():find("matchup"))
+
 T.section("markdown rendering")
 T.check("render-markdown.nvim", lazycfg.plugins["render-markdown.nvim"] ~= nil, true)
 
