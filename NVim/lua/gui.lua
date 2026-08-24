@@ -8,30 +8,27 @@ if not vim.g.neovide then
    return
 end
 
--- Point size, and the one knob worth turning here.
---
--- gVim used 10. This is 9 because that is where the editor was actually being
--- used: neovide_scale_factor resets to 1.0 on every launch, so a <C--> press
--- never persisted and had to be repeated each session. Baking the size in
--- removes that. Each <C-->/<C-=> press is a factor of 1.1, so 9 here is
--- roughly one press below the old default; drop to 8 for two.
---
--- Changing the size is preferable to shipping a scale factor below 1.0: the
--- font is rendered at its real size rather than resampled, so it stays crisp.
-local FONT_SIZE = 9
-
 -- Matches the gVim cascade's first choice. Comma-separated entries are
 -- Neovide's fallback chain for glyphs the primary font lacks.
 --
 -- NOTE: _vimrc's second rung, HackGenNerd_Console, is not installed on this
 -- machine, so that fallback has been dead there for some time. Anonymice is
 -- the Nerd Font build of Anonymous Pro, which _vimrc listed further down.
--- Consolas keeps the +1 it had in _vimrc; it reads smaller at a given size.
 vim.o.guifont = table.concat({
-   ("CaskaydiaCove Nerd Font Mono:h%d"):format(FONT_SIZE),
-   ("AnonymicePro Nerd Font Mono:h%d"):format(FONT_SIZE),
-   ("Consolas:h%d"):format(FONT_SIZE + 1),
+   "CaskaydiaCove Nerd Font Mono:h10",
+   "AnonymicePro Nerd Font Mono:h10",
+   "Consolas:h11",
 }, ",")
+
+-- Start smaller than 1.0.
+--
+-- neovide_scale_factor resets to 1.0 on every launch, so pressing <C--> never
+-- persisted and had to be redone each session. Setting it here makes the
+-- reduction stick.
+--
+-- Each <C-->/<C-=> press multiplies by 1.1, so 0.9 is about one press below
+-- the default. Lower this for smaller; 0.82 is roughly two presses.
+vim.g.neovide_scale_factor = 0.9
 
 
 vim.g.neovide_cursor_animation_length = 0.05
