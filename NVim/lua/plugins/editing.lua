@@ -119,7 +119,39 @@ return {
       },
    },
 
-   { "mbbill/undotree", keys = { { "<F9>", "<cmd>UndotreeToggle<cr>", desc = "Undo tree" } } },
+   {
+      "mbbill/undotree",
+      keys = { { "<F9>", "<cmd>UndotreeToggle<cr>", desc = "Undo tree" } },
+      init = function()
+         -- undotree shells out to `diff` to show what changed between undo
+         -- states. Windows ships no diff. Git for Windows provides one, but
+         -- exposes it only on the Git Bash PATH, so a Neovim started from
+         -- PowerShell or Neovide fails with '"diff" is not executable.'
+         --
+         -- The replacement path must contain NO SPACES. undotree parses its own
+         -- setting with matchstr(cmd, '.\{-}\ze\s.*'), taking everything up to
+         -- the first whitespace, so "C:/Program Files/..." truncates to
+         -- "C:/Program" and fails the executable() check whether or not it is
+         -- quoted. The 8.3 short form sidesteps that.
+         --
+         -- Git's diff.exe links msys-2.0.dll and msys-intl-8.dll from its own
+         -- directory, so it has to be run in place rather than copied onto a
+         -- tidier PATH.
+         if vim.fn.executable("diff") == 1 then
+            return -- already reachable, leave undotree's default alone
+         end
+         for _, candidate in ipairs({
+            "C:/PROGRA~1/Git/usr/bin/diff.exe",
+            "C:/PROGRA~2/Git/usr/bin/diff.exe",
+            "C:/ProgramData/chocolatey/bin/diff.exe",
+         }) do
+            if vim.fn.executable(candidate) == 1 then
+               vim.g.undotree_DiffCommand = candidate
+               return
+            end
+         end
+      end,
+   },
 
    -- Per-directory sessions, replacing xolox/vim-session. No lock files, no
    -- g:session_* settings.

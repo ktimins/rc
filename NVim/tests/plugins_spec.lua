@@ -126,6 +126,15 @@ for _, server in ipairs({ "ltex_plus", "lemminx", "jsonls" }) do
    T.check(server .. " LSP config registered", vim.lsp.config[server] ~= nil, true)
 end
 
+T.section("undotree can reach a diff binary")
+-- undotree shells out to `diff`, which Windows does not ship. It also parses
+-- its own setting up to the first whitespace, so a path containing spaces
+-- fails even when quoted. Both failure modes are silent until <F9> is pressed.
+local diff_cmd = vim.g.undotree_DiffCommand or "diff"
+local diff_parsed = vim.fn.matchstr(diff_cmd .. " ", [[.\{-}\ze\s.*]])
+T.check("resolved diff command is executable", vim.fn.executable(diff_parsed), 1)
+T.check("the path survives undotree's whitespace parsing", diff_parsed, diff_cmd)
+
 T.section("% belongs to matchup, not matchit")
 -- Neovim ships matchit, which claims % at startup. vim-matchup only takes it
 -- over when it loads, so deferring that plugin leaves % on the weaker built-in

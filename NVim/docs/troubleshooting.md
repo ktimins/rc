@@ -59,6 +59,21 @@ See [colemak.md](colemak.md), which has the full decision tree. Quickly: check t
 
 **No highlighting, no preview, no grammar checking.** Check `:set filetype?`. If it says `vimwiki` for a file outside `~/vimwiki`, the wiki plugin has reclaimed it and `vim.g.vimwiki_global_ext = 0` is not taking effect. Files under `~/vimwiki` being `vimwiki` is correct.
 
+## `<F9>` says `"diff" is not executable`
+
+The undo tree shells out to `diff` to show what changed between states, and Windows ships no such program. Git for Windows provides one but puts it only on the **Git Bash** PATH, so this appears in Neovim launched from PowerShell or in Neovide, while working fine from a Git Bash prompt. That difference is the tell.
+
+The config resolves it automatically, falling back to Git's copy at its 8.3 short path. If it ever resurfaces, check:
+
+```
+:echo executable('diff')
+:echo g:undotree_DiffCommand
+```
+
+One thing to know before setting that variable by hand: **the path must contain no spaces**. undotree parses its own setting with `matchstr(cmd, '.\{-}\ze\s.*')`, taking everything up to the first whitespace, so `C:/Program Files/Git/usr/bin/diff.exe` becomes `C:/Program` and fails whether or not you quote it. Use the short form `C:/PROGRA~1/...`. Git's `diff.exe` also links msys DLLs from its own directory, so it must run in place rather than be copied onto a tidier PATH.
+
+`choco install diffutils` is the alternative, putting a space-free `diff` on the system PATH for everything, not just Neovim.
+
 ## Indentation is wrong for a filetype
 
 Three things set indentation, in this order of precedence:
