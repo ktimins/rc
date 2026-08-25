@@ -8,7 +8,7 @@ return {
       lazy = false,
       priority = 1000,
       config = function()
-         for _, scheme in ipairs({ "tokyonight-moon", "anderson", "habamax" }) do
+         for _, scheme in ipairs({ "anderson", "tokyonight-moon", "habamax" }) do
             if pcall(vim.cmd.colorscheme, scheme) then break end
          end
       end,

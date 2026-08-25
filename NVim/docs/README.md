@@ -9,6 +9,8 @@ Everything here was derived from the loaded config rather than written from memo
 | Sheet | When you want |
 |---|---|
 | [keymaps.md](keymaps.md) | The complete mapping reference, by prefix. The master sheet |
+| [architecture.md](architecture.md) | How the config is put together: layout, load order, invariants, how to extend it |
+| [plugins.md](plugins.md) | Every plugin, what it is for, and what it replaced |
 | [colemak.md](colemak.md) | How the keyboard contract works, and what to do when typing comes out wrong |
 | [csharp.md](csharp.md) | Opening a solution, navigating code, building, testing, formatting |
 
