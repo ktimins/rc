@@ -11,7 +11,7 @@ return {
    {
       "seblyng/roslyn.nvim",
       ft = "cs",
-      opts = {},
+      opts = { filewatching = "roslyn" },
    },
 
    -- Completion. Replaces the asyncomplete stack from _vimrc.plug.

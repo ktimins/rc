@@ -28,7 +28,7 @@ vim.o.guifont = table.concat({
 --
 -- Each <C-->/<C-=> press multiplies by 1.1, so 0.9 is about one press below
 -- the default. Lower this for smaller; 0.82 is roughly two presses.
-vim.g.neovide_scale_factor = 0.9
+vim.g.neovide_scale_factor = 0.8
 
 
 vim.g.neovide_cursor_animation_length = 0.05

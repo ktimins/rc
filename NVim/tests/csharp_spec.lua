@@ -21,10 +21,28 @@ T.section("server and tool binaries installed via Mason")
 local ok_reg, reg = pcall(require, "mason-registry")
 T.check("mason-registry loads", ok_reg, true)
 if ok_reg then
-   for _, pkg in ipairs({ "roslyn", "netcoredbg", "csharpier" }) do
+   for _, pkg in ipairs({ "netcoredbg", "csharpier" }) do
       local ok_pkg, p = pcall(reg.get_package, pkg)
       T.check(pkg .. " installed", ok_pkg and p:is_installed(), true)
    end
+end
+
+T.section("the Roslyn server is reachable")
+-- Deliberately NOT asserting a Mason package name. Two packages provide this
+-- server: `roslyn` from the Crashdummyy registry and `roslyn-language-server`
+-- from mason-org. Both create the same bin, both satisfy roslyn.nvim, and
+-- which one is installed is a machine-level choice, not an invariant.
+--
+-- What must be true is that roslyn.nvim can resolve a server it can actually
+-- run. get_roslyn_lsp_path() tries the Mason bin, then PATH, then falls back to
+-- returning a bare name that need not exist -- so the resolved path has to be
+-- checked for executability or the fallback passes silently.
+require("lazy").load({ plugins = { "roslyn.nvim" } })
+local ok_utils, utils = pcall(require, "roslyn.utils")
+T.check("roslyn.utils loads", ok_utils, true)
+if ok_utils then
+   local server = utils.get_roslyn_lsp_path()
+   T.truthy("roslyn server resolves to an executable: " .. server, vim.fn.executable(server) == 1)
 end
 
 T.section("netcoredbg is resolvable")

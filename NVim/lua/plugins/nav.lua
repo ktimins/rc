@@ -43,6 +43,15 @@ return {
       dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
       cmd = { "AerialToggle", "AerialOpen" },
       keys = { { "<F10>", "<cmd>AerialToggle!<cr>", desc = "Symbol outline (was vista)" } },
-      opts = { backends = { "lsp", "treesitter", "markdown" } },
+      opts = {
+         backends = { "lsp", "treesitter", "markdown" },
+         -- Aerial's default filter_kind lists only 8 kinds and omits Property,
+         -- Field, Variable, Constant and EnumMember, which hides most of a C#
+         -- type's surface. false means "all symbols". Both backends already
+         -- produce the data: queries/c_sharp/aerial.scm captures
+         -- property_declaration and field_declaration, and Roslyn reports them
+         -- too. Only the filter was dropping them.
+         filter_kind = false,
+      },
    },
 }

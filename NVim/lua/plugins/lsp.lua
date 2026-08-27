@@ -69,9 +69,22 @@ return {
          -- Schema-aware JSON: completion and validation for appsettings.json,
          -- launchSettings.json, global.json and a thousand other known file
          -- names, from schemastore.org. Very .NET-relevant.
+         -- json5 is in this list because easy-dotnet remaps appsettings.json,
+         -- appsettings.*.json, launchSettings.json and secrets.json to that
+         -- filetype (its enable_filetypes option, on by default). Without
+         -- json5 here jsonls never attaches to exactly the .NET files this
+         -- server was installed for: no schema validation, no completion, and
+         -- an empty aerial outline.
          vim.lsp.config("jsonls", {
             cmd = { "vscode-json-language-server", "--stdio" },
-            filetypes = { "json", "jsonc" },
+            filetypes = { "json", "jsonc", "json5" },
+            -- The server only knows the "json" and "jsonc" language ids, so
+            -- report json5 buffers as jsonc. That is also the more accurate of
+            -- the two: these files routinely carry comments and trailing
+            -- commas, which is why easy-dotnet moved them off plain json.
+            get_language_id = function(_, ft)
+               return ft == "json5" and "jsonc" or ft
+            end,
             root_markers = { ".git" },
             settings = {
                json = {
@@ -81,6 +94,31 @@ return {
             },
          })
          vim.lsp.enable("jsonls")
+
+         -- HTML, which exists here for Razor/Blazor rather than for .html
+         -- files. roslyn.nvim splits a .razor file into a C# part it handles
+         -- itself and a virtual HTML document named "<uri>__virtual.html"
+         -- (razor/types.lua), then forwards documentColor, colorPresentation
+         -- and foldingRange to whichever client owns that buffer. It looks the
+         -- client up strictly by name, so this MUST stay registered as "html"
+         -- (razor/types.lua:25, razor/htmlDocument.lua:37).
+         --
+         -- The virtual buffer ends in .html, so plain filetypes = { "html" }
+         -- is enough; razor itself belongs to roslyn and must not be listed.
+         --
+         -- No explicit capabilities block: upstream docs enable snippetSupport
+         -- by hand, but Neovim 0.12 already advertises it by default.
+         vim.lsp.config("html", {
+            cmd = { "vscode-html-language-server", "--stdio" },
+            filetypes = { "html" },
+            root_markers = { "package.json", ".git" },
+            init_options = {
+               configurationSection = { "html", "css", "javascript" },
+               embeddedLanguages = { css = true, javascript = true },
+               provideFormatter = true,
+            },
+         })
+         vim.lsp.enable("html")
       end,
    },
 
