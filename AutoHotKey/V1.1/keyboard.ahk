@@ -217,6 +217,10 @@ Return
 //           F24            //
 //////////////////////////////
 
+F24 & Space::
+   SendInput {LWin Down}{vkC0sc029 Down}{vkC0sc029 Up}{LWin Up}
+Return
+
 #If (WinActive("ahk_exe ccsa.exe")) 
    F24::
       Send {Alt down}{Down}{Alt up}
@@ -651,7 +655,7 @@ If (colemak or colemakAllTime) {
       Return
 }
 
-#If ((WinActive("ahk_exe devenv.exe") or WinActive("ahk_Class Vim") or WinActive("ahk_Class VIM") or WinActive("VIM")) and not colemakAllTime)
+#If ((WinActive("ahk_exe devenv.exe") or WinActive("ahk_exe Code.exe") or WinActive("ahk_Class Vim") or WinActive("ahk_Class VIM") or WinActive("VIM")) and not colemakAllTime)
    *q::
       sendModifierStates("q")
       Return
@@ -758,7 +762,7 @@ If (colemak or colemakAllTime) {
 #If
 
 // Standard keys
-#If (colemak and  (((not WinActive("ahk_exe devenv.exe") and not WinActive("ahk_Class Vim") and not WinActive("ahk_Class VIM") and not WinActive("VIM")) or WinActive("ahk_Class Chrome"))) or colemakAllTime)
+#If (colemak and  (((not WinActive("ahk_exe devenv.exe") and not WinActive("ahk_exe Code.exe") and not WinActive("ahk_Class Vim") and not WinActive("ahk_Class VIM") and not WinActive("VIM")) or WinActive("ahk_Class Chrome"))) or colemakAllTime)
    *q::
       sendModifierStates(dictColemak["q"])
       Return

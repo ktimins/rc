@@ -5,6 +5,8 @@
 
    " Needed Stuff {{{2
 
+      set maxmempattern=2000000
+
       set nossl
       set encoding=utf8
       set fileencoding=utf8
@@ -14,17 +16,10 @@
 
    " Location Stuff {{{2
       if $LOCATION ==? 'WORK'
-         if has("win32unix")
-            let homedir = '~'
-            let $home = '~'
-            let $storage = '~/.vimstorage'
-            let $vimrc_plug = '~/.vimrc.plug'
-         else
-            let homedir = 'C:\Users\KTimins'
-            let $home = 'C:\Users\KTimins'
-            let $storage = 'C:\Users\KTimins\.vimstorage'
-            let $vimrc_plug = 'C:\Users\KTimins\_vimrc.plug'
-         endif
+         let homedir = 'C:\Users\ktimins'
+         let $home = 'C:\Users\ktimins'
+         let $storage = 'C:\Users\ktimins\.vimstorage'
+         let $vimrc_plug = 'C:\Users\ktimins\_vimrc.plug'
       elseif $LOCATION ==? 'THEIA'
          let homedir = 'C:\Users\rzite'
          let $home = 'C:\Users\rzite'
@@ -159,12 +154,11 @@
 
    " Vim-Polyglot {{{2
 
-   let g:polyglot_disabled = ['markdown', 'sln']
+   let g:polyglot_disabled = ['sln']
 
    " }}}
 
    " Vim-Plug {{{2
-
       " Call the [\._]vimrc.plug file
       if filereadable(expand($vimrc_plug))
          execute "source " . $vimrc_plug
@@ -511,10 +505,10 @@
 
    if $LOCATION ==? 'WORK'
       let g:startify_bookmarks = [ 
-               \ {'v': 'C:/Users/KTimins/Git/rc/Vim/vimrc/_vimrc'}, 
-               \ {'b': 'C:/Users/KTimins/Git/rc/Vim/vimrc/_vimrc.plug'}, 
-               \ {'p': 'C:/Users/KTimins/Git/rc/Windows/Powershell/Microsoft.Powershell_profile.ps1'},
-               \ {'m': 'C:/Users/KTimins/Git/rc/Windows/Microsoft.Powershell_profile.ps1'} 
+               \ {'v': 'C:/Users/ktimins/Git/rc/Vim/vimrc/_vimrc'}, 
+               \ {'b': 'C:/Users/ktimins/Git/rc/Vim/vimrc/_vimrc.plug'}, 
+               \ {'p': 'C:/Users/ktimins/Git/rc/Windows/Powershell/Microsoft.Powershell_profile.ps1'},
+               \ {'m': 'C:/Users/ktimins/Git/rc/Windows/Microsoft.Powershell_profile.ps1'} 
                \ ]
    elseif $LOCATION ==? 'THEIA'
       let g:startify_bookmarks = [ 
@@ -963,7 +957,6 @@
 
    " }}}
 
-
    " OmniSharp {{{2
 
       " Use the stdio OmniSharp-roslyn server
@@ -1069,6 +1062,13 @@
 
    " }}}
 
+   " glowing-vim-markdown-preview {{{2
+
+     nnoremap <Leader>mp :MarkdownPreviewToggle<CR>
+
+   " }}}
+
+
    " Vim-Notes {{{2
 
       "let g:notes_directories = ['~/vim-notes']
@@ -1128,6 +1128,17 @@
 
       " Set the values to autopair.
       let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '```':'```', '"""':'"""', "'''":"'''"}
+
+   " }}}
+
+   " JsonPath {{{2
+
+      " Optionally copy path to a named register (* in this case) when calling :JsonPath
+      let g:jsonpath_register = '*'
+      
+      " Define mappings for json buffers
+      au FileType json noremap <buffer> <silent> <leader>d :call jsonpath#echo()<CR>
+      au FileType json noremap <buffer> <silent> <leader>g :call jsonpath#goto()<CR>
 
    " }}}
 
@@ -1380,6 +1391,26 @@
          command! FindAll      execute "call FindAll()"
 
          nnoremap <leader>fa execute :Call FindAll()<cr>
+
+      " }}}
+
+      " numbers {{{3
+
+         " Function to sum numbers line by line
+         function! SumNumbers() range
+           let l:sum = 0
+           " Go through each line in the given range
+           for lnum in range(a:firstline, a:lastline)
+             let l:val = str2float(getline(lnum))
+             let l:sum += l:val
+           endfor
+           echo "Sum = " . l:sum
+         endfunction
+
+         " Map it for easy use in visual mode
+         xnoremap <leader>s :call SumNumbers()<CR>
+         " Map it for whole buffer if nothing is selected
+         nnoremap <leader>s :%call SumNumbers()<CR>
 
       " }}}
 

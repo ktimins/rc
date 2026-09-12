@@ -84,8 +84,9 @@
       "}}}
 		
       " MarkDown {{{3
-         Plug 'gabrielelana/vim-markdown'
+         "Plug 'gabrielelana/vim-markdown'
          "Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+         Plug 'drewipson/glowing-vim-markdown-preview'
       "}}}
 		
       " Razor Syntax {{{3
@@ -221,6 +222,7 @@
    " Search {{{2
       "Plug 'ctrlpvim/ctrlp.vim'
       "Plug 'junegunn/fzf'
+      Plug 'mogelbrod/vim-jsonpath'
    " }}}
 
    " Comments {{{2
@@ -275,6 +277,7 @@
 
    " Close {{{2
       call plug#end()
+      runtime markdown-preview.vim
    " }}}
 
 " }}}
